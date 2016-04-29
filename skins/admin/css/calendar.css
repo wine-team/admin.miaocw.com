@@ -1,0 +1,52 @@
+@charset "utf-8";
+*{margin:0; padding:0;}
+body{font-family: 微软雅黑;color:#7b7b7b;background-color: #F5F5F5;}
+a,a:link,a:visited,a:hover,a:active{text-decoration:none;outline:none;}
+li{ list-style:none;}
+ul{margin: 0}
+.newclear:after{content:".";height: 0;display: block;visibility: hidden;clear: both;}
+.newclear{*+height: 1%;}
+.hotel-table{width: 100%;min-width: 800px;}
+.hotel-table .table{border-collapse: collapse;border-spacing: 0px;}
+.hotel-table .table-bordered th{border: 0px;height: 55px;line-height: 55px;padding: 0px;}
+.hotel-table thead th{background:#53C3F2;color: #FFF;font-size: 20px;}
+.hotel-table .table-bordered th, .hotel-table .table-bordered td{text-align: center;}
+.table-bordered th a{color: #FFF;font-size: 23px;position: relative;top:-13px;}
+.table-bordered th{color: #6D8198;font-size: 16px;background-color: #E5F6FE;}
+.hotel-table .table-bordered td{border: 1px solid #C0D6ED;height: 96px;background-color: #F1F1F1;padding: 1px;}
+.hotel-table .table-bordered td ul{height: 120px;border: 1px solid #F1F1F1;position: relative;z-index: 991;}
+.hotel-table .table-bordered td .day{color: #C7CACC;}
+.table-bordered td li{display: block;height: 25px;line-height: 25px;}
+.hotel-table .table-bordered td.ul-nextday {background-color: #FFF;cursor: pointer;}
+.table-bordered td li.shou {color: #AAA;}
+.hotel-table .table-bordered td.ul-nextday .jie {color: #46BCDC;}
+.hotel-table .table-bordered td.ul-nextday ul{border: 1px solid #FFF;}
+.hotel-table .table-bordered td.ul-nextday .zao {color: #56718C;}
+.hotel-table .table-bordered td.atcle-mousedown ul {border: 1px solid #3F7AC6;}
+.hotel-table .table-bordered td .atcle-append {position: absolute;top: 120px;width: 800px;left: 0px;min-height: 220px;background-color: #FFF;border: 1px solid #3498DB;z-index: 992;text-align: left;border-radius: 4px;}
+.atcle-append h3 {margin: 0px 0px 20px;font-size: 16px;height: 40px;line-height: 40px;background-color: #3498DB;color: #FFF;padding: 0px 10px;}
+.hotel-geiyed, .date-none {display: none;}
+.atcle-append .alert-sell {width: 350px;margin: 8px 0;float: left;}
+.atcle-append .alert-sell span {width: 28%;height: 30px;line-height: 30px;}
+.atcle-append .tag-long {margin: 8px 0;}
+.atcle-append .tag-long span {width: 13.5%;height: 30px;line-height: 30px;}
+.atcle-append .tag-long span, .atcle-append .tag-long input {float: left;display: block;}
+.atcle-append .tag-long input {width: 555px;}
+.atcle-append .alert-sell .alert-select {float: left;display: block;width: 225px;height: 28px;margin: 2.5px 0px;}
+.atcle-append .alert-sell span, .atcle-append .alert-sell input {float: left;display: block;}
+.atcle-append .alert-submit {width: 191px;margin: 10px auto 20px;}
+.atcle-append .alert-submit button {border: 0px none;height: 30px;padding: 5px 30px;border-radius: 4px;background-color: #F58F6C;color: #FFF;}
+.atcle-append .alert-submit button.cancelButton {margin-left: 10px;background-color: #DBDBDB;}
+.hotel-table .table-bordered td.parseInt_r {position: relative;z-index: 993;}
+.hotel-table .table-bordered td .atcle-lefter{right: 0px;left: inherit;}
+.atcle-append .alert-nearew{width: 730px;border-top: 1px #EEE solid;margin: 10px auto;padding: 10px 0;}
+.atcle-append .alert-nearew h4{font-size: 14px;color: #fff;padding: 0 10px;background:#005b8f}
+.atcle-append .alert-nearew .alert-input{padding: 0 10px;}
+.atcle-append .alert-nearew .alert-input input,.atcle-append .alert-nearew .alert-input select{float: left;width: 190px;margin-right: 10px;border: 0;border: 1px #C0D6ED solid;border-radius: 4px;margin-bottom: 10px;padding-left: 5px;}
+.atcle-append .alert-nearew .alert-input i{float: left;color: red;padding: 3px 2px;font-size: 12px;border-radius: 300px;display: block;background-color: #3498DB;color: #fff;margin-top: 1px;font-style: normal;}
+.atcle-date-right{float: right;}
+.atcle-date-to{float: left;}
+.atcle-date-right i{margin: 0px 12px;font-style: normal;float: left;}
+.fen-none{display: none;}
+.atcle-date-right span{transition: color 300ms ease-out 0s, border-color 300ms ease-out 0s;float: left;display: block;width: 60px;text-align: center;height: 40px;}
+.atcle-date-right span:hover,.atcle-date-right span.atter{color:#555;background-color: #fff;border-radius: 4px 4px 0 0 !important;}

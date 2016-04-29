@@ -1,0 +1,152 @@
+.search-text {
+    overflow: hidden;
+	z-index:9999;
+}
+.search-text ul,ol {
+    padding: 0;
+    margin: 0;
+}
+.search-text li.ac_odd, .search-text li.ac_even {
+    background-color: #FFFBFB;
+}
+.search-text li.ac_over {
+    background-color: #EDEEF7;
+    color: #506EAA;
+    text-decoration: none;
+}
+.search-text li.ac_over a {
+    display: block;
+}
+.search-text li {
+    color: #595959;
+    cursor: pointer;
+    height: 21px;
+    line-height: 21px;
+    padding: 0 12px;
+    position: relative;
+}
+.hot-cities input.text {
+    border: 1px solid #CFCFCF;
+    color: #B7B7B7;
+    float: left;
+    font-size: 12px;
+    height: 16px;
+    line-height: 16px;
+    margin-right: 8px;
+    padding: 2px 0 2px 5px;
+    width: 379px;
+}
+.hot-cities input.text {
+    border: 1px solid #CFCFCF;
+    color: #B7B7B7;
+    float: left;
+    font-size: 12px;
+    height: 16px;
+    line-height: 16px;
+    margin-right: 8px;
+    padding: 2px 0 2px 5px;
+    width: 379px;
+}
+.search-citys .search-citys-pop {
+    background: none repeat scroll 0 0 #FFFBFB;
+    border: 1px solid #CFCFCF;
+    display: block;
+    font-size: 12px;
+    left: 105px;
+    position: absolute;
+    top: 44px;
+    width: 384px;
+    z-index: 1;
+}
+.pop {
+    background-color: #FFFFFF;
+    border: 3px solid #D4D4D4;
+    display: none;
+    left: 5.5%;
+    *position: fixed;
+	position:absolute;
+    top: 13%;
+   
+}
+.pop a.pop-close {
+    background-position: 0 -147px;
+    display: block;
+    height: 17px;
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    width: 17px;
+}
+.pop a {
+    color: #506EAA;
+}
+
+.search-citys-tit {
+    padding: 10px 10px 0;
+}
+
+
+
+.search-citys-tt {
+    border-bottom: 1px solid #D5D5D5;
+    height: 22px;
+    margin: 12px;
+}
+.search-citys-tt a.current {
+    background-color: #FFFFFF;
+    background-position: 0 -90px;
+    color: #5E5E5E;
+    text-decoration: none;
+}
+.search-citys-tt a {
+    display: block;
+    float: left;
+    height: 23px;
+    line-height: 23px;
+    margin-bottom: -1px;
+    margin-left: 10px;
+    padding: 0 8px;
+    position: relative;
+    text-align: center;
+}
+.search-citys-tt a span {
+    display: inline-block;
+    height: 23px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 5px;
+}
+.search-citys-tt a.current span {
+    background-position: right -90px;
+}
+.hot-cities span {
+    display: inline-block;
+    float: left;
+    line-height: 22px;
+}
+.search-citys-list {
+    background: none repeat scroll 0 0 #FFFFFF;
+    padding: 0 0 15px 10px;
+}
+.search-citys-list ul {
+    overflow: hidden;
+    width: 500px;
+}
+.search-citys-list li {
+    float: left;
+    padding: 1px 0 1px 2px;
+    width: 60px;
+    list-style-type: none;
+}
+
+.search-citys-list li a {
+    color: #555555;
+}
+.new_boxpos{
+	position:relative;
+}
+.new_showadress{
+	display:none;z-index:9999;top: 14.2%; left: 27.7%;
+	position:absolute;
+}
