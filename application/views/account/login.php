@@ -59,6 +59,6 @@
                 </div>
             </form>
         </div>
-        <div class="copyright"></div>
+        <div class="copyright">Copyright © 2016 http://www.loutmall.com 版本：1.0beta </div>
     </body>
 </html>
