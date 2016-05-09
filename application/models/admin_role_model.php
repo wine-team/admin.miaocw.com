@@ -1,7 +1,7 @@
 <?php
-class Role_model extends CI_Model
+class Admin_role_model extends CI_Model
 {
-    private $table = 'role';
+    private $table = 'admin_role';
         
     public function findById($id)
     {

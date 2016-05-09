@@ -6,7 +6,7 @@ class Adminuser extends MJ_Controller
         $this->load->helper(array('email'));
         $this->load->library('pagination');
         $this->load->model('admin_user_model', 'admin_user');
-        $this->load->model('role_model', 'role');
+        $this->load->model('admin_role_model', 'admin_role');
     }
     
     public function grid($pg = 1)
@@ -23,7 +23,7 @@ class Adminuser extends MJ_Controller
         $data['page_list'] = $this->admin_user->page_list($page_num, $num, $this->input->get());
         $data['all_rows'] = $config['total_rows'];
         $data['pg_now'] = $pg;
-        $data['role'] = $this->role->find(true);
+        $data['role'] = $this->admin_role->find(true);
         $this->load->view('adminuser/grid', $data);
     }
     
@@ -44,7 +44,7 @@ class Adminuser extends MJ_Controller
     
     public function add()
     {
-        $data['roles'] = $this->role->find();
+        $data['roles'] = $this->admin_role->find();
         $this->load->view('adminuser/add', $data);
     }
     
@@ -82,7 +82,7 @@ class Adminuser extends MJ_Controller
             $this->redirect('adminuser/grid');
         }
         $data['adminuser'] = $result->row();
-        $data['roles'] = $this->role->find();
+        $data['roles'] = $this->admin_role->find();
         $this->load->view('adminuser/edit', $data);
     }
     

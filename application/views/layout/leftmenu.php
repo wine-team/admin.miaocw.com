@@ -47,7 +47,38 @@
                 </li>
             </ul>
         </li>
-        
+        <li>
+            <a href="javascript:;">
+                <i class="icon-user"></i>
+                <span class="title">用户管理</span>
+                <span class="selected "></span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="javascript:;">
+                        <span class="title">用户账号管理</span>
+                        <span class="selected "></span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li><a href="<?php echo base_url('adminuser/grid');?>">账号列表</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <span class="title">权限菜单管理</span>
+                        <span class="selected "></span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li><a href="<?php echo base_url('adminuser/grid');?>">员工管理</a></li>
+                        <li><a href="<?php echo base_url('adminrole/grid');?>">角色管理</a></li>
+                        <li><a href="<?php echo base_url('adminaction/grid');?>">菜单管理</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
         <li>
             <a href="javascript:;">
                 <i class="icon-gift"></i> 
@@ -133,18 +164,6 @@
             </a>
             <ul class="sub-menu">
                 <li><a href="javascript:;">业务订单</a></li>
-            </ul>
-        </li>
-        <li>
-            <a href="javascript:;">
-                <i class="icon-user"></i>
-                <span class="title">权限菜单管理</span>
-                <span class="selected "></span>
-                <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
-                <li><a href="<?php echo base_url('adminuser/grid');?>">员工管理</a></li>
-                <li><a href="<?php echo base_url('role/grid');?>">角色管理</a></li>
             </ul>
         </li>
         <li>

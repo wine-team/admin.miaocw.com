@@ -2,10 +2,18 @@
 class Admin_user_model extends CI_Model
 {
     private $table   = 'admin_user';
-    private $table_2 = 'role';
+    private $table_2 = 'admin_role';
+
+    public function findById($id)
+    {
+        $this->db->where('id', $id);
+        return $this->db->get($this->table);
+    }
 
     public function total($params=array()) 
     {
+        $this->db->from($this->table);
+        $this->db->join('admin_role','admin_user.role_id=admin_role.id','left');
         if (!empty($params['username'])) {
             $this->db->where("((`name` LIKE '%{$params['username']}%') OR (`realname` LIKE '%{$params['username']}%'))");
         }
@@ -18,16 +26,15 @@ class Admin_user_model extends CI_Model
         if (isset($params['flag']) && is_numeric($params['flag'])) {
             $this->db->where('flag', $params['flag']);
         }
-         $this->db->join('role','admin_user.role_id=role.id','left');
-        return $this->db->count_all_results($this->table);
+        return $this->db->count_all_results();
     }   
 			
     public function page_list($page_num, $num, $params=array())
     {
         
-    	$this->db->select('admin_user.*,role.name AS role_name');
+    	$this->db->select('admin_user.*,admin_role.name AS role_name');
     	$this->db->from($this->table);
-    	$this->db->join('role','admin_user.role_id=role.id','left');
+    	$this->db->join('admin_role','admin_user.role_id=admin_role.id','left');
     	if (!empty($params['username'])) {
             $this->db->where("((`admin_user.name` LIKE '%{$params['username']}%') OR (`admin_user.realname` LIKE '%{$params['username']}%'))");
         }
@@ -89,13 +96,7 @@ class Admin_user_model extends CI_Model
         $this->db->where('id', $id);
         return $this->db->delete($this->table);
     }
-    
-    public function findById($id)
-    {
-        $this->db->where('id', $id);
-        return $this->db->get($this->table);
-    }
-    
+
     public function validateAdminuser($postData)
     {
         $this->db->where('name', $postData['name']);
@@ -113,16 +114,12 @@ class Admin_user_model extends CI_Model
      */
     public function login($postData)
     {
-        $this->db->select('admin_user.*, role.name as role_name');
-        $this->db->from($this->table.' as admin_user');
-        $this->db->join($this->table_2.' as role', 'admin_user.role_id = role.id');
+        $this->db->select('admin_user.*, admin_role.name AS role_name');
+        $this->db->from($this->table.' AS admin_user');
+        $this->db->join($this->table_2.' AS admin_role', 'admin_user.role_id = admin_role.id');
         $this->db->where('admin_user.name', $postData['username']);
         $this->db->where('admin_user.password', md5($postData['password']));
-        $result = $this->db->get();
-        if ($result->num_rows() > 0) {
-            return $result;
-        }
-        return false;
+        return $this->db->get();
     }
     
     function resetpwd($uid)
