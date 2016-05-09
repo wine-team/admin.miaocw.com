@@ -27,16 +27,6 @@
             <ul class="sub-menu">
                 <li>
                     <a href="javascript:;">
-                        <span class="title">用户统计</span>
-                        <span class="selected "></span>
-                        <span class="arrow"></span>
-                    </a>
-                    <ul class="sub-menu">
-                        <li><a href="<?php echo base_url('user/grid');?>">用户管理</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript:;">
                         <span class="title">财务管理</span>
                         <span class="selected "></span>
                         <span class="arrow"></span>
@@ -62,7 +52,7 @@
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
-                        <li><a href="<?php echo base_url('adminuser/grid');?>">账号列表</a></li>
+                        <li><a href="<?php echo base_url('user/grid');?>">账号列表</a></li>
                     </ul>
                 </li>
                 <li>
