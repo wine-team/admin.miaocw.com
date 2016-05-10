@@ -1,96 +1,165 @@
-<?php 
-class Adminrole extends MJ_Controller
+<?php
+class Adminrole extends CS_Controller
 {
     public function _init()
     {
         $this->load->helper(array('common', 'email'));
         $this->load->library('pagination');
         $this->load->model('admin_role_model', 'admin_role');
+        $this->load->model('admin_action_model', 'admin_action');
     }
-    
+
     public function grid($pg = 1)
     {
-        $num = ($pg-1)*20;
-        $config['base_url'] = base_url('adminrole/grid');
-        $config['total_rows'] = $this->admin_role->total();
+        $data['username'] = $this->input->get('username');
+        $getData = $data;
+        $pageNum = 20;
+        $num = ($pg-1)*$pageNum;
+        $config['first_url']   = base_url('adminrole/gird').$this->pageGetParam($this->input->get());
+        $config['suffix']      = $this->pageGetParam($this->input->get());
+        $config['base_url']    = base_url('adminrole/gird');
+        $config['total_rows']  = $this->admin_role->total($getData);
         $config['uri_segment'] = 3;
         $this->pagination->initialize($config);
-        $data['pg_link'] = $this->pagination->create_links();
-        $data['page_list'] = $this->admin_role->page_list($num);
-        $data['all_rows'] = $config['total_rows'];
-        $data['pg_now'] = $pg;
+        $data['pg_link']   = $this->pagination->create_links();
+        $data['page_list'] = $this->admin_role->page_list($pageNum, $num, $getData);
+        $data['all_rows']  = $config['total_rows'];
+        $data['pg_now']    = $pg;
         $this->load->view('adminrole/grid', $data);
     }
-    
+
+    public function leftmenu($id)
+    {
+        $result = $this->admin_role->findById($id);
+        if ($result->num_rows() <= 0) {
+            $this->error('adminrole/grid', '', '无效ID:'.$id);
+        }
+        $data['role'] = $result->row();
+        $this->load->view('adminrole/leftmenu', $data);
+    }
+
+    public function leftmenuPost()
+    {
+        $roleId = $this->input->post('role_id');
+        if (!$this->search_get_validate($this->input->post('action_menu'))) {
+            $this->error('adminrole/leftmenu', $roleId, '权限至少有一个不为空。');
+        }
+        $action_menu = array_sum($this->input->post('action_menu'));
+        $this->db->trans_start();
+        $resultId = $this->admin_role->updateRoleMenuId($roleId, $action_menu);
+        $this->db->trans_complete();
+
+        if ($resultId) {
+            $this->success('adminrole/grid', '', '保存成功！');
+        } else {
+            $this->error('adminrole/leftmenu', $roleId, '保存失败！');
+        }
+    }
+
     public function add()
     {
-        $this->load->view('adminrole/add');
+        $priv_arr = $this->admin_action->get_modules();
+        $actions = $this->admin_action->get_actions();
+        foreach($actions as $action) {
+            $priv_arr[$action['parent_id']]['priv'][$action['action_code']] = $action;
+        }
+
+        // 按模块分好的操作权限
+        $data['priv_arr'] = $priv_arr;
+        $this->load->view('adminrole/add', $data);
     }
-    
+
     public function addPost()
     {
         $error = array();
         if ($this->validateParam($this->input->post('name'))) {
             $error[] = '用户名不能为空。';
         }
+        if (!$this->search_get_validate($this->input->post('action_code'))) {
+            $error[] = '权限至少有一个不为空。';
+        }
         if (!empty($error)) {
             $this->error('adminrole/add', '', $error);
         }
-        
+
         $name = $this->input->post('name');
-        
+        $action_list = @implode(',', $this->input->post('action_code'));
+
         $this->db->trans_start();
-        $resultId = $this->admin_role->insertRole($name);
+        $resultId = $this->admin_role->insertRole($name, $action_list);
         $this->db->trans_complete();
-        
+
         if ($resultId) {
             $this->success('adminrole/grid', '', '保存成功！');
         } else {
             $this->error('adminrole/add', '', '保存失败！');
         }
     }
-    
+
     public function edit($id)
     {
-        $result = $this->admin_role->findById($id);
+        $result = $this->role->findById($id);
         if ($result->num_rows() <= 0) {
             $this->error('adminrole/grid', '', '无效ID:'.$id);
         }
         $editing = $result->row_array();
+
+        $priv_arr = $this->admin_action->get_modules();
+        $actions = $this->admin_action->get_actions();
+        foreach($actions as $action) {
+            $priv_arr[$action['parent_id']]['priv'][$action['action_code']] = $action;
+        }
+
+        // 将同一组的权限使用 "," 连接起来，供JS全选
+        foreach ($priv_arr AS $action_id => $action_group) {
+            $priv_arr[$action_id]['priv_list'] = join(',', @array_keys($action_group['priv']));
+            foreach ($action_group['priv'] AS $key => $val) {
+                $priv_arr[$action_id]['priv'][$key]['cando'] = (strpos($editing['action_list'], $val['action_code']) !== false || $editing['action_list'] == 'all') ? 1 : 0;
+            }
+        }
+        // 按模块分好的操作权限
+        $data['priv_arr'] = $priv_arr;
         $data['editing'] = $editing;
         $this->load->view('adminrole/edit', $data);
     }
-    
+
     public function editPost()
     {
         $error = array();
+        if ($this->validateParam($this->input->post('id'))) {
+            $error[] = '角色id不能为空。';
+        }
         if ($this->validateParam($this->input->post('name'))) {
             $error[] = '用户名不能为空。';
+        }
+        if (!$this->search_get_validate($this->input->post('action_code'))) {
+            $error[] = '权限至少有一个不为空。';
         }
         if (!empty($error)) {
             $this->error('adminrole/edit', $this->input->post('id'), $error);
         }
-        
+
         $role_id = $this->input->post('id');
         $name = $this->input->post('name');
-        
+        $action_list = @implode(',', $this->input->post('action_code'));
+
         $this->db->trans_start();
-        $resultId = $this->admin_role->updateRole($role_id, $name);
+        $resultId = $this->admin_role->updateRole($role_id, $name, $action_list);
         $this->db->trans_complete();
-        
+
         //动态更新管理员的权限
         $adminUser = $this->session->userdata('adminUser');
         if ($adminUser->role_id == $role_id) {
             $adminUser->action_list = $action_list;
         }
-        
+
         if ($resultId) {
             $this->success('adminrole/grid', '', '保存成功！');
         } else {
             $this->error('adminrole/edit', $role_id, '保存失败！');
         }
     }
-    
+
     public function delete($id)
     {
         $is_delete = $this->admin_role->deleteById($id);
