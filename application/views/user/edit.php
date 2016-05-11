@@ -23,16 +23,6 @@
                 <div class="portlet-body form">
                     <form class="form-horizontal user-form" action="<?php echo base_url('user/addPost') ?>" method="post" enctype="multipart/form-data">
                         <div class="control-group">
-                            <label class="control-label"><em>* </em>账户类型</label>
-                            <div class="controls">
-                                <?php foreach ($user_type->result() as $type) :?>
-                                    <label class="checkbox">
-                                        <input type="checkbox" name="userType[]" value="<?php echo $type->user_type_id;?>"  <?php if(($row->user_type)&(int)($type->user_type_id)):?>checked="checked"<?php endif;?>> <?php echo $type->user_type_name;?>
-                                    </label>
-                                <?php endforeach;?>
-                            </div>
-                        </div>
-                        <div class="control-group">
                             <label class="control-label"><em>* </em>用户名称</label>
                             <div class="controls">
                                 <input type="hidden" name="uid" value="<?php echo $row->uid;?>"/>
@@ -43,12 +33,6 @@
                             <label class="control-label"><em>* </em>手机号码</label>
                             <div class="controls">
                                 <input type="text" name="phone" maxlength="11" class="m-wrap large number required" value="<?php echo $row->phone;?>">
-                            </div>
-                        </div>
-                         <div class="control-group">
-                            <label class="control-label"><em>* </em>手机号码</label>
-                            <div class="controls">
-                                <input type="text" name="cellphone" maxlength="11" class="m-wrap large number required" value="<?php echo $row->cellphone;?>">
                             </div>
                         </div>
                         <div class="control-group add-supplieruid-html">
@@ -84,14 +68,8 @@
                             <label class="control-label">是否发送短信</label>
                             <div class="controls">
                                 <label class="checkbox">
-                                    <input type="checkbox" name="sms_flag" value="<?php echo $row->sms_flag;?>" <?php if($row->sms_flag==1):?>checked="checked"<?php endif;?> > 只针对他网支付这种情况
+                                    <input type="checkbox" name="sms" value="<?php echo $row->sms;?>" <?php if($row->sms==1):?>checked="checked"<?php endif;?> > 只针对他网支付这种情况
                                 </label>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">身份证</label>
-                            <div class="controls">
-                                <input type="text" name="sfz" class="m-wrap large checkcard" value="<?php echo $row->sfz;?>">
                             </div>
                         </div>
                         <div class="control-group">

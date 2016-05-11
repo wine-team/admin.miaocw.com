@@ -8,7 +8,6 @@ class User extends CS_Controller
         $this->load->helper(array('common'));
         $this->load->library('pagination');
         $this->load->model('user_model', 'user');
-        $this->load->model('user_type_model', 'user_type');
     }
     
     public function grid($pg = 1)
@@ -21,17 +20,16 @@ class User extends CS_Controller
         $config['total_rows']  = $this->user->total($this->input->get());
         $config['uri_segment'] = 3;
         $this->pagination->initialize($config);
-        $data['pg_list']   = $this->pagination->create_links();
+        $data['pg_link']   = $this->pagination->create_links();
         $data['page_list'] = $this->user->page_list($page_num, $num, $this->input->get());
         $data['all_rows']  = $config['total_rows'];
         $data['pg_now']    = $pg;
-        $data['user_type'] = $this->user_type->find();
         $this->load->view('user/grid', $data);
     }
     
     public function add()
     {
-        $data['user_type'] = $this->user_type->find();
+        $data = array();
         $this->load->view('user/add', $data);
     }
     
@@ -96,7 +94,6 @@ class User extends CS_Controller
             $this->error('user/grid', '', '数据不存在！');
         }
         $data['row'] = $result->row();
-        $data['user_type'] = $this->user_type->find();
         $this->load->view('user/edit', $data);
     }
     
