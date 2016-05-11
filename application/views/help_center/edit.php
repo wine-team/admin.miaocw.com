@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="portlet-body form">
-                    <form class="form-horizontal line-form" action="<?php echo base_url('Chelp_center/editPost') ?>" method="post" enctype="multipart/form-data">
+                    <form class="form-horizontal line-form" action="<?php echo base_url('help_center/editPost') ?>" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id" value="<?php echo $res->id;?>" >
                         <div class="control-group">
                             <label class="control-label"><em>* </em>类型</label>
@@ -55,7 +55,7 @@
                         </div>
                         <div class="form-actions">
                             <button class="btn green" type="submit"><i class="icon-ok"></i> 保存</button>
-                            <a href="<?php echo base_url('Chelp_center/grid') ?>">
+                            <a href="<?php echo base_url('help_center/grid') ?>">
                                 <button class="btn" type="button">返回</button>
                             </a>
                         </div>

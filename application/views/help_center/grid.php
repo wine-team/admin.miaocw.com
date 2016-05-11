@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="portlet-body form">
-                    <form class="form-horizontal form-search" action="<?php echo base_url('Chelp_center/grid');?>" method="get">
+                    <form class="form-horizontal form-search" action="<?php echo base_url('help_center/grid');?>" method="get">
                         <div class="row-fluid">
                             <div class="span5">
                                 <div class="control-group">
@@ -47,7 +47,7 @@
                 <div class="portlet-body flip-scroll">
                     <div class="dataTables_wrapper form-inline">
                         <div class="clearfix">
-                            <a href="<?php echo base_url('Chelp_center/add') ?>" class="add-button-link">
+                            <a href="<?php echo base_url('help_center/add') ?>" class="add-button-link">
                                 <div class="btn-group">
                                     <button class="btn green"><i class="icon-plus"></i> 添加</button>
                                 </div>
@@ -78,8 +78,8 @@
                                     <td><?php echo date('Y-m-d H:i:s',$r->time);?></td>
                                     <td><div style="max-height:100px;overflow-y: scroll;"><?php echo $r->help_info;?></div></td>
                                     <td width="145">
-                                        <a class="btn mini green" href="<?php echo base_url('Chelp_center/edit/'.$r->id); ?>"><i class="icon-edit"></i> 编辑</a>
-                                        <a class="btn mini green" href="<?php echo base_url('Chelp_center/delete/'.$r->id); ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
+                                        <a class="btn mini green" href="<?php echo base_url('help_center/edit/'.$r->id); ?>"><i class="icon-edit"></i> 编辑</a>
+                                        <a class="btn mini green" href="<?php echo base_url('help_center/delete/'.$r->id); ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
                                     </td>
                                 </tr>
                                 <?php endforeach;?>
