@@ -73,7 +73,7 @@
                                     <td><?php echo $r->id;?></td>
                                     <td><?php echo $r->title;?></td>
                                     <td><?php echo $r->author;?></td>
-                                    <td><?php echo date('Y-m-d H:i:s',$r->time);?></td>
+                                    <td><?php echo $r->time;?></td>
                                     <td><div style="max-height:100px;overflow-y: scroll;"><?php echo $r->notice_info;?></div></td>
                                     <td width="145">
                                         <a class="btn mini green" href="<?php echo base_url('web_notice/edit/'.$r->id); ?>"><i class="icon-edit"></i> 编辑</a>
