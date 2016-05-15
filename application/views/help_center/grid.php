@@ -75,7 +75,6 @@
                                     <th>标题</th>
                                     <th>作者</th>
                                     <th>时间</th>
-                                    <th>内容</th>
                                     <th>操作</th>
                                 </tr>
                             </thead>
@@ -88,7 +87,6 @@
                                     <td><?php echo $r->sub_title;?></td>
                                     <td><?php echo $r->author;?></td>
                                     <td><?php echo $r->time;?></td>
-                                    <td><div style="max-height:100px;overflow-y: scroll;"><?php echo $r->help_info;?></div></td>
                                     <td width="145">
                                         <a class="btn mini green" href="<?php echo base_url('help_center/edit/'.$r->id); ?>"><i class="icon-edit"></i> 编辑</a>
                                         <a class="btn mini green" href="<?php echo base_url('help_center/delete/'.$r->id); ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
