@@ -71,46 +71,8 @@
         </li>
         <li>
             <a href="javascript:;">
-                <i class="icon-gift"></i> 
-                <span class="title">美酒商城</span>
-                <span class="selected"></span>
-                <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
-                <li>
-                    <a href="javascript:;">
-                        <span class="title">美酒商品管理</span>
-                        <span class="selected "></span>
-                        <span class="arrow"></span>
-                    </a>
-                    <ul class="sub-menu">
-                        <li><a href="javascript:;">商品列表</a></li>
-                        <li><a href="javascript:;>">类别管理</a></li>
-                        <li><a href="javascript:;">品牌管理</a></li>
-                        <li><a href="javascript:;">运费模板</a></li>
-                        <li><a href="javascript:;">地区风情</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript:;">
-                        <span class="title">商品订单</span>
-                        <span class="selected "></span>
-                        <span class="arrow"></span>
-                    </a>
-                    <ul class="sub-menu">
-                        <li><a href="javascript:;">订单管理</a></li>
-                        <li><a href="javascript:;">评价管理</a></li>
-                        <li><a href="javascript:;">退款审核</a></li>
-                        <li><a href="javascript:;">换货审核</a></li>
-                    </ul>
-                </li>
-                <li><a href="javascript:;">热门搜索</a></li>
-            </ul>
-        </li>
-        <li>
-            <a href="javascript:;">
                 <i class="icon-user"></i>
-                <span class="title">成人商城</span>
+                <span class="title">妙网商城</span>
                 <span class="selected "></span>
                 <span class="arrow"></span>
             </a>
@@ -143,17 +105,6 @@
                     </ul>
                 </li>
                 <li><a href="javascript:;">热门搜索</a></li>
-            </ul>
-        </li>
-        <li>
-            <a href="javascript:;">
-                <i class="icon-user"></i>
-                <span class="title">鑫余网络</span>
-                <span class="selected "></span>
-                <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu">
-                <li><a href="javascript:;">业务订单</a></li>
             </ul>
         </li>
         <li>
