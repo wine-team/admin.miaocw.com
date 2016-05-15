@@ -53,6 +53,18 @@
                                 </div>
                             </a>
                         </div>
+                        <p style="color:red;">建议不能删除编号1-20的内容，不能修改标题，只能修改内容！</p>
+                        
+<!-- 
+*底部一般固定，也可以传值，数组类型，id=>sub_title，
+*新手上路：$new_hand
+*支付方式：$pay_type
+*订购方式：$order_way
+*配送与售后：$delivery_sale
+*帮助中心：$help_center
+-->
+                        
+                        
                         <?php if ($all_rows > 0) :?>
                         <table class="table table-striped table-bordered table-hover" id="sample_1">
                             <thead class="flip-content">
