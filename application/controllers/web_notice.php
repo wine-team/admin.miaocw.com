@@ -41,7 +41,7 @@ class Web_notice extends MJ_Controller {
 	    $postData = $this->input->post();
 	    $data['title'] = $postData['title'];
 	    $data['author'] = $postData['author'];
-	    $data['time'] = time();
+	    $data['time'] = date('Y-m-d H:i:s');
 	    $data['notice_info'] = $postData['notice_info'];
 	    $res = $this->web_notice->insert($data);
 	    if ($res) {

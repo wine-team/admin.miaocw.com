@@ -42,7 +42,7 @@ class Help_center extends MJ_Controller {
 	    $data['title'] = $postData['title'];
 	    $data['sub_title'] = $postData['sub_title'];
 	    $data['author'] = $postData['author'];
-	    $data['time'] = time();
+	    $data['time'] = date('Y-m-d H:i:s');
 	    $data['help_info'] = $postData['help_info'];
 	    $res = $this->help_center->insert($data);
 	    if ($res) {

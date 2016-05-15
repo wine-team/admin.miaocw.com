@@ -30,7 +30,7 @@
                         <div class="control-group">
                             <label class="control-label">作者</label>
                             <div class="controls">
-                                <input type="text" class="m-wrap large" name="author" value=""/> 
+                                <input type="text" class="m-wrap large" name="author" value="妙网"/> 
                             </div>
                         </div>
                         
