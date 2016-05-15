@@ -11,7 +11,7 @@ class Help_center extends MJ_Controller {
 	public function grid($pg = 1)
 	{
 	    $getData = $this->input->get();
-	    $perpage = 20;
+	    $perpage = 10;
 	    $search['item'] = $getData['item'];
 	    $config['first_url']   = base_url('help_center/grid').$this->pageGetParam($this->input->get());
 	    $config['suffix']      = $this->pageGetParam($getData);
@@ -97,10 +97,6 @@ class Help_center extends MJ_Controller {
 	public function validate()
 	{
 	    $error = array();
-	    if ($this->validateParam($this->input->post('title'))) 
-	    {
-            $error[] = '分类不能为空';
-        }
         if ($this->validateParam($this->input->post('sub_title')))
         {
             $error[] = '标题不能为空';
