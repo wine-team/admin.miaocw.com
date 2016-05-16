@@ -23,23 +23,46 @@
                 <div class="portlet-body form">
                     <form class="form-horizontal user-form" action="<?php echo base_url('user/addPost') ?>" method="post" enctype="multipart/form-data">
                         <div class="control-group">
-                            <label class="control-label"><em>* </em>用户名称</label>
+                            <label class="control-label"><em>* </em>用户昵称</label>
                             <div class="controls">
                                 <input type="hidden" name="uid" value="<?php echo $row->uid;?>"/>
-                                <input type="text" name="user_name" class="m-wrap large  required"  value="<?php echo $row->user_name;?>">
+                                <input type="text" name="alias_name" class="m-wrap large"  value="<?php echo $row->alias_name;?>">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label"><em>* </em>手机号码</label>
                             <div class="controls">
-                                <input type="text" name="phone" maxlength="11" class="m-wrap large number required" value="<?php echo $row->phone;?>">
+                                <input type="text" name="phone" value="<?php echo $row->phone;?>" maxlength="11" class="m-wrap large number required" readonly="readonly">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">邮箱地址</label>
+                            <div class="controls">
+                                <input type="text" name="email" value="<?php echo $row->email;?>" class="m-wrap large chkemail" readonly="readonly">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">可用资金</label>
+                            <div class="controls">
+                                <input type="text" name="user_money" value="<?php echo $row->user_money;?>" class="m-wrap large">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">冻结资金</label>
+                            <div class="controls">
+                                <input type="text" name="frozen_money" value="<?php echo $row->frozen_money;?>" class="m-wrap large">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">消费积分</label>
+                            <div class="controls">
+                                <input type="text" name="pay_points" value="<?php echo $row->pay_points;?>" class="m-wrap large">
                             </div>
                         </div>
                         <div class="control-group add-supplieruid-html">
                             <label class="control-label"><em>* </em>父级序号</label>
                             <div class="controls">
                                  <input type="text" name="parent_id" class="m-wrap medium supplieruid tooltips number" data-original-title="双击可弹框选择供应商；直接输入‘用户名称或编号’可提示" data-trigger="hover" value="<?php echo $row->parent_id;?>">
-                                 <span class="help-inline">如果父级是公司总部则可忽略,如果是其他则应该填写相应用户的序号</span>
                             </div>
                         </div>
                         <div class="control-group">
@@ -55,6 +78,18 @@
                             </div>
                         </div>
                         <div class="control-group">
+                            <label class="control-label"><em>* </em>性别</label>
+                            <div class="controls">
+                                <input type="text" name="pw" class="m-wrap large required"  value="<?php echo $row->phone;?>">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"><em>* </em>出生日期</label>
+                            <div class="controls">
+                                <input type="text" name="pw" class="m-wrap large required"  value="<?php echo $row->phone;?>">
+                            </div>
+                        </div>
+                        <div class="control-group">
                             <label class="control-label"><em>* </em>帐号状态</label>
                             <div class="controls">
                                 <select name="flag">
@@ -63,19 +98,12 @@
                                 </select>
                             </div>
                         </div>
-                      
                         <div class="control-group">
                             <label class="control-label">是否发送短信</label>
                             <div class="controls">
                                 <label class="checkbox">
                                     <input type="checkbox" name="sms" value="<?php echo $row->sms;?>" <?php if($row->sms==1):?>checked="checked"<?php endif;?> > 只针对他网支付这种情况
                                 </label>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">邮箱地址</label>
-                            <div class="controls">
-                                <input type="text" name="email" class="m-wrap large chkemail" value="<?php echo $row->email;?>">
                             </div>
                         </div>
                         <div class="form-actions">

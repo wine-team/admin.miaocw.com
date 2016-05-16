@@ -58,21 +58,6 @@ class User extends CS_Controller
         exit;
     }
     
-    public function resetpwd($uid)
-    {
-        $is_update = $this->user->findById($uid);
-        if (!$is_update) {
-            $this->error('user/grid', '', '用户不存在！');
-        }
-        
-        $result = $this->user->resetpwd($uid);
-        if ($result) {
-            $this->success('user/grid', '', '密码重置成功！');
-        } else {
-            $this->error('user/grid', '', '密码重置失败！');
-        }
-    }
-    
     public function addPost()
     {
         $this->db->trans_start();

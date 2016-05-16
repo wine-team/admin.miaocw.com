@@ -97,10 +97,13 @@
                                 <tr>
                                     <th width="15"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"></th>
                                     <th>编号</th>
-                                    <th>用户呢称</th>
+                                    <th>呢称</th>
                                     <th>手机号码</th>
                                     <th>邮箱</th>
-                                    <th>上级用户</th>
+                                    <th>可用金额</th>
+                                    <th>冻结金额</th>
+                                    <th>消费积分</th>
+                                    <th>父级序号</th>
                                     <th>注册时间</th>
                                     <th>帐号状态</th>
                                     <th>操作</th>
@@ -114,6 +117,9 @@
                                     <td><?php echo $item->alias_name;?></td>
                                     <td><?php echo $item->phone;?></td>
                                     <td><?php echo $item->email;?></td>
+                                    <td><?php echo $item->user_money;?></td>
+                                    <td><?php echo $item->frozen_money;?></td>
+                                    <td><?php echo $item->pay_points;?></td>
                                     <td><?php echo $item->parent_id;?></td>
                                     <td><?php echo $item->created_at;?></td>
                                     <td>
@@ -125,7 +131,7 @@
                                         <a class="btn mini green" href="<?php echo base_url('user/edit/'.$item->uid); ?>"> 编辑</a>
                                         <a class="btn mini green" href="<?php echo base_url('user/edit/'.$item->uid); ?>"> 收货地址</a><p></p>
                                         <a class="btn mini green" href="<?php echo base_url('user/accountlog?uid='.$item->uid); ?>">账户收支</a>
-                                        <a class="btn mini green" href="<?php echo base_url('user/resetpwd/'.$item->uid); ?>" onclick="return confirm('密码为123456, 确定要重置？')"> 查看订单</a>
+                                        <a class="btn mini green" href="<?php echo base_url('user/resetpwd/'.$item->uid); ?>" onclick="return confirm('密码为123456, 确定要重置？')">订单</a>
                                     </td>
                                 </tr>
                                 <?php endforeach;?>
