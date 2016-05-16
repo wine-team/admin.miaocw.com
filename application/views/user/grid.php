@@ -24,7 +24,7 @@
                                 <div class="control-group">
                                     <label class="control-label">用户搜索</label>
                                     <div class="controls">
-                                        <input type="text" name="username" value="<?php echo $this->input->get('username');?>" placeholder="请输入用户帐号或别名或UID" class="m-wrap span12">
+                                        <input type="text" name="username" value="<?php echo $this->input->get('username');?>" placeholder="请输入用户昵称或UID" class="m-wrap span12">
                                     </div>
                                 </div>
                             </div>
@@ -97,8 +97,9 @@
                                 <tr>
                                     <th width="15"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"></th>
                                     <th>编号</th>
-                                    <th>用户名</th>
+                                    <th>用户呢称</th>
                                     <th>手机号码</th>
+                                    <th>邮箱</th>
                                     <th>上级用户</th>
                                     <th>注册时间</th>
                                     <th>帐号状态</th>
@@ -110,8 +111,9 @@
                                 <tr>
                                     <td><input type="checkbox" class="checkboxes" value="1" ></td>
                                     <td><?php echo $item->uid;?></td>
-                                    <td><?php echo $item->user_name;?></td>
+                                    <td><?php echo $item->alias_name;?></td>
                                     <td><?php echo $item->phone;?></td>
+                                    <td><?php echo $item->email;?></td>
                                     <td><?php echo $item->parent_id;?></td>
                                     <td><?php echo $item->created_at;?></td>
                                     <td>
@@ -120,9 +122,10 @@
                                         </a>
                                     </td>
                                     <td width="145">
+                                        <a class="btn mini green" href="<?php echo base_url('user/edit/'.$item->uid); ?>"> 编辑</a>
+                                        <a class="btn mini green" href="<?php echo base_url('user/edit/'.$item->uid); ?>"> 收货地址</a><p></p>
                                         <a class="btn mini green" href="<?php echo base_url('user/accountlog?uid='.$item->uid); ?>">账户收支</a>
-                                        <a class="btn mini green" href="<?php echo base_url('user/resetpwd/'.$item->uid); ?>" onclick="return confirm('密码为123456, 确定要重置？')"> 重置密码</a><p></p>
-                                        <a class="btn mini green" href="<?php echo base_url('user/edit/'.$item->uid); ?>"><i class="icon-edit"></i> 编辑</a>
+                                        <a class="btn mini green" href="<?php echo base_url('user/resetpwd/'.$item->uid); ?>" onclick="return confirm('密码为123456, 确定要重置？')"> 查看订单</a>
                                     </td>
                                 </tr>
                                 <?php endforeach;?>
