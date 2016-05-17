@@ -61,7 +61,7 @@
                         <div class="control-group add-supplieruid-html">
                             <label class="control-label"><em>* </em>父级序号</label>
                             <div class="controls">
-                                <input type="text" name="parent_id" value="1" class="m-wrap large supplieruid tooltips number" data-original-title="双击可弹框选择供应商；直接输入‘用户名称或编号’可提示" data-trigger="hover">
+                                <input type="text" name="parent_id" value="1" class="m-wrap medium supplieruid tooltips number" data-original-title="双击可弹框选择供应商；直接输入‘用户名称或编号’可提示" data-trigger="hover">
                             </div>
                         </div>
                         <div class="control-group">
@@ -71,7 +71,7 @@
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><em>* </em>性别</label>
+                            <label class="control-label">性别</label>
                             <div class="controls">
                                 <select name="sex">
                                     <option value="0">保密</option>
@@ -81,9 +81,9 @@
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><em>* </em>出生日期</label>
+                            <label class="control-label">出生日期</label>
                             <div class="controls">
-                                <input type="text" name="pw" class="m-wrap large required">
+                                <input type="text" name="birthday" class="m-wrap medium">
                             </div>
                         </div>
                         <div class="control-group">

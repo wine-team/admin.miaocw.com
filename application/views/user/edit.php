@@ -32,13 +32,13 @@
                         <div class="control-group">
                             <label class="control-label"><em>* </em>手机号码</label>
                             <div class="controls">
-                                <input type="text" name="phone" value="<?php echo $row->phone;?>" maxlength="11" class="m-wrap large number required" readonly="readonly">
+                                <input type="text" name="phone" value="<?php echo $row->phone;?>" maxlength="11" class="m-wrap large number required">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">邮箱地址</label>
                             <div class="controls">
-                                <input type="text" name="email" value="<?php echo $row->email;?>" class="m-wrap large chkemail" readonly="readonly">
+                                <input type="text" name="email" value="<?php echo $row->email;?>" class="m-wrap large chkemail">
                             </div>
                         </div>
                         <div class="control-group">
@@ -72,19 +72,13 @@
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><em>* </em>确认密码</label>
-                            <div class="controls">
-                                <input type="text" name="password" class="m-wrap large required" value="<?php echo $row->phone;?>">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label"><em>* </em>性别</label>
+                            <label class="control-label">性别</label>
                             <div class="controls">
                                 <input type="text" name="pw" class="m-wrap large required"  value="<?php echo $row->phone;?>">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><em>* </em>出生日期</label>
+                            <label class="control-label">出生日期</label>
                             <div class="controls">
                                 <input type="text" name="pw" class="m-wrap large required"  value="<?php echo $row->phone;?>">
                             </div>
