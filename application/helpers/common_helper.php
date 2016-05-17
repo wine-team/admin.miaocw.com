@@ -1,5 +1,4 @@
-<?php 
-
+<?php
  /**
  * 广告位数组
  * @return array
@@ -9,73 +8,6 @@ function advertArray()
     return array(
         '1' => '首页幻灯片广告',
         '2' => '登陆幻灯片广告'     
-    );
-}
-
-
-/**
- *  议价结算方式
- *  @return array
- */
-function bargainingNode(){
-    return array(
-        'system'  =>'系统结算',
-        'private' =>'自主结算'
-    );
-}
-
-/**
- *  议价手续费付费方式
- *  @return array
- */
-function bargainingPayer(){
-    return array(
-            'seller'    => '分销商付手续费',
-            'provider'  => '供应商',
-            'prosecond' => '二级供应商'
-    );
-}
-
-
-
-/**
- * 获取cmsBlock描述。
- * @param string $blockId
- * @return string
- */
-function cmsBlock($blockId)
-{
-    $CI = & get_instance();
-    $CI->load->model('cms_block_model', 'cms_block');
-    $result = $CI->cms_block->findByBlockId($blockId);
-    $description = '';
-    if ($result) {
-        $description = $result->row(0)->description;
-    }
-    return $description;
-}
-
-
-
-
-
-/**
- * 后台左边菜单权限管理
- * @return array
- */
-function adminleftmenu()
-{
-    return array(
-        '1'       =>'客服部',
-        '2'       =>'营销部',
-        '4'       =>'财务部',
-        '8'       =>'工程部',
-        '16'      =>'新闻管理',
-        '32'      =>'景区管理',
-        '64'      =>'酒店管理',
-        '128'     =>'线路管理',
-        '256'     =>'权限菜单管理',
-        '512'     =>'网站设置',
     );
 }
 
@@ -95,103 +27,6 @@ function admin_permission($priv_str)
 
     return true;
 }
-
-
-
-
-
-/**
- * 地区类型
- *
- */
-function regionType()
-{
-    return array(
-            '0'=>'国家',
-            '1'=>'省份',
-            '2'=>'城市',
-            '3'=>'县/区'
-    );
-}
-
-function account_type($type)
-{
-    $balance = $type;
-    $account_type = array(
-        1    => '支付',
-        2    => '提现',
-        4    => '银行充值',
-        8    => '退票',
-        16   => '虚拟充值',
-        32   => '提现驳回',
-        64   => '到付反利',
-        128  => '在线利润',
-        256  => '月结抵扣',
-        512  => '抵扣驳回',
-        1024 => '月结转余额'
-    );
-    if (array_key_exists($type, $account_type)) {
-        $balance = $account_type[$type];
-    }
-    return $balance;
-}
-
-
-function apiTypeArray()
-{
-	return array(
-		'1'=>'发送订单',
-		'2'=>'取消订单',
-		'4'=>'发送短信',
-		'5'=>'核销订单',
-		'8'=>'发送彩信',
-		'9'=>'短信转发',
-		'10'=>'彩信转发',
-		'16'=>'修改订单',
-	    '33'=>'审核订单'
-	);
-}
-
-
-/**
- * 短信状态
- */
-function smsStatuaArray()
-{
-	return array(
-		'100'=>'100发送成功',
-		'101'=>'101验证失败',
-		'102'=>'102短信不足',
-		'103'=>'103操作失败',
-		'104'=>'104非法字符',
-		'105'=>'105内容过多',
-		'106'=>'106号码过多',
-		'107'=>'107频率过快',
-		'108'=>'108号码内容空',
-		'109'=>'109账号冻结',
-		'110'=>'110禁止频繁单条发送',
-		'111'=>'111系统暂定发送',
-		'112'=>'112有错误号码',
-		'113'=>'113定时时间不对',
-		'114'=>'114账号被锁，10分钟后登录',
-		'115'=>'115连接失败',
-		'116'=>'116禁止接口发送',
-		'117'=>'117绑定IP不正确',
-		'120'=>'120系统升级'	
-	);
-}
-
-/**
- * 反馈类型数组
- * @return array
- */
-function userFeedBackTypeArray()
-{
-    return array(
-        '1'=>'美酒',
-    );
-}
-
 
 /**
  * 商品快递物流
