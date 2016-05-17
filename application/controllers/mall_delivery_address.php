@@ -31,6 +31,7 @@ class Mall_delivery_address extends MJ_Controller {
 	        $this->error('mall_delivery_address/add', $this->input->post('id'), $error);
 	    }
 	    $postData = $this->input->post();
+		$data['uid'] = $postData['uid'];
 	    $data['province_id'] = $postData['province_id'];
         $data['province_name'] = $this->region->findById($postData['province_id'])->row()->region_name;
         $data['city_id'] = $postData['city_id'];
@@ -43,8 +44,16 @@ class Mall_delivery_address extends MJ_Controller {
         $data['tel'] = $postData['tel'];
         $data['code'] = $postData['code'];
         $data['is_default'] = $postData['is_default'];
-        $data['uid'] = $postData['uid'];
-	    $res = $this->mall_delivery_address->insert($data);
+        
+        
+		$this->db->trans_start();
+        if($postData['is_default'] == 2)  //如果改为默认，需将此用户其他默认地址改为非默认
+        {
+            $this->mall_delivery_address->update(array('uid'=>$postData['uid']), array('is_default'=>1));
+        }
+        $res = $this->mall_delivery_address->insert($data);
+        $this->db->trans_complete(); 
+	    
 	    if ($res) {
 	        $this->success('mall_delivery_address/grid', $postData['uid'], '新增成功！');
 	    } else {
@@ -110,7 +119,7 @@ class Mall_delivery_address extends MJ_Controller {
 	
 	public function validate()
 	{   
-	    $this->laoad->helper('validation');
+	    $this->load->helper('validation');
 	    $error = array();
 	    if ($this->validateParam($this->input->post('province_id')) || $this->validateParam($this->input->post('city_id')) || $this->validateParam($this->input->post('district_id')))
 	    {
