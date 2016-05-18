@@ -48,7 +48,7 @@ class Help_center extends MJ_Controller {
 	    if ($res) {
 	        $this->success('help_center/grid', '', '新增成功！');
 	    } else {
-	        $this->error('help_center/add', $this->input->post('id'), '新增失败！');
+	        $this->error('help_center/add', '', '新增失败！');
 	    }
 	}
 	
