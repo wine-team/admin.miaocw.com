@@ -23,10 +23,10 @@
                 <div class="portlet-body form">
                     <form class="form-horizontal user-form" action="<?php echo base_url('user/addPost') ?>" method="post" enctype="multipart/form-data">
                         <div class="control-group">
-                            <label class="control-label"><em>* </em>用户昵称</label>
+                            <label class="control-label">用户昵称</label>
                             <div class="controls">
                                 <input type="hidden" name="uid" value="<?php echo $row->uid;?>"/>
-                                <input type="text" name="alias_name" class="m-wrap large"  value="<?php echo $row->alias_name;?>">
+                                <input type="text" name="alias_name" class="m-wrap large" value="<?php echo $row->alias_name;?>">
                             </div>
                         </div>
                         <div class="control-group">
@@ -62,34 +62,13 @@
                         <div class="control-group add-supplieruid-html">
                             <label class="control-label"><em>* </em>父级序号</label>
                             <div class="controls">
-                                 <input type="text" name="parent_id" class="m-wrap medium supplieruid tooltips number" data-original-title="双击可弹框选择供应商；直接输入‘用户名称或编号’可提示" data-trigger="hover" value="<?php echo $row->parent_id;?>">
+                                 <input type="text" name="parent_id" value="<?php echo $row->parent_id;?>" class="m-wrap medium supplieruid tooltips number" data-original-title="双击可弹框选择供应商；直接输入‘用户名称或编号’可提示" data-trigger="hover">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><em>* </em>用户密码</label>
+                            <label class="control-label">用户密码</label>
                             <div class="controls">
-                                <input type="text" name="pw" class="m-wrap large required"  value="<?php echo $row->phone;?>">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">性别</label>
-                            <div class="controls">
-                                <input type="text" name="pw" class="m-wrap large required"  value="<?php echo $row->phone;?>">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">出生日期</label>
-                            <div class="controls">
-                                <input type="text" name="pw" class="m-wrap large required"  value="<?php echo $row->phone;?>">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label"><em>* </em>帐号状态</label>
-                            <div class="controls">
-                                <select name="flag">
-                                    <option value="1" <?php if($row->flag==1):?>selected="selected"<?php endif;?> >正常</option>
-                                    <option value="2" <?php if($row->flag==2):?>selected="selected"<?php endif;?>>冻结</option>
-                                </select>
+                                <input type="text" name="pw" class="m-wrap large required">
                             </div>
                         </div>
                         <div class="control-group">
@@ -98,6 +77,38 @@
                                 <label class="checkbox">
                                     <input type="checkbox" name="sms" value="<?php echo $row->sms;?>" <?php if($row->sms==1):?>checked="checked"<?php endif;?> > 只针对他网支付这种情况
                                 </label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">性别</label>
+                            <div class="controls">
+                                <label class="radio">
+                                    <input type="radio" name="sex" value="0" <?php if ($row->sex == 0) : ?> checked="checked"<?php endif;?>> 保密
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="sex" value="1" <?php if ($row->sex == 1) : ?> checked="checked"<?php endif;?>> 男
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="sex" value="2" <?php if ($row->sex == 2) : ?> checked="checked"<?php endif;?>> 女
+                                </label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">出生日期</label>
+                            <div class="controls">
+                                <div class="input-append date date-picker" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                    <input type="text" name="birthday" value="<?php echo ($row->birthday != '0000-00-00') ? $row->birthday : '';?>" class="m-wrap medium date-picker required valid" placeholder="出生日期">
+                                    <span class="add-on"><i class="icon-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">帐号状态</label>
+                            <div class="controls">
+                                <select name="flag">
+                                    <option value="1" <?php if($row->flag==1):?>selected="selected"<?php endif;?> >正常</option>
+                                    <option value="2" <?php if($row->flag==2):?>selected="selected"<?php endif;?>>冻结</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-actions">
@@ -119,15 +130,15 @@
         return false;
     }).validate({
         rules: {
-            user_name: {
+            phone: {
                 required: true,
                 remote: {
-                    url:hostUrl()+'/user/validateName',
+                    url:hostUrl()+'/user/validatePhone',
                     type: 'post',
                     dataType: 'json',
                     data: {
-                        user_name:function(json) {
-                            return $('input[name=user_name]').val();
+                        mobile_phone:function(json) {
+                            return $('input[name=phone]').val();
                         },
                         uid:function(json) {
                             return $('input[name=uid]').val();
@@ -135,15 +146,15 @@
                     }
                 }
             },
-            mobile_phone: {
+            email: {
                 required: true,
                 remote: {
-                    url:hostUrl()+'/user/validateMobilePhone',
+                    url:hostUrl()+'/user/validateEmail',
                     type: 'post',
                     dataType: 'json',
                     data: {
-                        mobile_phone:function(json) {
-                            return $('input[name=mobile_phone]').val();
+                        email:function(json) {
+                            return $('input[name=email]').val();
                         },
                         uid:function(json) {
                             return $('input[name=uid]').val();
@@ -153,14 +164,14 @@
             }
         },
         messages: {
-            user_name: {
-                required: '请输入您的用户名',
-                remote: '修改的用户名已存在'
-            },
-            mobile_phone: {
+            phone: {
                 required: '请输入您的手机号码',
                 mobile: '手机格式错误',
-                remote: '修改的手机已注册'
+                remote: '修改的手机号已注册'
+            },
+            email: {
+                email : '请输入正确的邮箱',
+                remote: '修改的邮箱已存在'
             }
         },
         submitHandler: function(f) {
@@ -168,12 +179,12 @@
                 type: 'post',
                 async: true,
                 dataType : 'json',
-                url: hostUrl() + '/user/ajaxVaildate',
+                url: hostUrl() + '/user/addPost',
                 data: $('form.user-form').serialize(),
                 success: function(data) {
                     if (data.status) {
                         $('.alert-error').hide();
-                        window.location.href = '<?php echo base_url('user/grid')?>';
+                        window.location.href = hostUrl()+'user/grid';
                     } else {
                         $('.alert-error').show();
                         $('.remove_2 p').html(data.message);

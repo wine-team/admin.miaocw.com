@@ -73,17 +73,24 @@
                         <div class="control-group">
                             <label class="control-label">性别</label>
                             <div class="controls">
-                                <select name="sex">
-                                    <option value="0">保密</option>
-                                    <option value="1">男</option>
-                                    <option value="2">女</option>
-                                </select>
+                                <label class="radio">
+                                    <input type="radio" name="sex" value="0" checked="checked"> 保密
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="sex" value="1"> 男
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="sex" value="2"> 女
+                                </label>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">出生日期</label>
                             <div class="controls">
-                                <input type="text" name="birthday" class="m-wrap medium">
+                                <div class="input-append date date-picker" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                    <input type="text" name="birthday" class="m-wrap medium date-picker required valid" readonly="readonly" placeholder="出生日期">
+                                    <span class="add-on"><i class="icon-calendar"></i></span>
+                                </div>
                             </div>
                         </div>
                         <div class="control-group">
@@ -150,14 +157,14 @@
             }
         },
         messages: {
-            user_name: {
-                required: '请输入您的用户名',
-                remote: '用户名已存在'
+            eamil: {
+                eamil:'请输入正确的邮箱',
+                remote: '输入的邮箱已存在'
             },
             mobile_phone: {
                 required: '请输入您的手机号码',
                 mobile: '手机格式错误',
-                remote: '手机已注册'
+                remote: '当前手机号已注册'
             }
         },
         submitHandler: function(f) {
@@ -165,12 +172,12 @@
                 type: 'post',
                 async: true,
                 dataType : 'json',
-                url: hostUrl() + '/user/ajaxVaildate',
+                url: hostUrl() + '/user/addPost',
                 data: $('form.user-form').serialize(),
                 success: function(data) {
                     if (data.status) {
                         $('.alert-error').hide();
-                        window.location.href = '<?php echo base_url('user/grid')?>';
+                        window.location.href = hostUrl()+'user/grid';
                     } else {
                         $('.alert-error').show();
                         $('.remove_2 p').html(data.message);

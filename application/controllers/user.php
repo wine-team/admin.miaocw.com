@@ -147,7 +147,7 @@ class User extends CS_Controller
             }
             $userInfo = $result->row();
             if ($userInfo->email != $this->input->post('email')) {
-                $result = $this->user->findByUserName(array('email'=>$this->input->post('email')));
+                $result = $this->user->findByEmail(array('email'=>$this->input->post('email')));
                 if ($result->num_rows() > 0) {
                     echo 'false';
                 } else {
@@ -187,7 +187,7 @@ class User extends CS_Controller
             if ($mobilePhone->num_rows() > 0){
                 $error[] = '手机号码已经存在。';
             }
-            $result = $this->user->findByUserName(array('user_name'=>$this->input->post('user_name'),'alias_name'=>$this->input->post('alias_name')));
+            $result = $this->user->findByEmail(array('email'=>$this->input->post('email'), 'alias_name'=>$this->input->post('alias_name')));
             if ($result->num_rows() > 0){
                 $error[] = '邮箱已经存在。';
             }
