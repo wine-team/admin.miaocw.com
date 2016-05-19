@@ -22,17 +22,35 @@
                         <div class="row-fluid">
                             <div class="span4">
                                 <div class="control-group">
-                                    <label class="control-label">用户搜索</label>
+                                    <label class="control-label">用户昵称</label>
                                     <div class="controls">
-                                        <input type="text" name="username" value="<?php echo $this->input->get('username');?>" placeholder="请输入用户昵称或UID" class="m-wrap span12">
+                                        <input type="text" name="username" value="<?php echo $this->input->get('username');?>" placeholder="请输入用户UID或昵称" class="m-wrap span12">
                                     </div>
                                 </div>
                             </div>
                             <div class="span4">
                                 <div class="control-group">
-                                    <label class="control-label">上级用户</label>
+                                    <label class="control-label">手机号码</label>
                                     <div class="controls">
-                                        <input type="text" name="parent_id" value="<?php echo $this->input->get('parent_id');?>" placeholder="上级用户UID或当前用户手机号" class="m-wrap span12">
+                                        <input type="text" name="phone" value="<?php echo $this->input->get('phone');?>" placeholder="请输入用户昵称" class="m-wrap span12">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span4">
+                                <div class="control-group">
+                                    <label class="control-label">用户邮箱</label>
+                                    <div class="controls">
+                                        <input type="text" name="email" value="<?php echo $this->input->get('email');?>" placeholder="请输入用户邮箱" class="m-wrap span12">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span4">
+                                <div class="control-group">
+                                    <label class="control-label">父级序号</label>
+                                    <div class="controls">
+                                        <input type="text" name="parent_id" value="<?php echo $this->input->get('parent_id');?>" placeholder="上级用户UID" class="m-wrap span12">
                                     </div>
                                 </div>
                             </div>
@@ -49,8 +67,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row-fluid">
                             <div class="span4">
                                 <div class="control-group">
                                     <label class="control-label">注册时间</label>
@@ -105,7 +121,7 @@
                                     <th>消费积分</th>
                                     <th>父级序号</th>
                                     <th>注册时间</th>
-                                    <th>帐号状态</th>
+                                    <th>状态</th>
                                     <th>操作</th>
                                 </tr>
                             </thead>

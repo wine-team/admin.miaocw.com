@@ -88,25 +88,30 @@
                             <label class="control-label">出生日期</label>
                             <div class="controls">
                                 <div class="input-append date date-picker" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
-                                    <input type="text" name="birthday" class="m-wrap medium date-picker required valid" readonly="readonly" placeholder="出生日期">
+                                    <input type="text" name="birthday" class="m-wrap medium date-picker" placeholder="出生日期">
                                     <span class="add-on"><i class="icon-calendar"></i></span>
                                 </div>
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><em>* </em>帐号状态</label>
+                            <label class="control-label">是否发送短信</label>
                             <div class="controls">
-                                <select name="flag">
-                                    <option value="1">正常</option>
-                                    <option value="2">冻结</option>
-                                </select>
+                                <label class="radio">
+                                    <input type="radio" name="sms" value="1" checked="checked"> 是
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="sms" value="2"> 否
+                                </label>
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">是否发送短信</label>
+                            <label class="control-label">帐号状态</label>
                             <div class="controls">
-                                <label class="checkbox">
-                                    <input type="checkbox" name="sms" checked="checked"> 只针对他网支付这种情况
+                                <label class="radio">
+                                    <input type="radio" name="flag" value="1" checked="checked"> 正常
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="flag" value="2"> 冻结
                                 </label>
                             </div>
                         </div>

@@ -35,7 +35,7 @@ class User extends CS_Controller
             default : $flag = '2'; break;
         }
         $this->db->trans_start();
-        $isUpdate = $this->user->updateUserInfo(array('uid' => $uid, 'flag' => $flag));
+        $isUpdate = $this->user->updateUser(array('uid' => $uid, 'flag' => $flag));
         $this->db->trans_complete();
 
         if ($this->db->trans_status() === TRUE && $isUpdate) {
@@ -187,7 +187,7 @@ class User extends CS_Controller
             if ($mobilePhone->num_rows() > 0){
                 $error[] = '手机号码已经存在。';
             }
-            $result = $this->user->findByEmail(array('email'=>$this->input->post('email'), 'alias_name'=>$this->input->post('alias_name')));
+            $result = $this->user->findByEmail(array('email'=>$this->input->post('email')));
             if ($result->num_rows() > 0){
                 $error[] = '邮箱已经存在。';
             }
@@ -199,7 +199,7 @@ class User extends CS_Controller
             if ($result->num_rows() <= 0){
                 $error[] = '修改错误，请重新进入重试';
             }
-            $userInfo = $result->row();
+            $userInfo = $result->row(0);
             if ($userInfo->phone != $this->input->post('phone')) {
                 $result = $this->user->validatePhone(array('phone'=>$this->input->post('phone')));
                 if ($result->num_rows() > 0){
@@ -214,7 +214,7 @@ class User extends CS_Controller
             }
         }
         if ($this->input->post('parent_id')) {
-            $result = $this->user->findByIds(array('parent_id'=>$this->input->post('parent_id')));
+            $result = $this->user->findByParams(array('parent_id'=>$this->input->post('parent_id')));
             if ($result->num_rows() <= 0) {
                 $error[] = '填写的父级序号不存在';
             }
@@ -228,9 +228,6 @@ class User extends CS_Controller
      */
     public function ajaxGetUser($pg = 1)
     {
-        if ($this->input->get('uidid')) { //如果存在uidid，则赋值给uid
-            $_GET['uid'] = $this->input->get('uidid');
-        }
         $page_num = 10;
         $num = ($pg-1)*$page_num;
         $config['per_page'] = 10;
