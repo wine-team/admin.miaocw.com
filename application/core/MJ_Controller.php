@@ -2,11 +2,9 @@
 require_once 'CS_Controller.php';
 class MJ_Controller extends CI_Controller
 {
-    private $errorMessage = array();
     private $url = '';
     public $uid;
-   
-    
+
     public function __construct()
     {
         parent::__construct();
@@ -24,24 +22,6 @@ class MJ_Controller extends CI_Controller
     }
     
     public function _init() {}
-    
-    /**
-     * 存储错误信息
-     * @param unknown $message
-     */
-    public function setErrorMessage($message)
-    {
-        $this->errorMessage[] = $message;
-    }
-    
-    /**
-     * 获取错误信息
-     * @return string
-     */
-    public function getErrorMessage()
-    {
-        return $this->errorMessage;
-    }
     
     /**
      * 验证get参数，如果get参数有一个值不为空，则返回true
@@ -104,7 +84,26 @@ class MJ_Controller extends CI_Controller
         }
         return false;
     }
-    
+
+    /**
+     * js提交表单数据提示。
+     * @param unknown $error
+     * @param string $url
+     */
+    public function jsonMessage($error, $url='')
+    {
+        if (!empty($error)) {
+            if (is_array($error)) {
+                $json = array('status'=>false, 'messages'=>implode('\\n', $error));
+            } else {
+                $json = array('status'=>false, 'messages'=>$error);
+            }
+        } else {
+            $json = array('status'=>true, 'messages'=>$url);
+        }
+        echo json_encode($json);exit;
+    }
+
     /**
      * 程序执行错误跳转
      * @param 跳转路径 $url

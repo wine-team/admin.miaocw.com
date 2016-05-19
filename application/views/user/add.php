@@ -23,19 +23,9 @@
                 <div class="portlet-body form">
                     <form class="form-horizontal user-form" action="<?php echo base_url('user/addPost') ?>" method="post" enctype="multipart/form-data">
                         <div class="control-group">
-                            <label class="control-label"><em>* </em>账户类型</label>
+                            <label class="control-label">用户昵称</label>
                             <div class="controls">
-                                <?php foreach ($user_type->result() as $type) :?>
-                                    <label class="checkbox">
-                                        <input type="checkbox" name="userType[]" value="<?php echo $type->user_type_id;?>"> <?php echo $type->user_type_name;?>
-                                    </label>
-                                <?php endforeach;?>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label"><em>* </em>用户名称</label>
-                            <div class="controls">
-                                <input type="text" name="user_name" class="m-wrap large chrnum required">
+                                <input type="text" name="alias_name" class="m-wrap large">
                             </div>
                         </div>
                         <div class="control-group">
@@ -45,59 +35,79 @@
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">备用手机</label>
+                            <label class="control-label">邮箱地址</label>
                             <div class="controls">
-                                <input type="text" name="cellphone" maxlength="11" class="m-wrap large mobile">
-                                <span class="help-inline">如果是供应商帐号，此号码必填。</span>
+                                <input type="text" name="email" class="m-wrap large chkemail">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">可用资金</label>
+                            <div class="controls">
+                                <input type="text" name="user_money" value="0" class="m-wrap large">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">冻结资金</label>
+                            <div class="controls">
+                                <input type="text" name="frozen_money" value="0" class="m-wrap large">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">消费积分</label>
+                            <div class="controls">
+                                <input type="text" name="pay_points" value="0" class="m-wrap large">
                             </div>
                         </div>
                         <div class="control-group add-supplieruid-html">
                             <label class="control-label"><em>* </em>父级序号</label>
                             <div class="controls">
-                                 <input type="text" name="parent_id" class="m-wrap medium supplieruid tooltips number" data-original-title="双击可弹框选择供应商；直接输入‘用户名称或编号’可提示" data-trigger="hover">
-                                 <span class="help-inline">如果父级是公司总部则可忽略,如果是其他则应该填写相应用户的序号</span>
+                                <input type="text" name="parent_id" value="1" class="m-wrap medium supplieruid tooltips number" data-original-title="双击可弹框选择供应商；直接输入‘用户名称或编号’可提示" data-trigger="hover">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label"><em>* </em>用户密码</label>
                             <div class="controls">
-                                <input type="password" name="pw" class="m-wrap large required">
+                                <input type="text" name="pw" class="m-wrap large required">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><em>* </em>确认密码</label>
+                            <label class="control-label">性别</label>
                             <div class="controls">
-                                <input type="password" name="password" class="m-wrap large required">
+                                <label class="radio">
+                                    <input type="radio" name="sex" value="0" checked="checked"> 保密
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="sex" value="1"> 男
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="sex" value="2"> 女
+                                </label>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">出生日期</label>
+                            <div class="controls">
+                                <div class="input-append date date-picker" data-date-format="yyyy-mm-dd" data-date-viewmode="years">
+                                    <input type="text" name="birthday" class="m-wrap medium date-picker required valid" readonly="readonly" placeholder="出生日期">
+                                    <span class="add-on"><i class="icon-calendar"></i></span>
+                                </div>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label"><em>* </em>帐号状态</label>
                             <div class="controls">
                                 <select name="flag">
-                                    <option value="1" >正常</option>
-                                    <option value="2" >冻结</option>
+                                    <option value="1">正常</option>
+                                    <option value="2">冻结</option>
                                 </select>
                             </div>
                         </div>
-                      
                         <div class="control-group">
                             <label class="control-label">是否发送短信</label>
                             <div class="controls">
                                 <label class="checkbox">
-                                    <input type="checkbox" name="sms_flag" value="1"> 只针对他网支付这种情况
+                                    <input type="checkbox" name="sms" checked="checked"> 只针对他网支付这种情况
                                 </label>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">身份证</label>
-                            <div class="controls">
-                                <input type="text" name="sfz" class="m-wrap large checkcard">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">邮箱地址</label>
-                            <div class="controls">
-                                <input type="text" name="email" class="m-wrap large chkemail">
                             </div>
                         </div>
                         <div class="form-actions">
@@ -119,23 +129,10 @@
         return false;
     }).validate({
         rules: {
-            user_name: {
+            phone: {
                 required: true,
                 remote: {
-                    url:hostUrl()+'/user/validateName',
-                    type: 'post',
-                    dataType: 'json',
-                    data: {
-                        user_name:function(json) {
-                            return $('input[name=user_name]').val();
-                        }
-                    }
-                }
-            },
-            mobile_phone: {
-                required: true,
-                remote: {
-                    url:hostUrl()+'/user/validateMobilePhone',
+                    url:hostUrl()+'/user/validatePhone',
                     type: 'post',
                     dataType: 'json',
                     data: {
@@ -144,17 +141,30 @@
                         }
                     }
                 }
+            },
+            email: {
+                required: true,
+                remote: {
+                    url:hostUrl()+'/user/validateEmail',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        user_name:function(json) {
+                            return $('input[name=email]').val();
+                        }
+                    }
+                }
             }
         },
         messages: {
-            user_name: {
-                required: '请输入您的用户名',
-                remote: '用户名已存在'
+            eamil: {
+                eamil:'请输入正确的邮箱',
+                remote: '输入的邮箱已存在'
             },
             mobile_phone: {
                 required: '请输入您的手机号码',
                 mobile: '手机格式错误',
-                remote: '手机已注册'
+                remote: '当前手机号已注册'
             }
         },
         submitHandler: function(f) {
@@ -162,12 +172,12 @@
                 type: 'post',
                 async: true,
                 dataType : 'json',
-                url: hostUrl() + '/user/ajaxVaildate',
+                url: hostUrl() + '/user/addPost',
                 data: $('form.user-form').serialize(),
                 success: function(data) {
                     if (data.status) {
                         $('.alert-error').hide();
-                        window.location.href = '<?php echo base_url('user/grid')?>';
+                        window.location.href = hostUrl()+'user/grid';
                     } else {
                         $('.alert-error').show();
                         $('.remove_2 p').html(data.message);
