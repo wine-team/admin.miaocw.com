@@ -68,9 +68,9 @@
                         </div>
                         
                         <div class="control-group">
-                            <label class="control-label"><em>* </em>商品属性id</label>
+                            <label class="control-label">商品属性id</label>
                             <div class="controls">
-                                <input type="text" class="m-wrap large required" name="filter_attr" value=""/>
+                                <input type="text" class="m-wrap large" name="filter_attr" value=""/>
                                 <span class="help-block">请用英文逗号隔开</span> 
                             </div>
                         </div>

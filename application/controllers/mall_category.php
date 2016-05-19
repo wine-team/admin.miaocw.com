@@ -32,11 +32,11 @@ class Mall_category extends MJ_Controller {
 	
 	public function addPost()
 	{
-// 	    $error = $this->validate(); 
-// 	    if (!empty($error))
-// 	    {
-// 	        $this->error('mall_category/add', $this->input->post('id'), $error);
-// 	    }
+	    $error = $this->validate(); 
+	    if (!empty($error))
+	    {
+	        $this->error('mall_category/add', $this->input->post('id'), $error);
+	    }
 	    $postData = $this->input->post();
 	    $data['parent_id'] = $postData['one_p_id'] ? ($postData['two_p_id'] ? $postData['two_p_id'] : $postData['one_p_id']) : 0;
 	    $data['cat_name'] = $postData['cat_name'];
@@ -96,13 +96,9 @@ class Mall_category extends MJ_Controller {
 	public function validate()
 	{
 	    $error = array();
-        if ($this->validateParam($this->input->post('sub_title')))
+        if ($this->validateParam($this->input->post('cat_name')))
         {
-            $error[] = '标题不能为空';
-        }
-        if ($this->validateParam(strip_tags($this->input->post('help_info'))))
-        {
-            $error[] = '内容不能为空';
+            $error[] = '分类名称不能为空';
         }
 	    return $error;
 	}
