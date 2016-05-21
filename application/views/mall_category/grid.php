@@ -48,7 +48,7 @@
                                     <td style="table-layout:fixed;width:40px;"><?php echo $r->cat_id;?></td>
                                     <td style="table-layout:fixed;width:120px;"><?php echo $r->cat_name;?></td>
                                     <td style="table-layout:fixed;width:120px;"><?php echo $r->parent_id;?></td>
-                                    <td style="table-layout:fixed;width:120px;"><?php echo $r->is_show;?></td>
+                                    <td style="table-layout:fixed;width:120px;"><?php if($r->is_show==1)echo '是';?></td>
                                     <td style="table-layout:fixed;width:50px;"><?php echo $r->sort_order;?></td>
                                     <td style="table-layout:fixed;"><?php echo $r->filter_attr;?></td>
                                     <td style="table-layout:fixed;width:153px;">
@@ -64,7 +64,7 @@
                                         <td style="table-layout:fixed;width:40px;"><?php echo $r1->cat_id;?></td>
                                         <td style="table-layout:fixed;width:120px;"><?php echo $r1->cat_name;?></td>
                                         <td style="table-layout:fixed;width:120px;"><?php echo $r1->parent_id;?></td>
-                                        <td style="table-layout:fixed;width:120px;"><?php echo $r1->is_show;?></td>
+                                        <td style="table-layout:fixed;width:120px;"><?php if($r->is_show==1)echo '是';?></td>
                                         <td style="table-layout:fixed;width:50px;"><?php echo $r1->sort_order;?></td>
                                         <td style="table-layout:fixed;"><?php echo $r1->filter_attr;?></td>
                                         <td style="table-layout:fixed;width:145px;">
@@ -79,7 +79,7 @@
                                             <td style="table-layout:fixed;width:40px;"><?php echo $r2->cat_id;?></td>
                                             <td style="table-layout:fixed;width:120px;"><?php echo $r2->cat_name;?></td>
                                             <td style="table-layout:fixed;width:120px;"><?php echo $r2->parent_id;?></td>
-                                            <td style="table-layout:fixed;width:120px;"><?php echo $r2->is_show;?></td>
+                                            <td style="table-layout:fixed;width:120px;"><?php if($r->is_show==1)echo '是';?></td>
                                             <td style="table-layout:fixed;width:50px;"><?php echo $r2->sort_order;?></td>
                                             <td style="table-layout:fixed;"><?php echo $r2->filter_attr;?></td>
                                             <td style="table-layout:fixed;width:137px;">

@@ -186,7 +186,7 @@ class MJ_Controller extends CI_Controller
         $config['file_name'] = uniqid(); //唯一的函数
         $this->load->library('upload', $config);
         
-        if (!$this->upload->do_upload($name)) {
+        if (!$this->upload->do_upload($name)) { 
             $this->session->set_flashdata('error', $this->upload->display_errors());
             return false;
         }

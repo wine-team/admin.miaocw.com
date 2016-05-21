@@ -73,4 +73,40 @@ function tourismLogisticsTypeArray()
     );
 }
 
+/**
+ * @param string $str
+ * 字符串格式化为只含数字的字符串，并排序
+ * */
+function toNumStr($str)
+{
+    preg_match_all('/\d+/', $str, $matches);var_dump($matches[0]);
+    $str_arr = array();
+    if(!empty($matches[0]))
+    {
+        $str_arr = array_flip(array_flip($matches[0]));
+        foreach ($str_arr as $k=>$s)
+        {
+            if(!$s) unset($str_arr[$k]);
+        }
+        asort($str_arr);
+    }
+    return @implode(',',$str_arr);
+}
 
+/**
+ * @param string $str
+ * 字符串格式化为英文逗号的字符串，并排序
+ * */
+function toEnComma($str)
+{
+    $str = str_replace('，',',',$str);
+    $str_arr = @explode(',',$str); 
+    $str_arr = array_flip(array_flip($str_arr)); 
+    $new_arr = array();
+    foreach ($str_arr as $s)
+    {
+        if(!empty(trim($s))) $new_arr[] = trim($s);
+    }
+    asort($new_arr);
+    return @implode(',',$new_arr);
+}

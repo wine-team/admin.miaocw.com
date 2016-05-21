@@ -85,8 +85,9 @@
                     </a>
                     <ul class="sub-menu">
                         <li><a href="javascript:;">商品列表</a></li>
-                        <li><a href="javascript:;">类别管理</a></li>
-                        <li><a href="javascript:;">品牌管理</a></li>
+                        <li><a href="<?php echo base_url('mall_category/grid');?>">类别管理</a></li>
+                        <li><a href="<?php echo base_url('mall_attribute/grid');?>">属性管理</a></li>
+                        <li><a href="<?php echo base_url('mall_brand/grid');?>">品牌管理</a></li>
                         <li><a href="javascript:;">运费模板</a></li>
                         <li><a href="javascript:;">地区风情</a></li>
                     </ul>

@@ -9,7 +9,7 @@ class Mall_category extends MJ_Controller {
 	}
 
 	public function grid()
-	{
+	{ 
 	    $data['res'] = $this->mall_category->findById(array())->result();
 	    $this->load->view('mall_category/grid', $data);
 	}
@@ -42,7 +42,7 @@ class Mall_category extends MJ_Controller {
 	    $data['cat_name'] = $postData['cat_name'];
 	    $data['is_show'] = $postData['is_show'];
 	    $data['sort_order'] = $postData['sort_order'];
-	    $data['filter_attr'] = $postData['filter_attr'];
+	    $data['filter_attr'] = toNumStr($postData['filter_attr']);
 	    $res = $this->mall_category->insert($data);
 	    if ($res) {
 	        $this->success('mall_category/grid', '', '新增成功！');
@@ -51,9 +51,9 @@ class Mall_category extends MJ_Controller {
 	    }
 	}
 	
-	public function edit($id)
+	public function edit($cat_id)
 	{
-	    $res = $this->mall_category->findById(array('id'=>$id));
+	    $res = $this->mall_category->findById(array('cat_id'=>$cat_id));
 	    if ($res->num_rows() > 0)
 	    {
 	        $data['res'] = $res->row();
@@ -68,28 +68,34 @@ class Mall_category extends MJ_Controller {
 	    $error = $this->validate();
         if (!empty($error))
         {
-            $this->error('mall_category/edit', $this->input->post('id'), $error);
+            $this->error('mall_category/edit', $this->input->post('cat_id'), $error);
         }
         $postData = $this->input->post();
-        $data['title'] = $postData['title'];
-        $data['sub_title'] = $postData['sub_title'];
-        $data['author'] = $postData['author'];
-        $data['help_info'] = $postData['help_info'];
-        $res = $this->mall_category->update(array('id'=>$postData['id']), $data);
+        $data['cat_name'] = $postData['cat_name'];
+	    $data['is_show'] = $postData['is_show'];
+	    $data['sort_order'] = $postData['sort_order'];
+	    $data['filter_attr'] = toNumStr($postData['filter_attr']);
+        $res = $this->mall_category->update(array('cat_id'=>$postData['cat_id']), $data); 
         if ($res) {
             $this->success('mall_category/grid', '', '修改成功！');
         } else {
-            $this->error('mall_category/edit', $this->input->post('id'), '修改失败！');
+            $this->error('mall_category/edit', $this->input->post('cat_id'), '修改失败！');
         }
 	}
 	
-	public function delete($id)
+	public function delete($cat_id)
 	{
-	    $is_delete = $this->mall_category->delete(array('id'=>$id));
-	    if ($is_delete) {
-	        $this->success('mall_category/grid', '', '删除成功！');
-	    } else {
-	        $this->error('mall_category/grid', '', '删除失败！');
+	    $chlid_num = $this->mall_category->findById(array('parent_id'=>$cat_id))->num_rows();
+	    if ($chlid_num > 0)
+	    {
+	        $this->error('mall_category/grid', '', '此分类下还有子类，不能删除！');
+	    }else{
+	        $is_delete = $this->mall_category->delete(array('cat_id'=>$cat_id));
+	        if ($is_delete) {
+	            $this->success('mall_category/grid', '', '删除成功！');
+	        } else {
+	            $this->error('mall_category/grid', '', '删除失败！');
+	        }
 	    }
 	}
 	

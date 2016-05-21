@@ -11,7 +11,7 @@ class Web_notice extends MJ_Controller {
 	public function grid($pg = 1)
 	{
 	    $getData = $this->input->get();
-	    $perpage = 10;
+	    $perpage = 20;
 	    $search['item'] = $getData['item'];
 	    $config['first_url']   = base_url('web_notice/grid').$this->pageGetParam($this->input->get());
 	    $config['suffix']      = $this->pageGetParam($getData);
