@@ -60,17 +60,17 @@ class User extends CS_Controller
     {
         $error = $this->validate();
         if (!empty($error)) {
-            $this->jsen($error);
+            $this->jsonMessage($error);
         }
         $this->db->trans_start();
         $uid = $this->user->insert($this->input->post());
         $this->db->trans_complete();
         if ($uid) {
             $this->session->set_flashdata('success', '添加成功！');
-            $this->jsen('user/grid?', true);
+            $this->jsonMessage('', base_url('user/grid'));
         } else {
             $this->session->set_flashdata('error', '保存失败！');
-            $this->jsen('user/add?sid='.$this->input->post('sid'), true);
+            $this->jsonMessage('', base_url('user/add?sid='.$this->input->post('sid')));
         }
     }
     
@@ -88,7 +88,7 @@ class User extends CS_Controller
     {
         $error = $this->validate();
         if (!empty($error)) {
-            $this->jsen($error);
+            $this->jsonMessage($error);
         }
         $this->db->trans_start();
         $isUpdate = $this->user->update($this->input->post());
@@ -96,10 +96,10 @@ class User extends CS_Controller
         
         if ($isUpdate) {
             $this->session->set_flashdata('success', '保存成功！');
-            $this->jsen('user/grid?', true);
+            $this->jsonMessage('', base_url('user/grid'));
         } else {
             $this->session->set_flashdata('error', '保存失败！');
-            $this->jsen('user/edit?sid='.$this->input->post('sid'), true);
+            $this->jsonMessage('', base_url('user/edit?sid='.$this->input->post('sid')));
         }
     }
 
@@ -114,8 +114,8 @@ class User extends CS_Controller
                 echo 'false';
             }
             $userInfo = $result->row();
-            if ($userInfo->mobile_phone != $this->input->post('mobile_phone')) {
-                $mobilePhone = $this->user->validatePhone($this->input->post('mobile_phone'));
+            if ($userInfo->phone != $this->input->post('phone')) {
+                $mobilePhone = $this->user->validatePhone($this->input->post('phone'));
                 if ($mobilePhone->num_rows() > 0){
                     echo 'false';
                 } else {
@@ -157,7 +157,7 @@ class User extends CS_Controller
                 echo 'true';
             }
         } else {
-            $result = $this->user->validateName($this->input->post('user_name'));
+            $result = $this->user->findByEmail($this->input->post('email'));
             if ($result->num_rows() > 0) {
                 echo 'false';
             } else {

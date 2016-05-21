@@ -80,16 +80,16 @@ class User_model extends CI_Model
     public function insert($postData)
     {
         $data = array(
-            'alias_name'   => $postData['alias_name'],
+            'alias_name'   => !empty($postData['alias_name']) ? $postData['alias_name'] : '',
             'phone'         => $postData['phone'],
             'email'         => !empty($postData['email']) ? $postData['email'] : '',
             'password'     => md5(sha1($postData['password'])),
             'sex'           => $postData['sex'],
-            'user_money'   => $postData['user_money'],
-            'frozen_money' => $postData['frozen_money'],
-            'pay_points'   => $postData['pay_points'],
+            'user_money'   => !empty($postData['user_money']) ? $postData['user_money'] : 0,
+            'frozen_money' => !empty($postData['frozen_money']) ? $postData['frozen_money'] : 0,
+            'pay_points'   => !empty($postData['pay_points']) ? $postData['pay_points'] : 0,
             'parent_id'    => !empty($postData['parent_id']) ? $postData['parent_id'] : 0,
-            'flag'          => 1,
+            'flag'          => $postData['flag'],
             'sms'           => !empty($postData['sms']) ? $postData['sms'] : 1,
             'created_at'   => date('Y-m-d H:i:s')
         );
@@ -103,17 +103,16 @@ class User_model extends CI_Model
     public function update($postData)
     {
         $data = array(
-            'alias_name'   => $postData['alias_name'],
+            'alias_name'   => !empty($postData['alias_name']) ? $postData['alias_name'] : '',
             'phone'         => $postData['phone'],
             'email'         => !empty($postData['email']) ? $postData['email'] : '',
             'sex'           => $postData['sex'],
-            'user_money'   => $postData['user_money'],
-            'frozen_money' => $postData['frozen_money'],
-            'pay_points'   => $postData['pay_points'],
+            'user_money'   => !empty($postData['user_money']) ? $postData['user_money'] : 0,
+            'frozen_money' => !empty($postData['frozen_money']) ? $postData['frozen_money'] : 0,
+            'pay_points'   => !empty($postData['pay_points']) ? $postData['pay_points'] : 0,
             'parent_id'    => !empty($postData['parent_id']) ? $postData['parent_id'] : 0,
-            'flag'          => 1,
+            'flag'          => $postData['flag'],
             'sms'           => !empty($postData['sms']) ? $postData['sms'] : 1,
-            'created_at'   => date('Y-m-d H:i:s')
         );
         if (!empty($params['password'])) {
             $data['password'] = md5(sha1($postData['password']));

@@ -50,7 +50,7 @@
                                 <div class="control-group">
                                     <label class="control-label">父级序号</label>
                                     <div class="controls">
-                                        <input type="text" name="parent_id" value="<?php echo $this->input->get('parent_id');?>" placeholder="上级用户UID" class="m-wrap span12">
+                                        <input type="text" name="parent_id" value="<?php echo $this->input->get('parent_id');?>" placeholder="父级序号UID" class="m-wrap span12">
                                     </div>
                                 </div>
                             </div>

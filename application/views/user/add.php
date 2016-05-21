@@ -130,67 +130,67 @@
 <?php $this->load->view('layout/footer');?>
 <?php $this->load->view('user/addSupplierUid/ajaxGetUser');?>
 <script type="text/javascript" >
-    $('form.user-form').submit(function(){
-        return false;
-    }).validate({
-        rules: {
-            phone: {
-                required: true,
-                remote: {
-                    url:hostUrl()+'/user/validatePhone',
-                    type: 'post',
-                    dataType: 'json',
-                    data: {
-                        mobile_phone:function(json) {
-                            return $('input[name=phone]').val();
-                        }
-                    }
-                }
-            },
-            email: {
-                required: true,
-                remote: {
-                    url:hostUrl()+'/user/validateEmail',
-                    type: 'post',
-                    dataType: 'json',
-                    data: {
-                        user_name:function(json) {
-                            return $('input[name=email]').val();
-                        }
-                    }
-                }
-            }
-        },
-        messages: {
-            eamil: {
-                eamil:'请输入正确的邮箱',
-                remote: '输入的邮箱已存在'
-            },
-            mobile_phone: {
-                required: '请输入您的手机号码',
-                mobile: '手机格式错误',
-                remote: '当前手机号已注册'
-            }
-        },
-        submitHandler: function(f) {
-            $.ajax({
+$('form.user-form').submit(function(){
+    return false;
+}).validate({
+    rules: {
+        phone: {
+            required: true,
+            remote: {
+                url:hostUrl()+'/user/validatePhone',
                 type: 'post',
-                async: true,
-                dataType : 'json',
-                url: hostUrl() + '/user/addPost',
-                data: $('form.user-form').serialize(),
-                success: function(data) {
-                    if (data.status) {
-                        $('.alert-error').hide();
-                        window.location.href = hostUrl()+'user/grid';
-                    } else {
-                        $('.alert-error').show();
-                        $('.remove_2 p').html(data.message);
-                        var body = (window.opera) ? (document.compatMode == 'CSS1Compat' ? $('html') : $('body')) : $('html,body');
-                        body.animate({scrollTop: $('.page-container').offset().top}, 1000);
+                dataType: 'json',
+                data: {
+                    phone:function(json) {
+                        return $('input[name=phone]').val();
                     }
                 }
-            });
+            }
+        },
+        email: {
+            required: true,
+            remote: {
+                url:hostUrl()+'/user/validateEmail',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    email:function(json) {
+                        return $('input[name=email]').val();
+                    }
+                }
+            }
         }
-    });
+    },
+    messages: {
+        eamil: {
+            eamil:'请输入正确的邮箱',
+            remote: '输入的邮箱已存在'
+        },
+        mobile_phone: {
+            required: '请输入您的手机号码',
+            mobile: '手机格式错误',
+            remote: '当前手机号已注册'
+        }
+    },
+    submitHandler: function(f) {
+        $.ajax({
+            type: 'post',
+            async: true,
+            dataType : 'json',
+            url: hostUrl() + '/user/addPost',
+            data: $('form.user-form').serialize(),
+            success: function(data) {
+                if (data.status) {
+                    $('.alert-error').hide();
+                    window.location.href = data.messages;
+                } else {
+                    $('.alert-error').show();
+                    $('.remove_2 p').html(data.messages);
+                    var body = (window.opera) ? (document.compatMode == 'CSS1Compat' ? $('html') : $('body')) : $('html,body');
+                    body.animate({scrollTop: $('.page-container').offset().top}, 1000);
+                }
+            }
+        });
+    }
+});
 </script>
