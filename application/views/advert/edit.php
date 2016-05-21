@@ -57,12 +57,6 @@
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">价格</label>
-                            <div class="controls">
-                                <input type="text" class="m-wrap large number" name="price" value="<?php echo $advert->price; ?>" /> 
-                            </div>
-                        </div>
-                        <div class="control-group">
                             <label class="control-label"><em>* </em>排序</label>
                             <div class="controls">
                                 <input type="text" class="m-wrap large required number" name="sort" value="<?php echo $advert->sort; ?>" /> 

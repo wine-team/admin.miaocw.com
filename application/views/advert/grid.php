@@ -20,15 +20,15 @@
                 <div class="portlet-body form">
                     <form class="form-horizontal form-search" action="<?php echo base_url('advert/grid') ?>" method="get">
                         <div class="row-fluid">
-                            <div class="span5">
+                            <div class="span4">
                                 <div class="control-group">
                                     <label class="control-label">标题</label>
                                     <div class="controls">
-                                        <input type="text" name="title" value="<?php echo trim($this->input->get('title'));?>" placeholder="标题" class="m-wrap medium">
+                                        <input type="text" name="title" value="<?php echo @$title?>" placeholder="标题" class="m-wrap medium">
                                     </div>
                                 </div>
                             </div>
-                            <div class="span5">
+                            <div class="span4">
                                 <div class="control-group">
                                     <label class="control-label">所属广告位</label>
                                     <div class="controls">
@@ -36,6 +36,19 @@
                                             <option value="">请选择广告位</option>
                                             <?php foreach ($advertArray as $key=>$value) : ?>
                                                 <option value="<?php echo $key;?>" <?php if (isset($source_state) && $key == $source_state): ?>selected="selected"<?php endif?>><?php echo $value; ?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span4">
+                                <div class="control-group">
+                                    <label class="control-label">状态</label>
+                                    <div class="controls">
+                                        <select name="flag" class="m-wrap medium">
+                                            <option value="">请选择</option>
+                                            <?php foreach (array('1'=>'上架', '2'=>'下架') as $key=>$value) :?>
+                                            <option value="<?php echo $key;?>" <?php if ($key == $this->input->get('flag')):?> selected="selected"<?php endif;?>><?php echo $value;?></option>
                                             <?php endforeach;?>
                                         </select>
                                     </div>
@@ -71,26 +84,30 @@
                         <table class="table table-striped table-bordered table-hover" id="sample_1">
                             <thead class="flip-content">
                                 <tr>
-                                    <th><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"></th>
+                                    <th width="15"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"></th>
                                     <th>编号</th>
                                     <th>标题</th>
                                     <th>所属广告位</th>
                                     <th>网址</th>
-                                    <th>价格</th>
                                     <th>排序</th>
+                                    <th>状态</th>
                                     <th>操作</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach ($line_list->result() as $item) : ?>
                                 <tr>
-                                    <td width="15"><input type="checkbox" class="checkboxes" value="1" ></td>
+                                    <td><input type="checkbox" class="checkboxes" value="1" ></td>
                                     <td><?php echo $item->advert_id;?></td>
                                     <td><?php echo $item->title;?></td>
                                     <td><?php echo $advertArray[$item->source_state];?></td>
                                     <td><?php echo $item->url;?></td>
-                                    <td><?php echo $item->price;?></td>
                                     <td><?php echo $item->sort;?></td>
+                                    <td>
+                                        <a href="javascript:;" class="modify-advert-flag glyphicons no-js <?php if ($item->flag == 1):?>ok_2<?php else :?>remove_2<?php endif;?>" data-advert-id="<?php echo $item->advert_id;?>" data-flag="<?php echo $item->flag ?>">
+                                            <i></i>
+                                        </a>
+                                    </td>
                                     <td width="145">
                                         <a class="btn mini green" href="<?php echo base_url('advert/edit/'.$item->advert_id) ?>"><i class="icon-edit"></i> 编辑</a>
                                         <a class="btn mini green" href="<?php echo base_url('advert/delete/'.$item->advert_id).'?picture='.$item->picture ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
@@ -113,10 +130,39 @@
                             <div class="alert"><p>未找到数据。<p></div>
                         <?php endif ?>
                     </div>
-                    
                 </div>
             </div>
         </div>
     </div>
 </div>
 <?php $this->load->view('layout/footer');?>
+<script type="text/javascript">
+$(function(){
+    $('.modify-advert-flag').click(function(){
+        var status = '下线';
+        if ($(this).hasClass('remove_2')) {
+            status = '上线';
+        }
+        if (confirm('确定要'+status+'?')) {
+            var obj = $(this);
+            var advertId = $(this).attr('data-advert-id');
+            var flag = $(this).attr('data-flag');
+            $.ajax({
+                url:hostUrl()+'/advert/toggle',
+                type:'POST',
+                dataType:'json',
+                data: {advert_id:advertId, flag:flag},
+                success: function(data) {
+                    if (data.flag == 2) {
+                        obj.attr('data-flag', data.flag).addClass('remove_2').removeClass('ok_2');
+                    } else if(data.flag == 1) {
+                        obj.attr('data-flag', data.flag).addClass('ok_2').removeClass('remove_2');
+                    } else {
+                        alert('操作失败');
+                    }
+                }
+            });
+        }
+    });
+});
+</script>
