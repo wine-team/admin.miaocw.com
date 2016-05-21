@@ -21,7 +21,7 @@
                 <div class="portlet-body flip-scroll">
                     <div class="dataTables_wrapper form-inline">
                         <div class="clearfix">
-                            <a href="<?php echo base_url('mall_delivery_address/add/'.$uid);?>" class="add-button-link">
+                            <a href="<?php echo base_url('mall_address/add/'.$uid);?>" class="add-button-link">
                                 <div class="btn-group">
                                     <button class="btn green"><i class="icon-plus"></i> 添加</button>
                                 </div>
@@ -52,8 +52,8 @@
                                     <td><?php echo $r->receiver_name . $r->tel;?></td>
                                     <td><?php if($r->is_default == 2) echo '是';?></td>
                                     <td width="145">
-                                        <a class="btn mini green" href="<?php echo base_url('mall_delivery_address/edit/'.$r->address_id.'?uid='.$uid); ?>"><i class="icon-edit"></i> 编辑</a>
-                                        <a class="btn mini green" href="<?php echo base_url('mall_delivery_address/delete/'.$r->address_id.'?uid='.$uid); ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_address/edit/'.$r->address_id.'?uid='.$uid); ?>"><i class="icon-edit"></i> 编辑</a>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_address/delete/'.$r->address_id.'?uid='.$uid); ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
                                     </td>
                                 </tr>
                                 <?php endforeach;?>

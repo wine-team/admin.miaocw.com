@@ -1,7 +1,7 @@
 <?php
 
-class Mall_delivery_address_model extends CI_Model{
-	private $table = 'mall_delivery_address'; 
+class Mall_address_model extends CI_Model{
+	private $table = 'mall_address'; 
 	
 	public function findById($where)
 	{
@@ -29,5 +29,5 @@ class Mall_delivery_address_model extends CI_Model{
 }
 
 
-/* End of file Help_center_model.php */
-/* Location: ./application/models/Help_center_model.php */
+/* End of file Mall_address_model.php */
+/* Location: ./application/models/Mall_address_model.php */

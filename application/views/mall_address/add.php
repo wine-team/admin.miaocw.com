@@ -3,7 +3,7 @@
     <div class="row-fluid">
         <div class="span12">
             <h3 class="page-title">网站设置 <small>所有网站设置</small></h3>
-            <?php echo breadcrumb(array('网站设置', 'advert/grid'=>'广告管理', '编辑广告')); ?>
+            <?php echo breadcrumb(array('网站设置', 'advert/grid'=>'广告管理', '添加广告')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>
@@ -18,13 +18,10 @@
                     </div>
                 </div>
                 <div class="portlet-body form">
-                    <form class="form-horizontal line-form" action="<?php echo base_url('mall_delivery_address/editPost') ?>" method="post" enctype="multipart/form-data">
-                        
-                        <input type="hidden" name="uid" value="<?php echo $res->uid;?>">
-                        <input type="hidden" name="address_id" value="<?php echo $res->address_id;?>">
-                        
+                    <form class="form-horizontal line-form" action="<?php echo base_url('mall_address/addPost') ?>" method="post" >
+                        <input type="hidden" name="uid" value="<?php echo $uid;?>" >
                         <div class="control-group">
-                            <label class="control-label"><em>*</em>地区</label>
+                            <label class="control-label"><em>* </em>地区</label>
                             <div class="controls">
                                 <?php $this->load->view('commonhtml/districtSelect2');?>
                             </div>
@@ -33,36 +30,36 @@
                         <div class="control-group">
                             <label class="control-label"><em>* </em>详细地址</label>
                             <div class="controls">
-                                <input type="text" class="m-wrap large required" name="detailed" maxlength=100 value="<?php echo $res->detailed;?>"/> 
+                                <input type="text" class="m-wrap large required" name="detailed" maxlength=100 value=""/> 
                             </div>
                         </div>
                         
                         <div class="control-group">
                             <label class="control-label"><em>* </em>邮编</label>
                             <div class="controls">
-                                <input type="text" class="m-wrap large required zipCode" name="code" maxlength=6 value="<?php echo $res->code;?>"/> 
+                                <input type="text" class="m-wrap large required zipCode" name="code" maxlength=6 value=""/> 
                             </div>
                         </div>
                         
                         <div class="control-group">
                             <label class="control-label"><em>* </em>收货人姓名</label>
                             <div class="controls">
-                                <input type="text" class="m-wrap large required" name="receiver_name" maxlength=20 value="<?php echo $res->receiver_name;?>"/> 
+                                <input type="text" class="m-wrap large required" name="receiver_name" maxlength=20 value=""/> 
                             </div>
                         </div>
                         
                         <div class="control-group">
                             <label class="control-label"><em>* </em>电话</label>
                             <div class="controls">
-                                <input type="text" class="m-wrap large required mobile" name="tel" maxlength=11 value="<?php echo $res->tel;?>"/> 
+                                <input type="text" class="m-wrap large required mobile" name="tel" maxlength=11 value=""/> 
                             </div>
                         </div>
                         
                         <div class="control-group">
                             <label class="control-label"><em>* </em>设为默认</label>
                             <div class="controls">
-                                <input type="radio" class="required" name="is_default" value="1" <?php if($res->is_default==1) echo 'checked="checked"';?>/>否
-                                <input type="radio" class="required" name="is_default" value="2" <?php if($res->is_default==2) echo 'checked="checked"';?>/>是
+                                <input type="radio" class="required" name="is_default" value="1" checked="checked"/>否
+                                <input type="radio" class="required" name="is_default" value="2"/>是
                             </div>
                         </div>
                         <div class="form-actions">
