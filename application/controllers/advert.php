@@ -1,19 +1,22 @@
 <?php 
-class Advert extends MJ_Controller
+class Advert extends CS_Controller
 {
     private $advertArray;
     public function _init()
     {
         $this->load->library('pagination');
         $this->load->model('advert_model', 'advert');
-        $this->advertArray = advertArray();
+        $this->advertArray = array(
+            '1' => '首页幻灯片广告',
+            '2' => '登陆幻灯片广告'
+        );
     }
     
     public function grid($pg = 1)
     {
-    	$page_num = 20;
+        $page_num = 20;
         $num = ($pg-1)*$page_num;
-        $config['first_url'] = base_url('advert/grid').$this->pageGetParam($this->input->get());
+        $config['first_url'] = base_url('advert/search').$this->pageGetParam($this->input->get());
         $config['suffix'] = $this->pageGetParam($this->input->get());
         $config['base_url'] = base_url('advert/grid');
         $config['total_rows'] = $this->advert->total($this->input->get());
@@ -24,8 +27,32 @@ class Advert extends MJ_Controller
         $data['all_rows'] = $config['total_rows'];
         $data['pg_now'] = $pg;
         $data['advertArray'] = $this->advertArray;
-        $data['source_state'] = trim($this->input->get('source_state'));
         $this->load->view('advert/grid', $data);
+    }
+    
+    public function toggle()
+    {
+        $advertId = $this->input->post('advert_id');
+        $status = $this->input->post('flag');
+        switch ($status) {
+            case '1': $flag = '2'; break;
+            case '2': $flag = '1'; break;
+            default : $flag = '2'; break;
+        }
+        $this->db->trans_start();
+        $isUpdate = $this->advert->updateAdvert(array('advert_id' => $advertId, 'flag' => $flag));
+        $this->db->trans_complete();
+    
+        if ($this->db->trans_status() === TRUE && $isUpdate) {
+            echo json_encode(array(
+                'flag' => $flag,
+            ));
+        } else {
+            echo json_encode(array(
+                'flag' => 3,
+            ));
+        }
+        exit;
     }
     
     public function add()
@@ -36,6 +63,7 @@ class Advert extends MJ_Controller
     
     public function addPost()
     {
+        
         $error = $this->validate();
         if (empty($_FILES['picture']['name'])) {
             $error[] = '图片添加不能为空';

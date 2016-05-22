@@ -1,16 +1,4 @@
 <?php
- /**
- * 广告位数组
- * @return array
- */
-function advertArray()
-{
-    return array(
-        '1' => '首页幻灯片广告',
-        '2' => '登陆幻灯片广告'     
-    );
-}
-
 /**
  * 
  * @param unknown $priv_str
