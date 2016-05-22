@@ -148,6 +148,7 @@
                                         <a class="btn mini green" href="<?php echo base_url('mall_address/edit/'.$item->uid); ?>"> 收货地址</a><p></p>
                                         <a class="btn mini green" href="<?php echo base_url('user/accountlog?uid='.$item->uid); ?>">账户收支</a>
                                         <a class="btn mini green" href="<?php echo base_url('user/resetpwd/'.$item->uid); ?>" onclick="return confirm('密码为123456, 确定要重置？')">重置密码</a>
+                                        <a class="btn mini green" href="<?php echo base_url('user_log/grid?uid='.$item->uid); ?>">用户日志</a>
                                     </td>
                                 </tr>
                                 <?php endforeach;?>
