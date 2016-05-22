@@ -89,7 +89,6 @@
                         <li><a href="<?php echo base_url('mall_attribute/grid');?>">属性管理</a></li>
                         <li><a href="<?php echo base_url('mall_brand/grid');?>">品牌管理</a></li>
                         <li><a href="javascript:;">运费模板</a></li>
-                        <li><a href="javascript:;">地区风情</a></li>
                     </ul>
                 </li>
                 <li>
