@@ -31,8 +31,12 @@
                         <div class="control-group">
                             <label class="control-label"><em>* </em>是否显示</label>
                             <div class="controls">
-                                <input type="radio" class=" required" name="is_show" value="1" <?php if($res->is_show==1) echo 'checked="checked"';?>/> 显示
-                                <input type="radio" class=" required" name="is_show" value="2" <?php if($res->is_show==2) echo 'checked="checked"';?>/> 不显示
+                                <label class="radio">
+                                	<input type="radio" class=" required" name="is_show" value="1" <?php if($res->is_show==1) echo 'checked="checked"';?>/> 显示
+                                </label>
+                                <label class="radio">
+                                	<input type="radio" class=" required" name="is_show" value="2" <?php if($res->is_show==2) echo 'checked="checked"';?>/> 不显示
+                                </label>
                             </div>
                         </div>
                         
