@@ -2,8 +2,8 @@
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
-            <h3 class="page-title">网站设置 <small>所有网站设置</small></h3>
-            <?php echo breadcrumb(array('网站设置', 'advert/grid'=>'广告管理')); ?>
+            <h3 class="page-title">商品管理 <small>品牌管理</small></h3>
+            <?php echo breadcrumb(array('商品管理 ', 'mall_brand/grid'=>'品牌管理')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>
@@ -98,12 +98,9 @@
                         <?php else: ?>
                             <div class="alert"><p>未找到数据。<p></div>
                         <?php endif ?>
-                        
                     </div>
-                    
                 </div>
             </div>
-            
         </div>
     </div>
 </div>

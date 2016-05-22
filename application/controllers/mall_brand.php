@@ -57,13 +57,11 @@ class Mall_brand extends MJ_Controller {
 	public function edit($brand_id)
 	{
 	    $res = $this->mall_brand->findById(array('brand_id'=>$brand_id));
-	    if ($res->num_rows() > 0)
-	    {
-	        $data['res'] = $res->row();
-	        $this->load->view('mall_brand/edit',$data);
-	    } else {
-	        $this->redirect('mall_brand/grid');
-	    }
+	    if ($res->num_rows() <= 0){
+	    	$this->error('mall_brand/grid', '', '无法找到该ID结果值');
+	    } 
+	    $data['res'] = $res->row();
+	    $this->load->view('mall_brand/edit',$data);
 	}
 	
 	public function editPost()
@@ -74,8 +72,13 @@ class Mall_brand extends MJ_Controller {
             $this->error('mall_brand/edit', $this->input->post('brand_id'), $error);
         }
         $postData = $this->input->post();
-        $brand_logo = $this->dealWithImages('brand_logo', $postData['old_brand_logo'], 'brand'); 
-        $data['brand_logo'] = $brand_logo['file_name'];
+        $brand_logo = '';
+        if (!empty($_FILES['brand_logo']['name'])) {
+        	$brand_logo = $this->dealWithImages('brand_logo', $postData['old_brand_logo'], 'brand'); 
+        }
+        if(!empty($brand_logo)){
+        	$data['brand_logo'] = $brand_logo['file_name'];
+        }
 	    $data['brand_name'] = $postData['brand_name'];
 	    $data['brand_desc'] = $postData['brand_desc'];
 	    $data['site_url'] = $postData['site_url'];

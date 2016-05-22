@@ -2,8 +2,8 @@
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
-            <h3 class="page-title">网站设置 <small>所有网站设置</small></h3>
-            <?php echo breadcrumb(array('网站设置', 'advert/grid'=>'广告管理', '编辑广告')); ?>
+            <h3 class="page-title">商品管理 <small>品牌管理</small></h3>
+            <?php echo breadcrumb(array('商品管理', 'mall_brand/grid'=>'品牌管理', '编辑品牌')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>
@@ -11,7 +11,7 @@
         <div class="span12">
             <div class="portlet box green">
                 <div class="portlet-title">
-                    <div class="caption"><i class="icon-plus-sign"></i>添加广告</div>
+                    <div class="caption"><i class="icon-plus-sign"></i>编辑品牌</div>
                     <div class="tools">
                         <a class="collapse" href="javascript:;"></a>
                         <a class="remove" href="javascript:;"></a>
@@ -31,7 +31,8 @@
                         <div class="control-group">
                             <label class="control-label"><em>* </em>品牌logo</label>
                             <div class="controls">
-                                <input type="file" class="m-wrap large" name="brand_logo" /> <input type="hidden" name="old_brand_logo" value="<?php echo $res->brand_logo;?>">
+                                <input type="file" class="m-wrap large" name="brand_logo" /> 
+                                <input type="hidden" name="old_brand_logo" value="<?php echo $res->brand_logo;?>">
                                 <span class="help-block"><img style="max-height:80px;" src="<?php echo $this->config->images_url.'brand/'.$res->brand_logo;?>"></span>
                             </div>
                         </div>
@@ -46,7 +47,7 @@
                         <div class="control-group">
                             <label class="control-label">站点</label>
                             <div class="controls">
-                                <input type="url" class="m-wrap large " name="site_url" value="<?php echo $res->site_url;?>"/> 
+                                <input type="text" class="m-wrap large " name="site_url" value="<?php echo $res->site_url;?>"/> 
                             </div>
                         </div>
                         
@@ -60,8 +61,12 @@
                         <div class="control-group">
                             <label class="control-label"><em>* </em>是否显示</label>
                             <div class="controls">
-                                <input type="radio" class="required" name="is_show" value="1" <?php if($res->is_show==1) echo 'checked="checked"';?> /> 显示
-                                <input type="radio" class="required" name="is_show" value="2" <?php if($res->is_show==2) echo 'checked="checked"';?>/> 不显示
+                                <label class="radio">
+                                	<input type="radio" class="required" name="is_show" value="1" <?php if($res->is_show==1) echo 'checked="checked"';?> /> 显示
+                                </label>
+                                <label class="radio">
+                                	<input type="radio" class="required" name="is_show" value="2" <?php if($res->is_show==2) echo 'checked="checked"';?>/> 不显示
+                                </label>
                             </div>
                         </div>
                         

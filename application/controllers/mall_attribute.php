@@ -57,13 +57,11 @@ class Mall_attribute extends MJ_Controller {
 	public function edit($attr_id)
 	{
 	    $res = $this->mall_attribute->findById(array('attr_id'=>$attr_id));
-	    if ($res->num_rows() > 0)
-	    {
-	        $data['res'] = $res->row();
-	        $this->load->view('mall_attribute/edit',$data);
-	    } else {
-	        $this->redirect('mall_attribute/grid');
+	    if ($res->num_rows() <= 0){
+	    	$this->error('mall_attribute/grid', '', '没查找对应Id值');
 	    }
+        $data['res'] = $res->row();
+        $this->load->view('mall_attribute/edit',$data);
 	}
 	
 	public function editPost()

@@ -2,8 +2,8 @@
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
-            <h3 class="page-title">网站设置 <small>所有网站设置</small></h3>
-            <?php echo breadcrumb(array('网站设置', 'advert/grid'=>'广告管理')); ?>
+            <h3 class="page-title">商品管理 <small>属性管理</small></h3>
+            <?php echo breadcrumb(array('商品管理', 'mall_attribute/grid'=>'属性管理')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>
@@ -78,10 +78,10 @@
                                     <td><?php switch ($r->attr_type){
                                         case 1 : echo '唯一属性';break;
                                         case 2 : echo '单选属性';break;
-                                        case 1 : echo '复选属性';break;
+                                        case 3 : echo '复选属性';break;
                                     }?></td>
                                     <td><?php echo $r->attr_values;?></td>
-                                    <td><?php if($r->attr_index == 2) echo '关键字检索';?></td>
+                                    <td><?php echo ($r->attr_index == 2) ?  '关键字检索' : '不需要检索'; ?></td>
                                     <td><?php echo $r->is_linked;?></td>
                                     <td><?php echo $r->sort_order;?></td>
                                     <td width="145">
@@ -105,12 +105,9 @@
                         <?php else: ?>
                             <div class="alert"><p>未找到数据。<p></div>
                         <?php endif ?>
-                        
                     </div>
-                    
                 </div>
             </div>
-            
         </div>
     </div>
 </div>
