@@ -152,7 +152,7 @@ $('form.user-form').submit(function(){
             }
         },
         email: {
-            required: true,
+            email: true,
             remote: {
                 url:hostUrl()+'/user/validateEmail',
                 type: 'post',
