@@ -54,13 +54,11 @@ class Mall_category extends MJ_Controller {
 	public function edit($cat_id)
 	{
 	    $res = $this->mall_category->findById(array('cat_id'=>$cat_id));
-	    if ($res->num_rows() > 0)
-	    {
-	        $data['res'] = $res->row();
-	        $this->load->view('mall_category/edit',$data);
-	    } else {
-	        $this->redirect('mall_category/grid');
+	    if ($res->num_rows() <= 0){
+	    	$this->error('mall_category/grid', '', '没找到对应分类值');
 	    }
+        $data['res'] = $res->row();
+        $this->load->view('mall_category/edit',$data);
 	}
 	
 	public function editPost()
@@ -108,7 +106,4 @@ class Mall_category extends MJ_Controller {
         }
 	    return $error;
 	}
-	
 }
-/** End of file Mall_category.php */
-/** Location: ./application/controllers/Mall_category.php */

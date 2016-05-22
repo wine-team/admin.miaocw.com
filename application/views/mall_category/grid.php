@@ -2,8 +2,8 @@
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
-            <h3 class="page-title">网站设置 <small>所有网站设置</small></h3>
-            <?php echo breadcrumb(array('网站设置', 'advert/grid'=>'广告管理')); ?>
+            <h3 class="page-title">商品管理<small>类别管理</small></h3>
+            <?php echo breadcrumb(array('商品管理', 'mall_category/grid'=>'类别管理'));?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>
@@ -132,7 +132,5 @@
 		$(this).parents('tr.p_cat2').next('tr').hide();
 	});
 });
-
-
 </script>
 <?php $this->load->view('layout/footer');?>

@@ -2,8 +2,8 @@
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
-            <h3 class="page-title">网站设置 <small>所有网站设置</small></h3>
-            <?php echo breadcrumb(array('网站设置', 'advert/grid'=>'广告管理', '添加广告')); ?>
+            <h3 class="page-title">商品管理 <small>类别管理</small></h3>
+            <?php echo breadcrumb(array('商品管理', 'mall_category/grid'=>'类别管理', '添加类别')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>
@@ -11,7 +11,7 @@
         <div class="span12">
             <div class="portlet box green">
                 <div class="portlet-title">
-                    <div class="caption"><i class="icon-plus-sign"></i>添加广告</div>
+                    <div class="caption"><i class="icon-plus-sign"></i>添加类别</div>
                     <div class="tools">
                         <a class="collapse" href="javascript:;"></a>
                         <a class="remove" href="javascript:;"></a>
@@ -78,7 +78,6 @@
                                 <span class="help-block">请用英文逗号隔开</span> 
                             </div>
                         </div>
-                        
                         <div class="form-actions">
                             <button class="btn green" type="submit"><i class="icon-ok"></i> 保存</button>
                             <a href="<?php echo base_url('mall_category/grid') ?>">
@@ -86,19 +85,19 @@
                             </a>
                         </div>
                     </form>
-                    <script>
-                    $('select[name="one_p_id"]').change(function(){
-                        var one_p_id = $(this).val();
-                        $('select[name="two_p_id"]').val('');
-                        $('select[name="two_p_id"]').find('option').hide();
-                        $('select[name="two_p_id"]').find('option').each(function(){
-                            if(one_p_id == $(this).data('p_id')) $(this).show();
-                        });
-                    });
-                    </script>                    
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+$('select[name="one_p_id"]').change(function(){
+   var one_p_id = $(this).val();
+   $('select[name="two_p_id"]').val('');
+   $('select[name="two_p_id"]').find('option').hide();
+   $('select[name="two_p_id"]').find('option').each(function(){
+      if(one_p_id == $(this).data('p_id')) $(this).show();
+   });
+});
+</script>   
 <?php $this->load->view('layout/footer');?>

@@ -140,6 +140,3 @@ class Mall_address extends MJ_Controller {
 	    return $error;
 	}
 }
-
-/** End of file mall_address.php */
-/** Location: ./application/controllers/mall_address.php */
