@@ -33,11 +33,11 @@ class Mall_attribute extends MJ_Controller {
 	
 	public function addPost()
 	{
-// 	    $error = $this->validate(); 
-// 	    if (!empty($error))
-// 	    {
-// 	        $this->error('mall_attribute/add', '', $error);
-// 	    }
+	    $error = $this->validate(); 
+	    if (!empty($error))
+	    {
+	        $this->error('mall_attribute/add', '', $error);
+	    }
 	    $postData = $this->input->post(); 
 	    $data['attr_name'] = $postData['attr_name'];
 	    $data['type_id'] = $postData['type_id'];
