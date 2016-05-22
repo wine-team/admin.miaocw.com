@@ -2,8 +2,8 @@
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
-            <h3 class="page-title">网站设置 <small>所有网站设置</small></h3>
-            <?php echo breadcrumb(array('网站设置', 'advert/grid'=>'广告管理')); ?>
+            <h3 class="page-title">用户账号管理 <small> 地址管理</small></h3>
+            <?php echo breadcrumb(array('用户账号管理', 'mall_address/grid'=>'地址管理')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>

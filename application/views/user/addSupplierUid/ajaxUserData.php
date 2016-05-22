@@ -5,7 +5,7 @@
 <div class="modal-body">
     <div class="well">
         <form class="form-horizontal ajaxUserSearch">
-            <span>用户昵称 <input type="text" name="alias_name" value="<?php echo $this->input->get('alias_name');?>" placeholder="用户昵称" class="m-wrap small"></span>
+            <span>用户昵称 <input type="text" name="username" value="<?php echo $this->input->get('username');?>" placeholder="用户UID或昵称" class="m-wrap small"></span>
             <span>手机号 <input type="text" name="phone" value="<?php echo $this->input->get('phone');?>" placeholder="手机号" class="m-wrap small"></span>
             <span>邮箱 <input type="text" name="email" value="<?php echo $this->input->get('email');?>" placeholder="邮箱" class="m-wrap small"></span>
             <span>

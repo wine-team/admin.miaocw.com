@@ -2,8 +2,8 @@
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
-            <h3 class="page-title">网站设置 <small>所有网站设置</small></h3>
-            <?php echo breadcrumb(array('网站设置', 'advert/grid'=>'广告管理', '编辑广告')); ?>
+            <h3 class="page-title">用户账号管理 <small> 地址管理</small></h3>
+            <?php echo breadcrumb(array('用户账号管理', 'mall_address/grid'=>'地址管理', '编辑用户地址')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>
@@ -57,17 +57,20 @@
                                 <input type="text" class="m-wrap large required mobile" name="tel" maxlength=11 value="<?php echo $res->tel;?>"/> 
                             </div>
                         </div>
-                        
                         <div class="control-group">
                             <label class="control-label"><em>* </em>设为默认</label>
                             <div class="controls">
-                                <input type="radio" class="required" name="is_default" value="1" <?php if($res->is_default==1) echo 'checked="checked"';?>/>否
-                                <input type="radio" class="required" name="is_default" value="2" <?php if($res->is_default==2) echo 'checked="checked"';?>/>是
+                                <label class="radio">
+                                    <input type="radio" class="required" name="is_default" value="1" <?php if($res->is_default==1) echo 'checked="checked"';?>/>否
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" class="required" name="is_default" value="2" <?php if($res->is_default==2) echo 'checked="checked"';?>/>是
+                                </label>
                             </div>
                         </div>
                         <div class="form-actions">
                             <button class="btn green" type="submit"><i class="icon-ok"></i> 保存</button>
-                            <a href="<?php echo base_url('help_center/grid') ?>">
+                            <a href="<?php echo base_url('mall_address/grid') ?>">
                                 <button class="btn" type="button">返回</button>
                             </a>
                         </div>
