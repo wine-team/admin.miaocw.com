@@ -1,12 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-<<<<<<< HEAD:application/controllers/mall_address.php
 
 class Mall_address extends MJ_Controller {
-
-=======
-class Mall_address extends MJ_Controller
-{
->>>>>>> 7ab809ac0bd4973851f8eb8cc60833da5e0471e0:application/controllers/mall_address.php
 	public function _init()
 	{
 	    $this->load->library('pagination');
@@ -31,12 +25,8 @@ class Mall_address extends MJ_Controller
 	public function addPost()
 	{
 	    $error = $this->validate(); 
-<<<<<<< HEAD:application/controllers/mall_address.php
 	    if (!empty($error))
 	    {
-=======
-	    if (!empty($error)) {
->>>>>>> 7ab809ac0bd4973851f8eb8cc60833da5e0471e0:application/controllers/mall_address.php
 	        $this->error('mall_address/add', $this->input->post('id'), $error);
 	    }
 	    $postData = $this->input->post();
@@ -55,12 +45,7 @@ class Mall_address extends MJ_Controller
         $data['is_default'] = $postData['is_default'];
 
 		$this->db->trans_start();
-<<<<<<< HEAD:application/controllers/mall_address.php
-        if($postData['is_default'] == 2)  //如果改为默认，需将此用户其他默认地址改为非默认
-        {
-=======
         if ($postData['is_default'] == 2) { //如果改为默认，需将此用户其他默认地址改为非默认
->>>>>>> 7ab809ac0bd4973851f8eb8cc60833da5e0471e0:application/controllers/mall_address.php
             $this->mall_address->update(array('uid'=>$postData['uid']), array('is_default'=>1));
         }
         $res = $this->mall_address->insert($data);
@@ -76,12 +61,8 @@ class Mall_address extends MJ_Controller
 	public function edit($id)
 	{
 	    $res = $this->mall_address->findById(array('address_id'=>$id));
-<<<<<<< HEAD:application/controllers/mall_address.php
 	    if ($res->num_rows() > 0)
 	    {
-=======
-	    if ($res->num_rows() > 0) {
->>>>>>> 7ab809ac0bd4973851f8eb8cc60833da5e0471e0:application/controllers/mall_address.php
 	        $data['res'] = $res->row();
 	        $this->load->view('mall_address/edit',$data);
 	    } else {
@@ -92,12 +73,8 @@ class Mall_address extends MJ_Controller
 	public function editPost()
 	{
 	    $error = $this->validate();
-<<<<<<< HEAD:application/controllers/mall_address.php
         if (!empty($error))
         {
-=======
-        if (!empty($error)) {
->>>>>>> 7ab809ac0bd4973851f8eb8cc60833da5e0471e0:application/controllers/mall_address.php
             $this->error('mall_address/edit', $this->input->post('address_id'), $error);
         }
         $postData = $this->input->post();
@@ -115,18 +92,11 @@ class Mall_address extends MJ_Controller
         $data['code'] = $postData['code'];
         $data['is_default'] = $postData['is_default']; 
         $this->db->trans_start();
-<<<<<<< HEAD:application/controllers/mall_address.php
         if($postData['is_default'] == 2)  //如果改为默认，需将此用户其他默认地址改为非默认
         {
             $this->mall_address->update(array('uid'=>$postData['uid']), array('is_default'=>1));
         }
         $res = $this->mall_address->update(array('address_id'=>$postData['address_id']), $data);
-=======
-        if ($postData['is_default'] == 2) {  //如果改为默认，需将此用户其他默认地址改为非默认
-            $this->mall_address->update(array('uid'=>$postData['uid'], 'is_default'=>1));
-        }
-        $res = $this->mall_address->update($data);
->>>>>>> 7ab809ac0bd4973851f8eb8cc60833da5e0471e0:application/controllers/mall_address.php
         $this->db->trans_complete(); 
         if ($this->db->trans_status() === TRUE) {
             $this->success('mall_address/grid', $this->input->post('uid'), '修改成功！');
