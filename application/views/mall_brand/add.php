@@ -22,25 +22,25 @@
                         <div class="control-group">
                             <label class="control-label"><em>* </em>品牌名称</label>
                             <div class="controls">
-                                <input type="text" class="m-wrap large required" name="brand_name" value=""/> 
+                                <input type="text" name="brand_name" class="m-wrap large required"/>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">网址</label>
+                            <div class="controls">
+                                <input type="text" name="site_url" class="m-wrap large url"/>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">品牌logo</label>
                             <div class="controls">
-                                <input type="file" class="m-wrap large" name="brand_logo" /> 
+                                <input type="file" name="brand_logo" class="m-wrap large"/>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">品牌简介</label>
                             <div class="controls">
-                                <textarea class="textarea-multipart-edit " name="brand_desc"></textarea>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">站点</label>
-                            <div class="controls">
-                                <input type="text" class="m-wrap large " name="site_url" value=""/> 
+                                <textarea class="textarea-multipart-edit" name="brand_desc"></textarea>
                             </div>
                         </div>
                         <div class="control-group">
@@ -53,10 +53,10 @@
                             <label class="control-label"><em>* </em>是否显示</label>
                             <div class="controls">
                                 <label class="radio">
-                                	<input type="radio" class="required" name="is_show" value="1"  checked="checked"/> 显示
+                                	<input type="radio" class="required" name="is_show" value="1"  checked="checked"/> 是
                                 </label>
                                 <label class="radio">
-                                	<input type="radio" class="required" name="is_show" value="2" /> 不显示
+                                	<input type="radio" class="required" name="is_show" value="2" /> 否（当品牌下还没有商品的时候，首页及分类页的品牌区将不会显示该品牌）
                                 </label>
                             </div>
                         </div>

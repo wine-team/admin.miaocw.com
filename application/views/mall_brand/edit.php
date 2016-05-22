@@ -19,57 +19,56 @@
                 </div>
                 <div class="portlet-body form">
                     <form class="form-horizontal line-form" action="<?php echo base_url('mall_brand/editPost') ?>" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="brand_id" value="<?php echo $res->brand_id;?>" >
-                       
                         <div class="control-group">
                             <label class="control-label"><em>* </em>品牌名称</label>
                             <div class="controls">
-                                <input type="text" class="m-wrap large required" name="brand_name" value="<?php echo $res->brand_name;?>"/> 
+                                <input type="hidden" name="brand_id" value="<?php echo $res->brand_id;?>" >
+                                <input type="text" name="brand_name" value="<?php echo $res->brand_name;?>" class="m-wrap large required"/>
                             </div>
                         </div>
-                        
+                        <div class="control-group">
+                            <label class="control-label">网址</label>
+                            <div class="controls">
+                                <input type="text" name="site_url" value="<?php echo $res->site_url;?>" class="m-wrap large"/>
+                            </div>
+                        </div>
                         <div class="control-group">
                             <label class="control-label"><em>* </em>品牌logo</label>
                             <div class="controls">
-                                <input type="file" class="m-wrap large" name="brand_logo" /> 
-                                <input type="hidden" name="old_brand_logo" value="<?php echo $res->brand_logo;?>">
-                                <span class="help-block"><img style="max-height:80px;" src="<?php echo $this->config->images_url.'brand/'.$res->brand_logo;?>"></span>
+                                <?php if (is_file($this->config->upload_image_path('brand', $res->brand_logo))) :?>
+                                    <a href="<?php echo $this->config->show_image_url('brand', $res->brand_logo)?>" target="_blank">
+                                        <img src="<?php echo $this->config->show_image_url('brand', $res->brand_logo)?>" width=150 height="100">
+                                    </a>
+                                    <input type="hidden" name="old_brand_logo" value="<?php echo $res->brand_logo ?>"/>
+                                    <input type="file" name="brand_logo"/>
+                                <?php else : ?>
+                                    <input type="file" class="required" name="picture"/>
+                                <?php endif; ?>
                             </div>
                         </div>
-                        
                         <div class="control-group">
                             <label class="control-label">品牌简介</label>
                             <div class="controls">
-                                <textarea class="textarea-multipart-edit " name="brand_desc"><?php echo $res->brand_desc;?></textarea>
+                                <textarea name="brand_desc" class="textarea-multipart-edit"><?php echo $res->brand_desc;?></textarea>
                             </div>
                         </div>
-                        
-                        <div class="control-group">
-                            <label class="control-label">站点</label>
-                            <div class="controls">
-                                <input type="text" class="m-wrap large " name="site_url" value="<?php echo $res->site_url;?>"/> 
-                            </div>
-                        </div>
-                        
                         <div class="control-group">
                             <label class="control-label"><em>* </em>排序</label>
                             <div class="controls">
                                 <input type="number" class="m-wrap large required" name="sort_order" value="<?php echo $res->sort_order;?>"/> 
                             </div>
                         </div>
-                        
                         <div class="control-group">
                             <label class="control-label"><em>* </em>是否显示</label>
                             <div class="controls">
                                 <label class="radio">
-                                	<input type="radio" class="required" name="is_show" value="1" <?php if($res->is_show==1) echo 'checked="checked"';?> /> 显示
+                                	<input type="radio" class="required" name="is_show" value="1" <?php if($res->is_show==1) echo 'checked="checked"';?> /> 是
                                 </label>
                                 <label class="radio">
-                                	<input type="radio" class="required" name="is_show" value="2" <?php if($res->is_show==2) echo 'checked="checked"';?>/> 不显示
+                                	<input type="radio" class="required" name="is_show" value="2" <?php if($res->is_show==2) echo 'checked="checked"';?>/> 否（当品牌下还没有商品的时候，首页及分类页的品牌区将不会显示该品牌）
                                 </label>
                             </div>
                         </div>
-                        
                         <div class="form-actions">
                             <button class="btn green" type="submit"><i class="icon-ok"></i> 保存</button>
                             <a href="<?php echo base_url('mall_brand/grid') ?>">
