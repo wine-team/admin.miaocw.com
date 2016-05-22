@@ -2,8 +2,8 @@
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
-            <h3 class="page-title">网站设置 <small>所有网站设置</small></h3>
-            <?php echo breadcrumb(array('网站设置', 'advert/grid'=>'广告管理', '添加广告')); ?>
+            <h3 class="page-title">网站设置 <small>站内公告</small></h3>
+            <?php echo breadcrumb(array('网站设置', 'web_notice/grid'=>'站内公告', '添加公告')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>
@@ -11,7 +11,7 @@
         <div class="span12">
             <div class="portlet box green">
                 <div class="portlet-title">
-                    <div class="caption"><i class="icon-plus-sign"></i>添加广告</div>
+                    <div class="caption"><i class="icon-plus-sign"></i>添加公告</div>
                     <div class="tools">
                         <a class="collapse" href="javascript:;"></a>
                         <a class="remove" href="javascript:;"></a>
@@ -30,7 +30,7 @@
                         <div class="control-group">
                             <label class="control-label">作者</label>
                             <div class="controls">
-                                <input type="text" class="m-wrap large" name="author" value="妙网"/> 
+                                <input type="text" class="m-wrap large required" name="author" value="妙网商城"/> 
                             </div>
                         </div>
                         

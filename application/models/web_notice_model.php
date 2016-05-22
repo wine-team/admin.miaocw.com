@@ -1,6 +1,6 @@
 <?php
-
 class Web_notice_model extends CI_Model{
+	
 	private $table = 'Web_notice';        
 	
 	public function web_notice_list($page, $perpage, $search, $order='id DESC')

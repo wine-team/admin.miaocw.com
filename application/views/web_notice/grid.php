@@ -2,11 +2,11 @@
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
-            <h3 class="page-title">网站设置 <small>所有网站设置</small></h3>
-            <?php echo breadcrumb(array('网站设置', 'advert/grid'=>'广告管理')); ?>
+            <h3 class="page-title">网站设置 <small>站内公告</small></h3>
+            <?php echo breadcrumb(array('网站设置', 'web_notice/grid'=>'站内公告'));?>
         </div>
     </div>
-    <?php echo execute_alert_message() ?>
+    <?php echo execute_alert_message();?>
     <div class="row-fluid">
         <div class="span12">
             <div class="portlet box green">
