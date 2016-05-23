@@ -27,7 +27,7 @@ class Mall_address extends MJ_Controller {
 	    $error = $this->validate(); 
 	    if (!empty($error))
 	    {
-	        $this->error('mall_address/add', $this->input->post('id'), $error);
+	        $this->error('mall_address/add', $this->input->post('uid'), $error);
 	    }
 	    $postData = $this->input->post();
 		$data['uid'] = $postData['uid'];
@@ -59,15 +59,15 @@ class Mall_address extends MJ_Controller {
 	    }
 	}
 	
-	public function edit($id)
+	public function edit($address_id)
 	{
-	    $res = $this->mall_address->findById(array('address_id'=>$id));
+	    $res = $this->mall_address->findById(array('address_id'=>$address_id));
 	    if ($res->num_rows() > 0)
 	    {
 	        $data['res'] = $res->row();
 	        $this->load->view('mall_address/edit',$data);
 	    } else {
-	        $this->redirect('mall_address/grid');
+	        $this->redirect('user/grid');
 	    }
 	}
 	

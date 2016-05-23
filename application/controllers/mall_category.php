@@ -16,17 +16,7 @@ class Mall_category extends MJ_Controller {
 	
 	public function add()
 	{
-	    $data['one_res'] = $this->mall_category->findById(array('parent_id'=>0))->result();
-	    $data['two_res'] = array();
-	    $cat_ids = array();
-	    foreach($data['one_res'] as $r)
-	    {
-	        $cat_ids[] = $r->cat_id;
-	    }
-	    if (!empty($cat_ids))
-	    {
-	        $data['two_res'] = $this->mall_category->getWherein('parent_id',$cat_ids)->result();
-	    }
+	    $data['res'] = $this->mall_category->findById(array())->result();
 	    $this->load->view('mall_category/add', $data);
 	}
 	
@@ -38,7 +28,7 @@ class Mall_category extends MJ_Controller {
 	        $this->error('mall_category/add', $this->input->post('id'), $error);
 	    }
 	    $postData = $this->input->post();
-	    $data['parent_id'] = $postData['one_p_id'] ? ($postData['two_p_id'] ? $postData['two_p_id'] : $postData['one_p_id']) : 0;
+	    $data['parent_id'] = $postData['parent_id'];
 	    $data['cat_name'] = $postData['cat_name'];
 	    $data['is_show'] = $postData['is_show'];
 	    $data['sort_order'] = $postData['sort_order'];

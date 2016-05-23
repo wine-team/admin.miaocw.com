@@ -6,29 +6,21 @@ class Mall_attribute extends MJ_Controller {
 	{
 	    $this->load->library('pagination');
 	    $this->load->model('mall_attribute_model','mall_attribute');
-	}
-
-    public function grid($pg = 1)
-	{
-	    $getData = $this->input->get();
-	    $perpage = 20;
-	    $search['item'] = $getData['item'];
-	    $config['first_url']   = base_url('mall_attribute/grid').$this->pageGetParam($this->input->get());
-	    $config['suffix']      = $this->pageGetParam($getData);
-	    $config['base_url']    = base_url('mall_attribute/grid');
-	    $config['total_rows']  = $this->mall_attribute->mall_attribute_list(null, null, $search)->num_rows();
-	    $config['uri_segment'] = 3; 
-	    $this->pagination->initialize($config);
-	    $data['pg_link']   = $this->pagination->create_links();
-	    $data['res_list'] = $this->mall_attribute->mall_attribute_list($pg-1, $perpage, $search)->result();
-	    $data['all_rows']  = $config['total_rows'];
-	    $data['pg_now']    = $pg; 
-	    $this->load->view('mall_attribute/grid', $data);
+	    $this->load->model('mall_goods_type_model','mall_goods_type');
 	}
 	
-	public function add()
+	public function grid($type_id = 0)
 	{
-	    $this->load->view('mall_attribute/add');
+	    $res = $this->mall_attribute->findById(array('type_id'=>$type_id));
+	    $data['type_id'] = $type_id;
+	    $data['res'] = $res;
+	    $this->load->view('mall_attribute/grid', $data);
+	}
+
+	public function add($type_id)
+	{
+	    $data['type'] = $this->mall_goods_type->findById(array('type_id'=>$type_id))->row();
+	    $this->load->view('mall_attribute/add', $data);
 	}
 	
 	public function addPost()
@@ -36,7 +28,7 @@ class Mall_attribute extends MJ_Controller {
 	    $error = $this->validate(); 
 	    if (!empty($error))
 	    {
-	        $this->error('mall_attribute/add', '', $error);
+	        $this->error('mall_attribute/add', $this->input->post('type_id'), $error);
 	    }
 	    $postData = $this->input->post(); 
 	    $data['attr_name'] = $postData['attr_name'];
@@ -48,21 +40,22 @@ class Mall_attribute extends MJ_Controller {
 	    $data['sort_order'] = $postData['sort_order'];
 	    $res = $this->mall_attribute->insert($data);
 	    if ($res) {
-	        $this->success('mall_attribute/grid', '', '新增成功！');
+	        $this->success('mall_attribute/grid', $this->input->post('type_id'), '新增成功！');
 	    } else {
-	        $this->error('mall_attribute/add', '', '新增失败！');
+	        $this->error('mall_attribute/add', $this->input->post('type_id'), '新增失败！');
 	    }
 	}
 	
 	public function edit($attr_id)
 	{
+	    $data['type'] = $this->mall_goods_type->findById(array())->result();
 	    $res = $this->mall_attribute->findById(array('attr_id'=>$attr_id));
 	    if ($res->num_rows() > 0)
 	    {
 	        $data['res'] = $res->row();
 	        $this->load->view('mall_attribute/edit',$data);
 	    } else {
-	        $this->redirect('mall_attribute/grid');
+	        $this->redirect('mall_goods_type/grid');
 	    }
 	}
 	
@@ -83,7 +76,7 @@ class Mall_attribute extends MJ_Controller {
 	    $data['sort_order'] = $postData['sort_order'];
         $res = $this->mall_attribute->update(array('attr_id'=>$postData['attr_id']), $data);  
         if ($res) {
-            $this->success('mall_attribute/grid', '', '修改成功！');
+            $this->success('mall_attribute/grid', $this->input->post('type_id'), '修改成功！');
         } else {
             $this->error('mall_attribute/edit', $this->input->post('attr_id'), '修改失败！');
         }
@@ -93,9 +86,9 @@ class Mall_attribute extends MJ_Controller {
 	{
         $is_delete = $this->mall_attribute->delete(array('attr'=>$attr_id));
         if ($is_delete) {
-            $this->success('mall_attribute/grid', '', '删除成功！');
+            $this->success('mall_attribute/grid', $this->input->get('type_id'), '删除成功！');
         } else {
-            $this->error('mall_attribute/grid', '', '删除失败！');
+            $this->error('mall_attribute/grid', $this->input->get('type_id'), '删除失败！');
         }
 	    
 	}
