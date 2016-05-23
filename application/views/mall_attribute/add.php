@@ -28,9 +28,10 @@
                         </div>
                         
                         <div class="control-group">
-                            <label class="control-label"><em>* </em>商品类型ID</label>
+                            <label class="control-label"><em>* </em>所属商品类型</label>
                             <div class="controls">
-                                <input type="number" class="m-wrap large required" name="type_id" /> 
+                                <input type="text" class="m-wrap large required" readonly  value="<?php echo $type->type_name;?>"/> 
+                                <input type="hidden" name="type_id" value="<?php echo $type->type_id;?>">
                             </div>
                         </div>
                         

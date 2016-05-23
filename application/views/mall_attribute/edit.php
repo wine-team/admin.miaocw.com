@@ -29,9 +29,13 @@
                         </div>
                         
                         <div class="control-group">
-                            <label class="control-label"><em>* </em>商品类型ID</label>
+                            <label class="control-label"><em>* </em>所属商品类型</label>
                             <div class="controls">
-                                <input type="number" class="m-wrap large required" name="type_id" value="<?php echo $res->type_id;?>"/> 
+                                <select name="type_id" class="m-wrap large required">
+                                    <?php foreach($type as $t) :?>
+                                    <option <?php if($res->type_id == $t->type_id)echo 'selected="selected"';?> value="<?php echo $t->type_id?>"><?php echo $t->type_name;?></option>
+                                    <?php endforeach;?>
+                                </select>
                             </div>
                         </div>
                         

@@ -20,28 +20,21 @@
                 <div class="portlet-body form">
                     <form class="form-horizontal line-form" action="<?php echo base_url('mall_category/addPost') ?>" method="post" >
                         <div class="control-group">
-                            <label class="control-label">一级</label>
+                            <label class="control-label">上级分类</label>
                             <div class="controls">
-                                <select name="one_p_id" class="m-wrap large">
-                                    <option value="">请选择</option>
-                                    <?php foreach ($one_res as $o) :?>
-                                    <option value="<?php echo $o->cat_id;?>" ><?php echo $o->cat_name;?></option>
+                                <select name="parent_id" class="m-wrap large">
+                                    <option value="0">顶级分类</option>
+                                    <?php foreach ($res as $r) :?>
+                                    <?php if($r->parent_id == 0) : ?>
+                                    <option value="<?php echo $r->cat_id;?>" ><?php echo $r->cat_name;?></option>
+                                    <?php foreach ($res as $r1) :?>
+                                    <?php if($r1->parent_id == $r->cat_id) : ?>
+                                    <option value="<?php echo $r1->cat_id;?>" >&nbsp;&nbsp;<?php echo $r1->cat_name;?></option>
+                                    <?php endif;?>
+                                    <?php endforeach;?>
+                                    <?php endif;?>
                                     <?php endforeach;?>
                                 </select>
-                                <span class="help-block">如果不选择一级，则添加为一级；如果只选择一级，则添加的为二级，</span> 
-                            </div>
-                        </div>
-                        
-                        <div class="control-group">
-                            <label class="control-label">二级</label>
-                            <div class="controls">
-                                <select name="two_p_id" class="m-wrap large">
-                                    <option value="">请选择</option>
-                                    <?php foreach ($two_res as $t) :?>
-                                    <option value="<?php echo $t->cat_id;?>" data-p_id="<?php echo $t->parent_id;?>" style="display:none;"><?php echo $t->cat_name;?></option>
-                                    <?php endforeach;?>
-                                </select>
-                                <span class="help-block">如果只选择二级，则添加的为三级，</span> 
                             </div>
                         </div>
                         
@@ -82,16 +75,6 @@
                             </a>
                         </div>
                     </form>
-                    <script>
-                    $('select[name="one_p_id"]').change(function(){
-                        var one_p_id = $(this).val();
-                        $('select[name="two_p_id"]').val('');
-                        $('select[name="two_p_id"]').find('option').hide();
-                        $('select[name="two_p_id"]').find('option').each(function(){
-                            if(one_p_id == $(this).data('p_id')) $(this).show();
-                        });
-                    });
-                    </script>                    
                 </div>
             </div>
         </div>
