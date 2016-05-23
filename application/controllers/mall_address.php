@@ -31,12 +31,13 @@ class Mall_address extends MJ_Controller {
 	    }
 	    $postData = $this->input->post();
 		$data['uid'] = $postData['uid'];
+		$region = $this->region->getByRegionIds(array($postData['province_id'], $postData['city_id'], $postData['district_id']))->result();
 	    $data['province_id'] = $postData['province_id'];
-        $data['province_name'] = $this->region->findById($postData['province_id'])->row(0)->region_name;
+        $data['province_name'] = $region[0]->region_name;
         $data['city_id'] = $postData['city_id'];
-        $data['city_name'] = $this->region->findById($postData['city_id'])->row(0)->region_name;
+        $data['city_name'] = $region[1]->region_name;
         $data['district_id'] = $postData['district_id'];
-        $data['district_name'] = $this->region->findById($postData['district_id'])->row(0)->region_name;
+        $data['district_name'] = $region[2]->region_name;
         $data['detailed'] = $postData['detailed'];
         $data['code'] = $postData['code'];
         $data['receiver_name'] = $postData['receiver_name'];
@@ -78,13 +79,13 @@ class Mall_address extends MJ_Controller {
             $this->error('mall_address/edit', $this->input->post('address_id'), $error);
         }
         $postData = $this->input->post();
-		$data['address_id'] = $postData['address_id'];
-        $data['province_id'] = $postData['province_id'];
-        $data['province_name'] = $this->region->findById($postData['province_id'])->row(0)->region_name;
+        $region = $this->region->getByRegionIds(array($postData['province_id'], $postData['city_id'], $postData['district_id']))->result();
+	    $data['province_id'] = $postData['province_id'];
+        $data['province_name'] = $region[0]->region_name;
         $data['city_id'] = $postData['city_id'];
-        $data['city_name'] = $this->region->findById($postData['city_id'])->row(0)->region_name;
+        $data['city_name'] = $region[1]->region_name;
         $data['district_id'] = $postData['district_id'];
-        $data['district_name'] = $this->region->findById($postData['district_id'])->row(0)->region_name;
+        $data['district_name'] = $region[2]->region_name;
         $data['detailed'] = $postData['detailed'];
         $data['code'] = $postData['code'];
         $data['receiver_name'] = $postData['receiver_name'];
