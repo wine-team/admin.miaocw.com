@@ -55,13 +55,9 @@
                                         case 3 : echo '复选属性';break;
                                     }?></td>
                                     <td><?php echo $r->attr_values;?></td>
-<<<<<<< HEAD
                                     <td><?php if($r->attr_index == 2) echo '关键字检索';?></td>
-                                    <td><?php if($r->is_linked==1) echo '关联';?></td>
-=======
                                     <td><?php echo ($r->attr_index == 2) ?  '关键字检索' : '不需要检索'; ?></td>
                                     <td><?php echo $r->is_linked;?></td>
->>>>>>> f271e30ebfb031ba06e2da660ab98e66e149c7d0
                                     <td><?php echo $r->sort_order;?></td>
                                     <td width="145">
                                         <a class="btn mini green" href="<?php echo base_url('mall_attribute/edit/'.$r->attr_id); ?>"><i class="icon-edit"></i> 编辑</a>
