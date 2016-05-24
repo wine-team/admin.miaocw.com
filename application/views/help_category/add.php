@@ -26,6 +26,15 @@
                             </div>
                         </div>
                         <div class="control-group">
+                            <label class="control-label"><em>* </em>菜单栏展示</label>
+                            <div class="controls">
+                                <select name="flag" class="medium m-wrap valid">
+                                        <option value="1">是</option>
+                                        <option value="2">否</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="control-group">
                             <label class="control-label"><em>* </em>排序</label>
                             <div class="controls">
                                 <input type="text" class="m-wrap large required" name="sort"  placeholder="越大越前" value="1"/> 

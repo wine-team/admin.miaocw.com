@@ -39,6 +39,7 @@ class Help_category_model extends CI_Model{
 		
 		$data = array(
 			'help_category_name'  => $param['help_category_name'],
+		    'flag'                => $param['flag'],
 			'sort'                => $param['sort'],
 		    'creat_at'            => date('Y-m-d H:i:s')
 		);
@@ -63,6 +64,7 @@ class Help_category_model extends CI_Model{
 		
 		$data = array(
 			'help_category_name' => $param['help_category_name'],
+			'flag'               => $param['flag'],
 		    'sort'               => $param['sort']
 		);
 		$this->db->where('category_id',$param['category_id']);

@@ -122,7 +122,6 @@
                 <li><a href="<?php echo base_url('cacheclear/grid');?>">缓存管理</a></li>
                 <li><a href="<?php echo base_url('userfeedback/grid');?>">用户反馈</a></li>
                 <li><a href="<?php echo base_url('help_category/grid');?>">帮助中心</a></li>
-                <li><a href="<?php echo base_url('web_notice/grid');?>">站内公告</a></li>
             </ul>
         </li>
     </ul>

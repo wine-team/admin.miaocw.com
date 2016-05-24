@@ -62,6 +62,7 @@
                                     <th>编号</th>
                                     <th>分类</th>
                                     <th>排序</th>
+                                    <th>左边菜单栏</th>
                                     <th>时间</th>
                                     <th>操作</th>
                                 </tr>
@@ -73,6 +74,7 @@
                                     <td><?php echo $item->category_id;?></td>
                                     <td><?php echo $item->help_category_name;?></td>
                                     <td><?php echo $item->sort;?></td>
+                                    <td><?php echo $item->flag == '1' ? '左边显示' : '否'?></td>
                                     <td><?php echo $item->creat_at;?></td>
                                     <td width="145">
                                         <a class="btn mini green" href="<?php echo base_url('help_category/edit/'.$item->category_id); ?>">编辑</a>
