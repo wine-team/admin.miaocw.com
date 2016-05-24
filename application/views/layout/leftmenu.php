@@ -53,6 +53,7 @@
                     </a>
                     <ul class="sub-menu">
                         <li><a href="<?php echo base_url('user/grid');?>">账号列表</a></li>
+                        <li><a href="<?php echo base_url('supplier/grid');?>">供应商管理</a></li>
                     </ul>
                 </li>
                 <li>

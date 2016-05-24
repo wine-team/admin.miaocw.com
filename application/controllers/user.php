@@ -70,7 +70,7 @@ class User extends CS_Controller
             $this->jsonMessage('', base_url('user/grid'));
         } else {
             $this->session->set_flashdata('error', '保存失败！');
-            $this->jsonMessage('', base_url('user/add?sid='.$this->input->post('sid')));
+            $this->jsonMessage('', base_url('user/add'));
         }
     }
     
@@ -99,7 +99,7 @@ class User extends CS_Controller
             $this->jsonMessage('', base_url('user/grid'));
         } else {
             $this->session->set_flashdata('error', '保存失败！');
-            $this->jsonMessage('', base_url('user/edit?sid='.$this->input->post('sid')));
+            $this->jsonMessage('', base_url('user/edit'));
         }
     }
 
