@@ -3,7 +3,7 @@
     <div class="row-fluid">
         <div class="span12">
             <h3 class="page-title">商品管理<small>商品类型</small></h3>
-            <?php echo breadcrumb(array('商品管理', 'advert/grid'=>'商品类型', '编辑类型')); ?>
+            <?php echo breadcrumb(array('商品管理', 'mall_goods_type/grid'=>'商品类型', '编辑类型')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>
