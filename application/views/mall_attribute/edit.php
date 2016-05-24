@@ -3,7 +3,7 @@
     <div class="row-fluid">
         <div class="span12">
             <h3 class="page-title">商品管理 <small>属性管理</small></h3>
-            <?php echo breadcrumb(array('商品管理', 'mall_attribute/grid'=>'属性管理', '属性')); ?>
+            <?php echo breadcrumb(array('商品管理', 'mall_attribute/grid'=>'属性管理', '编辑属性')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>
@@ -11,7 +11,7 @@
         <div class="span12">
             <div class="portlet box green">
                 <div class="portlet-title">
-                    <div class="caption"><i class="icon-plus-sign"></i>添加广告</div>
+                    <div class="caption"><i class="icon-plus-sign"></i>编辑</div>
                     <div class="tools">
                         <a class="collapse" href="javascript:;"></a>
                         <a class="remove" href="javascript:;"></a>

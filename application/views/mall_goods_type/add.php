@@ -2,8 +2,8 @@
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
-            <h3 class="page-title">网站设置 <small>所有网站设置</small></h3>
-            <?php echo breadcrumb(array('网站设置', 'advert/grid'=>'广告管理', '添加广告')); ?>
+            <h3 class="page-title">商品管理<small>商品类型</small></h3>
+            <?php echo breadcrumb(array('商品管理', 'advert/grid'=>'商品类型', '添加类型')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>
@@ -11,7 +11,7 @@
         <div class="span12">
             <div class="portlet box green">
                 <div class="portlet-title">
-                    <div class="caption"><i class="icon-plus-sign"></i>添加广告</div>
+                    <div class="caption"><i class="icon-plus-sign"></i>添加类型</div>
                     <div class="tools">
                         <a class="collapse" href="javascript:;"></a>
                         <a class="remove" href="javascript:;"></a>
@@ -30,8 +30,12 @@
                         <div class="control-group">
                             <label class="control-label"><em>* </em>是否开启</label>
                             <div class="controls">
-                                <input type="radio" class="required" name="enabled" value="1" />开启
-                                <input type="radio" class="required" name="enabled" value="2" />关闭
+                                <label class="radio">
+                                    <input type="radio" class="required" name="enabled" value="1" checked="checked"/>开启
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" class="required" name="enabled" value="2" />关闭
+                                </label>
                             </div>
                         </div>
                         
