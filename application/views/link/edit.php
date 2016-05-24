@@ -3,7 +3,7 @@
     <div class="row-fluid">
         <div class="span12">
             <h3 class="page-title">友情链接管理<small> 后台友情链接管理</small></h3>
-            <?php echo breadcrumb(array('权限菜单管理', 'link/grid'=>'友情链接管理', '添加友情链接')); ?>
+            <?php echo breadcrumb(array('权限菜单管理', 'link/grid'=>'友情链接管理', '编辑友情链接')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>

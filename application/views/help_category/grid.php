@@ -75,9 +75,9 @@
                                     <td><?php echo $item->sort;?></td>
                                     <td><?php echo $item->creat_at;?></td>
                                     <td width="145">
-                                        <a class="btn mini green" href="<?php echo base_url('help_category/edit/'.$item->category_id); ?>"><i class="icon-edit"></i> 编辑</a>
-                                        <a class="btn mini green" href="<?php echo base_url('help_category/delete/'.$item->category_id); ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
-                                        <a class="btn mini green" href="<?php echo base_url('help_category/help_center?category_id='.$item->category_id); ?>"><i class="icon-add"></i>添加栏目</a>
+                                        <a class="btn mini green" href="<?php echo base_url('help_category/edit/'.$item->category_id); ?>">编辑</a>
+                                        <a class="btn mini green" href="<?php echo base_url('help_category/delete/'.$item->category_id); ?>" onclick="return confirm('确定要删除？')">删除</a>
+                                        <a class="btn mini green" href="<?php echo base_url('help_category/help_center?category_id='.$item->category_id); ?>">添加栏目</a>
                                     </td>
                                 </tr>
                                 <?php endforeach;?>

@@ -57,6 +57,8 @@ class Mall_attribute extends MJ_Controller {
 	    } else {
 	        $this->redirect('mall_goods_type/grid');
 	    }
+        $data['res'] = $res->row();
+        $this->load->view('mall_attribute/edit',$data);
 	}
 	
 	public function editPost()

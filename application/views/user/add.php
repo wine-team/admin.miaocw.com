@@ -148,7 +148,7 @@ $('form.user-form').submit(function(){
             }
         },
         email: {
-            required: true,
+            email: true,
             remote: {
                 url:hostUrl()+'/user/validateEmail',
                 type: 'post',
@@ -162,7 +162,7 @@ $('form.user-form').submit(function(){
         }
     },
     messages: {
-        eamil: {
+        email: {
             eamil:'请输入正确的邮箱',
             remote: '输入的邮箱已存在'
         },
