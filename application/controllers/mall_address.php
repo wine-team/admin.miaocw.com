@@ -65,6 +65,7 @@ class Mall_address extends MJ_Controller {
 	    if ($res->num_rows() > 0)
 	    {
 	        $data['res'] = $res->row();
+	        $data['uid'] = $this->input->get('uid');
 	        $this->load->view('mall_address/edit',$data);
 	    } else {
 	        $this->redirect('user/grid');

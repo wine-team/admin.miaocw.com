@@ -3,7 +3,7 @@
     <div class="row-fluid">
         <div class="span12">
             <h3 class="page-title">用户账号管理 <small> 地址管理</small></h3>
-            <?php echo breadcrumb(array('用户账号管理', 'mall_address/grid'=>'地址管理', '编辑用户地址')); ?>
+            <?php echo breadcrumb(array('user/grid'=>'用户账号管理', 'mall_address/grid/'.$uid=>'地址管理', '编辑用户地址')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>

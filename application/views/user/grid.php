@@ -3,7 +3,7 @@
     <div class="row-fluid">
         <div class="span12">
             <h3 class="page-title">用户管理<small> 用户管理</small></h3>
-            <?php echo breadcrumb(array('用户管理', '用户列表')); ?>
+            <?php echo breadcrumb(array('用户管理', 'user/grid'=>'用户列表')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>
@@ -145,7 +145,7 @@
                                     </td>
                                     <td width="145">
                                         <a class="btn mini green" href="<?php echo base_url('user/edit/'.$item->uid); ?>"> 编辑</a>
-                                        <a class="btn mini green" href="<?php echo base_url('mall_address/edit/'.$item->uid); ?>"> 收货地址</a>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_address/grid/'.$item->uid); ?>"> 收货地址</a>
                                         <a class="btn mini green" href="<?php echo base_url('user_account/grid?uid='.$item->uid); ?>">账户收支</a>
                                         <a class="btn mini green" href="<?php echo base_url('user/resetpwd/'.$item->uid); ?>" onclick="return confirm('密码为123456, 确定要重置？')">重置密码</a>
                                         <a class="btn mini green" href="<?php echo base_url('user_log/grid?uid='.$item->uid); ?>">登陆日志</a>
