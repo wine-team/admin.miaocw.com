@@ -6,10 +6,7 @@
             <?php echo breadcrumb(array('用户管理', 'supplier/grid'=>'供应商管理', '编辑供应商')); ?>
         </div>
     </div>
-    <div class="alert alert-error" style="display: none;">
-        <button data-dismiss="alert" class="close"></button>
-        <a href="javascript:;" class="glyphicons no-js remove_2"><i></i><p></p></a>
-    </div>
+    <?php echo execute_alert_message() ?>
     <div class="row-fluid">
         <div class="span12">
             <div class="portlet box green">

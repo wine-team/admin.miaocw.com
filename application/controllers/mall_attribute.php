@@ -109,6 +109,27 @@ class Mall_attribute extends MJ_Controller {
 	    return $error;
 	}
 	
+	public function ajaxGetAttr($pg = 1)
+	{
+	    $getData = $this->input->get();
+	    $perpage = 10;
+	    $search['item'] = $getData['item'];
+	    $config['first_url']   = base_url('mall_attribute/mall_attribute_list').$this->pageGetParam($this->input->get());
+	    $config['suffix']      = $this->pageGetParam($getData);
+	    $config['base_url']    = base_url('mall_attribute/mall_attribute_list');
+	    $config['total_rows']  = $this->mall_attribute->mall_attribute_list(null, null, $search)->num_rows();
+	    $config['uri_segment'] = 3;
+	    $this->pagination->initialize($config);
+	    $data['pg_link']   = $this->pagination->create_links();
+	    $data['res_list'] = $this->mall_attribute->mall_attribute_list($pg-1, $perpage, $search)->result();
+	    $data['all_rows']  = $config['total_rows'];
+	    $data['pg_now']    = $pg;
+	    echo json_encode(array(
+	        'status'=>true,
+	        'html'  =>$this->load->view('mall_goods_attr/addGoodsAttr/ajaxAttrData', $data, true)
+	    ));exit;
+	}
+	
 }
 /** End of file Mall_attribute.php */
 /** Location: ./application/controllers/Mall_attribute.php */

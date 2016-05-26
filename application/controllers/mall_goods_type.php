@@ -8,7 +8,7 @@ class Mall_goods_type extends MJ_Controller {
 	}
 
     public function grid($pg = 1)
-	{
+	{ 
 	    $getData = $this->input->get();
 	    $perpage = 20;
 	    $search['item'] = $getData['item'];

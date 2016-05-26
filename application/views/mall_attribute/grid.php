@@ -40,6 +40,7 @@
                                     <th>检索</th>
                                     <th>关联</th>
                                     <th>排序</th>
+                                    <th>操作</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -55,7 +56,6 @@
                                         case 3 : echo '复选属性';break;
                                     }?></td>
                                     <td><?php echo $r->attr_values;?></td>
-                                    <td><?php if($r->attr_index == 2) echo '关键字检索';?></td>
                                     <td><?php echo ($r->attr_index == 2) ?  '关键字检索' : '不需要检索'; ?></td>
                                     <td><?php echo $r->is_linked;?></td>
                                     <td><?php echo $r->sort_order;?></td>
