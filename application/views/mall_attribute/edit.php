@@ -3,10 +3,10 @@
     <div class="row-fluid">
         <div class="span12">
             <h3 class="page-title">商品管理 <small>属性管理</small></h3>
-             <?php echo breadcrumb(array('商品管理','商品类型'=>'mall_goods_type/grid','mall_attribute/grid'=>'属性管理','添加属性')); ?>
+             <?php echo breadcrumb(array('mall_goods_type/grid'=>'商品类型','mall_attribute/grid/'.$this->input->get('type_id') => '属性管理','添加属性'));?>
         </div>
     </div>
-    <?php echo execute_alert_message() ?>
+    <?php echo execute_alert_message();?>
     <div class="row-fluid">
         <div class="span12">
             <div class="portlet box green">
