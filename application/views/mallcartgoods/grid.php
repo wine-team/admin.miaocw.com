@@ -3,7 +3,7 @@
     <div class="row-fluid">
         <div class="span12">
             <h3 class="page-title">用户管理 <small></small>用户账号管理</h3>
-            <?php echo breadcrumb(array('用户管理', 'user/grid'=> '用户账号管理','mall_cart_goods/grid?uid='.$uid => '用户购物车')); ?>
+             <?php echo breadcrumb(array('用户管理', 'user/grid'=> '用户账号管理','mall_cart_goods/grid?uid='.$uid => '用户购物车')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>
@@ -36,7 +36,6 @@
                     </form>
                 </div>
             </div>
-            
             <div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption"><i class="icon-reorder"></i>列表</div>
