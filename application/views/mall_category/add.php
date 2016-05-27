@@ -63,7 +63,12 @@
                                 <input type="number" class="m-wrap required" name="sort_order" maxlength=2 value="50"/>  
                             </div>
                         </div>
-                        
+                        <div class="control-group">
+                            <label class="control-label"><em>* </em>热门搜索</label>
+                            <div class="controls">
+                                 <textarea class="textarea-multipart-edit" name="keyword"></textarea>
+                            </div>
+                        </div>
                         <div class="control-group">
                             <label class="control-label">商品属性id</label>
                             <div class="controls">

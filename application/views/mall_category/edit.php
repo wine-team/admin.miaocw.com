@@ -44,6 +44,12 @@
                             </div>
                         </div>
                         <div class="control-group">
+                            <label class="control-label"><em>* </em>热门搜索</label>
+                            <div class="controls">
+                                 <textarea class="textarea-multipart-edit" name="keyword"><?php echo $res->keyword;?></textarea>
+                            </div>
+                        </div>
+                        <div class="control-group">
                             <label class="control-label">商品属性id</label>
                             <div class="controls">
                                 <input type="text" class="m-wrap large" name="filter_attr" value="<?php echo $res->filter_attr;?>"/>
