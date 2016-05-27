@@ -9,7 +9,7 @@ var App = function () {
     var isIE9 = false;
     var isIE10 = false;
 
-    var sidebarWidth = 225;
+    var sidebarWidth = 180;
     var sidebarCollapsedWidth = 35;
 
     var responsiveHandlers = [];
