@@ -105,7 +105,7 @@
                         <li><a href="javascript:;">换货审核</a></li>
                     </ul>
                 </li>
-                <li><a href="javascript:;">热门搜索</a></li>
+                <li><a href="<?php echo base_url('keyword_search/grid');?>">热门搜索</a></li>
             </ul>
         </li>
         <li>
