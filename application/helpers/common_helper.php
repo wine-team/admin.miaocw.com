@@ -67,7 +67,7 @@ function tourismLogisticsTypeArray()
  * */
 function toNumStr($str)
 {
-    preg_match_all('/\d+/', $str, $matches);var_dump($matches[0]);
+    preg_match_all('/\d+/', $str, $matches);
     $str_arr = array();
     if(!empty($matches[0]))
     {
