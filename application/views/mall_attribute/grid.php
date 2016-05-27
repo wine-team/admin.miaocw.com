@@ -3,7 +3,7 @@
     <div class="row-fluid">
         <div class="span12">
             <h3 class="page-title">商品管理 <small>属性管理</small></h3>
-            <?php echo breadcrumb(array('商品管理','商品类型'=>'mall_goods_type/grid','mall_attribute/grid'=>'属性管理')); ?>
+            <?php echo breadcrumb(array('mall_goods_type/grid'=>'商品类型','mall_attribute/grid/'.$type_id => '属性管理')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>
@@ -60,7 +60,7 @@
                                     <td><?php echo $r->is_linked;?></td>
                                     <td><?php echo $r->sort_order;?></td>
                                     <td width="145">
-                                        <a class="btn mini green" href="<?php echo base_url('mall_attribute/edit/'.$r->attr_id); ?>"><i class="icon-edit"></i> 编辑</a>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_attribute/edit/'.$r->attr_id.'?type_id='.$type_id); ?>"><i class="icon-edit"></i> 编辑</a>
                                         <a class="btn mini green" href="<?php echo base_url('mall_attribute/delete/'.$r->attr_id.'?type_id='.$type_id); ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
                                     </td>
                                 </tr>

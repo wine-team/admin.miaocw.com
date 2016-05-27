@@ -20,6 +20,7 @@ class Mall_attribute extends MJ_Controller {
 	public function add($type_id)
 	{
 	    $data['type'] = $this->mall_goods_type->findById(array('type_id'=>$type_id))->row();
+	    $data['type_id'] = $type_id;
 	    $this->load->view('mall_attribute/add', $data);
 	}
 	
