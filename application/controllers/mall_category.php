@@ -34,7 +34,7 @@ class Mall_category extends MJ_Controller {
 	    $data['sort_order'] = $postData['sort_order'];
 	    $data['filter_attr'] = toNumStr($postData['filter_attr']);
 	    if( !empty($postData['keyword']) ){
-	    	$data['keyword'] = $postData['keyword'];
+	       $data['keyword'] = $postData['keyword'];
 	    }
 	    $res = $this->mall_category->insert($data);
 	    if ($res) {
