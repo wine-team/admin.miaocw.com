@@ -91,7 +91,7 @@ class Supplier extends MJ_Controller {
 	public function delete($supplier_id)
 	{ 
 	    $is_delete = $this->supplier->delete(array('supplier_id'=>$supplier_id));
-	   if ($is_delete) {
+	    if ($is_delete) {
 	        $this->success('supplier/grid', '', '删除成功！');
 	    } else {
 	        $this->error('supplier/grid', '', '删除失败！');
