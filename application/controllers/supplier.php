@@ -79,7 +79,7 @@ class Supplier extends MJ_Controller {
         $data['is_check'] = $postData['is_check'];
         $data['created_at'] = date('Y-m-d H:i:s');
         $res = $this->supplier->update(array('supplier_id'=>$postData['supplier_id']), $data);
-	    if ($res) {
+	   if ($res) {
             $this->session->set_flashdata('success', '修改成功！');
             $this->jsonMessage('', base_url('supplier/grid'));
         } else {
@@ -91,7 +91,7 @@ class Supplier extends MJ_Controller {
 	public function delete($supplier_id)
 	{ 
 	    $is_delete = $this->supplier->delete(array('supplier_id'=>$supplier_id));
-	    if ($is_delete) {
+	   if ($is_delete) {
 	        $this->success('supplier/grid', '', '删除成功！');
 	    } else {
 	        $this->error('supplier/grid', '', '删除失败！');
@@ -128,7 +128,7 @@ class Supplier extends MJ_Controller {
 	
 	public function validate()
 	{   
-	    $error = array();
+	   $error = array();
         if ($this->validateParam($this->input->post('supplier_name'))) {
             $error[] = '供应商名称不能为空';
         }
