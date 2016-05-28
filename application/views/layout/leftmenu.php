@@ -54,6 +54,7 @@
                     <ul class="sub-menu">
                         <li><a href="<?php echo base_url('user/grid');?>">账号列表</a></li>
                         <li><a href="<?php echo base_url('supplier/grid');?>">供应商管理</a></li>
+                        <li><a href="<?php echo base_url('supply_sales_join/grid');?>">分销供应申请</a></li>
                     </ul>
                 </li>
                 <li>
@@ -105,7 +106,7 @@
                         <li><a href="javascript:;">换货审核</a></li>
                     </ul>
                 </li>
-                <li><a href="javascript:;">热门搜索</a></li>
+                <li><a href="<?php echo base_url('keyword_search/grid');?>">热门搜索</a></li>
             </ul>
         </li>
         <li>
