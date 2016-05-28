@@ -3,7 +3,7 @@
     <div class="row-fluid">
         <div class="span12">
             <h3 class="page-title">区块广告设置编辑 <small>所有网站设置</small></h3>
-             <?php echo breadcrumb(array('网站设置', 'cmsblock/grid'=>'区块广告设置', '区块广告设置编辑')); ?>
+            <?php echo breadcrumb(array('网站设置', 'cmsblock/grid'=>'区块广告设置', '区块广告设置编辑')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>
