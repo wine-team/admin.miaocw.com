@@ -1,5 +1,5 @@
 <?php $this->load->view('layout/head');?>
-<body class="page-header-fixed page-sidebar-fixed page-sidebar-closed"><?php //page-sidebar-closed 可默认关闭sidebar //page-sidebar-fixed 默认伸缩?>
+<body class="page-header-fixed"><?php //page-sidebar-closed 可默认关闭sidebar //page-sidebar-fixed 默认伸缩?>
     <?php $this->load->view('layout/headerlinks');?>
     <div class="page-container">
     <?php $this->load->view('layout/leftmenu');?>
