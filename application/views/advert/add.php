@@ -1,5 +1,5 @@
-<?php $this->load->view('layout/header');?>
-<div class="container-fluid">
+ <?php $this->load->view('layout/header');?>
+ <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
             <h3 class="page-title">网站设置 <small>所有网站设置</small></h3>

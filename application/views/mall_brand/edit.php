@@ -42,7 +42,21 @@
                                     <input type="hidden" name="old_brand_logo" value="<?php echo $res->brand_logo ?>"/>
                                     <input type="file" name="brand_logo"/>
                                 <?php else : ?>
-                                    <input type="file" class="required" name="picture"/>
+                                    <input type="file" name="brand_logo"/>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"><em>* </em>品牌授权</label>
+                            <div class="controls">
+                                <?php if (is_file($this->config->upload_image_path('brand', $res->brand_author))) :?>
+                                    <a href="<?php echo $this->config->show_image_url('brand', $res->brand_author)?>" target="_blank">
+                                        <img src="<?php echo $this->config->show_image_url('brand', $res->brand_author)?>" width=150 height="100">
+                                    </a>
+                                    <input type="hidden" name="old_brand_author" value="<?php echo $res->brand_author ?>"/>
+                                    <input type="file" name="brand_author"/>
+                                <?php else : ?>
+                                    <input type="file" name="brand_author"/>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -62,10 +76,10 @@
                             <label class="control-label"><em>* </em>是否显示</label>
                             <div class="controls">
                                 <label class="radio">
-                                	<input type="radio" class="required" name="is_show" value="1" <?php if($res->is_show==1) echo 'checked="checked"';?> /> 是
+                                	<input type="radio" class="required" name="is_show" value="1" <?php if($res->is_show==1):?>checked="checked"<?php endif;?>/> 是
                                 </label>
                                 <label class="radio">
-                                	<input type="radio" class="required" name="is_show" value="2" <?php if($res->is_show==2) echo 'checked="checked"';?>/> 否（当品牌下还没有商品的时候，首页及分类页的品牌区将不会显示该品牌）
+                                	<input type="radio" class="required" name="is_show" value="2" <?php if($res->is_show==2):?>checked="checked"<?php endif;?>/> 否（当品牌下还没有商品的时候，首页及分类页的品牌区将不会显示该品牌）
                                 </label>
                             </div>
                         </div>

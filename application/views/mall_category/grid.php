@@ -34,7 +34,7 @@
                                     <th >编号</th>
                                     <th >分类名称</th>
                                     <th >上级ID</th>
-                                    <th >显示状态</th>
+                                    <th>显示状态</th>
                                     <th >排序</th>
                                     <th >商品属性ID</th>
                                     <th >操作</th>

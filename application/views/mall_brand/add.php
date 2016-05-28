@@ -38,6 +38,12 @@
                             </div>
                         </div>
                         <div class="control-group">
+                            <label class="control-label">品牌授权</label>
+                            <div class="controls">
+                                <input type="file" name="brand_author" class="m-wrap large"/>
+                            </div>
+                        </div>
+                        <div class="control-group">
                             <label class="control-label">品牌简介</label>
                             <div class="controls">
                                 <textarea class="textarea-multipart-edit" name="brand_desc"></textarea>

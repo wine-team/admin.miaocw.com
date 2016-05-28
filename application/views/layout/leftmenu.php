@@ -73,7 +73,7 @@
         </li>
         <li>
             <a href="javascript:;">
-                <i class="icon-user"></i>
+                <i class="icon-barcode"></i>
                 <span class="title">妙网商城</span>
                 <span class="selected "></span>
                 <span class="arrow"></span>
@@ -81,7 +81,7 @@
             <ul class="sub-menu">
                 <li>
                     <a href="javascript:;">
-                        <span class="title">成人商品管理</span>
+                        <span class="title">商品管理</span>
                         <span class="selected "></span>
                         <span class="arrow"></span>
                     </a>
@@ -107,6 +107,23 @@
                     </ul>
                 </li>
                 <li><a href="<?php echo base_url('keyword_search/grid');?>">热门搜索</a></li>
+<<<<<<< HEAD
+=======
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;">
+                <i class="icon-bullhorn"></i>
+                <span class="title">新闻管理</span>
+                <span class="selected"></span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu" style="display: none;">
+                <li><a href="<?php //echo base_url('keyword_search/grid');?>">新闻（公告）列表</a></li>
+                <li><a href="<?php //echo base_url('keyword_search/grid');?>">新闻（公告）分类</a></li>
+                <li><a href="<?php //echo base_url('keyword_search/grid');?>">代理商申请</a></li>
+                <li><a href="<?php //echo base_url('keyword_search/grid');?>">供应商申请</a></li>
+>>>>>>> 98fd4f5fed0e8e9a7024c7cc150d2db96f66ecf5
             </ul>
         </li>
         <li>

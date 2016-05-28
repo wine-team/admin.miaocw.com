@@ -33,6 +33,9 @@ class Mall_category extends MJ_Controller {
 	    $data['is_show'] = $postData['is_show'];
 	    $data['sort_order'] = $postData['sort_order'];
 	    $data['filter_attr'] = toNumStr($postData['filter_attr']);
+	    if( !empty($postData['keyword']) ){
+	       $data['keyword'] = $postData['keyword'];
+	    }
 	    $res = $this->mall_category->insert($data);
 	    if ($res) {
 	        $this->success('mall_category/grid', '', '新增成功！');
@@ -63,6 +66,9 @@ class Mall_category extends MJ_Controller {
 	    $data['is_show'] = $postData['is_show'];
 	    $data['sort_order'] = $postData['sort_order'];
 	    $data['filter_attr'] = toNumStr($postData['filter_attr']);
+	    if( !empty($postData['keyword']) ){
+	    	$data['keyword'] = $postData['keyword'];
+	    }
         $res = $this->mall_category->update(array('cat_id'=>$postData['cat_id']), $data); 
         if ($res) {
             $this->success('mall_category/grid', '', '修改成功！');
