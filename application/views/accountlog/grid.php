@@ -55,9 +55,9 @@
                                     <th>账户编号</th>
                                     <th>UID</th>
                                     <th>电话/邮箱</th>
-                                    <th>现金账户</th>
-                                    <th>待结资金</th>
-                                    <th>账户积分</th>
+                                    <th>订单ID</th>
+                                    <th>账户类型</th>
+                                    <th>金额</th>
                                     <th>操作时间</th>
                                 </tr>
                             </thead>
@@ -65,13 +65,13 @@
                                 <?php foreach ($account_log->result() as $item) : ?>
                                 <tr>
                                     <td><input type="checkbox" class="checkboxes" value="1" ></td>
-                                    <td><?php echo $item->account_id;?></td>
+                                    <td><?php echo $item->log_id;?></td>
                                     <td><?php echo $item->uid;?></td>
                                     <td><?php echo ($item->phone?$item->phone:'无'). '/' .($item->email?$item->email:'无');?></td>
-                                    <td><?php echo $item->cash_account;?></td>
-                                    <td><?php echo $item->pending_cash;?></td>
-                                    <td><?php echo $item->integral;?></td>
-                                    <td><?php echo $item->timestamp;?></td>
+                                    <td><?php echo $item->order_id;?></td>
+                                    <td><?php echo $item->account_type == 'pay' ? '支出' : '充值';?></td>
+                                    <td><?php echo $item->amount;?></td>
+                                    <td><?php echo $item->creat_at;?></td>
                                 </tr>
                                 <?php endforeach;?>
                             </tbody>
