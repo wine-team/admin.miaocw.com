@@ -1,9 +1,9 @@
 <?php
-class Mall_attribute_model extends CI_Model{
+class Mall_attribute_value_model extends CI_Model{
 
-	private $table = 'mall_attribute';        
+	private $table = 'mall_attribute_value';        
 	
-	public function mall_attribute_list($page, $perpage, $search, $order='attr_id DESC')
+	public function mall_attribute_list($page, $perpage, $search, $order='attr_value_id DESC')
 	{
 	    if(!empty($search['item']))
 	    {

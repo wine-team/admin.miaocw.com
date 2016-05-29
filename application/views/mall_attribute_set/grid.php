@@ -3,7 +3,7 @@
     <div class="row-fluid">
         <div class="span12">
             <h3 class="page-title">商品管理 <small>商品类型</small></h3>
-            <?php echo breadcrumb(array('商品管理', 'mall_goods_type/grid'=>'商品类型')); ?>
+            <?php echo breadcrumb(array('商品管理', 'mall_attribute_set/grid'=>'商品类型')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>
@@ -47,7 +47,7 @@
                 <div class="portlet-body flip-scroll">
                     <div class="dataTables_wrapper form-inline">
                         <div class="clearfix">
-                            <a href="<?php echo base_url('mall_goods_type/add') ?>" class="add-button-link">
+                            <a href="<?php echo base_url('mall_attribute_set/add') ?>" class="add-button-link">
                                 <div class="btn-group">
                                     <button class="btn green"><i class="icon-plus"></i> 添加</button>
                                 </div>
@@ -69,14 +69,14 @@
                                 <?php foreach ($res_list as $r) : ?>
                                 <tr>
                                     <td width="15"><input type="checkbox" class="checkboxes" value="1" ></td>
-                                    <td><?php echo $r->type_id;?></td>
-                                    <td><?php echo $r->type_name;?></td>
+                                    <td><?php echo $r->attr_set_id;?></td>
+                                    <td><?php echo $r->attr_set_name;?></td>
                                     <td><?php echo $r->attr_num;?></td>
                                     <td><?php if($r->enabled==1) echo '是';?></td>
                                     <td width="195">
-                                        <a class="btn mini green" href="<?php echo base_url('mall_goods_type/edit/'.$r->type_id); ?>"><i class="icon-edit"></i> 编辑</a>
-                                        <a class="btn mini green" href="<?php echo base_url('mall_goods_type/delete/'.$r->type_id); ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
-                                        <a class="btn mini green" href="<?php echo base_url('mall_attribute/grid/'.$r->type_id); ?>" ><i class="icon-trash"></i>查看属性</a>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_attribute_set/edit/'.$r->attr_set_id); ?>"><i class="icon-edit"></i> 编辑</a>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_attribute_set/delete/'.$r->attr_set_id); ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_attribute_value/grid/'.$r->attr_set_id); ?>" ><i class="icon-trash"></i>查看属性</a>
                                     </td>
                                 </tr>
                                 <?php endforeach;?>

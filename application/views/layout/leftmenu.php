@@ -88,7 +88,7 @@
                     <ul class="sub-menu">
                         <li><a href="javascript:;">商品列表</a></li>
                         <li><a href="<?php echo base_url('mall_category/grid');?>">类别管理</a></li>
-                        <li><a href="<?php echo base_url('mall_goods_type/grid');?>">商品类型</a></li>
+                        <li><a href="<?php echo base_url('mall_attribute_set/grid');?>">商品类型</a></li>
                         <li><a href="<?php echo base_url('mall_brand/grid');?>">品牌管理</a></li>
                         <li><a href="<?php echo base_url('mall_freight/grid');?>">运费模板</a></li>
                     </ul>
@@ -107,8 +107,6 @@
                     </ul>
                 </li>
                 <li><a href="<?php echo base_url('keyword_search/grid');?>">热门搜索</a></li>
-<<<<<<< HEAD
-=======
             </ul>
         </li>
         <li>
@@ -123,7 +121,6 @@
                 <li><a href="<?php //echo base_url('keyword_search/grid');?>">新闻（公告）分类</a></li>
                 <li><a href="<?php //echo base_url('keyword_search/grid');?>">代理商申请</a></li>
                 <li><a href="<?php //echo base_url('keyword_search/grid');?>">供应商申请</a></li>
->>>>>>> 98fd4f5fed0e8e9a7024c7cc150d2db96f66ecf5
             </ul>
         </li>
         <li>

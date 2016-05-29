@@ -2,8 +2,8 @@
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
-            <h3 class="page-title">商品管理 <small>属性管理</small></h3>
-            <?php echo breadcrumb(array('mall_goods_type/grid'=>'商品类型','mall_attribute/grid/'.$type_id => '属性管理')); ?>
+            <h3 class="page-title">商品管理 <small>关联产品</small></h3>
+            <?php echo breadcrumb(array('mall_goods/grid'=>'商品管理','mall_goods_related/grid/'.$goods_id => '关联产品')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>
@@ -21,7 +21,7 @@
                 <div class="portlet-body flip-scroll">
                     <div class="dataTables_wrapper form-inline">
                         <div class="clearfix">
-                            <a href="<?php echo base_url('mall_attribute/add/'.$type_id) ?>" class="add-button-link">
+                            <a href="<?php echo base_url('mall_goods_related/add/'.$goods_id) ?>" class="add-button-link">
                                 <div class="btn-group">
                                     <button class="btn green"><i class="icon-plus"></i> 添加</button>
                                 </div>
@@ -33,13 +33,9 @@
                                 <tr>
                                     <th><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"></th>
                                     <th>编号</th>
-                                    <th>商品类型ID</th>
-                                    <th>商品属性名称</th>
-                                    <th>属性类型</th>
-                                    <th>可选值</th>
-                                    <th>检索</th>
-                                    <th>关联</th>
-                                    <th>排序</th>
+                                    <th>商品ID</th>
+                                    <th>关联商品ID</th>
+                                    <th>是否双向关联</th>
                                     <th>操作</th>
                                 </tr>
                             </thead>
@@ -47,21 +43,12 @@
                                 <?php foreach ($res->result() as $r) : ?>
                                 <tr>
                                     <td width="15"><input type="checkbox" class="checkboxes" value="1" ></td>
-                                    <td><?php echo $r->attr_id;?></td>
-                                    <td><?php echo $r->type_id;?></td>
-                                    <td><?php echo $r->attr_name;?></td>
-                                    <td><?php switch ($r->attr_type){
-                                        case 1 : echo '唯一属性';break;
-                                        case 2 : echo '单选属性';break;
-                                        case 3 : echo '复选属性';break;
-                                    }?></td>
-                                    <td><?php echo $r->attr_values;?></td>
-                                    <td><?php echo ($r->attr_index == 2) ?  '关键字检索' : '不需要检索'; ?></td>
-                                    <td><?php echo $r->is_linked;?></td>
-                                    <td><?php echo $r->sort_order;?></td>
+                                    <td><?php echo $r->related_id;?></td>
+                                    <td><?php echo $r->goods_id;?></td>
+                                    <td><?php echo $r->related_goods_id;?></td>
+                                    <td><?php if($r->is_double==1)echo '是';?></td>
                                     <td width="145">
-                                        <a class="btn mini green" href="<?php echo base_url('mall_attribute/edit/'.$r->attr_id.'?type_id='.$type_id); ?>"><i class="icon-edit"></i> 编辑</a>
-                                        <a class="btn mini green" href="<?php echo base_url('mall_attribute/delete/'.$r->attr_id.'?type_id='.$type_id); ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_goods_related/delete/'.$r->related_id.'?goods_id='.$goods_id); ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
                                     </td>
                                 </tr>
                                 <?php endforeach;?>

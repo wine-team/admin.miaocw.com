@@ -3,7 +3,7 @@
     <div class="row-fluid">
         <div class="span12">
             <h3 class="page-title">商品管理 <small>属性管理</small></h3>
-             <?php echo breadcrumb(array('商品类型'=>'mall_goods_type/grid','mall_attribute/grid/'.$type_id=>'属性管理','添加属性')); ?>
+             <?php echo breadcrumb(array('商品类型','mall_attribute_value/grid/'.$attr_set_id=>'属性管理','添加属性')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>
@@ -18,20 +18,32 @@
                     </div>
                 </div>
                 <div class="portlet-body form">
-                    <form class="form-horizontal line-form" action="<?php echo base_url('mall_attribute/addPost') ?>" method="post" enctype ="multipart/form-data" >
+                    <form class="form-horizontal line-form" action="<?php echo base_url('mall_attribute_value/addPost') ?>" method="post" enctype ="multipart/form-data" >
+                        
+                        <div class="control-group">
+                            <label class="control-label"><em>* </em>所属商品类型</label>
+                            <div class="controls">
+                                <input type="text" class="m-wrap large required" readonly  value="<?php echo $attr_set->attr_set_name;?>"/> 
+                                <input type="hidden" name="attr_set_id" value="<?php echo $attr_set->attr_set_id;?>">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"><em>* </em>所属商品属性分组</label>
+                            <div class="controls">
+                                <select name="group_id" class="m-wrap large required">
+                                    <?php foreach($attr_group as $a) :?>
+                                    <option value="<?php echo $a->group_id?>"><?php echo $a->group_name;?></option>
+                                    <?php endforeach;?>
+                                </select>
+                            </div>
+                        </div>
                         <div class="control-group">
                             <label class="control-label"><em>* </em>属性名称</label>
                             <div class="controls">
                                 <input type="text" class="m-wrap large required" name="attr_name" value=""/> 
                             </div>
                         </div>
-                        <div class="control-group">
-                            <label class="control-label"><em>* </em>所属商品类型</label>
-                            <div class="controls">
-                                <input type="text" class="m-wrap large required" readonly  value="<?php echo $type->type_name;?>"/> 
-                                <input type="hidden" name="type_id" value="<?php echo $type->type_id;?>">
-                            </div>
-                        </div>
+                        
                         <div class="control-group">
                             <label class="control-label"><em>* </em>属性类型</label>
                             <div class="controls">
@@ -84,7 +96,7 @@
                         </div>
                         <div class="form-actions">
                             <button class="btn green" type="submit"><i class="icon-ok"></i> 保存</button>
-                            <a href="<?php echo base_url('mall_brand/grid') ?>">
+                            <a href="<?php echo base_url('mall_attribute_value/grid/'.$attr_set_id) ?>">
                                 <button class="btn" type="button">返回</button>
                             </a>
                         </div>
