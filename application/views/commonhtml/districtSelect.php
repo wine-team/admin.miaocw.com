@@ -1,7 +1,5 @@
 <?php
-    $this->load->model('region_model', 'region');
     $provinces = $this->region->children_of(1);
-
     $province_selected = isset($province_id) ? (int)$province_id : 0;
     $city_selected     = isset($city_id) ? (int)$city_id : 0;
     $district_selected = isset($district_id) ? (int)$district_id : 0;

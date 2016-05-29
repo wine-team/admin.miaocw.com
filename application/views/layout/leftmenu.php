@@ -85,7 +85,7 @@
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
-                        <li><a href="javascript:;">商品列表</a></li>
+                        <li><a href="<?php echo base_url('mall_goods/grid');?>">商品列表</a></li>
                         <li><a href="<?php echo base_url('mall_category/grid');?>">类别管理</a></li>
                         <li><a href="<?php echo base_url('mall_attribute_set/grid');?>">商品类型</a></li>
                         <li><a href="<?php echo base_url('mall_brand/grid');?>">品牌管理</a></li>
@@ -106,23 +106,6 @@
                     </ul>
                 </li>
                 <li><a href="<?php echo base_url('keyword_search/grid');?>">热门搜索</a></li>
-<<<<<<< HEAD
-            </ul>
-        </li>
-        <li>
-            <a href="javascript:;">
-                <i class="icon-bullhorn"></i>
-                <span class="title">新闻管理</span>
-                <span class="selected"></span>
-                <span class="arrow"></span>
-            </a>
-            <ul class="sub-menu" style="display: none;">
-                <li><a href="<?php //echo base_url('keyword_search/grid');?>">新闻（公告）列表</a></li>
-                <li><a href="<?php //echo base_url('keyword_search/grid');?>">新闻（公告）分类</a></li>
-                <li><a href="<?php //echo base_url('keyword_search/grid');?>">代理商申请</a></li>
-                <li><a href="<?php //echo base_url('keyword_search/grid');?>">供应商申请</a></li>
-=======
->>>>>>> b3ef2c155cfee00576ee65f1180025afd1fe8d61
             </ul>
         </li>
         <li>
