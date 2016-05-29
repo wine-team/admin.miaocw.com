@@ -106,7 +106,6 @@
                     </ul>
                 </li>
                 <li><a href="<?php echo base_url('keyword_search/grid');?>">热门搜索</a></li>
-<<<<<<< HEAD
             </ul>
         </li>
         <li>
@@ -121,8 +120,6 @@
                 <li><a href="<?php //echo base_url('keyword_search/grid');?>">新闻（公告）分类</a></li>
                 <li><a href="<?php //echo base_url('keyword_search/grid');?>">代理商申请</a></li>
                 <li><a href="<?php //echo base_url('keyword_search/grid');?>">供应商申请</a></li>
-=======
->>>>>>> b3ef2c155cfee00576ee65f1180025afd1fe8d61
             </ul>
         </li>
         <li>
