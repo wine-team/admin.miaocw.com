@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class mall_attribute_value extends MJ_Controller {
+class Mall_attribute_value extends MJ_Controller {
 
 	public function _init()
 	{
@@ -10,19 +10,19 @@ class mall_attribute_value extends MJ_Controller {
 	    $this->load->model('mall_attribute_group_model','mall_attribute_group');
 	}
 	
-	public function grid($attr_set_id = 0)
-	{
-	    $res = $this->mall_attribute_value->findById(array('attr_set_id'=>$attr_set_id));
-	    $data['attr_set_id'] = $attr_set_id;
-	    $data['res'] = $res;
-	    $this->load->view('mall_attribute_value/grid', $data);
-	}
+// 	public function grid($attr_set_id = 0)
+// 	{
+// 	    $res = $this->mall_attribute_value->findById(array('attr_set_id'=>$attr_set_id));
+// 	    $data['attr_set_id'] = $attr_set_id;
+// 	    $data['res'] = $res;
+// 	    $this->load->view('mall_attribute_value/grid', $data);
+// 	}
 
-	public function add($attr_set_id)
+	public function add($group_id)
 	{
-	    $data['attr_group'] = $this->mall_attribute_group->findById(array('attr_set_id'=>$attr_set_id))->result(); 
-	    $data['attr_set'] = $this->mall_attribute_set->findById(array('attr_set_id'=>$attr_set_id))->row();
-	    $data['attr_set_id'] = $attr_set_id;
+	    $data['attr_set_id'] = $this->input->get('attr_set_id');
+	    $data['attr_group'] = $this->mall_attribute_group->findById(array('group_id'=>$group_id))->row(); 
+	    $data['attr_set'] = $this->mall_attribute_set->findById(array('attr_set_id'=>$data['attr_set_id']))->row();
 	    $this->load->view('mall_attribute_value/add', $data);
 	}
 	
@@ -34,9 +34,9 @@ class mall_attribute_value extends MJ_Controller {
 	        $this->error('mall_attribute_value/add', $this->input->post('attr_value_id'), $error);
 	    }
 	    $postData = $this->input->post(); 
-	    $data['attr_name'] = $postData['attr_name'];
 	    $data['group_id'] = $postData['group_id'];
 	    $data['attr_set_id'] = $postData['attr_set_id'];
+	    $data['attr_name'] = $postData['attr_name'];
 	    $data['attr_type'] = $postData['attr_type'];
 	    $data['attr_values'] = toEnComma($postData['attr_values']);
 	    $data['attr_index'] = $postData['attr_index'];
@@ -44,27 +44,25 @@ class mall_attribute_value extends MJ_Controller {
 	    $data['sort_order'] = $postData['sort_order'];
 	    $res = $this->mall_attribute_value->insert($data);
 	    if ($res) {
-	        $this->success('mall_attribute_value/grid', $this->input->post('attr_set_id'), '新增成功！');
+	        $this->success('mall_attribute_set/edit', $postData['attr_set_id'], '新增成功！');
 	    } else {
-	        $this->error('mall_attribute_value/add', $this->input->post('attr_value_id'), '新增失败！');
+	        $this->error('mall_attribute_value/add/'.$postData['group_id'], array('attr_set_id'=>$postData['attr_set_id']), '新增失败！');
 	    }
 	}
 	
 	public function edit($attr_value_id)
 	{
 	    $data['attr_set_id'] = $this->input->get('attr_set_id');
-	    $data['attr_group'] = $this->mall_attribute_group->findById(array('attr_set_id'=>$data['attr_set_id']))->result(); 
-	    $data['attr_set'] = $this->mall_attribute_set->findById(array('attr_set_id'=>$data['attr_set_id']))->row();
 	    $res = $this->mall_attribute_value->findById(array('attr_value_id'=>$attr_value_id));
 	    if ($res->num_rows() > 0)
 	    {
+	        $data['attr_group'] = $this->mall_attribute_group->findById(array('group_id'=>$res->row()->attr_set_id))->row();
+	        $data['attr_set'] = $this->mall_attribute_set->findById(array('attr_set_id'=>$data['attr_set_id']))->row();
 	        $data['res'] = $res->row();
 	        $this->load->view('mall_attribute_value/edit',$data);
 	    } else {
             $this->error('mall_attribute_set/grid', $this->input->get('attr_set_id'), '没找到对应属性');
 	    }
-        $data['res'] = $res->row();
-        $this->load->view('mall_attribute_value/edit',$data);
 	}
 	
 	public function editPost()
@@ -75,9 +73,9 @@ class mall_attribute_value extends MJ_Controller {
             $this->error('mall_attribute_value/edit', $this->input->post('attr_id'), $error);
         }
         $postData = $this->input->post();
-        $data['attr_name'] = $postData['attr_name'];
 	    $data['group_id'] = $postData['group_id'];
 	    $data['attr_set_id'] = $postData['attr_set_id'];
+	    $data['attr_name'] = $postData['attr_name'];
 	    $data['attr_type'] = $postData['attr_type'];
 	    $data['attr_values'] = toEnComma($postData['attr_values']);
 	    $data['attr_index'] = $postData['attr_index'];
@@ -85,9 +83,9 @@ class mall_attribute_value extends MJ_Controller {
 	    $data['sort_order'] = $postData['sort_order'];
         $res = $this->mall_attribute_value->update(array('attr_value_id'=>$postData['attr_value_id']), $data);  
         if ($res) {
-            $this->success('mall_attribute_value/grid', $this->input->post('attr_set_id'), '修改成功！');
+            $this->success('mall_attribute_set/edit', $postData['attr_set_id'], '修改成功！');
         } else {
-            $this->error('mall_attribute_value/edit', $this->input->post('attr_value_id'), '修改失败！');
+            $this->error('mall_attribute_value/edit/'.$postData['attr_value_id'], array('attr_set_id'=>$postData['attr_set_id']), '修改失败！');
         }
 	}
 	
@@ -95,9 +93,9 @@ class mall_attribute_value extends MJ_Controller {
 	{
         $is_delete = $this->mall_attribute_value->delete(array('attr_value_id'=>$attr_value_id));
         if ($is_delete) {
-            $this->success('mall_attribute_value/grid', $this->input->get('attr_set_id'), '删除成功！');
+            $this->success('mall_attribute_set/edit', $this->input->get('attr_set_id'), '删除成功！');
         } else {
-            $this->error('mall_attribute_value/grid', $this->input->get('attr_set_id'), '删除失败！');
+            $this->error('mall_attribute_set/edit', $this->input->get('attr_set_id'), '删除失败！');
         }
 	    
 	}

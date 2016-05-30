@@ -5,6 +5,8 @@ class Mall_attribute_set extends MJ_Controller {
 	{
 	    $this->load->library('pagination');
 	    $this->load->model('mall_attribute_set_model','mall_attribute_set');
+	    $this->load->model('mall_attribute_group_model','mall_attribute_group');
+	    $this->load->model('mall_attribute_value_model','mall_attribute_value');
 	}
 
     public function grid($pg = 1)
@@ -54,6 +56,20 @@ class Mall_attribute_set extends MJ_Controller {
 	    if ($res->num_rows() > 0)
 	    {
 	        $data['res'] = $res->row();
+	        $group = $this->mall_attribute_group->findById(array('attr_set_id'=>$attr_set_id))->result();
+	        $groupid = array();
+	        $arribute = array();
+	        foreach($group as $g)
+	        {
+	            $groupid[] = $g->group_id;
+	        }
+	        if(!empty($groupid))
+	        {
+	            $arribute = $this->mall_attribute_value->getWherein('group_id', $groupid, array('attr_set_id'=>$attr_set_id))->result();
+	        }
+	        $data['attr_set_id'] = $attr_set_id;
+	        $data['arribute'] = $arribute;
+	        $data['group'] = $group; 
 	        $this->load->view('mall_attribute_set/edit',$data);
 	    } else {
 	        $this->redirect('mall_attribute_set/grid');
@@ -96,6 +112,50 @@ class Mall_attribute_set extends MJ_Controller {
         }
 	    return $error;
 	}
+	
+	public function addGroup($attr_set_id)
+	{
+	    $data['attr_set_id'] = $attr_set_id;
+	    $this->load->view('mall_attribute_set/addGroup', $data);
+	}
+	
+	public function addPostGroup()
+	{
+	    $postData = $this->input->post();
+	    $data['attr_set_id'] = $postData['attr_set_id'];
+	    $data['group_name'] = $postData['group_name'];
+	    $group = $this->mall_attribute_group->findById($data)->num_rows();
+	    if($group > 0)
+	    {
+	        $this->error('mall_attribute_set/edit', $postData['attr_set_id'], '组名已存在，新增失败！');
+	    }else{
+	        $data['sort'] = $postData['sort'];
+	        $res = $this->mall_attribute_group->insert($data);
+	        if ($res) {
+	            $this->success('mall_attribute_set/edit', $postData['attr_set_id'], '新增成功！');
+	        } else {
+	            $this->error('mall_attribute_set/edit', $postData['attr_set_id'], '新增失败！');
+	        } 
+	    }
+	}
+	
+	public function deleteGroup($group_id)
+	{    
+	    $is_delete = $this->mall_attribute_group->delete(array('group_id'=>$group_id));
+	    if ($is_delete) {
+	        $this->success('mall_attribute_set/edit', $this->input->get('attr_set_id'), '删除成功！');
+	    } else {
+	        $this->error('mall_attribute_set/edit', $this->input->get('attr_set_id'), '删除失败！');
+	    }
+	}
+	
+	public function addAttrVal($attr_set_id)
+	{
+	    $data['attr_set_id'] = $attr_set_id;
+	    $this->load->view('mall_attribute_set/addAttrVal', $data);
+	}
+	
+	
 }
 
 /** End of file Mall_attribute_set.php */

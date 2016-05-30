@@ -38,6 +38,14 @@ class Mall_attribute_value_model extends CI_Model{
 	    return $this->db->affected_rows();
 	}
 	
+	public function getWherein($item, $arr ,$where=array())  //在$arr 内
+	{
+	    $this->db->where_in($item, $arr);
+	    $this->db->where($where);
+	    $res = $this->db->get($this->table);
+	    return $res;
+	}
+	
 }
 /* End of file Mall_attribute_model.php */
 /* Location: ./application/models/Mall_attribute_model.php */

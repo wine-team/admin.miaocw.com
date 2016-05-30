@@ -2,8 +2,8 @@
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
-            <h3 class="page-title">商品管理 <small>属性管理</small></h3>
-             <?php echo breadcrumb(array('mall_attribute_set/grid'=>'商品类型','mall_attribute_value/grid/'.$attr_set_id => '属性管理','添加属性'));?>
+            <h3 class="page-title">商品管理 <small>商品类型</small></h3>
+             <?php echo breadcrumb(array('商品管理','mall_attribute_set/grid/'.$attr_set_id => '属性管理','编辑属性'));?>
         </div>
     </div>
     <?php echo execute_alert_message();?>
@@ -11,7 +11,7 @@
         <div class="span12">
             <div class="portlet box green">
                 <div class="portlet-title">
-                    <div class="caption"><i class="icon-plus-sign"></i>编辑</div>
+                    <div class="caption"><i class="icon-plus-sign"></i>编辑属性</div>
                     <div class="tools">
                         <a class="collapse" href="javascript:;"></a>
                         <a class="remove" href="javascript:;"></a>
@@ -31,11 +31,8 @@
                         <div class="control-group">
                             <label class="control-label"><em>* </em>所属商品属性分组</label>
                             <div class="controls">
-                                <select name="group_id" class="m-wrap large required">
-                                    <?php foreach($attr_group as $a) :?>
-                                    <option <?php if($res->group_id==$a->group_id)echo 'selected="selected"';?> value="<?php echo $a->group_id?>"><?php echo $a->group_name;?></option>
-                                    <?php endforeach;?>
-                                </select>
+                                <input type="text" class="m-wrap large required" readonly  value="<?php echo $attr_group->group_name;?>"/> 
+                                <input type="hidden" name="group_id" value="<?php echo $attr_group->group_id;?>">
                             </div>
                         </div>
                         
@@ -103,7 +100,7 @@
                         
                         <div class="form-actions">
                             <button class="btn green" type="submit"><i class="icon-ok"></i> 保存</button>
-                            <a href="<?php echo base_url('mall_attribute_value/grid/'.$attr_set_id) ?>">
+                            <a href="<?php echo base_url('mall_attribute_set/grid/'.$attr_set_id) ?>">
                                 <button class="btn" type="button">返回</button>
                             </a>
                         </div>
