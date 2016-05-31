@@ -28,34 +28,6 @@ class Adminrole extends CS_Controller
         $this->load->view('adminrole/grid', $data);
     }
 
-    public function leftmenu($id)
-    {
-        $result = $this->admin_role->findById($id);
-        if ($result->num_rows() <= 0) {
-            $this->error('adminrole/grid', '', '无效ID:'.$id);
-        }
-        $data['role'] = $result->row();
-        $this->load->view('adminrole/leftmenu', $data);
-    }
-
-    public function leftmenuPost()
-    {
-        $roleId = $this->input->post('role_id');
-        if (!$this->search_get_validate($this->input->post('action_menu'))) {
-            $this->error('adminrole/leftmenu', $roleId, '权限至少有一个不为空。');
-        }
-        $action_menu = array_sum($this->input->post('action_menu'));
-        $this->db->trans_start();
-        $resultId = $this->admin_role->updateRoleMenuId($roleId, $action_menu);
-        $this->db->trans_complete();
-
-        if ($resultId) {
-            $this->success('adminrole/grid', '', '保存成功！');
-        } else {
-            $this->error('adminrole/leftmenu', $roleId, '保存失败！');
-        }
-    }
-
     public function add()
     {
         $priv_arr = $this->admin_action->get_modules();
@@ -63,7 +35,6 @@ class Adminrole extends CS_Controller
         foreach($actions as $action) {
             $priv_arr[$action['parent_id']]['priv'][$action['action_code']] = $action;
         }
-
         // 按模块分好的操作权限
         $data['priv_arr'] = $priv_arr;
         $this->load->view('adminrole/add', $data);
@@ -98,7 +69,7 @@ class Adminrole extends CS_Controller
 
     public function edit($id)
     {
-        $result = $this->role->findById($id);
+        $result = $this->admin_role->findById($id);
         if ($result->num_rows() <= 0) {
             $this->error('adminrole/grid', '', '无效ID:'.$id);
         }
@@ -112,7 +83,8 @@ class Adminrole extends CS_Controller
 
         // 将同一组的权限使用 "," 连接起来，供JS全选
         foreach ($priv_arr AS $action_id => $action_group) {
-            $priv_arr[$action_id]['priv_list'] = join(',', @array_keys($action_group['priv']));
+            $priv_arr[$action_id]['cando'] = (strpos($editing['action_list'], $action_group['action_code']) !== false || $editing['action_list'] == 'all') ? 1 : 0;
+            $priv_arr[$action_id]['priv_list'] = $action_group['action_code'].','.join(',', @array_keys($action_group['priv']));
             foreach ($action_group['priv'] AS $key => $val) {
                 $priv_arr[$action_id]['priv'][$key]['cando'] = (strpos($editing['action_list'], $val['action_code']) !== false || $editing['action_list'] == 'all') ? 1 : 0;
             }

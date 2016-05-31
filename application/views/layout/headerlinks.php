@@ -198,7 +198,7 @@
                     <i class="icon-angle-down"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="<?php echo base_url('account/edit');?>"><i class="icon-user"></i> 我的账户</a></li>
+                        <li><a href="<?php echo base_url('home/edit');?>"><i class="icon-user"></i> 我的账户</a></li>
                         <li><a href="<?php echo base_url('account/logout');?>"><i class="icon-key"></i> 退出</a></li>
                     </ul>
                 </li>

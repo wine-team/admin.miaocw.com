@@ -32,12 +32,11 @@
                                 <tr>
                                     <th width="25"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"></th>
                                     <th width="30">编号</th>
-                                    <th>角色名称</th>
+                                    <th>角色</th>
                                     <th width="600">权限方法</th>
-                                    <td>菜单</td>
                                     <th>创建时间</th>
                                     <th>修改时间</th>
-                                    <th>操作</th>
+                                    <th width="60">操作</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -46,14 +45,14 @@
                                     <td width="25"><input type="checkbox" class="checkboxes" value="1" ></td>
                                     <td width="30"><?php echo $item->id;?></td>
                                     <td><?php echo $item->name;?></td>
-                                    <td style="word-break:break-all;word-wrap:break-word;width:600px;"><?php echo $item->action_list;?></td>
-                                    <td><?php echo $item->menu_id;?></td>
+                                    <td style="word-break:break-all;word-wrap:break-word;width:600px;">
+                                        <?php echo $item->action_list;?>
+                                    </td>
                                     <td><?php echo $item->created_at ?></td>
                                     <td><?php echo $item->updated_at;?></td>
                                     <td>
-                                        <a class="btn mini green" href="<?php echo base_url('adminrole/leftmenu/'.$item->id) ?>"> 查看权限菜单</a>
-                                        <a class="btn mini green" href="<?php echo base_url('adminrole/edit/'.$item->id) ?>"><i class="icon-edit"></i> 编辑</a>
-                                        <a class="btn mini green" href="<?php echo base_url('adminrole/delete/'.$item->id) ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
+                                        <a class="btn mini green" href="<?php echo base_url('adminrole/edit/'.$item->id) ?>">编辑</a><p></p>
+                                        <a class="btn mini green" href="<?php echo base_url('adminrole/delete/'.$item->id) ?>" onclick="return confirm('确定要删除？')">删除</a>
                                     </td>
                                 </tr>
                                 <?php endforeach;?>
@@ -73,7 +72,6 @@
                             <div class="alert"><p>未找到数据。<p></div>
                         <?php endif ?>
                     </div>
-                    
                 </div>
             </div>
         </div>

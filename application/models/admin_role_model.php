@@ -49,7 +49,7 @@ class Admin_role_model extends CI_Model
         );
 
         $this->db->where('id', $role_id);
-        return $this->db->update('role', $data);
+        return $this->db->update($this->table, $data);
     }
 
     function updateRoleMenuId($role_id, $menu_id)
@@ -60,7 +60,7 @@ class Admin_role_model extends CI_Model
         );
 
         $this->db->where('id', $role_id);
-        return $this->db->update('role', $data);
+        return $this->db->update($this->table, $data);
     }
 
     function insertRole($name, $action_list)
