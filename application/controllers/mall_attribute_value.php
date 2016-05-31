@@ -39,6 +39,7 @@ class Mall_attribute_value extends MJ_Controller {
 	    $data['attr_name'] = $postData['attr_name'];
 	    $data['attr_type'] = $postData['attr_type'];
 	    $data['attr_values'] = toEnComma($postData['attr_values']);
+	    $data['values_required'] = $postData['values_required'];
 	    $data['attr_index'] = $postData['attr_index'];
 	    $data['is_linked'] = $postData['is_linked'];
 	    $data['sort_order'] = $postData['sort_order'];
@@ -78,6 +79,7 @@ class Mall_attribute_value extends MJ_Controller {
 	    $data['attr_name'] = $postData['attr_name'];
 	    $data['attr_type'] = $postData['attr_type'];
 	    $data['attr_values'] = toEnComma($postData['attr_values']);
+	    $data['values_required'] = $postData['values_required'];
 	    $data['attr_index'] = $postData['attr_index'];
 	    $data['is_linked'] = $postData['is_linked'];
 	    $data['sort_order'] = $postData['sort_order'];
@@ -106,6 +108,10 @@ class Mall_attribute_value extends MJ_Controller {
         if ($this->validateParam($this->input->post('attr_name')))
         {
             $error[] = '属性名称不能为空';
+        }
+        if ($this->validateParam($this->input->post('attr_type')))
+        {
+            $error[] = '属性类型不能为空';
         }
         if ($this->validateParam($this->input->post('attr_values')))
         {

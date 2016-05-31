@@ -34,8 +34,10 @@
                                     <th >编号</th>
                                     <th >分类名称</th>
                                     <th >上级ID</th>
-                                    <th>显示状态</th>
+                                    <th >显示状态</th>
                                     <th >排序</th>
+                                    <th >关键字</th>
+                                    <th >类名全名</th>
                                     <th >商品属性ID</th>
                                     <th >操作</th>
                                 </tr>
@@ -45,42 +47,48 @@
                                 <?php if($r->parent_id == 0) :?>
                                 <tr class="p_cat">
                                     <td style="table-layout:fixed;width:20px;"><i class="icon-plus"></i></td>
-                                    <td style="table-layout:fixed;width:40px;"><?php echo $r->cat_id;?></td>
+                                    <td style="table-layout:fixed;width:50px;"><?php echo $r->cat_id;?></td>
                                     <td style="table-layout:fixed;width:120px;"><?php echo $r->cat_name;?></td>
-                                    <td style="table-layout:fixed;width:120px;"><?php echo $r->parent_id;?></td>
-                                    <td style="table-layout:fixed;width:120px;"><?php if($r->is_show==1)echo '是';?></td>
+                                    <td style="table-layout:fixed;width:50px;"><?php echo $r->parent_id;?></td>
+                                    <td style="table-layout:fixed;width:80px;"><?php if($r->is_show==1)echo '是';?></td>
                                     <td style="table-layout:fixed;width:50px;"><?php echo $r->sort_order;?></td>
+                                    <td style="table-layout:fixed;width:100px;"><?php echo $r->keyword;?></td>
+                                    <td style="table-layout:fixed;width:150px;"><?php echo $r->full_name;?></td>
                                     <td style="table-layout:fixed;"><?php echo $r->filter_attr;?></td>
                                     <td style="table-layout:fixed;width:153px;">
                                         <a class="btn mini green" href="<?php echo base_url('mall_category/edit/'.$r->cat_id); ?>"><i class="icon-edit"></i> 编辑</a>
                                         <a class="btn mini green" href="<?php echo base_url('mall_category/delete/'.$r->cat_id); ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
                                     </td>
                                 </tr>
-                                <tr class="p_cat1" style="display:none;"><td colspan="8"><table class="table-striped table-bordered table-hover">
+                                <tr class="p_cat1" style="display:none;"><td colspan="10"><table class="table-striped table-bordered table-hover">
                                     <?php foreach ($res as $r1) : ?>
                                     <?php if($r->cat_id == $r1->parent_id) :?>
                                     <tr class="p_cat2">
                                         <td style="table-layout:fixed;width:10px;" ><i class="icon-plus"></i></td>
-                                        <td style="table-layout:fixed;width:40px;"><?php echo $r1->cat_id;?></td>
+                                        <td style="table-layout:fixed;width:50px;"><?php echo $r1->cat_id;?></td>
                                         <td style="table-layout:fixed;width:120px;"><?php echo $r1->cat_name;?></td>
-                                        <td style="table-layout:fixed;width:120px;"><?php echo $r1->parent_id;?></td>
-                                        <td style="table-layout:fixed;width:120px;"><?php if($r->is_show==1)echo '是';?></td>
+                                        <td style="table-layout:fixed;width:50px;"><?php echo $r1->parent_id;?></td>
+                                        <td style="table-layout:fixed;width:80px;"><?php if($r1->is_show==1)echo '是';?></td>
                                         <td style="table-layout:fixed;width:50px;"><?php echo $r1->sort_order;?></td>
+                                        <td style="table-layout:fixed;width:100px;"><?php echo $r1->keyword;?></td>
+                                        <td style="table-layout:fixed;width:150px;"><?php echo $r1->full_name;?></td>
                                         <td style="table-layout:fixed;"><?php echo $r1->filter_attr;?></td>
                                         <td style="table-layout:fixed;width:145px;">
                                             <a class="btn mini green" href="<?php echo base_url('mall_category/edit/'.$r1->cat_id); ?>"><i class="icon-edit"></i> 编辑</a>
                                             <a class="btn mini green" href="<?php echo base_url('mall_category/delete/'.$r1->cat_id); ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
                                         </td>
                                     </tr>
-                                    <tr class="p_cat3" style="display:none;"><td colspan="8" style="padding-left: 25px"><table class="table-striped table-bordered table-hover">
+                                    <tr class="p_cat3" style="display:none;"><td colspan="10" style="padding-left: 25px"><table class="table-striped table-bordered table-hover">
                                         <?php foreach ($res as $r2) : ?>
                                         <?php if($r1->cat_id == $r2->parent_id) :?>
                                         <tr>
-                                            <td style="table-layout:fixed;width:40px;"><?php echo $r2->cat_id;?></td>
+                                            <td style="table-layout:fixed;width:50px;"><?php echo $r2->cat_id;?></td>
                                             <td style="table-layout:fixed;width:120px;"><?php echo $r2->cat_name;?></td>
-                                            <td style="table-layout:fixed;width:120px;"><?php echo $r2->parent_id;?></td>
-                                            <td style="table-layout:fixed;width:120px;"><?php if($r->is_show==1)echo '是';?></td>
+                                            <td style="table-layout:fixed;width:50px;"><?php echo $r2->parent_id;?></td>
+                                            <td style="table-layout:fixed;width:80px;"><?php if($r2->is_show==1)echo '是';?></td>
                                             <td style="table-layout:fixed;width:50px;"><?php echo $r2->sort_order;?></td>
+                                            <td style="table-layout:fixed;width:100px;"><?php echo $r2->keyword;?></td>
+                                            <td style="table-layout:fixed;width:150px;"><?php echo $r2->full_name;?></td>
                                             <td style="table-layout:fixed;"><?php echo $r2->filter_attr;?></td>
                                             <td style="table-layout:fixed;width:137px;">
                                                 <a class="btn mini green" href="<?php echo base_url('mall_category/edit/'.$r2->cat_id); ?>"><i class="icon-edit"></i> 编辑</a>

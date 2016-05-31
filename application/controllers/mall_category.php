@@ -28,8 +28,18 @@ class Mall_category extends MJ_Controller {
 	        $this->error('mall_category/add', $this->input->post('id'), $error);
 	    }
 	    $postData = $this->input->post();
-	    $data['parent_id'] = $postData['parent_id'];
 	    $data['cat_name'] = $postData['cat_name'];
+	    $data['parent_id'] = $postData['parent_id'];
+	    $data['cat_type'] = $postData['parent_id'] ? 2 : 1;
+	    if($postData['parent_id'])
+	    {
+	        $data['cat_type'] = 2;
+	        $first_cat = $this->mall_category->findById(array('cat_id'=>$postData['parent_id']))->row();
+	        $data['full_name'] = $first_cat->cat_name.'>'.$postData['cat_name'];
+	    }else{
+	        $data['cat_type'] = 1;
+	        $data['full_name'] = $postData['cat_name'];
+	    }
 	    $data['is_show'] = $postData['is_show'];
 	    $data['sort_order'] = $postData['sort_order'];
 	    $data['filter_attr'] = toNumStr($postData['filter_attr']);

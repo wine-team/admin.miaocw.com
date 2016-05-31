@@ -46,16 +46,15 @@
                         <div class="control-group">
                             <label class="control-label"><em>* </em>属性类型</label>
                             <div class="controls">
-                            	<label class="radio">
-                                	<input type="radio" class="required" name="attr_type" value="1" <?php if($res->attr_type==1) echo 'checked="checked"';?>/>唯一属性
-                                </label>
-                                <label class="radio">
-                                	<input type="radio" class="required" name="attr_type" value="2" <?php if($res->attr_type==2) echo 'checked="checked"';?>/> 单选属性
-                                </label>
-                                <label class="radio">
-                                	<input type="radio" class="required" name="attr_type" value="3" <?php if($res->attr_type==3) echo 'checked="checked"';?>/> 复选属性
-                                </label>
-                                <span class="help-block">1唯一属性 2单选属性 3复选属性 （选择"单选/复选属性"时，可以对商品该属性设置多个值，同时还能对不同属性值指定不同的价格加价，用户购买商品时需要选定具体的属性值。选择"唯一属性"时，商品的该属性值只能设置一个值，用户只能查看该值。）</span>
+                            	<select class="m-wrap large required" name="attr_type">
+                            	     <option value="">请选择</option>
+                            	     <option <?php if($res->attr_type=='text') echo 'selected="selected"';?> value="text">text:输入框</option>
+                            	     <option <?php if($res->attr_type=='textarea') echo 'selected="selected"';?> value="textarea">textarea：文本框</option>
+                            	     <option <?php if($res->attr_type=='boolean') echo 'selected="selected"';?> value="boolean">boolean：yes/no</option>
+                            	     <option <?php if($res->attr_type=='select') echo 'selected="selected"';?> value="select"> select：下拉框</option>
+                            	     <option <?php if($res->attr_type=='multiselect') echo 'selected="selected"';?> value="multiselect">multiselect：多选select框</option>
+                            	     <option <?php if($res->attr_type=='date') echo 'selected="selected"';?> value="date">date:日历框</option>
+                            	</select>
                             </div>
                         </div>
                         
@@ -64,6 +63,18 @@
                             <div class="controls">
                                 <textarea class="m-wrap large required" name="attr_values"><?php echo $res->attr_values;?></textarea>
                                 <span class="help-block">请用英文逗号隔开</span>
+                            </div>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label class="control-label"><em>* </em>添加产品时是否必填</label>
+                            <div class="controls">
+                            	<label class="radio">
+                                	<input type="radio" class="required" name="values_required" value="1" <?php if($res->values_required==1) echo 'checked="checked"';?> />必填
+                                </label>
+                                <label class="radio">
+                                	<input type="radio" class="required" name="values_required" value="2" <?php if($res->values_required==2) echo 'checked="checked"';?> />费必填
+                                </label>
                             </div>
                         </div>
                         

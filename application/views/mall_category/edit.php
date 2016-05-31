@@ -50,6 +50,12 @@
                             </div>
                         </div>
                         <div class="control-group">
+                            <label class="control-label">类名全名</label>
+                            <div class="controls">
+                                <input type="text" class="m-wrap" readonly value="<?php echo $res->full_name;?>"/>  
+                            </div>
+                        </div>
+                        <div class="control-group">
                             <label class="control-label">商品属性id</label>
                             <div class="controls">
                                 <input type="text" class="m-wrap large" name="filter_attr" value="<?php echo $res->filter_attr;?>"/>

@@ -87,7 +87,6 @@
                                             <td>
                                                 <a class="btn mini green" href="<?php echo base_url('mall_attribute_value/delete/'.$a->attr_value_id.'?attr_set_id='.$attr_set_id); ?>" onclick="return confirm('确定要删除属性？')"><i class="icon-trash"></i>删除</a> 
                                                 <a class="btn mini green" href="<?php echo base_url('mall_attribute_value/edit/'.$a->attr_value_id.'?attr_set_id='.$attr_set_id); ?>"><i class="icon-edit"></i>编辑属性</a>
-                                                <a class="btn mini green" href="<?php echo base_url('mall_attribute_set/addAttrVal/'.$attr_set_id); ?>"><i class="icon-plus"></i>新增属性值</a>
                                             </td>
                                         </tr>
                                         <?php }}?>

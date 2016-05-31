@@ -44,16 +44,15 @@
                         <div class="control-group">
                             <label class="control-label"><em>* </em>属性类型</label>
                             <div class="controls">
-                            	<label class="radio">
-                                	<input type="radio" class="required" name="attr_type" value="1" checked="checked"/>唯一属性
-                                </label>
-                                <label class="radio">
-                                	<input type="radio" class="required" name="attr_type" value="2" /> 单选属性
-                                </label>
-                                <label class="radio">
-                                	<input type="radio" class="required" name="attr_type" value="2" /> 复选属性
-                                </label>
-                                <span class="help-block">1唯一属性 2单选属性 3复选属性 （选择"单选/复选属性"时，可以对商品该属性设置多个值，同时还能对不同属性值指定不同的价格加价，用户购买商品时需要选定具体的属性值。选择"唯一属性"时，商品的该属性值只能设置一个值，用户只能查看该值。）</span>
+                            	<select class="m-wrap large required" name="attr_type">
+                            	     <option value="">请选择</option>
+                            	     <option value="text">text:输入框</option>
+                            	     <option value="textarea">textarea：文本框</option>
+                            	     <option value="boolean">boolean：yes/no</option>
+                            	     <option value="select"> select：下拉框</option>
+                            	     <option value="multiselect">multiselect：多选select框</option>
+                            	     <option value="date">date:日历框</option>
+                            	</select>
                             </div>
                         </div>
                         <div class="control-group">
@@ -61,6 +60,17 @@
                             <div class="controls">
                                 <textarea class="m-wrap large required" name="attr_values"></textarea>
                                 <span class="help-block">请用英文逗号隔开</span>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"><em>* </em>添加产品时是否必填</label>
+                            <div class="controls">
+                            	<label class="radio">
+                                	<input type="radio" class="required" name="values_required" value="1"/>必填
+                                </label>
+                                <label class="radio">
+                                	<input type="radio" class="required" name="values_required" value="2"/>费必填
+                                </label>
                             </div>
                         </div>
                         <div class="control-group">

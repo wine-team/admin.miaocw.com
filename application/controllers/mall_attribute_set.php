@@ -149,11 +149,6 @@ class Mall_attribute_set extends MJ_Controller {
 	    }
 	}
 	
-	public function addAttrVal($attr_set_id)
-	{
-	    $data['attr_set_id'] = $attr_set_id;
-	    $this->load->view('mall_attribute_set/addAttrVal', $data);
-	}
 	
 	
 }
