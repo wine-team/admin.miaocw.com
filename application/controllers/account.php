@@ -42,50 +42,9 @@ class Account extends MJ_Controller
         if ($this->input->post('backurl')) {
             $directUrl = $this->input->post('backurl');
         } else {
-            $directUrl = base_url('account/dashboard');
+            $directUrl = base_url('home/dashboard');
         }
         $this->redirect($directUrl);
-    }
-    
-     /**
-     *登录跳到首页
-     */
-    public function dashboard()
-    {
-    	$this->load->view('account/dashboard');
-    }
-    
-    public function edit()
-    {
-        $data['adminuser'] = $this->session->userdata('adminUser');
-        $this->load->view('account/edit', $data);
-    }
-    
-    public function editPost()
-    {
-        $adminuser_id = $this->input->post('id');
-        $error = $this->validateEdit();
-        if ($this->input->post('modify_password')) {
-            if ($this->input->post('password') != $this->input->post('confirm_password')) {
-                $error[] = '密码填写不一致。';
-            }
-        }
-        if (!empty($error)) {
-            $this->error('account/edit', '', $error);
-        }
-    
-        $this->db->trans_start();
-        $resultId = $this->admin_user->updateAdminuser($this->input->post());
-        $this->db->trans_complete();
-    
-        if ($resultId) {
-            if ($this->input->post('modify_password') != '') {
-                $this->session->sess_destroy();; //修改成功退出登录。
-            }
-            $this->success('account/edit', '', '修改成功！');
-        } else {
-            $this->error('account/edit', '', '修改失败！');
-        }
     }
     
      /**
@@ -106,19 +65,6 @@ class Account extends MJ_Controller
         if (strlen($this->input->post('password')) < 6) {
             $error[] = '密码长度必须大于等于6个字符。';
         }
-        return $error;
-    }
-    
-    public function validateEdit()
-    {
-        $error = array();
-        if ($this->validateParam($this->input->post('name'))) {
-            $error[] = ' 用户名不能为空。';
-        }
-        if (!valid_email($this->input->post('email'))) {
-            $error[] = ' 邮箱地址不正确。';
-        }
-
         return $error;
     }
     

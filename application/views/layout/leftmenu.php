@@ -11,7 +11,7 @@
             </form>
         </li>
         <li class="start">
-            <a href="<?php echo site_url('account/dashboard');?>">
+            <a href="<?php echo site_url('home/dashboard');?>">
                 <i class="icon-home"></i> 
                 <span class="title">我的主页</span>
                 <span class="selected"></span>

@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="portlet-body form">
-                    <form class="form-horizontal line-form" action="<?php echo base_url('account/editPost') ?>" method="post" enctype="multipart/form-data">
+                    <form class="form-horizontal line-form" action="<?php echo base_url('home/editPost') ?>" method="post" enctype="multipart/form-data">
                         <div class="control-group">
                             <label class="control-label"><em>* </em>用户名</label>
                             <div class="controls">
