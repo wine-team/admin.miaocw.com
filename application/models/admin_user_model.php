@@ -114,7 +114,7 @@ class Admin_user_model extends CI_Model
      */
     public function login($postData)
     {
-        $this->db->select('admin_user.*, admin_role.name AS role_name');
+        $this->db->select('admin_user.*, admin_role.name AS role_name,admin_role.action_list');
         $this->db->from($this->table.' AS admin_user');
         $this->db->join($this->table_2.' AS admin_role', 'admin_user.role_id = admin_role.id');
         $this->db->where('admin_user.name', $postData['username']);

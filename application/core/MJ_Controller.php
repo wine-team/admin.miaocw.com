@@ -4,6 +4,8 @@ class MJ_Controller extends CI_Controller
 {
     private $url = '';
     public $uid;
+    public $admin_name;
+    public $actionList;
 
     public function __construct()
     {
@@ -11,6 +13,8 @@ class MJ_Controller extends CI_Controller
         $adminUser = $this->session->userdata('adminUser');
         if ($adminUser) {
             $this->uid = $adminUser->id;
+            $this->admin_name = $adminUser->name;
+            $this->action_list = $adminUser->action_list;
         }
 
         $this->_init(); //用着重载

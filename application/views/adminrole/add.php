@@ -42,7 +42,7 @@
                                     <td width="150">
                                         <div class="controls">
                                             <label class="checkbox">
-                                                <input type="checkbox" class="checkboxes group-checkable2" value="1" data-set="#sample_1 .checkboxes<?php echo $k;?>"> <strong><?php echo $priv['cn_name']; ?></strong>
+                                                <input type="checkbox" name="action_code[]" value="<?php echo $priv['action_code'] ?>" class="checkboxes group-checkable2" data-set="#sample_1 .checkboxes<?php echo $k;?>"> <strong><?php echo $priv['cn_name']; ?></strong>
                                             </label>
                                         </div>
                                     </td>
