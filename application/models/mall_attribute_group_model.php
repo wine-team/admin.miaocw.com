@@ -7,6 +7,12 @@ class Mall_attribute_group_model extends CI_Model{
 	{
 	    return $this->db->get_where($this->table, $where);
 	}
+
+    public function findByAttrSetId($attr_set_id)
+	{
+		$this->db->where('attr_set_id', $attr_set_id);
+		return $this->db->get($this->table);
+	}
 	
 	public function insert($data) 
 	{

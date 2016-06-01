@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
-class Mall_attribute_set extends MJ_Controller {
+class Mall_attribute_set extends MJ_Controller
+{
 	public function _init()
 	{
 	    $this->load->library('pagination');
@@ -12,18 +12,19 @@ class Mall_attribute_set extends MJ_Controller {
     public function grid($pg = 1)
 	{ 
 	    $getData = $this->input->get();
-	    $perpage = 20;
-	    $search['item'] = $getData['item'];
+	    $page_num = 20;
+		$num = ($pg-1)*$page_num;
 	    $config['first_url']   = base_url('mall_attribute_set/grid').$this->pageGetParam($this->input->get());
 	    $config['suffix']      = $this->pageGetParam($getData);
 	    $config['base_url']    = base_url('mall_attribute_set/grid');
-	    $config['total_rows']  = $this->mall_attribute_set->mall_attribute_set_list(null, null, $search)->num_rows();
+	    $config['total_rows']  = $this->mall_attribute_set->total($getData);
 	    $config['uri_segment'] = 3; 
 	    $this->pagination->initialize($config);
 	    $data['pg_link']   = $this->pagination->create_links();
-	    $data['res_list'] = $this->mall_attribute_set->mall_attribute_set_list($pg-1, $perpage, $search)->result();
+	    $data['page_list'] = $this->mall_attribute_set->page_list($page_num, $num, $getData);
 	    $data['all_rows']  = $config['total_rows'];
-	    $data['pg_now']    = $pg; 
+	    $data['pg_now'] = $pg;
+		$data['page_num'] = $page_num;
 	    $this->load->view('mall_attribute_set/grid', $data);
 	}
 	
@@ -35,14 +36,10 @@ class Mall_attribute_set extends MJ_Controller {
 	public function addPost()
 	{
 	    $error = $this->validate(); 
-	    if (!empty($error))
-	    {
+	    if (!empty($error)) {
 	        $this->error('mall_attribute_set/add', '', $error);
 	    }
-	    $postData = $this->input->post();
-        $data['attr_set_name'] = $postData['attr_set_name'];
-        $data['enabled'] = $postData['enabled'];
-        $res = $this->mall_attribute_set->insert($data);
+        $res = $this->mall_attribute_set->insertAttributeSet($this->input->post());
 	    if ($res) {
 	        $this->success('mall_attribute_set/grid', '', '新增成功！');
 	    } else {
@@ -52,19 +49,22 @@ class Mall_attribute_set extends MJ_Controller {
 	
 	public function edit($attr_set_id)
 	{
-	    $res = $this->mall_attribute_set->findById(array('attr_set_id'=>$attr_set_id));
-	    if ($res->num_rows() > 0)
-	    {
+	    $result = $this->mall_attribute_set->findById($attr_set_id);
+		if ($result->num_rows() <= 0) {
+			$this->error('mall_attribute_set/grid', '', '商品属性不存在');
+		}
+		$data['attributeSet'] = $result->row();
+		$this->load->view('mall_attribute_set/edit', $data);
+	    /*
+		if ($res->num_rows() > 0) {
 	        $data['res'] = $res->row();
 	        $group = $this->mall_attribute_group->findById(array('attr_set_id'=>$attr_set_id))->result();
 	        $groupid = array();
 	        $arribute = array();
-	        foreach($group as $g)
-	        {
+	        foreach($group as $g) {
 	            $groupid[] = $g->group_id;
 	        }
-	        if(!empty($groupid))
-	        {
+	        if (!empty($groupid)) {
 	            $arribute = $this->mall_attribute_value->getWherein('group_id', $groupid, array('attr_set_id'=>$attr_set_id))->result();
 	        }
 	        $data['attr_set_id'] = $attr_set_id;
@@ -74,34 +74,21 @@ class Mall_attribute_set extends MJ_Controller {
 	    } else {
 	        $this->redirect('mall_attribute_set/grid');
 	    }
+	    */
 	}
 	
 	public function editPost()
 	{
 	    $error = $this->validate();
-        if (!empty($error))
-        {
+        if (!empty($error)) {
             $this->error('mall_attribute_set/edit', $this->input->post('attr_set_id'), $error);
         }
-        $postData = $this->input->post();
-        $data['attr_set_name'] = $postData['attr_set_name'];
-        $data['enabled'] = $postData['enabled']; 
-        $res = $this->mall_attribute_set->update(array('attr_set_id'=>$postData['attr_set_id']), $data);
-        if ($res) {
+        $update = $this->mall_attribute_set->updateAttributeSet($this->input->post());
+        if ($update) {
             $this->success('mall_attribute_set/grid', '', '修改成功！');
         } else {
             $this->error('mall_attribute_set/edit', $this->input->post('attr_set_id'), '修改失败！');
         }
-	}
-	
-	public function delete($attr_set_id)
-	{ 
-	    $is_delete = $this->mall_attribute_set->delete(array('attr_set_id'=>$attr_set_id));
-	    if ($is_delete) {
-	        $this->success('mall_attribute_set/grid', '', '删除成功！');
-	    } else {
-	        $this->error('mall_attribute_set/grid', '', '删除失败！');
-	    }
 	}
 	
 	public function validate()
@@ -125,10 +112,9 @@ class Mall_attribute_set extends MJ_Controller {
 	    $data['attr_set_id'] = $postData['attr_set_id'];
 	    $data['group_name'] = $postData['group_name'];
 	    $group = $this->mall_attribute_group->findById($data)->num_rows();
-	    if($group > 0)
-	    {
+	    if( $group > 0) {
 	        $this->error('mall_attribute_set/edit', $postData['attr_set_id'], '组名已存在，新增失败！');
-	    }else{
+	    } else{
 	        $data['sort'] = $postData['sort'];
 	        $res = $this->mall_attribute_group->insert($data);
 	        if ($res) {
@@ -148,9 +134,7 @@ class Mall_attribute_set extends MJ_Controller {
 	        $this->error('mall_attribute_set/edit', $this->input->get('attr_set_id'), '删除失败！');
 	    }
 	}
-	
-	
-	
+
 }
 
 /** End of file Mall_attribute_set.php */

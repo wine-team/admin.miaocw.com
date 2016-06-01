@@ -22,6 +22,7 @@
     <?php css('admin', 'profile');?>
     <?php css('common', 'jquery.autocomplete');?>
     <?php css('admin', 'pricing-tables');?>
+    <?php css('admin', 'inbox');?>
     <!-- end globle -->
     <?php css('admin', 'datepicker');?>
     <?php css('admin', 'datetimepicker');?>

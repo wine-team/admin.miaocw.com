@@ -18,12 +18,13 @@
                     </div>
                 </div>
                 <div class="portlet-body form">
-                    <form class="form-horizontal form-search" action="<?php echo base_url('mall_brand/grid');?>" method="get">
+                    <form class="form-horizontal form-search" action="<?php echo base_url('mall_attribute_set/grid');?>" method="get">
                         <div class="row-fluid">
                             <div class="span5">
                                 <div class="control-group">
+                                    <label class="control-label">类型名称</label>
                                     <div class="controls">
-                                        <input type="text" name="item" value="<?php echo trim($this->input->get('item'));?>" placeholder="商品类型名称" class="m-wrap medium">
+                                        <input type="text" name="attr_set_name" value="<?php echo trim($this->input->get('attr_set_name'));?>" placeholder="类型名称" class="m-wrap medium">
                                     </div>
                                 </div>
                             </div>
@@ -35,7 +36,6 @@
                     </form>
                 </div>
             </div>
-            
             <div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption"><i class="icon-reorder"></i>列表</div>
@@ -54,53 +54,47 @@
                             </a>
                         </div>
                         <?php if ($all_rows > 0) :?>
-                        <table class="table table-striped table-bordered table-hover" id="sample_1">
-                            <thead class="flip-content">
-                                <tr>
-                                    <th><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"></th>
-                                    <th>编号</th>
-                                    <th>商品类型名称</th>
-                                    <th>属性值数量</th>
-                                    <th>是否开启</th>
-                                    <th>操作</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($res_list as $r) : ?>
-                                <tr>
-                                    <td width="15"><input type="checkbox" class="checkboxes" value="1" ></td>
-                                    <td><?php echo $r->attr_set_id;?></td>
-                                    <td><?php echo $r->attr_set_name;?></td>
-                                    <td><?php echo $r->attr_num;?></td>
-                                    <td><?php if($r->enabled==1) echo '是';?></td>
-                                    <td width="195">
-                                        <a class="btn mini green" href="<?php echo base_url('mall_attribute_set/edit/'.$r->attr_set_id); ?>"><i class="icon-edit"></i> 编辑</a>
-                                        <a class="btn mini green" href="<?php echo base_url('mall_attribute_set/delete/'.$r->attr_set_id); ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
-                                        <a class="btn mini green" href="<?php echo base_url('mall_attribute_value/grid/'.$r->attr_set_id); ?>" ><i class="icon-trash"></i>查看属性</a>
-                                    </td>
-                                </tr>
-                                <?php endforeach;?>
-                            </tbody>
-                        </table>
-                        <div class="row-fluid">
-                            <div class="span6">
-                                <div class="dataTables_info">
-                                    <span>当前第</span><span style="color: red"><?php echo $pg_now?></span>页 
-                                    <span>共</span><span style="color: red"><?php echo $all_rows?></span>条数据
-                                    <span>每页显示20条 </span>
-                                    <?php echo $pg_link ?>
+                            <table class="table table-striped table-bordered table-hover" id="sample_1">
+                                <thead class="flip-content">
+                                    <tr>
+                                        <th width="15"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"></th>
+                                        <th>编号</th>
+                                        <th>类型名称</th>
+                                        <th>是否开启</th>
+                                        <th width="130">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($page_list->result() as $item) : ?>
+                                    <tr>
+                                        <td><input type="checkbox" value="<?php echo $item->attr_set_id;?>" class="checkboxes"></td>
+                                        <td><?php echo $item->attr_set_id;?></td>
+                                        <td><?php echo $item->attr_set_name;?></td>
+                                        <td><?php if($item->enabled==1) echo '是';?></td>
+                                        <td>
+                                            <a class="btn mini green" href="<?php echo base_url('mall_attribute_group/grid/?attr_set_id='.$item->attr_set_id); ?>" >查看属性</a>
+                                            <a class="btn mini green" href="<?php echo base_url('mall_attribute_set/edit/'.$item->attr_set_id); ?>">编辑</a>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach;?>
+                                </tbody>
+                            </table>
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="dataTables_info">
+                                        <span>当前第</span><span style="color: red"><?php echo $pg_now?></span>页
+                                        <span>共</span><span style="color: red"><?php echo $all_rows?></span>条数据
+                                        <span>每页显示<?php echo $page_num;?>条 </span>
+                                        <?php echo $pg_link ?>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         <?php else: ?>
                             <div class="alert"><p>未找到数据。<p></div>
                         <?php endif ?>
-                        
                     </div>
-                    
                 </div>
             </div>
-            
         </div>
     </div>
 </div>

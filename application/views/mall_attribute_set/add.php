@@ -26,7 +26,6 @@
                                 <input type="text" class="m-wrap large required" name="attr_set_name" value="" maxlength=20 /> 
                             </div>
                         </div>
-                        
                         <div class="control-group">
                             <label class="control-label"><em>* </em>是否开启</label>
                             <div class="controls">
@@ -41,7 +40,7 @@
                         
                         <div class="form-actions">
                             <button class="btn green" type="submit"><i class="icon-ok"></i> 保存</button>
-                            <a href="<?php echo base_url('mall_brand/grid') ?>">
+                            <a href="<?php echo base_url('mall_attribute_set/grid') ?>">
                                 <button class="btn" type="button">返回</button>
                             </a>
                         </div>
