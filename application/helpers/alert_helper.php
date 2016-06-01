@@ -98,11 +98,12 @@ function get_week_name($date)
  * @param unknown $obj
  * @return unknown
  */
-function ob2ar($obj) {
+function ob2ar($obj)
+{
     if(is_object($obj)) {
         $obj = (array)$obj;
         $obj = ob2ar($obj);
-    } elseif(is_array($obj)) {
+    } elseif (is_array($obj)) {
         foreach($obj as $key => $value) {
             $obj[$key] = ob2ar($value);
         }
@@ -139,12 +140,17 @@ function redirectAction($uri = '', $method = 'location', $http_response_code = 3
 }
 
 /**
- * 除去空格,并赋值
+ * 功能：检查权限
  */
-function ttrim($array, $key, $symbol = ''){
-    if (empty($array[$key]) || !array_key_exists($key, $array)){
-        return $symbol;
+function admin_priv($action_list, $priv_str)
+{
+    if ($action_list == 'all') {
+        return true;
     }
-    return trim($array[$key]);
+    $action_new = explode(',', $action_list);
+    if (!in_array($priv_str, $action_new, TRUE)) {
+        return false;
+    }
+    return true;
 }
 

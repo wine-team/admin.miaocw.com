@@ -33,10 +33,10 @@
                                     <th width="25"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"></th>
                                     <th width="30">编号</th>
                                     <th>角色</th>
-                                    <th width="600">权限方法</th>
+                                    <th width="50%">权限方法</th>
                                     <th>创建时间</th>
                                     <th>修改时间</th>
-                                    <th width="60">操作</th>
+                                    <th width="50">操作</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -45,14 +45,16 @@
                                     <td width="25"><input type="checkbox" class="checkboxes" value="1" ></td>
                                     <td width="30"><?php echo $item->id;?></td>
                                     <td><?php echo $item->name;?></td>
-                                    <td style="word-break:break-all;word-wrap:break-word;width:600px;">
+                                    <td style="word-break:break-all;word-wrap:break-word;width:50%;">
                                         <?php echo $item->action_list;?>
                                     </td>
                                     <td><?php echo $item->created_at ?></td>
                                     <td><?php echo $item->updated_at;?></td>
                                     <td>
-                                        <a class="btn mini green" href="<?php echo base_url('adminrole/edit/'.$item->id) ?>">编辑</a><p></p>
-                                        <a class="btn mini green" href="<?php echo base_url('adminrole/delete/'.$item->id) ?>" onclick="return confirm('确定要删除？')">删除</a>
+                                        <?php if ($item->id != 1) : //系统管理员账号 ?>
+                                            <a class="btn mini green" href="<?php echo base_url('adminrole/edit/'.$item->id) ?>">编辑</a><p></p>
+                                            <a class="btn mini green" href="<?php echo base_url('adminrole/delete/'.$item->id) ?>" onclick="return confirm('确定要删除？')">删除</a>
+                                        <?php endif;?>
                                     </td>
                                 </tr>
                                 <?php endforeach;?>

@@ -415,20 +415,6 @@ class MJ_Controller extends CI_Controller
     }
     
     /**
-     * 功能：检查权限
-     */
-    function admin_priv($priv_str)
-    {
-        $CI = & get_instance();
-        $action_list = $CI->session->userdata('adminUser')->action_list;
-        $action_new = explode(',', $action_list);
-        if (!in_array($priv_str, $action_new, TRUE)) {
-            return false;
-        }
-        return true;
-    }
-    
-    /**
      * 酒店图片等比例压缩
      * @param array $imageData {full_path:图片完整路径；file_path：图片所在完整目录}
      * @param string $dirName 图片保存在uploads下的目录。
