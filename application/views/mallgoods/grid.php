@@ -116,7 +116,7 @@
                 <div class="portlet-body flip-scroll">
                     <div class="dataTables_wrapper form-inline">
                         <div class="clearfix">
-                            <a href="<?php echo base_url('mallgoods/addstep1') ?>" class="add-button-link">
+                            <a href="<?php echo base_url('mall_goods/addstep1') ?>" class="add-button-link">
                                 <div class="btn-group">
                                     <button class="btn green"><i class="icon-plus"></i> 添加</button>
                                 </div>
@@ -168,9 +168,9 @@
                                     </td>
                                     <td><?php echo $item->update_at ?></td>
                                     <td width="145">
-                                        <a class="btn mini green" href="<?php echo base_url('mallgoods/images/'.$item->goods_id) ?>">图片管理</a>
-                                        <a class="btn mini green" href="<?php echo base_url('mallgoods/edit/'.$item->goods_id) ?>">编辑</a>
-                                        <a class="btn mini green" href="<?php echo base_url('mallgoods/copy/'.$item->goods_id) ?>">复制</a>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_goods/images/'.$item->goods_id) ?>">图片管理</a>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_goods/edit/'.$item->goods_id) ?>">编辑</a>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_goods/copy/'.$item->goods_id) ?>">复制</a>
                                         <a target="_blank" class="btn mini green" href="<?php echo $this->config->main_base_url.'mallgoods/preview/'.$item->goods_id.'.html'?>">预览</a>
                                     </td>
                                 </tr>

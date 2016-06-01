@@ -87,6 +87,18 @@ class Mall_category extends MJ_Controller {
         }
 	}
 	
+	/**
+	 * 根据ajax反馈的父id，返回所有子集 （json格式）
+	 */
+	public function select_children($parent_id=0)
+	{
+		$childrenData = array();
+		if ($parent_id) {
+			$childrenData = $this->mall_category->getCategoryLevel($parent_id);
+		}
+		echo json_encode($childrenData);exit;
+	}
+	
 	public function delete($cat_id)
 	{
 	    $chlid_num = $this->mall_category->findById(array('parent_id'=>$cat_id))->num_rows();

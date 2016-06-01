@@ -153,11 +153,8 @@ class Mall_freight extends CS_Controller
      * */
     public function ajaxGetTransport()
     {
-
         $uid = $this->input->post('uid');
-        $result = $this->tourism_freight_template->getTransport($uid);
-
-        echo json_encode($result->result());
-        exit;
+        $result = $this->mall_freight_tpl->getTransport($uid);
+        echo json_encode($result->result());exit;
     }
 }

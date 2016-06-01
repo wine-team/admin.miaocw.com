@@ -1,52 +1,47 @@
 <?php
-class Mall_attribute_set_model extends CI_Model
-{
+
+class Mall_attribute_set_model extends CI_Model{
 	private $table = 'mall_attribute_set'; 
 	private $table1 = 'mall_attribute_value';
-
-	public function findById($attr_set_id)
+	
+	public function mall_attribute_set_list($page, $perpage, $search)
 	{
-		$this->db->where('attr_set_id', $attr_set_id);
-		return $this->db->get_where($this->table);
-	}
-
-	public function total($params=array())
-	{
-		$this->db->from($this->table);
-		if (!empty($params['attr_set_name'])) {
-			$this->db->where('attr_set_name', $params['attr_set_name']);
-		}
-		return $this->db->count_all_results();
-	}
-
-	public function page_list($page_num, $num, $params=array())
-	{
-		$this->db->from($this->table);
-		if (!empty($params['attr_set_name'])) {
-			$this->db->where('attr_set_name', $params['attr_set_name']);
-		}
-		$this->db->order_by('attr_set_id', 'DESC');
-		$this->db->limit($page_num, $num);
-		return $this->db->get();
+	    $sql = "SELECT `mall_attribute_set`.*, IFNULL(a.`attr_num`,0) AS `attr_num`
+                FROM (`mall_attribute_set`)
+                LEFT JOIN (SELECT `mall_attribute_value`.`attr_set_id`, COUNT(`mall_attribute_value`.`attr_value_id`) AS `attr_num` FROM `mall_attribute_value` GROUP BY `attr_set_id` )a 
+	            ON `mall_attribute_set`.`attr_set_id` = a.`attr_set_id` ";
+        if(!empty($search['item']))
+        {
+            $sql .= "`type_set_name` LIKE '%".$search['item']."%' ";
+        }
+        if($perpage) $sql .= "ORDER BY `mall_attribute_set`.`attr_set_id` DESC LIMIT ".$perpage*$page.",".$perpage;
+	    return $this->db->query($sql);
 	}
 	
-	public function insert($postData = array())
+	public function findById($where)
 	{
-		$data = array(
-			'attr_set_name' => $postData['attr_set_name'],
-			'enabled'        => $postData['enabled'],
-		);
+	    return $this->db->get_where($this->table, $where);
+	}
+	
+	public function insert($data) 
+	{
 	    $this->db->insert($this->table, $data);
 	    return $this->db->insert_id();
 	} 
 	
-	public function updateAttributeSet($postData = array())
+	public function update($where, $data)  
 	{
-		$data = array(
-			'attr_set_name' => $postData['attr_set_name'],
-			'enabled'        => $postData['enabled'],
-		);
-		$this->db->where('attr_set_id', $postData['attr_set_id']);
-		return $this->db->update($this->table, $data);
+	    $this->db->update($this->table, $data, $where);
+	    return $this->db->affected_rows();
 	}
+	
+	public function delete($where)  
+	{
+	    $this->db->delete($this->table, $where);
+	    return $this->db->affected_rows();
+	}
+	
 }
+
+/* End of file Mall_attribute_set_model.php */
+/* Location: ./application/models/Mall_attribute_set_model.php */

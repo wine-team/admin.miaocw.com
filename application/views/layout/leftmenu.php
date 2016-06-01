@@ -81,7 +81,7 @@
                 <li>
                     <a href="javascript:;">
                         <span class="title">商品管理</span>
-                        <span class="selected "></span>
+                        <span class="selected"></span>
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">

@@ -1,7 +1,5 @@
 <?php
-    $this->load->model('tourism_goods_category_model', 'tourism_goods_category');
-    $categoryLevel = $this->tourism_goods_category->getCategoryLevel(0);
-
+    $categoryLevel = $this->mall_category->getCategoryLevel(0);
     $class_a = isset($class_a) ? (int)$class_a : 0;
     $class_b = isset($class_b) ? (int)$class_b : 0;
     $class_c = isset($class_c) ? (int)$class_c : 0;
@@ -13,7 +11,7 @@ $(document).ready(function() {
     var class_c = <?php echo $class_c;?>;
     var change_class_b = function(){
         $.ajax({
-            url: '<?php echo base_url();?>tourismgoodscategory/select_children/'+$('#class_a').val(),
+            url: '<?php echo base_url();?>mall_category/select_children/'+$('#class_a').val(),
             type: 'GET',
             dataType: 'json',
             success: function(city_json){
@@ -22,7 +20,7 @@ $(document).ready(function() {
                 classb.options[0] = new Option('请选择二级分类', '');
                 for (var i=0; i<city_json.length; i++) {
                     var len = classb.length;
-                    classb.options[len] = new Option(city_json[i].name, city_json[i].id); 
+                    classb.options[len] = new Option(city_json[i].cat_name, city_json[i].cat_id); 
                     if (classb.options[len].value == class_b) {
                         classb.options[len].selected = true;
                     }
@@ -40,7 +38,7 @@ $(document).ready(function() {
 
     var change_class_c = function(){
         $.ajax({
-            url: '<?php echo base_url()?>tourismgoodscategory/select_children/'+$('#class_b').val(),
+            url: '<?php echo base_url()?>mall_category/select_children/'+$('#class_b').val(),
             type: 'GET',
             dataType: 'json',
             success: function(district_json){
@@ -49,7 +47,7 @@ $(document).ready(function() {
                 classc.options[0] = new Option('请选择三级分类', '');
                 for (var i=0; i<district_json.length; i++) {
                     var len = classc.length;
-                    classc.options[len] = new Option(district_json[i].name, district_json[i].id); 
+                    classc.options[len] = new Option(district_json[i].cat_name, district_json[i].cat_id); 
                     if (classc.options[len].value == class_c){
                         classc.options[len].selected = true;
                     }
@@ -66,14 +64,14 @@ $(document).ready(function() {
 
 <select id="class_a" class="required" name="class_a" style="width:150px;">
     <?php foreach($categoryLevel as $key => $item): ?>
-    <option value="<?php echo $item['id'];?>" <?php if ($item['id'] == $class_a):?>selected="selected"<?php endif;?> ><?php echo $item['name']; ?></option>
+    <option value="<?php echo $item['cat_id'];?>" <?php if ($item['cat_id'] == $class_a):?>selected="selected"<?php endif;?> ><?php echo $item['cat_name']; ?></option>
     <?php endforeach; ?>
 </select>
 
-<select id="class_b" class="required" name="class_b" style="width:150px;">
+<select id="class_b" class="" name="class_b" style="width:150px;">
     <option value="">请选择二级分类</option>
 </select>
 
-<select id="class_c" class="required" name="class_c" style="width:150px;">
+<select id="class_c" class="" name="class_c" style="width:150px;">
     <option value="">请选择三级分类</option>
 </select>
