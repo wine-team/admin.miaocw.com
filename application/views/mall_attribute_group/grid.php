@@ -12,7 +12,7 @@
             <ul class="inbox-nav margin-bottom-10">
                 <li class="compose-btn">
                     <a class="btn green" data-title="Compose" href="javascript:;">
-                        <i class="icon-edit"></i> Compose
+                        <i class="icon-edit"></i> 添加属性组
                     </a>
                 </li>
                 <li class="inbox">
