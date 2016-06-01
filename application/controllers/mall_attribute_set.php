@@ -8,7 +8,6 @@ class Mall_attribute_set extends MJ_Controller
 	    $this->load->model('mall_attribute_group_model','mall_attribute_group');
 	    $this->load->model('mall_attribute_value_model','mall_attribute_value');
 	}
-
     public function grid($pg = 1)
 	{ 
 	    $getData = $this->input->get();
@@ -55,26 +54,6 @@ class Mall_attribute_set extends MJ_Controller
 		}
 		$data['attributeSet'] = $result->row();
 		$this->load->view('mall_attribute_set/edit', $data);
-	    /*
-		if ($res->num_rows() > 0) {
-	        $data['res'] = $res->row();
-	        $group = $this->mall_attribute_group->findById(array('attr_set_id'=>$attr_set_id))->result();
-	        $groupid = array();
-	        $arribute = array();
-	        foreach($group as $g) {
-	            $groupid[] = $g->group_id;
-	        }
-	        if (!empty($groupid)) {
-	            $arribute = $this->mall_attribute_value->getWherein('group_id', $groupid, array('attr_set_id'=>$attr_set_id))->result();
-	        }
-	        $data['attr_set_id'] = $attr_set_id;
-	        $data['arribute'] = $arribute;
-	        $data['group'] = $group; 
-	        $this->load->view('mall_attribute_set/edit',$data);
-	    } else {
-	        $this->redirect('mall_attribute_set/grid');
-	    }
-	    */
 	}
 	
 	public function editPost()
@@ -134,8 +113,6 @@ class Mall_attribute_set extends MJ_Controller
 	        $this->error('mall_attribute_set/edit', $this->input->get('attr_set_id'), '删除失败！');
 	    }
 	}
-
 }
-
 /** End of file Mall_attribute_set.php */
 /** Location: ./application/controllers/Mall_attribute_set.php */
