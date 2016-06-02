@@ -145,6 +145,9 @@ class Mall_goods extends CS_Controller
     		$this->error('mall_goods/grid', '', '找不到产品相关信息！');
     	}
     	$data['mallgoods'] = $result->row();
+    	$data['province_id'] = $data['mallgoods']->province_id;
+    	$data['city_id'] = $data['mallgoods']->city_id;
+    	$data['district_id'] = $data['mallgoods']->district_id;
     	$data['brand'] = $this->mall_brand->findById(array('is_show'=>1));//品牌信息
     	$data['extension'] = array('simple'=>'简单产品','virtual'=>'虚拟产品','giftcard'=>'礼品卡');
     	$data['attribute'] = $this->mall_attribute_set->findByReason(array('enabled'=>1));
@@ -221,7 +224,7 @@ class Mall_goods extends CS_Controller
     	}
     	//验证运费模版
     	if ($this->input->post('transport_type') == 1) {
-    		if (!$this->input->post('transport_id')) {
+    		if (!$this->input->post('freight_id')) {
     			$error[] = '运费模版不可不填。';
     		}
     	}
@@ -241,7 +244,7 @@ class Mall_goods extends CS_Controller
     	foreach ($region->result() as $item) {
     		$regionNames[] = $item->region_name;
     	}
-    	$_POST['detail'] = $regionNames[0] .' '.$regionNames[1].' '.$regionNames[2].' '.($this->input->post('detail') ? $this->input->post('detail') : '　');
+    	$_POST['address'] = $regionNames[0] .' '.$regionNames[1].' '.$regionNames[2].' '.($this->input->post('address') ? $this->input->post('address') : '　');
     	return $error;
     }
 }
