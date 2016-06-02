@@ -13,8 +13,8 @@ class Adminrole extends CS_Controller
     {
         $data['username'] = $this->input->get('username');
         $getData = $data;
-        $pageNum = 20;
-        $num = ($pg-1)*$pageNum;
+        $page_num = 20;
+        $num = ($pg-1)*$page_num;
         $config['first_url']   = base_url('adminrole/gird').$this->pageGetParam($this->input->get());
         $config['suffix']      = $this->pageGetParam($this->input->get());
         $config['base_url']    = base_url('adminrole/gird');
@@ -22,9 +22,10 @@ class Adminrole extends CS_Controller
         $config['uri_segment'] = 3;
         $this->pagination->initialize($config);
         $data['pg_link']   = $this->pagination->create_links();
-        $data['page_list'] = $this->admin_role->page_list($pageNum, $num, $getData);
+        $data['page_list'] = $this->admin_role->page_list($page_num, $num, $getData);
         $data['all_rows']  = $config['total_rows'];
         $data['pg_now']    = $pg;
+        $data['page_num'] = $page_num;
         $this->load->view('adminrole/grid', $data);
     }
 

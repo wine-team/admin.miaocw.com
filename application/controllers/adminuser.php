@@ -23,6 +23,7 @@ class Adminuser extends MJ_Controller
         $data['page_list'] = $this->admin_user->page_list($page_num, $num, $this->input->get());
         $data['all_rows'] = $config['total_rows'];
         $data['pg_now'] = $pg;
+        $data['page_num'] = $page_num;
         $data['role'] = $this->admin_role->find();
         $this->load->view('adminuser/grid', $data);
     }
