@@ -56,11 +56,6 @@ jQuery(document).ready(function($) {
         });
     }
     
-    //wysiwyg 编辑器 js
-    if ($('textarea.textarea-wysiwyg-edit').size() > 0) {
-        $('.textarea-wysiwyg-edit').wysiwyg();
-    }
-    
     //table list 全选或全不选操作
     jQuery('#sample_1 .group-checkable, #sample_1 .group-checkable2').change(function () {
         var set = jQuery(this).attr('data-set');

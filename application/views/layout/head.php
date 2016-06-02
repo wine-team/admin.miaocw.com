@@ -48,6 +48,5 @@
     <?php js('common', 'jquery.validate.messages_zh');?>
     <?php js('admin', 'bootstrap.min');?>
     <?php js('admin', 'app');?>
-    <?php js('admin', 'jquery.wysiwyg');?>
     <?php js('admin', 'index');?>
 </head>
