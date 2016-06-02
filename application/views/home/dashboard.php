@@ -29,44 +29,108 @@
             </ul>
         </div>
     </div>
-    <div class="row-fluid">
-        <div class="span4 responsive">
-            <div class="dashboard-stat yellow">
-                <div class="visual">
-                    <i class="icon-bar-chart"></i>
-                </div>
-                <div class="portfolio-info"><span><?php echo '12312';?></span></div>
-                <a href="<?php echo base_url('');?>" class="more">查看详情 <i class="m-icon-swapright m-icon-white"></i></a>
+    <div class="row-fluid portfolio-block">
+        <div class="span5 portfolio-text">
+            <img src="skins/admin/images/logo_metronic.jpg" alt="">
+            <div class="portfolio-text-info">
+                <h4>Metronic - Responsive Template</h4>
+                <p>Lorem ipsum dolor sit consectetuer adipiscing elit.</p>
             </div>
         </div>
-        <div class="span4 responsive">
-            <div class="dashboard-stat green">
-                <div class="visual">
-                    <i class="icon-bar-chart"></i>
-                </div>
-                <div class="portfolio-info"><span><?php echo '12312';?></span></div>
-                <a href="<?php echo base_url('');?>" class="more">查看详情 <i class="m-icon-swapright m-icon-white"></i></a>
+        <div class="span5">
+            <div class="portfolio-info">
+                Today Sold
+                <span>187</span>
+            </div>
+            <div class="portfolio-info">
+                Total Sold
+                <span>1789</span>
+            </div>
+            <div class="portfolio-info">
+                Earnings
+                <span>$37.240</span>
             </div>
         </div>
-        <div class="span4 responsive">
-            <div class="dashboard-stat yellow">
-                <div class="visual">
-                    <i class="icon-bar-chart"></i>
-                </div>
-                <div class="portfolio-info"><span><?php echo '';?></span></div>
-                <a href="<?php echo base_url('');?>" class="more">查看详情 <i class="m-icon-swapright m-icon-white"></i></a>
-            </div>
+        <div class="span2 portfolio-btn">
+            <a href="#" class="btn bigicn-only"><span>View</span></a>
         </div>
     </div>
-    <div class="row-fluid">
-        <div class="span4 responsive">
-            <div class="dashboard-stat green">
-                <div class="visual">
-                    <i class="icon-bar-chart"></i>
-                </div>
-                <div class="portfolio-info"><span><?php echo '';?></span></div>
-                <a href="<?php echo base_url('');?>" class="more">查看详情 <i class="m-icon-swapright m-icon-white"></i></a>
+    <div class="row-fluid portfolio-block">
+        <div class="span5 portfolio-text">
+            <img src="skins/admin/images/logo_azteca.jpg" alt="">
+            <div class="portfolio-text-info">
+                <h4>Metronic - Responsive Template</h4>
+                <p>Lorem ipsum dolor sit consectetuer adipiscing elit.</p>
             </div>
+        </div>
+        <div class="span5">
+            <div class="portfolio-info">
+                Today Sold
+                <span>187</span>
+            </div>
+            <div class="portfolio-info">
+                Total Sold
+                <span>1789</span>
+            </div>
+            <div class="portfolio-info">
+                Earnings
+                <span>$37.240</span>
+            </div>
+        </div>
+        <div class="span2 portfolio-btn">
+            <a href="#" class="btn bigicn-only"><span>View</span></a>
+        </div>
+    </div>
+    <div class="row-fluid portfolio-block">
+        <div class="span5 portfolio-text">
+            <img src="skins/admin/images/logo_metronic.jpg" alt="">
+            <div class="portfolio-text-info">
+                <h4>Metronic - Responsive Template</h4>
+                <p>Lorem ipsum dolor sit consectetuer adipiscing elit.</p>
+            </div>
+        </div>
+        <div class="span5">
+            <div class="portfolio-info">
+                Today Sold
+                <span>187</span>
+            </div>
+            <div class="portfolio-info">
+                Total Sold
+                <span>1789</span>
+            </div>
+            <div class="portfolio-info">
+                Earnings
+                <span>$37.240</span>
+            </div>
+        </div>
+        <div class="span2 portfolio-btn">
+            <a href="#" class="btn bigicn-only"><span>View</span></a>
+        </div>
+    </div>
+    <div class="row-fluid portfolio-block">
+        <div class="span5 portfolio-text">
+            <img src="skins/admin/images/logo_azteca.jpg" alt="">
+            <div class="portfolio-text-info">
+                <h4>Metronic - Responsive Template</h4>
+                <p>Lorem ipsum dolor sit consectetuer adipiscing elit.</p>
+            </div>
+        </div>
+        <div class="span5">
+            <div class="portfolio-info">
+                Today Sold
+                <span>187</span>
+            </div>
+            <div class="portfolio-info">
+                Total Sold
+                <span>1789</span>
+            </div>
+            <div class="portfolio-info">
+                Earnings
+                <span>$37.240</span>
+            </div>
+        </div>
+        <div class="span2 portfolio-btn">
+            <a href="#" class="btn bigicn-only"><span>View</span></a>
         </div>
     </div>
 </div>
