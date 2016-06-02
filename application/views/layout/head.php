@@ -46,7 +46,6 @@
     
     <?php js('common', 'jquery.validate.min');?>
     <?php js('common', 'jquery.validate.messages_zh');?>
-    <?php js('common', 'common');?>
     <?php js('admin', 'bootstrap.min');?>
     <?php js('admin', 'app');?>
     <?php js('admin', 'jquery.wysiwyg');?>
