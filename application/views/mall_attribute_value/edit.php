@@ -73,7 +73,7 @@
                                 	<input type="radio" class="required" name="values_required" value="1" <?php if($res->values_required==1) echo 'checked="checked"';?> />必填
                                 </label>
                                 <label class="radio">
-                                	<input type="radio" class="required" name="values_required" value="2" <?php if($res->values_required==2) echo 'checked="checked"';?> />费必填
+                                	<input type="radio" class="required" name="values_required" value="2" <?php if($res->values_required==2) echo 'checked="checked"';?> />不必填
                                 </label>
                             </div>
                         </div>

@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="portlet-body form">
-                    <form class="form-horizontal line-form" action="<?php echo base_url('mall_attribute_set/addPostGroup') ?>" method="post" enctype ="multipart/form-data" >
+                    <form class="form-horizontal line-form" action="<?php echo base_url('mall_attribute_group/addPost') ?>" method="post" enctype ="multipart/form-data" >
                         <input type="hidden" name="attr_set_id" value="<?php echo $attr_set_id;?>">
                         <div class="control-group">
                             <label class="control-label"><em>* </em>组名</label>
@@ -36,7 +36,7 @@
                         
                         <div class="form-actions">
                             <button class="btn green" type="submit"><i class="icon-ok"></i> 保存</button>
-                            <a href="<?php echo base_url('mall_attribute_set/edit/'.$attr_set_id) ?>">
+                            <a href="<?php echo base_url('mall_attribute_group/grid?attr_set_id='.$attr_set_id) ?>">
                                 <button class="btn" type="button">返回</button>
                             </a>
                         </div>

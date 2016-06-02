@@ -66,10 +66,10 @@
                             <label class="control-label"><em>* </em>添加产品时是否必填</label>
                             <div class="controls">
                             	<label class="radio">
-                                	<input type="radio" class="required" name="values_required" value="1"/>必填
+                                	<input type="radio" class="required" name="values_required" value="1" checked="checked"/>必填
                                 </label>
                                 <label class="radio">
-                                	<input type="radio" class="required" name="values_required" value="2"/>费必填
+                                	<input type="radio" class="required" name="values_required" value="2"/>不必填
                                 </label>
                             </div>
                         </div>

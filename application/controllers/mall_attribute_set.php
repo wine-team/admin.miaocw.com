@@ -79,40 +79,6 @@ class Mall_attribute_set extends MJ_Controller
 	    return $error;
 	}
 	
-	public function addGroup($attr_set_id)
-	{
-	    $data['attr_set_id'] = $attr_set_id;
-	    $this->load->view('mall_attribute_set/addGroup', $data);
-	}
-	
-	public function addPostGroup()
-	{
-	    $postData = $this->input->post();
-	    $data['attr_set_id'] = $postData['attr_set_id'];
-	    $data['group_name'] = $postData['group_name'];
-	    $group = $this->mall_attribute_group->findById($data)->num_rows();
-	    if( $group > 0) {
-	        $this->error('mall_attribute_set/edit', $postData['attr_set_id'], '组名已存在，新增失败！');
-	    } else{
-	        $data['sort'] = $postData['sort'];
-	        $res = $this->mall_attribute_group->insert($data);
-	        if ($res) {
-	            $this->success('mall_attribute_set/edit', $postData['attr_set_id'], '新增成功！');
-	        } else {
-	            $this->error('mall_attribute_set/edit', $postData['attr_set_id'], '新增失败！');
-	        } 
-	    }
-	}
-	
-	public function deleteGroup($group_id)
-	{    
-	    $is_delete = $this->mall_attribute_group->delete(array('group_id'=>$group_id));
-	    if ($is_delete) {
-	        $this->success('mall_attribute_set/edit', $this->input->get('attr_set_id'), '删除成功！');
-	    } else {
-	        $this->error('mall_attribute_set/edit', $this->input->get('attr_set_id'), '删除失败！');
-	    }
-	}
 }
 /** End of file Mall_attribute_set.php */
 /** Location: ./application/controllers/Mall_attribute_set.php */
