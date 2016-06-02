@@ -223,7 +223,7 @@
                         <div class="control-group ">
                             <label class="control-label"> 详细地址</label>
                             <div class="controls">
-                                <input type="text" class="m-wrap span8 required" placeholder="用于根据地址搜索您的产品" name="detail">
+                                <input type="text" class="m-wrap span8 required" placeholder="用于根据地址搜索您的产品" name="address" />
                             </div>
                         </div>
                         <div class="control-group">

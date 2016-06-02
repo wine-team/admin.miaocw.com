@@ -143,3 +143,27 @@
         </li>
     </ul>
 </div>
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        //左边菜单栏定位
+        function urlString() {
+            var urlJoin = [];
+            var arrayUrl = window.location.pathname.split('/');
+            if (arrayUrl.length >= 2) {
+                urlJoin = urlJoin.concat(arrayUrl[0], arrayUrl[1]);
+            } else {
+                urlJoin = ['home', 'index']; //设置随意默认值，基本上无效，为保证代码正确性，保留。
+            }
+            return urlJoin.join('/')+'/';
+        }
+
+        $('ul.page-sidebar-menu li a').each(function(index, element) {
+            var href = $(this).attr('href');
+            if (href.indexOf(urlString()) > 0) {
+                var parentsLi = $(element).parents('li');
+                parentsLi.addClass('active');
+                parentsLi.find('span.arrow').addClass('open');
+            }
+        });
+    });
+</script>

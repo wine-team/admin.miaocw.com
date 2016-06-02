@@ -23,6 +23,7 @@ class Adminaction extends CS_Controller
         $data['all_rows'] = $config['total_rows'];
         $data['pg_now'] = $pg;
         $data['parent_id'] = 0; //过滤parent_id的显示条件
+        $data['page_num'] = $pageNum;
         $this->load->view('adminaction/grid', $data);
     }
     
@@ -32,7 +33,8 @@ class Adminaction extends CS_Controller
         if (!$parent_id) {
             $this->error('adminaction/grid', '', 'parent_id不正确');
         }
-        $num = ($pg-1)*20;
+        $pageNum = 20;
+        $num = ($pg-1)*$pageNum;
         $config['first_url'] = base_url('adminaction/child').$this->pageGetParam($this->input->get());
         $config['suffix'] = $this->pageGetParam($this->input->get());
         $config['base_url'] = base_url('adminaction/child');
@@ -40,9 +42,10 @@ class Adminaction extends CS_Controller
         $config['uri_segment'] = 3;
         $this->pagination->initialize($config);
         $data['pg_link'] = $this->pagination->create_links();
-        $data['page_list'] = $this->admin_action->childPageList($num, $parent_id);
+        $data['page_list'] = $this->admin_action->childPageList($pageNum, $num, $parent_id);
         $data['all_rows'] = $config['total_rows'];
         $data['pg_now'] = $pg;
+        $data['page_num'] = $pageNum;
         $this->load->view('adminaction/grid', $data);
     }
     

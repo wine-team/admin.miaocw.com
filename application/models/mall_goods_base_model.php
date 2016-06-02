@@ -84,6 +84,10 @@ class Mall_goods_base_model extends CI_Model{
 	 		'in_stock'           => $param['in_stock'],
 	 	    'limit_num'          => $param['limit_num'],
 	 	    'minus_stock'        => $param['minus_stock'],
+	 		'province_id'        => $param['province_id'],
+	 		'city_id'            => $param['city_id'],
+	 		'district_id'        => $param['district_id'],
+	 		'address'            => $param['address'],
 	 		'integral'      => empty($param['integral']) ? '0' : $param['integral'],
 	 		'sort_order'    => empty($param['sort_order']) ? '1' : $param['sort_order'],
 	 		'created_at'    => date('Y-m-d H:i:s'),
@@ -123,19 +127,26 @@ class Mall_goods_base_model extends CI_Model{
 	 			'promote_end_date'   => $param['promote_end_date'],
 	 			'tour_count'         => $param['tour_count'],
 	 			'sale_count'         => $param['sale_count'],
+	 			'province_id'        => $param['province_id'],
+	 			'city_id'            => $param['city_id'],
+	 			'district_id'        => $param['district_id'],
+	 			'address'            => $param['address'],
 	 			'in_stock'           => $param['in_stock'],
 	 			'limit_num'          => $param['limit_num'],
 	 			'minus_stock'        => $param['minus_stock'],
 	 			'integral'      => empty($param['integral']) ? '0' : $param['integral'],
 	 			'sort_order'    => empty($param['sort_order']) ? '1' : $param['sort_order'],
-	 			'created_at'    => date('Y-m-d H:i:s'),
+	 			'update_at'    => date('Y-m-d H:i:s'),
 	 	);
 	 	//运费模版
 	 	if ($param['transport_type'] == 1) {
 	 		$data['freight_id'] = $param['freight_id'];
+	 		$data['freight_cost'] = 0;
 	 	} else {
+	 		$data['freight_id'] = 0;
 	 		$data['freight_cost'] = $param['freight_cost'];
 	 	}
+	 	$this->db->where('goods_id',$goods_id);
 	 	return $this->db->update($this->table,$data);
 	 }
 	 
@@ -170,6 +181,9 @@ class Mall_goods_base_model extends CI_Model{
 	 */
 	public function getCategoryId($param){
 		
+		if( !empty($param['category_id'])){
+			return $param['category_id'];
+		}
 		if( !empty($param['class_c']) ){
 			return $param['class_c'];
 		}

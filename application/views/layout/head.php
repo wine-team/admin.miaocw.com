@@ -23,6 +23,7 @@
     <?php css('common', 'jquery.autocomplete');?>
     <?php css('admin', 'pricing-tables');?>
     <?php css('admin', 'inbox');?>
+    <?php css('admin', 'DT_bootstrap');?>
     <!-- end globle -->
     <?php css('admin', 'datepicker');?>
     <?php css('admin', 'datetimepicker');?>
@@ -45,9 +46,7 @@
     
     <?php js('common', 'jquery.validate.min');?>
     <?php js('common', 'jquery.validate.messages_zh');?>
-    <?php js('common', 'common');?>
     <?php js('admin', 'bootstrap.min');?>
     <?php js('admin', 'app');?>
-    <?php js('admin', 'jquery.wysiwyg');?>
     <?php js('admin', 'index');?>
 </head>

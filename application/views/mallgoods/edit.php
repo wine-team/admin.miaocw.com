@@ -43,7 +43,7 @@
                         <div class="control-group">
                             <label class="control-label"><em>* </em>商品类型</label>
                             <div class="controls">
-                                <select name="attr_set_id" class="medium m-wrap valid" disabled="disabled">
+                                <select name="attribute_set_id" class="medium m-wrap valid" disabled="disabled">
                                     <?php foreach ($attribute->result() as $key=>$value) : ?>
                                         <option value="<?php echo $value->attr_set_id;?>" <?php if($value->attr_set_id==$mallgoods->attribute_set_id):?>selected="selected"<?php endif;?>><?php echo $value->attr_set_name;?></option>
                                     <?php endforeach;?>
@@ -232,7 +232,7 @@
                         <div class="control-group ">
                             <label class="control-label"> 详细地址</label>
                             <div class="controls">
-                                <input type="text" class="m-wrap span8 required" placeholder="用于根据地址搜索您的产品" name="detail">
+                                <input type="text" class="m-wrap span8 required" placeholder="用于根据地址搜索您的产品" name="address" value="<?php echo trim(mb_strrchr($mallgoods->address, ' ')); ?>" />
                             </div>
                         </div>
                         <div class="control-group">

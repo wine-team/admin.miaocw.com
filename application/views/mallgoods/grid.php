@@ -20,42 +20,32 @@
                 <div class="portlet-body form">
                     <form class="form-horizontal form-search" action="<?php echo base_url('mall_goods/grid') ?>" method="get">
                         <div class="row-fluid">
-                            <div class="span5">
+                            <div class="span4">
                                 <div class="control-group">
                                     <label class="control-label">商品搜索</label>
                                     <div class="controls">
-                                        <input type="text" name="goods_search" value="<?php echo $this->input->get('goods_search');?>" class="m-wrap span12" placeholder="请输入商品编号或商品名称">
+                                        <input type="text" name="goods_search" value="<?php echo $this->input->get('goods_search');?>" class="m-wrap medium" placeholder="请输入商品编号或商品名称">
                                     </div>
                                 </div>
                             </div>
-                            <div class="span7">
-                                <div class="control-group">
-                                    <label class="control-label">供应商</label>
-                                    <div class="controls">
-                                        <input type="text" name="username" value="<?php echo $this->input->get('username');?>" class="m-wrap span8" placeholder="请输入供应商帐号或别名">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row-fluid">
-                            <div class="span5">
+                            <div class="span4">
                                 <div class="control-group">
                                     <label class="control-label">审核状态</label>
                                     <div class="controls">
-                                        <select name="is_check" class="m-wrap span12">
+                                        <select name="is_check" class="m-wrap medium">
                                             <option value="">请选择</option>
                                             <?php foreach ($is_check as $kk=>$vv):?>
-                                            <option value="<?php echo $kk;?>" <?php if ($this->input->get('is_check')==$kk):?>selected="selected"<?php endif;?>><?php echo $vv;?></option>
+                                                <option value="<?php echo $kk;?>" <?php if ($this->input->get('is_check')==$kk):?>selected="selected"<?php endif;?>><?php echo $vv;?></option>
                                             <?php endforeach;?>
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                            <div class="span7">
+                            <div class="span4">
                                 <div class="control-group">
                                     <label class="control-label">上下架</label>
                                     <div class="controls">
-                                        <select name="is_on_sale" class="m-wrap span8">
+                                        <select name="is_on_sale" class="m-wrap medium">
                                             <option value="">请选择</option>
                                             <option value="1" <?php if($this->input->get('is_on_sale')==1){echo 'selected';}?> >上架</option>
                                             <option value="2" <?php if($this->input->get('is_on_sale')==2){echo 'selected';}?>>下架</option>
@@ -65,35 +55,34 @@
                             </div>
                         </div>
                         <div class="row-fluid">
-                            <div class="span5">
+                            <div class="span4">
                                 <div class="control-group">
-                                    <label class="control-label">开始时间</label>
+                                    <label class="control-label">供应商</label>
                                     <div class="controls">
-                                        <div class="input-append date form_datetime">
-                                            <input type="text" class="m-wrap m-ctrl-medium" size="16" name="start_date" value="<?php echo $this->input->get('start_date');?>">
-                                            <span class="add-on"><i class="icon-calendar"></i></span>
-                                        </div>
+                                        <input type="text" name="username" value="<?php echo $this->input->get('username');?>" class="m-wrap medium" placeholder="请输入供应商帐号或别名">
                                     </div>
                                 </div>
                             </div>
-                            <div class="span7">
-                                <div class="control-group">
-                                    <label class="control-label">结束时间</label>
-                                    <div class="controls">
-                                        <div class="input-append date form_datetime">
-                                            <input type="text" class="m-wrap m-ctrl-medium" size="16" name="end_date" value="<?php echo $this->input->get('end_date');?>">
-                                            <span class="add-on"><i class="icon-calendar"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row-fluid">
-                            <div class="span7">
+                            <div class="span4">
                                 <div class="control-group">
                                     <label class="control-label">省/市/区</label>
                                     <div class="controls">
                                         <?php $this->load->view('commonhtml/districtSelect');?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span4">
+                                <div class="control-group">
+                                    <label class="control-label">开始时间</label>
+                                    <div class="controls form-search-time">
+                                        <div class="input-append date date-picker">
+                                            <input type="text" name="start_date" size="16" value="2016-05-26" class="m-wrap m-ctrl-medium date-picker date">
+                                            <span class="add-on"><i class="icon-calendar"></i></span>
+                                        </div>
+                                        <div class="input-append date date-picker">
+                                            <input type="text" name="end_date" size="16" value="2016-06-02" class="m-wrap m-ctrl-medium date-picker date">
+                                            <span class="add-on"><i class="icon-calendar"></i></span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

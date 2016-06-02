@@ -66,11 +66,11 @@ class Admin_action_model extends CI_Model
         return $this->db->count_all_results($this->table);
     }
     
-    public function childPageList($num, $parent_id)
+    public function childPageList($pageNum, $num, $parent_id)
     {
         $this->db->where('parent_id', $parent_id);
-        $this->db->order_by('id','desc');
-        $this->db->limit(20, $num);
+        $this->db->order_by('id', 'DESC');
+        $this->db->limit($pageNum, $num);
         return $this->db->get($this->table);
     }
     
