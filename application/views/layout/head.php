@@ -24,6 +24,7 @@
     <?php css('admin', 'pricing-tables');?>
     <?php css('admin', 'inbox');?>
     <?php css('admin', 'DT_bootstrap');?>
+    <?php css('admin', 'chosen');?>
     <!-- end globle -->
     <?php css('admin', 'datepicker');?>
     <?php css('admin', 'datetimepicker');?>
@@ -41,6 +42,7 @@
     
     <!-- scripts (jquery) -->
     <?php js('common', 'jquery-1.10.2');?>
+    <?php js('common', 'jquery-migrate-1.2.1.min');?>
     <?php js('common', 'jquery-ui.min');?>
     <?php js('common', 'jquery.autocomplete');?>
     
