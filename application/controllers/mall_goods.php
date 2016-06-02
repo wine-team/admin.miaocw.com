@@ -37,7 +37,7 @@ class Mall_goods extends CS_Controller
     public function addstep1()
     {
     	$data['extension'] = array('simple'=>'简单产品','virtual'=>'虚拟产品','giftcard'=>'礼品卡');
-    	$data['attribute'] = $this->mall_attribute_set->findById(array('enabled'=>1));
+    	$data['attribute'] = $this->mall_attribute_set->findByReason(array('enabled'=>1));
     	$this->load->view('mallgoods/addstep1',$data);
     }
     
@@ -147,7 +147,7 @@ class Mall_goods extends CS_Controller
     	$data['mallgoods'] = $result->row();
     	$data['brand'] = $this->mall_brand->findById(array('is_show'=>1));//品牌信息
     	$data['extension'] = array('simple'=>'简单产品','virtual'=>'虚拟产品','giftcard'=>'礼品卡');
-    	$data['attribute'] = $this->mall_attribute_set->findById(array('enabled'=>1));
+    	$data['attribute'] = $this->mall_attribute_set->findByReason(array('enabled'=>1));
     	$data['freight'] = $this->mall_freight_tpl->getTransport($data['mallgoods']->supplier_id);
     	$this->load->view('mallgoods/edit',$data);
     }

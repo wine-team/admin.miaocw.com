@@ -46,4 +46,16 @@ class Mall_attribute_set_model extends CI_Model
 		$this->db->where('attr_set_id', $postData['attr_set_id']);
 		return $this->db->update($this->table, $data);
 	}
+	
+	 /**
+	 * 
+	 * @param unknown $param
+	 */
+	public function findByReason($param){
+		
+		if(!empty($param['enabled'])){
+			$this->db->where('enabled',$param['enabled']);
+		}
+		return $this->db->get($this->table);
+	}
 }
