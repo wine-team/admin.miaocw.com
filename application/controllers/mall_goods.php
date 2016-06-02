@@ -171,7 +171,36 @@ class Mall_goods extends CS_Controller
     	exit;
     }
     
+     /**
+     * 商品多图显示
+     * author laona
+     **/
+    public function images($goods_id)
+    {
+    	$data['images'] = $this->mall_goods_base->getInfoByGoodsId($goods_id);
+    	$this->load->view('mallgoods/images', $data);
+    }
     
+    /**
+     * 
+     * @param unknown $goods_id
+     */
+    public function copy($goods_id){
+    	
+    	$result = $this->mall_goods_base->getInfoByGoodsId($goods_id);
+    	if ($result->num_rows() <= 0) {
+    		$this->error('mall_goods/grid', '', '找不到产品相关信息！');
+    	}
+    	$data['mallgoods'] = $result->row();
+    	$data['province_id'] = $data['mallgoods']->province_id;
+    	$data['city_id'] = $data['mallgoods']->city_id;
+    	$data['district_id'] = $data['mallgoods']->district_id;
+    	$data['brand'] = $this->mall_brand->findById(array('is_show'=>1));//品牌信息
+    	$data['extension'] = array('simple'=>'简单产品','virtual'=>'虚拟产品','giftcard'=>'礼品卡');
+    	$data['attribute'] = $this->mall_attribute_set->findByReason(array('enabled'=>1));
+    	$data['freight'] = $this->mall_freight_tpl->getTransport($data['mallgoods']->supplier_id);
+    	$this->load->view('mallgoods/copy',$data);
+    }
     
     private function jsen($error, $flag = false)
     {

@@ -43,7 +43,7 @@
                         <div class="control-group">
                             <label class="control-label"><em>* </em>商品类型</label>
                             <div class="controls">
-                                <select name="attr_set_id" class="medium m-wrap valid" disabled="disabled">
+                                <select name="attribute_set_id" class="medium m-wrap valid" disabled="disabled">
                                     <?php foreach ($attribute->result() as $key=>$value) : ?>
                                         <option value="<?php echo $value->attr_set_id;?>" <?php if($value->attr_set_id==$mallgoods->attribute_set_id):?>selected="selected"<?php endif;?>><?php echo $value->attr_set_name;?></option>
                                     <?php endforeach;?>
