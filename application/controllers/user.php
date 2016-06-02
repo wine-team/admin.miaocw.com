@@ -12,16 +12,17 @@ class User extends CS_Controller
     {
     	$page_num = 20;
         $num = ($pg-1)*$page_num;
-        $config['first_url']   = base_url('user/grid').$this->pageGetParam($this->input->get());
-        $config['suffix']      = $this->pageGetParam($this->input->get());
-        $config['base_url']    = base_url('user/grid');
+        $config['first_url'] = base_url('user/grid').$this->pageGetParam($this->input->get());
+        $config['suffix'] = $this->pageGetParam($this->input->get());
+        $config['base_url'] = base_url('user/grid');
         $config['total_rows']  = $this->user->total($this->input->get());
         $config['uri_segment'] = 3;
         $this->pagination->initialize($config);
-        $data['pg_link']   = $this->pagination->create_links();
+        $data['pg_link'] = $this->pagination->create_links();
         $data['page_list'] = $this->user->page_list($page_num, $num, $this->input->get());
-        $data['all_rows']  = $config['total_rows'];
-        $data['pg_now']    = $pg;
+        $data['all_rows'] = $config['total_rows'];
+        $data['pg_now'] = $pg;
+        $data['page_num'] = $page_num;
         $this->load->view('user/grid', $data);
     }
 

@@ -15,7 +15,7 @@ class Account extends MJ_Controller
         if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], 'account/dashboard') === false) {
             $data['backurl'] = $_SERVER['HTTP_REFERER'];
         } else {
-            $data['backurl'] = base_url('account/dashboard');
+            $data['backurl'] = base_url('home/dashboard');
         }
         $this->load->view('account/login', $data);
     }

@@ -23,6 +23,7 @@
     <?php css('common', 'jquery.autocomplete');?>
     <?php css('admin', 'pricing-tables');?>
     <?php css('admin', 'inbox');?>
+    <?php css('admin', 'DT_bootstrap');?>
     <!-- end globle -->
     <?php css('admin', 'datepicker');?>
     <?php css('admin', 'datetimepicker');?>
