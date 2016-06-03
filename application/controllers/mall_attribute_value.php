@@ -20,12 +20,12 @@ class Mall_attribute_value extends MJ_Controller {
 	
 	public function addPost()
 	{
+	    $postData = $this->input->post();
 	    $error = $this->validate(); 
 	    if (!empty($error))
 	    {
-	        $this->error('mall_attribute_value/add', $this->input->post('attr_value_id'), $error);
+	        $this->error('mall_attribute_value/add/'.$postData['group_id'], array('attr_set_id'=>$postData['attr_set_id']), $error);
 	    }
-	    $postData = $this->input->post(); 
 	    $data['group_id'] = $postData['group_id'];
 	    $data['attr_set_id'] = $postData['attr_set_id'];
 	    $data['attr_name'] = $postData['attr_name'];
@@ -60,12 +60,12 @@ class Mall_attribute_value extends MJ_Controller {
 	
 	public function editPost()
 	{
+	    $postData = $this->input->post();
 	    $error = $this->validate();
         if (!empty($error))
         {
-            $this->error('mall_attribute_value/edit', $this->input->post('attr_id'), $error);
+            $this->error('mall_attribute_value/edit/'.$postData['attr_value_id'], array('attr_set_id'=>$postData['attr_set_id']), $error);
         }
-        $postData = $this->input->post();
 	    $data['group_id'] = $postData['group_id'];
 	    $data['attr_set_id'] = $postData['attr_set_id'];
 	    $data['attr_name'] = $postData['attr_name'];
@@ -104,10 +104,6 @@ class Mall_attribute_value extends MJ_Controller {
         if ($this->validateParam($this->input->post('attr_type')))
         {
             $error[] = '属性类型不能为空';
-        }
-        if ($this->validateParam($this->input->post('attr_values')))
-        {
-            $error[] = '属性可选值不能为空';
         }
 	    return $error;
 	}

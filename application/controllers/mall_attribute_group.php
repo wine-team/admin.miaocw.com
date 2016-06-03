@@ -31,7 +31,7 @@ class Mall_attribute_group extends MJ_Controller
             $data['attributevalue'] = $attr;
         }
         $data['attributeValue'] = $attr;
-        $data['attributeGroup'] = $group; //var_dump($data);die;
+        $data['attributeGroup'] = $group; 
         $this->load->view('mall_attribute_group/grid', $data);
     }
     

@@ -56,9 +56,9 @@
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><em>* </em>可选值</label>
+                            <label class="control-label">可选值</label>
                             <div class="controls">
-                                <textarea class="m-wrap large required" name="attr_values"></textarea>
+                                <textarea class="m-wrap large" name="attr_values"></textarea>
                                 <span class="help-block">请用英文逗号隔开</span>
                             </div>
                         </div>
@@ -103,7 +103,7 @@
                         </div>
                         <div class="form-actions">
                             <button class="btn green" type="submit"><i class="icon-ok"></i> 保存</button>
-                            <a href="<?php echo base_url('mall_attribute_set/grid/'.$attr_set_id) ?>">
+                            <a href="<?php echo base_url('mall_attribute_group/grid/?attr_set_id='.$attr_set_id) ?>">
                                 <button class="btn" type="button">返回</button>
                             </a>
                         </div>
@@ -113,4 +113,22 @@
         </div>
     </div>
 </div>
+<script>
+$(function(){
+	$('select[name="attr_type"]').change(function(){
+		var parent_div = $('textarea[name="attr_values"]').parents('.control-group');
+		if($(this).val()=='select' || $(this).val()=='multiselect')
+		{
+			parent_div.find('label').prepend('<em>* </em>');
+			parent_div.find('textarea').addClass('required');
+		}else{
+			parent_div.find('em').remove();
+			parent_div.find('textarea').removeClass('required');
+		}
+		
+		
+	});
+});
+
+</script>
 <?php $this->load->view('layout/footer');?>
