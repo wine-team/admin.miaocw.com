@@ -13,6 +13,9 @@
 <?php js('admin', 'bootstrap-datepicker');?>
 <?php js('admin', 'bootstrap-datetimepicker');?>
 <?php js('admin', 'bootstrap-timepicker');?>
+<?php js('admin', 'chosen.jquery.min');?>
+<?php js('admin', 'select2.min');?>
+<?php js('admin', 'jquery.multi-select');?>
 <?php js('admin', 'form-components');?>
 
 <?php js('admin', 'jquery.slimscroll.min');?>

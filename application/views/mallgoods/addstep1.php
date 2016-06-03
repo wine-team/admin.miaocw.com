@@ -33,7 +33,8 @@
                         <div class="control-group">
                             <label class="control-label"><em>* </em>商品类型</label>
                             <div class="controls">
-                                <select name="attr_set_id" class="medium m-wrap valid">
+                                <select name="attr_set_id" data-placeholder="请选择商品类型" class="medium m-wrap chosen" tabindex="1">
+                                    <option value=""></option>
                                     <?php foreach ($attribute->result() as $key=>$value) : ?>
                                         <option value="<?php echo $value->attr_set_id;?>"><?php echo $value->attr_set_name;?></option>
                                     <?php endforeach;?>

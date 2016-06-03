@@ -461,10 +461,10 @@ var FormComponents = function () {
             //handleDateRangePickers();
             //handleClockfaceTimePickers();
             //handleColorPicker();
-            //handleSelec2();
+            handleSelec2();
             //handleInputMasks();
             //handleIPAddressInput();
-            //handleMultiSelect();
+            handleMultiSelect();
 
 //            App.addResponsiveHandler(function(){
 //                resetWysihtml5();
