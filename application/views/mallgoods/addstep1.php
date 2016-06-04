@@ -2,8 +2,8 @@
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
-            <h3 class="page-title">趣网商城<small> 商品添加</small></h3>
-            <?php echo breadcrumb(array('mall_goods/grid' => '旅游产品', "mall_goods/addstep1" => '商品添加')); ?>
+            <h3 class="page-title">妙网商城<small> 商品添加</small></h3>
+            <?php echo breadcrumb(array('mall_goods/grid' => '妙网商城', "mall_goods/addstep1" => '商品添加')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>

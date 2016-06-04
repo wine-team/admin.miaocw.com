@@ -177,8 +177,100 @@ class Mall_goods extends CS_Controller
      **/
     public function images($goods_id)
     {
-    	$data['images'] = $this->mall_goods_base->getInfoByGoodsId($goods_id);
+    	$result = $this->mall_goods_base->getInfoByGoodsId($goods_id);
+    	if ($result->num_rows() <= 0) {
+    		$this->error('mall_goods/grid', '', '找不到产品相关信息！');
+    	}
+    	$mallgoods = $result->row();
+    	$data['mallgoods'] = $mallgoods;
+    	$pics = $mallgoods->goods_img;
+    	if(!empty($pics)){
+    		$goods_img = array_filter(explode('|', $pics));
+    		($goods_img);
+    	}else{
+    		$goods_img = array();
+    	}
+    	$data['goods_img'] = $goods_img;
+    	$data['goods_id'] = $goods_id;
     	$this->load->view('mallgoods/images', $data);
+    }
+    
+    /**
+     * 商品多图保存
+     * author laona
+     */
+    public function saveImages()
+    {
+    	if (!$this->input->post('goods_id')) {
+    		$this->error('mall_goods/grid', '', '内部错误！');
+    	}
+    	$goods_id = (int)$this->input->post('goods_id');
+    	if (empty($_FILES['goods_img']['name'])) {
+    		$this->error('mall_goods/images', $goods_id, '请选择图片上传！');
+    	}
+    	$imageData = $this->dealWithImages('goods_img', '', 'mall');
+    	if ($imageData == false) {
+    		$this->error('mall_goods/images', $goods_id, '图片上传失败！');
+    	}
+    	$ifResize = $this->dealWithImagesResize($imageData, '360', '360');
+    	if ($ifResize == false) {
+    		$this->error('mall_goods/images', $goods_id, '缩略图生成失败！');
+    	}
+    	$params['goods_id'] = $goods_id;
+    	$params['goods_img'] = $this->input->post('pics').$imageData['file_name'].'|';
+    	$this->db->trans_start();
+    	$resultId = $this->mall_goods_base->insertImage($params);
+    	$this->db->trans_complete();
+    	if (!$resultId) {
+    		$this->error('mall_goods/images', $goods_id, '数据保存失败！');
+    	}
+    	$this->success('mall_goods/images', $goods_id, '数据保存成功！');
+    }
+    
+    public function deleteImage(){
+    	
+    	$goods_id = $this->input->get('goods_id');
+    	$image_name = $this->input->get('image_name');
+    	if (empty($goods_id)) {
+    		$this->error('mall_goods/grid', '', '内部错误！');
+    	}
+    	$result = $this->mall_goods_base->getInfoByGoodsId($goods_id);
+    	if ($result->num_rows() <= 0) {
+    		$this->error('mall_goods/grid', '', '找不到产品相关信息！');
+    	}
+    	$mallgoods = $result->row();
+    	$pics = trim($mallgoods->goods_img, '|');
+    	$params['goods_id'] = $goods_id;
+    	$params['goods_img'] = str_replace($image_name.'|', '', $mallgoods->goods_img);
+    	$resultId = $this->mall_goods_base->insertImage($params);
+    	$this->deleteOldfileName($image_name,'mall');
+    	if (!$resultId) {
+    		$this->error('mall_goods/images', $goods_id, '删除失败');
+    	}
+    	$this->success('mall_goods/images', $goods_id, '删除成功！');
+    }
+    
+    /**
+     * 设为主图
+     * @param unknown $siid
+     */
+    public function mainImage()
+    {
+    	$goods_id = $this->input->get('goods_id');
+    	$result = $this->mall_goods_base->getInfoByGoodsId($goods_id);
+    	if ($result->num_rows() <= 0) {
+    		$this->error('mall_goods/grid', '', '找不到产品相关信息！');
+    	}
+    	$mall_goods = $result->row();
+    	$image_name = $this->input->get('image_name');
+    	$pics = str_replace($image_name.'|', '', $mall_goods->goods_img);
+    	$params['goods_img'] = $image_name.'|'.$pics;
+    	$params['goods_id'] = $goods_id;
+    	$resultId = $this->mall_goods_base->insertImage($params);
+    	if (!$resultId) {
+    		$this->error('mall_goods/images', $goods_id, '删除失败');
+    	}
+    	$this->success('mall_goods/images', $goods_id, '删除成功！');
     }
     
     /**

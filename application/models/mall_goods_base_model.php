@@ -88,6 +88,7 @@ class Mall_goods_base_model extends CI_Model{
 	 		'city_id'            => $param['city_id'],
 	 		'district_id'        => $param['district_id'],
 	 		'address'            => $param['address'],
+	 		'goods_img'          => '',
 	 		'integral'      => empty($param['integral']) ? '0' : $param['integral'],
 	 		'sort_order'    => empty($param['sort_order']) ? '1' : $param['sort_order'],
 	 		'created_at'    => date('Y-m-d H:i:s'),
@@ -174,7 +175,6 @@ class Mall_goods_base_model extends CI_Model{
 		return $this->db->get();
 	}
 	
-	
 	 /**
 	 * 分类名称
 	 * @param unknown $param
@@ -193,6 +193,17 @@ class Mall_goods_base_model extends CI_Model{
 		if( !empty($param['class_a']) && empty($param['class_b']) && empty($param['class_c'])){
 			return $param['class_a'];
 		}
+	}
+	
+	 /**
+	 * 
+	 * @param unknown $params
+	 */
+	public function insertImage($params){
+		
+		$data['goods_img'] = $params['goods_img'];
+		$this->db->where('goods_id',$params['goods_id']);
+		return $this->db->update($this->table,$data);
 	}
 
 }

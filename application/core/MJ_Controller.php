@@ -199,6 +199,7 @@ class MJ_Controller extends CI_Controller
             $this->deleteOldfileName($oldfilename, $dirName);
         }
         $uploadData = $this->upload->data();
+      
         if (!empty($uploadData)) {
             $uploadData['file_name'] = $date.'/'.$uploadData['file_name'];
         }
