@@ -186,7 +186,6 @@ class Mall_goods extends CS_Controller
     	$pics = $mallgoods->goods_img;
     	if(!empty($pics)){
     		$goods_img = array_filter(explode('|', $pics));
-    		($goods_img);
     	}else{
     		$goods_img = array();
     	}
