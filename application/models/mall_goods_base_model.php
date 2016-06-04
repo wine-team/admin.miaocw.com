@@ -163,6 +163,16 @@ class Mall_goods_base_model extends CI_Model{
 	}
 	
 	 /**
+	 * 删除
+	 * @param unknown $goods_id
+	 */
+	public function deleteById($goods_id){
+		
+		$this->db->where('goods_id', $goods_id);
+		return $this->db->delete($this->table);
+	}
+	
+	 /**
 	 * 
 	 * @param unknown $goods_id
 	 */

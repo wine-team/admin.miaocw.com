@@ -303,6 +303,15 @@ class Mall_goods extends CS_Controller
     	exit;
     }
     
+    public function delete($goods_id){
+    	
+    	$status = $this->mall_goods_base->deleteById($goods_id);
+    	if($status){
+    		$this->success('mall_goods/grid', '', '删除成功');
+    	}
+    	$this->error('mall_goods/grid', '', '删除失败');
+    }
+    
      /**
      * 
      * @return multitype:string

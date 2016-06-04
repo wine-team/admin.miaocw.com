@@ -160,7 +160,7 @@
                                         <a class="btn mini green" href="<?php echo base_url('mall_goods/images/'.$item->goods_id) ?>">图片管理</a>
                                         <a class="btn mini green" href="<?php echo base_url('mall_goods/edit/'.$item->goods_id) ?>">编辑</a>
                                         <a class="btn mini green" href="<?php echo base_url('mall_goods/copy/'.$item->goods_id) ?>">复制</a>
-                                        <a target="_blank" class="btn mini green" href="<?php echo $this->config->main_base_url.'mallgoods/preview/'.$item->goods_id.'.html'?>">预览</a>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_goods/delete/'.$item->goods_id) ?>">复制</a>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
