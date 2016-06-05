@@ -46,6 +46,18 @@ class Mall_attribute_value_model extends CI_Model{
 	    return $res;
 	}
 	
+	 /**
+	 * 
+	 * @param unknown $group_id
+	 * @param unknown $attr_set_id
+	 */
+	public function getAttrbuteValue($group_id,$attr_set_id){
+		
+		$this->db->where('group_id',$group_id);
+		$this->db->where('attr_set_id',$attr_set_id);
+		return $this->db->get($this->table);
+	}
+	
 }
 /* End of file Mall_attribute_model.php */
 /* Location: ./application/models/Mall_attribute_model.php */

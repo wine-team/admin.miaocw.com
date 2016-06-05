@@ -11,6 +11,9 @@ class Mall_goods extends CS_Controller
         $this->load->model('mall_category_product_model','mall_category_product');
         $this->load->model('region_model', 'region');
         $this->load->model('mall_freight_tpl_model','mall_freight_tpl');
+        $this->load->model('mall_attribute_group_model','mall_attribute_group');
+        $this->load->model('mall_attribute_value_model','mall_attribute_value');
+        $this->load->model('mall_goods_attr_value_model','mall_goods_attr_value');
     }
     
     public function grid($pg = 1)
@@ -50,8 +53,10 @@ class Mall_goods extends CS_Controller
     	if (empty($extension_code) || empty($attr_set_id)) {
     		$this->error('mall_goods/addstep1', '', '请选择完整商品的类别和类型');
     	}
+    	$data['attr_set_id'] = $attr_set_id;
     	$data['brand'] = $this->mall_brand->findById(array('is_show'=>1));//品牌信息
     	$data['extension'] = array('simple'=>'简单产品','virtual'=>'虚拟产品','giftcard'=>'礼品卡');
+    	$data['attribute_group'] = $this->mall_attribute_group->findByAttrSetId($attr_set_id);
     	$this->load->view('mallgoods/addstep2', $data);
     }
     
@@ -128,7 +133,8 @@ class Mall_goods extends CS_Controller
     	$this->db->trans_begin();
     	$goods_id = $this->mall_goods_base->insertMallGoods($param);
     	$result = $this->mall_category_product->insert($goods_id,$param['category_id']);
-    	if (!$goods_id && !$result && $this->db->trans_status() === FALSE) {
+    	$goodsAttrResult = $this->mall_goods_attr_value->insertBatch($goods_id,$param['attr']);
+    	if (!$goods_id && !$result && !$goodsAttrResult && $this->db->trans_status() === FALSE) {
     		$this->db->trans_rollback();
     		$this->jsen('保存失败！');
     	} else {

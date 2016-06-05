@@ -1,7 +1,7 @@
 <?php
 class Mall_attribute_group_model extends CI_Model{
 
-	private $table = 'mall_attribute_group';        
+	private $table = 'mall_attribute_group';     
 	
 	public function findById($where)
 	{
@@ -33,6 +33,3 @@ class Mall_attribute_group_model extends CI_Model{
 	}
 	
 }
-/* End of file Mall_attribute_model.php */
-/* Location: ./application/models/Mall_attribute_model.php */
-

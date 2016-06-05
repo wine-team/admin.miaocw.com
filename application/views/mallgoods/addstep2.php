@@ -182,7 +182,7 @@
                             <label class="control-label"><em>* </em>减库存方式</label>
                             <div class="controls">
                             	<label class="radio">
-                                	<input type="radio" class="m-wrap required" name="minus_stock" value="1" checked="checked" checked="checked"/>拍下减库存
+                                	<input type="radio" class="m-wrap required" name="minus_stock" value="1" checked="checked"/>拍下减库存
                                 </label>
                                 <label class="radio">
                                 	<input type="radio" class="m-wrap required" name="minus_stock" value="2"/>付款减库存
@@ -213,6 +213,44 @@
                                 <input type="text" name="sort_order" class="m-wrap span8 required number" placeholder="排序">
                             </div>
                         </div>
+                        <?php if($attribute_group->num_rows()>0):?>
+                           <?php foreach ($attribute_group->result() as $val):?>
+                           <?php $attribute_value = $this->mall_attribute_value->getAttrbuteValue($val->group_id,$val->attr_set_id);?>
+                           <?php if($attribute_value->num_rows()>0):?>
+	                           <div class="alert alert-success"><?php echo $val->group_name;?></div>
+	                           <?php foreach ($attribute_value->result() as $item):?>
+		                           <div class="control-group ">
+			                            <label class="control-label"><?php if($item->values_required==1):?><em>* </em><?php endif;?><?php echo $item->attr_name;?></label>
+			                            <div class="controls">
+			                                <?php if($item->attr_type=='text'):?>
+			                                <input type="text" name="attr[<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]" class="m-wrap span8 <?php if($item->values_required==1):?>required<?php endif;?>" placeholder="<?php echo $item->attr_name;?>" attr_value_id="<?php echo $item->attr_value_id;?>">
+			                                <?php endif;?>
+			                                <?php if($item->attr_type=='textarea'):?>
+			                                <textarea name="attr[<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]" rows="3" class="m-wrap span8 <?php if($item->values_required==1):?>required<?php endif;?>" placeholder="<?php echo $item->attr_name;?>"></textarea>
+			                                <?php endif;?>
+			                                <?php if($item->attr_type=='boolean'):?>
+			                                <label class="radio">
+		                                	  	<input type="radio" class="m-wrap <?php if($item->values_required==1):?>required<?php endif;?>" name="attr[<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]" value="1" checked="checked"/>是
+		                                	</label>
+			                                <label class="radio">
+			                                	<input type="radio" class="m-wrap <?php if($item->values_required==1):?>required<?php endif;?>" name="attr[<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]" value="0"/>否
+			                                </label>
+			                                <?php endif;?>
+			                                <?php if($item->attr_type=='select' || $item->attr_type=='multiselect') :?>
+			                                <?php if(!empty($item->attr_values)):?>
+			                                <?php $selectValue = explode(',',$item->attr_values)?>
+			                                <select class="m-wrap span8 number <?php if($item->values_required==1):?>required<?php endif;?>" name="attr[<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]">
+			                                    <?php foreach ($selectValue as $attr_values)?>
+			                                    <option value="<?php echo $attr_values;?>"><?php echo $attr_values;?></option>
+			                                </select>
+			                                <?php endif;?>
+			                                <?php endif;?>
+			                            </div>
+		                           </div>
+	                           <?php endforeach;?>
+                           <?php endif;?>
+                           <?php endforeach;?>
+                        <?php endif;?>
                         <div class="alert alert-success">商品运费信息</div>
                         <div class="control-group">
                             <label class="control-label"><em>* </em>配送地址</label>
