@@ -26,7 +26,7 @@
                         <div class="control-group">
                             <label class="control-label">商品分类</label>
                             <div class="controls">
-                                   <?php $this->load->view('commonhtml/categorySelect');?>
+                                 <?php $this->load->view('commonhtml/categorySelect');?>
                             </div>
                         </div>
                         <div class="control-group">
@@ -75,7 +75,7 @@
                         <div class="control-group">
                             <label class="control-label"><em>* </em>商品简介</label>
                             <div class="controls">
-                                <textarea name="goods_brief" rows="3" class="m-wrap span8 required"></textarea>
+                                <textarea name="goods_brief" rows="3" class="m-wrap span8 required" placeholder="商品简介"></textarea>
                             </div>
                         </div>
                         <div class="control-group add-supplieruid-html">
@@ -89,7 +89,7 @@
                             <div class="controls">
                                 <select class="m-wrap span8 number required" name="is_check">
                                     <option value="1">未审核</option>
-                                    <option value="2" selected="selected">审核通过</option>
+                                    <option value="2">审核通过</option>
                                     <option value="3">审核拒绝</option>
                                 </select>
                             </div>
@@ -106,26 +106,26 @@
                         <div class="control-group">
                             <label class="control-label"><em>* </em>pc商品详情</label>
                             <div class="controls">
-                                <textarea name="goods_desc" rows="3" class="textarea-multipart-edit m-wrap span8 required"></textarea>
+                                <textarea name="goods_desc" rows="3" class="textarea-multipart-edit m-wrap span8 required" placeholder="pc商品详情"></textarea>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label"><em>* </em>wap商品详情</label>
                             <div class="controls">
-                                <textarea name="wap_goods_desc" rows="3" class="textarea-multipart-edit m-wrap span8 required"></textarea>
+                                <textarea name="wap_goods_desc" rows="3" class="textarea-multipart-edit m-wrap span8 required" placeholder="wap商品详情"></textarea>
                             </div>
                         </div>
                         <div class="alert alert-success">商品销售信息</div>
                         <div class="control-group ">
                             <label class="control-label">市场价格</label>
                             <div class="controls">
-                                <input type="text" name="market_price" class="m-wrap span8 required number" placeholder="市场价格">
+                                <input type="text" name="market_price" class="m-wrap span8 required number">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label"><em>* </em>供应价</label>
                             <div class="controls">
-                                <input type="text" name="shop_price" class="m-wrap span8 required number" placeholder="供应价">
+                                <input type="text" name="shop_price" class="m-wrap span8 required number">
                             </div>
                         </div>
                         <div class="control-group ">
@@ -144,13 +144,13 @@
                                 	<input type="radio" class="m-wrap required" name="booking_limit" value="1"/>天
                                 </label>
                                 <label class="radio">
-                                	<input type="radio" class="m-wrap required" name="booking_limit"/>周
+                                	<input type="radio" class="m-wrap required" name="booking_limit" value="2"/>周
                                 </label>
                                 <label class="radio">
                                 	<input type="radio" class="m-wrap required" name="booking_limit" value="3"/>月
                                 </label>	
                                 <label class="radio">
-                                	<input type="radio" class="m-wrap required" name="booking_limit" value="3"/>年
+                                	<input type="radio" class="m-wrap required" name="booking_limit" value="4"/>年
                                 </label>
                             </div>
                         </div>
@@ -277,7 +277,7 @@ $(document).ready(function(){
         var uid = $('input[name=supplier_id]').val();
         var key = $(this).attr('data-key');
         if (uid == '') {
-            alert('请先填写供应商');
+           return alert('请先填写供应商');
         } else {
             if (obj[0].tagName == 'SELECT') {
                 $('#freight_cost').hide();

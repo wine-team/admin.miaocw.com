@@ -38,7 +38,7 @@ class Mall_attribute_set extends MJ_Controller
 	    if (!empty($error)) {
 	        $this->error('mall_attribute_set/add', '', $error);
 	    }
-        $res = $this->mall_attribute_set->insertAttributeSet($this->input->post());
+        $res = $this->mall_attribute_set->insert($this->input->post());
 	    if ($res) {
 	        $this->success('mall_attribute_set/grid', '', '新增成功！');
 	    } else {

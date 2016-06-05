@@ -8,6 +8,7 @@ class Mall_goods extends CS_Controller
         $this->load->model('mall_attribute_set_model','mall_attribute_set');
         $this->load->model('mall_brand_model','mall_brand');
         $this->load->model('mall_category_model', 'mall_category');
+        $this->load->model('mall_category_product_model','mall_category_product');
         $this->load->model('region_model', 'region');
         $this->load->model('mall_freight_tpl_model','mall_freight_tpl');
     }
