@@ -55,6 +55,7 @@ class Mall_attribute_value_model extends CI_Model{
 		
 		$this->db->where('group_id',$group_id);
 		$this->db->where('attr_set_id',$attr_set_id);
+		$this->db->order_by('sort_order','asc');
 		return $this->db->get($this->table);
 	}
 	
