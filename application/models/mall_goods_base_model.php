@@ -61,7 +61,7 @@ class Mall_goods_base_model extends CI_Model{
 	 public function insertMallGoods($param){
 	 	
 	 	$data = array(
-	 		'category_id'  => $this->getCategoryId($param),
+	 		'category_id'  => $param['category_id'],
 	 	    'goods_name'   => $param['goods_name'],
 	 	    'goods_sku'    => $param['goods_sku'],
 	 	    'brand_id'     => $param['brand_id'],
@@ -183,26 +183,6 @@ class Mall_goods_base_model extends CI_Model{
 		$this->db->join('mall_category','mall_category.cat_id=mall_goods_base.category_id');
 		$this->db->where('mall_goods_base.goods_id', $goods_id);
 		return $this->db->get();
-	}
-	
-	 /**
-	 * 分类名称
-	 * @param unknown $param
-	 */
-	public function getCategoryId($param){
-		
-		if( !empty($param['category_id'])){
-			return $param['category_id'];
-		}
-		if( !empty($param['class_c']) ){
-			return $param['class_c'];
-		}
-		if( !empty($param['class_b']) && empty($param['class_c'])){
-			return $param['class_b'];
-		}
-		if( !empty($param['class_a']) && empty($param['class_b']) && empty($param['class_c'])){
-			return $param['class_a'];
-		}
 	}
 	
 	 /**

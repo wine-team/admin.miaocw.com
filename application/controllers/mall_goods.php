@@ -123,9 +123,12 @@ class Mall_goods extends CS_Controller
      */
     public function addPost()
     {
+    	$param = $this->input->post();
+    	$param['category_id'] = $this->getCategoryId($param);
     	$this->db->trans_begin();
-    	$goods_id = $this->mall_goods_base->insertMallGoods($this->input->post()); 
-    	if (!$goods_id && $this->db->trans_status() === FALSE) {
+    	$goods_id = $this->mall_goods_base->insertMallGoods($param);
+    	$result = $this->mall_category_product->insert($goods_id,$param['category_id']);
+    	if (!$goods_id && !$result && $this->db->trans_status() === FALSE) {
     		$this->db->trans_rollback();
     		$this->jsen('保存失败！');
     	} else {
@@ -133,6 +136,27 @@ class Mall_goods extends CS_Controller
     		$this->session->set_flashdata('success', '保存成功!');
     		$this->jsen(base_url('mall_goods/grid'), TRUE);
     	}exit;
+    }
+    
+    
+     /**
+     * 分类名称
+     * @param unknown $param
+     */
+    public function getCategoryId($param){
+    
+    	if( !empty($param['category_id'])){
+    		return $param['category_id'];
+    	}
+    	if( !empty($param['class_c']) ){
+    		return $param['class_c'];
+    	}
+    	if( !empty($param['class_b']) && empty($param['class_c'])){
+    		return $param['class_b'];
+    	}
+    	if( !empty($param['class_a']) && empty($param['class_b']) && empty($param['class_c'])){
+    		return $param['class_a'];
+    	}
     }
     
      /**
@@ -305,11 +329,16 @@ class Mall_goods extends CS_Controller
     
     public function delete($goods_id){
     	
+    	$this->db->trans_begin();
     	$status = $this->mall_goods_base->deleteById($goods_id);
-    	if($status){
+    	$result = $this->mall_category_product->deleteByGoodsId($goods_id);
+    	if( $status && $result && ($this->db->trans_status() === TRUE)){
+    		$this->db->trans_complete();
     		$this->success('mall_goods/grid', '', '删除成功');
+    	}else{
+    		$this->db->trans_rollback();
+    		$this->error('mall_goods/grid', '', '删除失败');
     	}
-    	$this->error('mall_goods/grid', '', '删除失败');
     }
     
      /**
