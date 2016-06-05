@@ -11,27 +11,25 @@ class Mall_attribute_group extends MJ_Controller
 
     public function grid($group_id=0)
     {
-        $data['attr_set_id'] = $this->input->get('attr_set_id');
-        $result = $this->mall_attribute_group->findByAttrSetId($data['attr_set_id']);
-        $group = array();
-        $attr = array();
+        $attr_set_id = $this->input->get('attr_set_id');
+        $result = $this->mall_attribute_group->findByAttrSetId($attr_set_id);
+        $attrGroup = array();
+        $attrValue = array();
         if ($result->num_rows() > 0) {
-            $group = $result->result();
-            $group_ids = array();
-            if($group_id)
-            {
-                $group_ids = array($group_id);
-            }else{
-                foreach($group as $g)
-                {
-                    $group_ids[] = $g->group_id;
+            $attrGroup = $result->result();
+            if ($group_id > 0) {
+                $groupIds = array($group_id);
+            } else {
+                foreach ($attrGroup as $item) {
+                    $groupIds[] = $item->group_id;
                 }
             }
-            $attr = $this->mall_attribute_value->getWherein('group_id', $group_ids, array('attr_set_id'=>$data['attr_set_id']))->result();
-            $data['attributevalue'] = $attr;
+            $attrValue = $this->mall_attribute_value->getWherein('group_id', $groupIds, array('attr_set_id'=>$attr_set_id))->result();
         }
-        $data['attributeValue'] = $attr;
-        $data['attributeGroup'] = $group; 
+        $data['attr_set_id'] = $attr_set_id;
+        $data['group_id'] = $group_id;
+        $data['attributeValue'] = $attrValue;
+        $data['attributeGroup'] = $attrGroup;
         $this->load->view('mall_attribute_group/grid', $data);
     }
     

@@ -5,13 +5,14 @@ class Mall_attribute_value_model extends CI_Model{
 	
 	public function mall_attribute_list($page, $perpage, $search, $order='attr_value_id DESC')
 	{
-	    if(!empty($search['item']))
-	    {
+	    if (!empty($search['item'])) {
 	        $this->db->like('attr_name', $search['item']);
 	        $this->db->or_like('attr_values', $search['item']);
 	    }
 	    $this->db->order_by($order);
-	    if($perpage) $this->db->limit($perpage, $perpage*$page);
+	    if ($perpage) {
+			$this->db->limit($perpage, $perpage*$page);
+		}
 	    return $this->db->get($this->table);
 	}
 	
@@ -24,7 +25,7 @@ class Mall_attribute_value_model extends CI_Model{
 	{
 	    $this->db->insert($this->table, $data);
 	    return $this->db->insert_id();
-	} 
+	}
 	
 	public function update($where, $data)  
 	{
@@ -42,8 +43,7 @@ class Mall_attribute_value_model extends CI_Model{
 	{
 	    $this->db->where_in($item, $arr);
 	    $this->db->where($where);
-	    $res = $this->db->get($this->table);
-	    return $res;
+		return $this->db->get($this->table);
 	}
 	
 	 /**
