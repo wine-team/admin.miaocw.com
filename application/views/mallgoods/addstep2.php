@@ -239,9 +239,21 @@
 			                                <?php if($item->attr_type=='select' || $item->attr_type=='multiselect') :?>
 			                                <?php if(!empty($item->attr_values)):?>
 			                                <?php $selectValue = explode(',',$item->attr_values)?>
-			                                <select class="m-wrap span8 number <?php if($item->values_required==1):?>required<?php endif;?>" name="attr[<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]">
-			                                    <?php foreach ($selectValue as $attr_values)?>
+			                                <select class="m-wrap span8 <?php if($item->values_required==1):?>required<?php endif;?>" name="attr[<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]">
+			                                    <?php foreach ($selectValue as $attr_values):?>
 			                                    <option value="<?php echo $attr_values;?>"><?php echo $attr_values;?></option>
+			                                    <?php endforeach;?>
+			                                </select>
+			                                <?php endif;?>
+			                                <?php endif;?>
+			                                
+			                                <?php if($item->attr_type=='multiselect') :?>
+			                                <?php if(!empty($item->attr_values)):?>
+			                                <?php $selectValue = explode(',',$item->attr_values)?>
+			                                <select multiple="multiple" id="my_multi_select1" name="attr[<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>][]"   class="m-wrap span8 <?php if($item->values_required==1):?>required<?php endif;?>" >
+			                                    <?php foreach ($selectValue as $attr_values):?>
+			                                    <option value="<?php echo $attr_values;?>"><?php echo $attr_values;?></option>
+			                                    <?php endforeach;?>
 			                                </select>
 			                                <?php endif;?>
 			                                <?php endif;?>
