@@ -148,7 +148,7 @@ class User extends CS_Controller
             }
             $userInfo = $result->row();
             if ($userInfo->email != $this->input->post('email')) {
-                $result = $this->user->findByEmail(array('email'=>$this->input->post('email')));
+                $result = $this->user->validateEmail($this->input->post('email'));
                 if ($result->num_rows() > 0) {
                     echo 'false';
                 } else {
@@ -158,7 +158,7 @@ class User extends CS_Controller
                 echo 'true';
             }
         } else {
-            $result = $this->user->findByEmail($this->input->post('email'));
+            $result = $this->user->validateEmail($this->input->post('email'));
             if ($result->num_rows() > 0) {
                 echo 'false';
             } else {
@@ -188,8 +188,8 @@ class User extends CS_Controller
             if ($mobilePhone->num_rows() > 0){
                 $error[] = '手机号码已经存在。';
             }
-            $result = $this->user->findByEmail(array('email'=>$this->input->post('email')));
-            if ($result->num_rows() > 0){
+            $mobileEmail = $this->user->validateEmail($this->input->post('email'));
+            if ($mobileEmail->num_rows() > 0){
                 $error[] = '邮箱已经存在。';
             }
             if ($this->validateParam($this->input->post('password'))) {
@@ -202,14 +202,14 @@ class User extends CS_Controller
             }
             $userInfo = $result->row(0);
             if ($userInfo->phone != $this->input->post('phone')) {
-                $result = $this->user->validatePhone(array('phone'=>$this->input->post('phone')));
+                $result = $this->user->validatePhone($this->input->post('phone'));
                 if ($result->num_rows() > 0){
                     $error[] = '手机号已存在。';
                 }
             }
             if ($userInfo->email != $this->input->post('email')) {
-                $mobilePhone = $this->user->validatePhone($this->input->post('email'));
-                if ($mobilePhone->num_rows() > 0){
+                $mobileEmail= $this->user->validateEmail($this->input->post('email'));
+                if ($mobileEmail->num_rows() > 0){
                     $error[] = '邮箱已经存在。';
                 }
             }
