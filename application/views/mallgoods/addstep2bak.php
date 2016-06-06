@@ -223,69 +223,40 @@
 			                            <label class="control-label"><?php if($item->values_required==1):?><em>* </em><?php endif;?><?php echo $item->attr_name;?></label>
 			                            <div class="controls">
 			                                <?php if($item->attr_type=='text'):?>
-			                                <input type="text" name="attr[1][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]" class="m-wrap span8 <?php if($item->values_required==1):?>required<?php endif;?>" placeholder="<?php echo $item->attr_name;?>" attr_value_id="<?php echo $item->attr_value_id;?>">
+			                                <input type="text" name="attr[<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]" class="m-wrap span8 <?php if($item->values_required==1):?>required<?php endif;?>" placeholder="<?php echo $item->attr_name;?>" attr_value_id="<?php echo $item->attr_value_id;?>">
 			                                <?php endif;?>
 			                                <?php if($item->attr_type=='textarea'):?>
-			                                <textarea name="attr[1][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]" rows="3" class="m-wrap span8 <?php if($item->values_required==1):?>required<?php endif;?>" placeholder="<?php echo $item->attr_name;?>"></textarea>
+			                                <textarea name="attr[<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]" rows="3" class="m-wrap span8 <?php if($item->values_required==1):?>required<?php endif;?>" placeholder="<?php echo $item->attr_name;?>"></textarea>
 			                                <?php endif;?>
 			                                <?php if($item->attr_type=='boolean'):?>
 			                                <label class="radio">
-		                                	  	<input type="radio" class="m-wrap <?php if($item->values_required==1):?>required<?php endif;?>" name="attr[1][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]" value="1" checked="checked"/>是
+		                                	  	<input type="radio" class="m-wrap <?php if($item->values_required==1):?>required<?php endif;?>" name="attr[<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]" value="1" checked="checked"/>是
 		                                	</label>
 			                                <label class="radio">
-			                                	<input type="radio" class="m-wrap <?php if($item->values_required==1):?>required<?php endif;?>" name="attr[1][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]" value="0"/>否
+			                                	<input type="radio" class="m-wrap <?php if($item->values_required==1):?>required<?php endif;?>" name="attr[<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]" value="0"/>否
 			                                </label>
 			                                <?php endif;?>
 			                                <?php if($item->attr_type=='select') :?>
 			                                <?php if(!empty($item->attr_values)):?>
 			                                <?php $selectValue = explode(',',$item->attr_values)?>
-			                                <?php if($item->attr_spec==2):?>
-			                                <select class="m-wrap span2 <?php if($item->values_required==1):?>required<?php endif;?>" name="attr[2][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]">
-			                                    <?php foreach ($selectValue as $attr_values) :?>
+			                                <select class="m-wrap span8 <?php if($item->values_required==1):?>required<?php endif;?>" name="attr[<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]">
+			                                    <?php foreach ($selectValue as $attr_values):?>
 			                                    <option value="<?php echo $attr_values;?>"><?php echo $attr_values;?></option>
 			                                    <?php endforeach;?>
 			                                </select>
-			                                <input type="text" name="price[2][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]" class="m-wrap span2 number <?php if($item->values_required==1):?>required<?php endif;?>" placeholder="价格" title="请输入价格" value="0" attr_value_id="<?php echo $item->attr_value_id;?>">
-			                                <input type="text" name="attrNum[2][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]" class="m-wrap span2 number <?php if($item->values_required==1):?>required<?php endif;?>" placeholder="属性数量" value="1000" title="请输入属性数量" attr_value_id="<?php echo $item->attr_value_id;?>">
-                                            <input type="text" name="attrStock[2][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]" class="m-wrap span2 number <?php if($item->values_required==1):?>required<?php endif;?>" placeholder="库存数量" value="1000" title="请输入库存数量" attr_value_id="<?php echo $item->attr_value_id;?>">
-			                                <?php else :?>
-			                                <select class="m-wrap span8 <?php if($item->values_required==1):?>required<?php endif;?>" name="attr[1][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]">
-			                                    <?php foreach ($selectValue as $attr_values) :?>
-			                                    <option value="<?php echo $attr_values;?>"><?php echo $attr_values;?></option>
-			                                    <?php endforeach;?>
-			                                </select>
-			                                <?php endif;?>
 			                                <?php endif;?>
 			                                <?php endif;?>
 			                                
-			                                <?php if($item->attr_type=='multiselect') : ?>
+			                                <?php if($item->attr_type=='multiselect'):?>
 			                                <?php if(!empty($item->attr_values)):?>
 			                                <?php $selectValue = explode(',',$item->attr_values)?>
-			                                <?php if($item->attr_spec==2):?>
-			                                <table class="table span8 table-striped table-bordered table-hover" style="margin-top: -30px;">
-			                                <tr><td>属性值</td><td><span class="span4">价格</span><span class="span4">属性数量</span><span class="span4">库存数量</span></td></tr>
-			                                <?php $j=0;?>
-			                                <?php foreach ($selectValue as $attr_values):?>
-			                                <tr>
-    			                                <td  class="span6">
-                                                    <input type="checkbox" value="<?php echo $attr_values;?>" name="attr[2][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>][<?php echo $j;?>]" checked="checked"/><?php echo $attr_values;?>
-                                                </td>
-                                                <td  class="span8">
-                                                    <input type="text" name="price[2][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>][<?php echo $j;?>]" class="m-wrap span4 number " placeholder="价格" value="0" title="请输入价格" attr_value_id="<?php echo $item->attr_value_id;?>">
-                                                    <input type="text" name="attrNum[2][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>][<?php echo $j;?>]" class="m-wrap span4 number " placeholder="属性数量" value="1000" title="请输入属性数量" attr_value_id="<?php echo $item->attr_value_id;?>">
-                                                    <input type="text" name="attrStock[2][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>][<?php echo $j;?>]" class="m-wrap span4 number " placeholder="库存数量" value="1000" title="请输入库存数量" attr_value_id="<?php echo $item->attr_value_id;?>">
-                                                </td>
-                                            </tr>
-                                            <?php $j++;?>
-			                                <?php endforeach;?>
-			                                </table>
-			                                <?php else :?>
-			                                <?php foreach ($selectValue as $attr_values):?>
-			                                <label class="checkbox">
-                                                <input type="checkbox" class="<?php if($item->values_required==1):?>required<?php endif;?>" value="<?php echo $attr_values;?>" name="attr[1][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>][]" checked="checked"/><?php echo $attr_values;?>
-                                            </label>
-                                            <?php endforeach;?>
-			                                <?php endif;?>
+			                                <select data-placeholder="Your Favorite Football Teams" class="chosen span6 <?php if($item->values_required==1):?>required<?php endif;?>" multiple="multiple" tabindex="6" name="attr[<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>][]">
+			                                    <optgroup label="<?php echo $item->attr_name;?>">
+			                                    <?php foreach ($selectValue as $attr_values):?>
+			                                    <option value="<?php echo $attr_values;?>"><?php echo $attr_values;?></option>
+			                                    <?php endforeach;?>
+			                                    </optgroup>
+			                                </select>
 			                                <?php endif;?>
 			                                <?php endif;?>
 			                            </div>
@@ -353,15 +324,6 @@
 <?php $this->load->view('user/addSupplierUid/ajaxGetUser'); ?>
 <script type="text/javascript">
 $(document).ready(function(){
-	$('.mall-goods-add-step2 .table input[type="checkbox"]').click(function(){
-		if($(this).is(':checked')==false){
-			$(this).parents('tr').find('input[type="text"]').each(function(){
-				$(this).val('');
-			});
-		}
-	});
-
-	
     $('.mall-goods-add-step2').on("click", "input[name='transport_type']", function () {
         var obj = $(this).parents('label').next();
         var uid = $('input[name=supplier_id]').val();
@@ -398,13 +360,10 @@ $(document).ready(function(){
         }
     });
 
-
-    
     // 提交验证
     $('form.mall-goods-form').submit(function () {
         return false;
     }).validate({
-    	beforeSend:function(){},
         submitHandler: function (f) {
             $.ajax({
                 type: 'post',

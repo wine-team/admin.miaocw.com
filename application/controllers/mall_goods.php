@@ -133,7 +133,8 @@ class Mall_goods extends CS_Controller
     	$this->db->trans_begin();
     	$goods_id = $this->mall_goods_base->insertMallGoods($param);
     	$result = $this->mall_category_product->insert($goods_id,$param['category_id']);
-    	$goodsAttrResult = $this->mall_goods_attr_value->insertBatch($goods_id,$param['attr']);
+    	$goodsAttrResult = $this->mall_goods_attr_value->insertBatch($goods_id,$param['attr'][1]);
+    	$this->mall_goods_attr_spec->insertBatch(1,$param['attr'][2], $param['price'][2], $param['attrNum'][2], $param['attrStock'][2]);
     	if (!$goods_id && !$result && !$goodsAttrResult && $this->db->trans_status() === FALSE) {
     		$this->db->trans_rollback();
     		$this->jsen('保存失败！');
@@ -386,6 +387,21 @@ class Mall_goods extends CS_Controller
     	}
     	if ($this->input->post('in_stock') <= 0) {
     		$error[] = '库存必须大于0.';
+    	}
+    	//验证属性
+    	$attr_value = $this->mall_attribute_value->findById(array('attr_set_id'=>$this->input->post('attribute_set_id'), 'values_required'=>1))->result();
+    	$post_attr = $this->input->post('attr');
+    	foreach ($post_attr as $k1=>$v1) {
+    	    foreach ($v1 as $k2=>$v2) {
+    	        foreach ($v2 as $k3=>$v3) {
+    	            $require_ids[] = $k3;
+    	        }
+    	    }
+    	}
+    	foreach ($attr_value as $a) {
+    	    if (!in_array($a->attr_value_id,$require_ids)) {
+    	        $error[] = '请选择属性：'.$a->attr_name;
+    	    }
     	}
     	//验证运费模版
     	if ($this->input->post('transport_type') == 1) {
