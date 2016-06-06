@@ -28,15 +28,22 @@
         </div>
         <div class="span10">
             <div class="inbox-header">
-                <?php foreach ($attributeGroup as $g) :?>
+                <?php $i=0;$j=0;foreach ($attributeGroup as $group) :?>
                     <h3 class="pull-left">
-                        <?php if ($group_id==$g->group_id) : echo $g->group_name.'（ID：'.$g->group_id.'）';?>
+                        <?php if ($group_id==$group->group_id) : ?>
+                            <?php $i++; echo $group->group_name.'（ID：'.$group->group_id.'）' ?>
+                        <?php else : ?>
+                            <?php if ($j == 0) : ?>
+                                <span>所有属性组</span>
+                            <?php $j++;endif; ?>
+                        <?php endif; ?>
                     </h3>
                     <h3 class="pull-right">
-                        <a class="btn mini green" href="<?php echo base_url('mall_attribute_group/delete/'.$g->group_id.'?attr_set_id='.$attr_set_id); ?>" onclick="return confirm('确定要删除属性组？')">删除</a>
-                        <a class="btn mini green" href="<?php echo base_url('mall_attribute_value/add/'.$g->group_id.'?attr_set_id='.$attr_set_id); ?>" >新增属性值</a>
+                        <?php if ($i != 0) :?>
+                            <a class="btn mini green" href="<?php echo base_url('mall_attribute_group/delete/'.$group->group_id.'?attr_set_id='.$attr_set_id); ?>" onclick="return confirm('删除属性组将会删除属性组下的所有属性值，确定要删除？')">删除属性组</a>
+                        <?php endif; ?>
+                        <a class="btn mini green" href="<?php echo base_url('mall_attribute_value/add/'.$group->group_id.'?attr_set_id='.$attr_set_id); ?>" >新增属性值</a>
                     </h3>
-                <?php endif;?>
                 <?php endforeach;?>
             </div>
             <div class="inbox-content">
@@ -44,28 +51,30 @@
                     <thead>
                          <tr>
                             <th>编号</th>
-                            <th>商品属性ID</th>
+                            <th>类型编号</th>
                             <th>属性名称</th>
-                            <th>属性类型</th>
-                            <th>属性值</th>
+                            <th>输入类型</th>
+                            <th>可选值</th>
                             <th>是否必须</th>
-                            <th>索引</th>
-                            <th>是否关联相同属性值商品</th>
+                            <th>关键字检索</th>
+                            <th>是否关联</th>
+                            <th>属性类别</th>
                             <th>排序</th>
                             <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
                     <?php foreach($attributeValue as $v) :?>
-                        <tr style="border:1px solid #ddd;">
-                            <td><?php echo $v->attr_value_id?></td>
-                            <td><?php echo $v->attr_set_id?></td>
-                            <td><?php echo $v->attr_name?></td>
-                            <td><?php echo $v->attr_type?></td>
-                            <td><?php echo $v->attr_values?></td>
-                            <td><?php if($v->values_required==1) echo '必填';?></td>
-                            <td><?php if($v->attr_index==2)echo '关键字检索';?></td>
-                            <td><?php if($v->is_linked==1)echo '关联'?></td>
+                        <tr>
+                            <td><?php echo $v->attr_value_id ?></td>
+                            <td><?php echo $v->attr_set_id ?></td>
+                            <td><?php echo $v->attr_name ?></td>
+                            <td><?php echo $v->attr_type ?></td>
+                            <td><?php echo $v->attr_values ?></td>
+                            <td><?php echo ($v->values_required==1) ? '是' : '否';?></td>
+                            <td><?php echo ($v->attr_index==2)  ? '是' : '否';?></td>
+                            <td><?php echo ($v->is_linked==1) ? '是' : '否'?></td>
+                            <td><?php echo ($v->attr_spec==1) ? '常规属性' : '规格属性'?></td>
                             <td><?php echo $v->sort_order?></td>
                             <td>
                                 <a class="btn mini green" href="<?php echo base_url('mall_attribute_value/edit/'.$v->attr_value_id.'?attr_set_id='.$attr_set_id); ?>">编辑</a>
