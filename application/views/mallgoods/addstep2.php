@@ -236,7 +236,7 @@
 			                                	<input type="radio" class="m-wrap <?php if($item->values_required==1):?>required<?php endif;?>" name="attr[<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]" value="0"/>否
 			                                </label>
 			                                <?php endif;?>
-			                                <?php if($item->attr_type=='select' || $item->attr_type=='multiselect') :?>
+			                                <?php if($item->attr_type=='select') :?>
 			                                <?php if(!empty($item->attr_values)):?>
 			                                <?php $selectValue = explode(',',$item->attr_values)?>
 			                                <select class="m-wrap span8 <?php if($item->values_required==1):?>required<?php endif;?>" name="attr[<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]">
@@ -247,13 +247,15 @@
 			                                <?php endif;?>
 			                                <?php endif;?>
 			                                
-			                                <?php if($item->attr_type=='multiselect') :?>
+			                                <?php if($item->attr_type=='multiselect'):?>
 			                                <?php if(!empty($item->attr_values)):?>
 			                                <?php $selectValue = explode(',',$item->attr_values)?>
-			                                <select multiple="multiple" id="my_multi_select1" name="attr[<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>][]"   class="m-wrap span8 <?php if($item->values_required==1):?>required<?php endif;?>" >
+			                                <select data-placeholder="Your Favorite Football Teams" class="chosen span6 <?php if($item->values_required==1):?>required<?php endif;?>" multiple="multiple" tabindex="6" name="attr[<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>][]">
+			                                    <optgroup label="NFC EAST">
 			                                    <?php foreach ($selectValue as $attr_values):?>
 			                                    <option value="<?php echo $attr_values;?>"><?php echo $attr_values;?></option>
 			                                    <?php endforeach;?>
+			                                    </optgroup>
 			                                </select>
 			                                <?php endif;?>
 			                                <?php endif;?>
