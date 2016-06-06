@@ -113,22 +113,18 @@
         </div>
     </div>
 </div>
-<script>
-$(function(){
-	$('select[name="attr_type"]').change(function(){
-		var parent_div = $('textarea[name="attr_values"]').parents('.control-group');
-		if($(this).val()=='select' || $(this).val()=='multiselect')
-		{
-			parent_div.find('label').prepend('<em>* </em>');
-			parent_div.find('textarea').addClass('required');
-		}else{
-			parent_div.find('em').remove();
-			parent_div.find('textarea').removeClass('required');
-		}
-		
-		
-	});
-});
-
-</script>
 <?php $this->load->view('layout/footer');?>
+<script type="text/javascript">
+    $(function(){
+        $('select[name="attr_type"]').change(function(){
+            var parent_div = $('textarea[name="attr_values"]').parents('.control-group');
+            if ($(this).val()=='select' || $(this).val()=='multiselect') {
+                parent_div.find('label').prepend('<em>* </em>');
+                parent_div.find('textarea').addClass('required');
+            } else {
+                parent_div.find('em').remove();
+                parent_div.find('textarea').removeClass('required');
+            }
+        });
+    });
+</script>
