@@ -251,7 +251,7 @@
 			                                <?php if(!empty($item->attr_values)):?>
 			                                <?php $selectValue = explode(',',$item->attr_values)?>
 			                                <select data-placeholder="Your Favorite Football Teams" class="chosen span6 <?php if($item->values_required==1):?>required<?php endif;?>" multiple="multiple" tabindex="6" name="attr[<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>][]">
-			                                    <optgroup label="NFC EAST">
+			                                    <optgroup label="<?php echo $item->attr_name;?>">
 			                                    <?php foreach ($selectValue as $attr_values):?>
 			                                    <option value="<?php echo $attr_values;?>"><?php echo $attr_values;?></option>
 			                                    <?php endforeach;?>

@@ -19,7 +19,7 @@ class Mall_goods_attr_value_model extends CI_Model{
 				$batch[$i]['goods_id'] = $goods_id;
 				$batch[$i]['attr_value_id'] = $jj;
 				$batch[$i]['attr_name'] = $res->row(0)->attr_name;
-				$batch[$i]['attr_value'] = $val;
+				$batch[$i]['attr_value'] = is_array($val) ? implode(',',$val) : $val;
 				$batch[$i]['group_id'] = $key;
 				$batch[$i]['group_name'] = $result->row(0)->group_name;
 				$i++;
