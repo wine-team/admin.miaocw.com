@@ -222,6 +222,70 @@
                                 <input type="text" name="sort_order" class="m-wrap span8 required number" placeholder="排序" value="<?php echo $mallgoods->sort_order;?>">
                             </div>
                         </div>
+                        
+                        <?php if(count($attr_value) || count($attr_price)) :?>
+                        <div class="alert alert-success">商品属性：</div>
+                        <?php if(count($attr_value)) :?> <!-- 还在做 -->
+                        <?php foreach($attr_value as $value) :?>
+                        <div class="control-group ">
+                            <label class="control-label"><?php if($attribute[$price->attr_value_id]->values_required==1):?><em>*</em><?php endif;?> <?php echo $attribute[$price->attr_value_id]->attr_name;?></label>
+                            <div class="controls">
+                                <?php if($attribute[$price->attr_value_id]->attr_type=='text'):?>
+                                <input type="text" name="" class="m-wrap span8 <?php if($attribute[$price->attr_value_id]->values_required==1):?>required<?php endif;?>" placeholder="<?php echo $item->attr_name;?>" attr_value_id="<?php echo $item->attr_value_id;?>">
+                                <?php endif;?>
+                                <?php if($attribute[$price->attr_value_id]->attr_type=='textarea'):?>
+                                <textarea name="" rows="3" class="m-wrap span8 <?php if($attribute[$price->attr_value_id]->values_required==1):?>required<?php endif;?>" placeholder="<?php echo $item->attr_name;?>"></textarea>
+                                <?php endif;?>
+                                <?php if($attribute[$price->attr_value_id]->attr_type=='date'):?>
+                                <input type="text" name="" class="m-wrap span8 date-picker <?php if($attribute[$price->attr_value_id]->values_required==1):?>required<?php endif;?>" placeholder="<?php echo $item->attr_name;?>" attr_value_id="<?php echo $item->attr_value_id;?>">
+                                <?php endif;?>
+                                <?php if($attribute[$price->attr_value_id]->attr_type=='boolean'):?>
+                                <label class="radio">
+                            	  	<input type="radio" class="m-wrap <?php if($attribute[$price->attr_value_id]->values_required==1):?>required<?php endif;?>" name="" value="1" checked="checked"/>是
+                            	</label>
+                                <label class="radio">
+                                	<input type="radio" class="m-wrap <?php if($attribute[$price->attr_value_id]->values_required==1):?>required<?php endif;?>" name="" value="0"/>否
+                                </label>
+                                <?php endif;?>
+                            </div>
+                        </div>
+                        <?php endforeach;?>
+                        <?php endif;?>
+                        <?php if(count($attr_price)) :?>
+                        <div class="control-group ">
+                            <label class="control-label">属性价格表</label>
+                            <div class="controls">
+                                <table class="table span8 table-striped table-bordered table-hover" style="margin-top: -30px;">
+                                <tr>
+                                <td class="span3">属性值</td>
+                                <td class="span3">价格 </td>
+                                <td class="span3">属性数量 </td>
+                                <td class="span3">库存数量 </td>
+                                <td class="span3">操作</td>
+                                </tr>
+                                <?php foreach ($attr_price as $price):?>
+                                <tr>
+	                                <td>
+                                        <?php if($attribute_value[$price->attr_value_id]->values_required==1):?><em>*</em><?php endif;?><input type="text" style="width:auto;" name="" disabled value="<?php echo $price->attr_value;?>" />
+                                    </td>
+                                    <td>
+                                        <input type="text" style="width:auto;" name="price[<?php echo $price->attr_price_id;?>]" class="number <?php if($attribute_value[$price->attr_value_id]->values_required==1):?>required<?php endif;?>" placeholder="价格" value="<?php echo $price->attr_price;?>" title="请输入价格"  >
+                                    </td> 
+                                    <td>   
+                                        <input type="text" style="width:auto;" name="attrNum[<?php echo $price->attr_price_id;?>]" class="number <?php if($attribute_value[$price->attr_value_id]->values_required==1):?>required<?php endif;?>" placeholder="属性数量" value="<?php echo $price->attr_num;?>" title="请输入属性数量"  >
+                                    </td>
+                                    <td>    
+                                        <input type="text" style="width:auto;" name="attrStock[<?php echo $price->attr_price_id;?>]" class="number <?php if($attribute_value[$price->attr_value_id]->values_required==1):?>required<?php endif;?>" placeholder="库存数量" value="<?php echo $price->attr_stock;?>" title="请输入库存数量"  >
+                                    </td>
+                                    <td><a class="btn mini green" <?php if($attribute_value[$price->attr_value_id]->values_required==1)echo 'disabled';?> data-attr_price_id="<?php echo $price->attr_price_id;?>">删除</a></td>
+                                </tr>
+                                <?php endforeach;?>
+                                </table>
+                            </div>
+                        </div>
+                        <?php endif;?>
+                        <?php endif;?>
+                        
                         <div class="alert alert-success">商品运费信息</div>
                         <div class="control-group">
                             <label class="control-label"><em>* </em>配送地址</label>

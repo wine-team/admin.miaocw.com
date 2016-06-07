@@ -158,7 +158,7 @@
                                     <td><?php echo $item->update_at ?></td>
                                     <td width="145">
                                         <a class="btn mini green" href="<?php echo base_url('mall_goods/images/'.$item->goods_id) ?>">图片管理</a>
-                                        <a class="btn mini green" href="<?php echo base_url('mall_goods/edit/'.$item->goods_id) ?>">编辑</a>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_goods/edit/'.$item->goods_id.'?attr_set_id='.$item->attribute_set_id) ?>">编辑</a>
                                         <a class="btn mini green" href="<?php echo base_url('mall_goods/copy/'.$item->goods_id) ?>">复制</a>
                                         <a class="btn mini green" href="<?php echo base_url('mall_goods/delete/'.$item->goods_id) ?>">删除</a>
                                     </td>

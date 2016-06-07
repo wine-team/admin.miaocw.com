@@ -217,16 +217,19 @@
                            <?php foreach ($attribute_group->result() as $val):?>
                            <?php $attribute_value = $this->mall_attribute_value->getAttrbuteValue($val->group_id,$val->attr_set_id);?>
                            <?php if($attribute_value->num_rows()>0):?>
-	                           <div class="alert alert-success"><?php echo $val->group_name;?></div>
+	                           <div class="alert alert-success">属性组：<?php echo $val->group_name;?></div>
 	                           <?php foreach ($attribute_value->result() as $item):?>
 		                           <div class="control-group ">
 			                            <label class="control-label"><?php if($item->values_required==1):?><em>* </em><?php endif;?><?php echo $item->attr_name;?></label>
-			                            <div class="controls">
+			                            <div class="controls <?php if($item->attr_type=='date')echo 'date';?>">
 			                                <?php if($item->attr_type=='text'):?>
 			                                <input type="text" name="attr[1][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]" class="m-wrap span8 <?php if($item->values_required==1):?>required<?php endif;?>" placeholder="<?php echo $item->attr_name;?>" attr_value_id="<?php echo $item->attr_value_id;?>">
 			                                <?php endif;?>
 			                                <?php if($item->attr_type=='textarea'):?>
 			                                <textarea name="attr[1][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]" rows="3" class="m-wrap span8 <?php if($item->values_required==1):?>required<?php endif;?>" placeholder="<?php echo $item->attr_name;?>"></textarea>
+			                                <?php endif;?>
+			                                <?php if($item->attr_type=='date'):?>
+			                                <input type="text" name="attr[1][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]" class="m-wrap span8 date-picker <?php if($item->values_required==1):?>required<?php endif;?>" placeholder="<?php echo $item->attr_name;?>" attr_value_id="<?php echo $item->attr_value_id;?>">
 			                                <?php endif;?>
 			                                <?php if($item->attr_type=='boolean'):?>
 			                                <label class="radio">

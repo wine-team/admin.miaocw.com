@@ -48,11 +48,6 @@ class Mall_goods_attr_spec_model extends CI_Model{
 	    return $this->db->get_where($this->table, $where);
 	}
 	
-	public function findPriceById($where)
-	{
-	    return $this->db->get_where($this->table1, $where);
-	}
-	
 	public function insert($data) 
 	{
 	    $this->db->insert($this->table, $data);
@@ -69,6 +64,22 @@ class Mall_goods_attr_spec_model extends CI_Model{
 	{
 	    $this->db->delete($this->table, $where);
 	    return $this->db->affected_rows();
+	}
+	
+	public function findPriceById($where)
+	{
+	    return $this->db->get_where($this->table1, $where);
+	}
+	
+	public function getPriceWhereIn($field, $arr)
+	{
+	    $this->db->where_in($field, $arr);
+	    return $this->db->get($this->table1);
+	}
+	
+	public function updatePriceBatch($data)
+	{
+	    return $this->db->update_batch($this->table1, $data, 'attr_price_id');
 	}
 	
 }

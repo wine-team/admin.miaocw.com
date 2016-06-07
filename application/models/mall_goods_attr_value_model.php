@@ -28,6 +28,10 @@ class Mall_goods_attr_value_model extends CI_Model{
 		return $this->db->insert_batch($this->table,$batch);
 	}
 	
+	public function findById($where=array()) {
+	     return $this->db->get_where($this->table, $where);
+	}
+	
 }
 
 

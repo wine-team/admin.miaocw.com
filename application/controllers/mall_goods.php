@@ -14,6 +14,7 @@ class Mall_goods extends CS_Controller
         $this->load->model('mall_attribute_group_model','mall_attribute_group');
         $this->load->model('mall_attribute_value_model','mall_attribute_value');
         $this->load->model('mall_goods_attr_value_model','mall_goods_attr_value');
+        $this->load->model('mall_goods_attr_spec_model','mall_goods_attr_spec');
     }
     
     public function grid($pg = 1)
@@ -133,9 +134,13 @@ class Mall_goods extends CS_Controller
     	$this->db->trans_begin();
     	$goods_id = $this->mall_goods_base->insertMallGoods($param);
     	$result = $this->mall_category_product->insert($goods_id,$param['category_id']);
-    	$goodsAttrResult = $this->mall_goods_attr_value->insertBatch($goods_id,$param['attr'][1]);
-    	$this->mall_goods_attr_spec->insertBatch(1,$param['attr'][2], $param['price'][2], $param['attrNum'][2], $param['attrStock'][2]);
-    	if (!$goods_id && !$result && !$goodsAttrResult && $this->db->trans_status() === FALSE) {
+    	if (isset($param['attr'][1])) {
+    	    $goodsAttrResult = $this->mall_goods_attr_value->insertBatch($goods_id,$param['attr'][1]);
+    	}
+    	if (isset($param['attr'][2]) && isset($param['price'][2]) && isset($param['attrNum'][2]) && isset($param['attrStock'][2])) {
+    	    $this->mall_goods_attr_spec->insertBatch(1,$param['attr'][2], $param['price'][2], $param['attrNum'][2], $param['attrStock'][2]);
+    	}
+    	if (!$goods_id && !$result && $this->db->trans_status() === FALSE) {
     		$this->db->trans_rollback();
     		$this->jsen('保存失败！');
     	} else {
@@ -176,6 +181,7 @@ class Mall_goods extends CS_Controller
     	if ($result->num_rows() <= 0) {
     		$this->error('mall_goods/grid', '', '找不到产品相关信息！');
     	}
+    	$attr_set_id = $this->input->get('attr_set_id');
     	$data['mallgoods'] = $result->row();
     	$data['province_id'] = $data['mallgoods']->province_id;
     	$data['city_id'] = $data['mallgoods']->city_id;
@@ -184,14 +190,44 @@ class Mall_goods extends CS_Controller
     	$data['extension'] = array('simple'=>'简单产品','virtual'=>'虚拟产品','giftcard'=>'礼品卡');
     	$data['attribute'] = $this->mall_attribute_set->findByReason(array('enabled'=>1));
     	$data['freight'] = $this->mall_freight_tpl->getTransport($data['mallgoods']->supplier_id);
+    	
+    	$attribute_value = $this->mall_attribute_value->findById(array('attr_set_id'=>$attr_set_id))->result();
+    	$attribute = array();
+    	foreach ($attribute_value as $val) {
+    	    $attribute[$val->attr_value_id] = $val;
+    	}
+    	$data['attribute_value'] = $attribute;  //var_dump($attribute);die;
+    	$data['attr_value'] = $this->mall_goods_attr_value->findById(array('goods_id'=>$goods_id))->result();
+    	$attr_spec = $this->mall_goods_attr_spec->findById(array('goods_id'=>$goods_id))->result();
+    	$attr_spec_ids = array();
+    	foreach ($attr_spec as $spec) {
+    	    $attr_spec_ids[] = $spec->attr_spec_id;
+    	}
+    	$attr_price = array();
+    	if (!empty($attr_spec_ids)) {
+    	    $attr_price = $this->mall_goods_attr_spec->getPriceWhereIn('attr_spec_id', $attr_spec_ids)->result();
+    	}
+    	$data['attr_price'] = $attr_price;   //var_dump($attr_price);die;
     	$this->load->view('mallgoods/edit',$data);
     }
     
     public function editPost()
     {
     	$goods_id = $this->input->post('goods_id');
+    	$param = $this->input->post();
     	$this->db->trans_begin();
     	$updateGoods = $this->mall_goods_base->updateMallGoodsBase($this->input->post(),$goods_id);
+    	if (isset($param['price']) && isset($param['attrNum']) && isset($param['attrStock'])) {  
+    	    $i = 0;
+    	    foreach ($param['price'] as $k=>$a) {
+    	        $data[$i]['attr_price_id'] = $k;
+    	        $data[$i]['attr_price'] = $a;
+    	        $data[$i]['attr_num'] = $param['attrNum'][$k];
+    	        $data[$i]['attr_stock'] = $param['attrStock'][$k];
+    	        $i ++;
+    	    }
+    	    $PriceBatch = $this->mall_goods_attr_spec->updatePriceBatch($data); //print_r($this->db->last_query());die;
+    	} 
     	if (!$updateGoods && $this->db->trans_status() === FALSE) {
     		$this->db->trans_rollback();
     		$this->jsen('保存失败！');
@@ -389,20 +425,23 @@ class Mall_goods extends CS_Controller
     		$error[] = '库存必须大于0.';
     	}
     	//验证属性
-    	$attr_value = $this->mall_attribute_value->findById(array('attr_set_id'=>$this->input->post('attribute_set_id'), 'values_required'=>1))->result();
-    	$post_attr = $this->input->post('attr');
-    	foreach ($post_attr as $k1=>$v1) {
-    	    foreach ($v1 as $k2=>$v2) {
-    	        foreach ($v2 as $k3=>$v3) {
-    	            $require_ids[] = $k3;
+    	if (!$this->input->post('goods_id')) {
+    	    $attr_value = $this->mall_attribute_value->findById(array('attr_set_id'=>$this->input->post('attribute_set_id'), 'values_required'=>1))->result();
+    	    $post_attr = $this->input->post('attr');
+    	    foreach ($post_attr as $k1=>$v1) {
+    	        foreach ($v1 as $k2=>$v2) {
+    	            foreach ($v2 as $k3=>$v3) {
+    	                $require_ids[] = $k3;
+    	            }
+    	        }
+    	    }
+    	    foreach ($attr_value as $a) {
+    	        if (!in_array($a->attr_value_id,$require_ids)) {
+    	            $error[] = '请选择属性：'.$a->attr_name;
     	        }
     	    }
     	}
-    	foreach ($attr_value as $a) {
-    	    if (!in_array($a->attr_value_id,$require_ids)) {
-    	        $error[] = '请选择属性：'.$a->attr_name;
-    	    }
-    	}
+    	
     	//验证运费模版
     	if ($this->input->post('transport_type') == 1) {
     		if (!$this->input->post('freight_id')) {
