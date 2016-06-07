@@ -31,6 +31,8 @@ class Mall_goods_related extends MJ_Controller {
 	    $this->load->view('mall_goods_related/add');
 	}
 	
+	
+	
 	public function addPost()
 	{
 	    $postData = $this->input->post(); 
@@ -43,6 +45,30 @@ class Mall_goods_related extends MJ_Controller {
 	    } else {
 	        $this->error('mall_goods_related/add', $this->input->post('goods_id'), '新增失败！');
 	    }
+	}
+	
+	public function edit($related_id){
+		
+		$result = $this->mall_goods_related->findById(array('related_id'=>$related_id));
+		if ($result->num_rows()<=0) {
+			$this->error('mall_goods_related/grid','', '没有找到该Id值');
+		}
+		$data['goods_related'] = $result->row(0);
+		$this->load->view('mall_goods_related/edit',$data);
+	}
+	
+	public function editPost()
+	{
+		$postData = $this->input->post();
+		$param['goods_id'] = $postData['goods_id'];
+		$param['related_goods_id'] = $postData['related_goods_id'];
+		$param['is_double'] = $postData['is_double'];
+		$res = $this->mall_goods_related->update(array('related_id'=>$postData['related_id']),$param);
+		if ($res) {
+			$this->success('mall_goods_related/grid',$param['goods_id'], '新增成功！');
+		} else {
+			$this->error('mall_goods_related/edit/'.$postData['related_id'],'', '新增失败！');
+		}
 	}
 	
 	public function delete($related_id)

@@ -69,7 +69,7 @@
                                     <td><?php echo $r->related_id;?></td>
                                     <td><?php echo $r->goods_id;?></td>
                                     <td><?php echo $r->related_goods_id;?></td>
-                                    <td><?php if($r->is_double==1)echo '是';?></td>
+                                    <td><?php echo $r->is_double==1 ?  '是' : '否';?></td>
                                     <td width="145">
                                         <a class="btn mini green" href="<?php echo base_url('mall_goods_related/edit/'.$r->related_id);?>">修改</a>
                                         <a class="btn mini green" href="<?php echo base_url('mall_goods_related/delete/'.$r->related_id.'?goods_id='.$r->goods_id);?>" onclick="return confirm('确定要删除？')">删除</a>
