@@ -22,13 +22,13 @@
                         <div class="control-group">
                             <label class="control-label"><em>* </em>商品ID</label>
                             <div class="controls">
-                                <input type="text" class="m-wrap large " name="goods_id" /> 
+                                <input type="text" class="m-wrap large " name="goods_id" placeholder="商品ID"/> 
                             </div>
                         </div>
                         <div class="control-group add-goodsid-html">
                             <label class="control-label"><em>* </em>关联商品ID</label>
                             <div class="controls">
-                                <input type="text" class="m-wrap large related_goods_id" name="related_goods_id"/> 
+                                <input type="text" class="m-wrap large related_goods_id" name="related_goods_id" placeholder="关联商品ID"/> 
                             </div>
                         </div>
                         <div class="control-group">
