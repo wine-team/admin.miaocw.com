@@ -10,6 +10,7 @@
     <!-- stylesheets -->
     <?php css('admin', 'bootstrap.min');?>
     <?php css('admin', 'bootstrap-responsive.min');?>
+    <?php css('admin', 'bootstrap-tree');?>
     <?php css('admin', 'font-awesome.min');?>
     <?php css('admin', 'style-metro');?>
     <?php css('admin', 'style');?>
