@@ -1,7 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
-class Mall_category extends MJ_Controller {
-
+class Mall_category extends MJ_Controller
+{
 	public function _init()
 	{
 	    $this->load->library('pagination');

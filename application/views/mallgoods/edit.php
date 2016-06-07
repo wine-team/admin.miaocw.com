@@ -41,7 +41,7 @@
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><em>* </em>商品类型</label>
+                            <label class="control-label"><em>* </em>商品属性</label>
                             <div class="controls">
                                 <select name="attribute_set_id" class="medium m-wrap valid" disabled="disabled">
                                     <?php foreach ($attribute->result() as $key=>$value) : ?>

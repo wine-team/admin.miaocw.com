@@ -3,11 +3,27 @@ class Mall_goods_related_model extends CI_Model{
 
 	private $table = 'mall_goods_related';        
 	
-	public function findOrWhere($goods_id)
-	{
-	    $this->db->where('goods_id', $goods_id);
-	    $this->db->or_where('related_goods_id', $goods_id);
-	    return $this->db->get($this->table);
+	public function total($param){
+		
+		if (!empty($param['goods_id'])) {
+		   $this->db->where('goods_id',$param['goods_id']);
+		}
+		if (!empty($param['related_goods_id'])) {
+			$this->db->where('related_goods_id',$param['related_goods_id']);
+		}
+		return $this->db->count_all_results($this->table);
+	}
+	
+	public function page_list($page_num, $num, $param){
+		
+		if (!empty($param['goods_id'])) {
+			$this->db->where('goods_id',$param['goods_id']);
+		}
+		if (!empty($param['related_goods_id'])) {
+			$this->db->where('related_goods_id',$param['related_goods_id']);
+		}
+		$this->db->limit($page_num,$num);
+		return $this->db->get($this->table);
 	}
 	
 	public function findById($where)
