@@ -3,7 +3,7 @@
     <div class="row-fluid">
         <div class="span12">
             <h3 class="page-title">商品管理 <small>关联产品</small></h3>
-             <?php echo breadcrumb(array('商品管理','mall_attribute/grid/'.$goods_id=>'关联产品','添加属性')); ?>
+             <?php echo breadcrumb(array('商品管理','mall_attribute/grid'=>'关联产品','添加关联产品')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>
@@ -18,17 +18,17 @@
                     </div>
                 </div>
                 <div class="portlet-body form">
-                    <form class="form-horizontal line-form" action="<?php echo base_url('mall_attribute/addPost') ?>" method="post" enctype ="multipart/form-data" >
+                    <form class="form-horizontal line-form" action="<?php echo base_url('mall_goods_related/addPost') ?>" method="post" enctype ="multipart/form-data" >
                         <div class="control-group">
                             <label class="control-label"><em>* </em>商品ID</label>
                             <div class="controls">
-                                <input type="text" class="m-wrap large " name="goods_id" value="<?php echo $goods_id;?>"/> 
+                                <input type="text" class="m-wrap large " name="goods_id" /> 
                             </div>
                         </div>
                         <div class="control-group add-goodsid-html">
                             <label class="control-label"><em>* </em>关联商品ID</label>
                             <div class="controls">
-                                <input type="text" class="m-wrap large related_goods_id" name="related_goods_id" value=""  data-original-title="双击可弹框选择属性；直接输入‘产品编号’可提示" data-trigger="hover"/> 
+                                <input type="text" class="m-wrap large related_goods_id" name="related_goods_id" data-original-title="双击可弹框选择属性；直接输入‘产品编号’可提示" data-trigger="hover"/> 
                             </div>
                         </div>
                         <div class="control-group">
