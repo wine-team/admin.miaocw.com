@@ -28,7 +28,7 @@
                         <div class="control-group add-goodsid-html">
                             <label class="control-label"><em>* </em>关联商品ID</label>
                             <div class="controls">
-                                <input type="text" class="m-wrap large related_goods_id" name="related_goods_id" data-original-title="双击可弹框选择属性；直接输入‘产品编号’可提示" data-trigger="hover"/> 
+                                <input type="text" class="m-wrap large related_goods_id" name="related_goods_id"/> 
                             </div>
                         </div>
                         <div class="control-group">
@@ -55,4 +55,3 @@
     </div>
 </div>
 <?php $this->load->view('layout/footer');?>
-<?php $this->load->view('mall_goods_related/addGoodsAttr/ajaxGetAttr');?>
