@@ -81,7 +81,7 @@
                         <div class="control-group add-supplieruid-html">
                             <label class="control-label"><em>* </em>供应商</label>
                             <div class="controls">
-                                <input type="text" name="supplier_id" placeholder="供应商UID" class="m-wrap span8 supplieruid required tooltips" data-original-title="双击可弹框选择供应商；直接输入‘用户名称或编号’可提示" data-trigger="hover">
+                                <input type="text" name="supplier_id" placeholder="供应商UID" class="m-wrap span8 supplieruid required tooltips" data-original-title="双击可弹框选择供应商；直接输入‘用户名称或编号’可提示" data-trigger="hover"  autocomplete="off">
                             </div>
                         </div>
                         <div class="control-group">
@@ -119,13 +119,13 @@
                         <div class="control-group ">
                             <label class="control-label">市场价格</label>
                             <div class="controls">
-                                <input type="text" name="market_price" class="m-wrap span8 required number">
+                                <input type="text" name="market_price" class="m-wrap span8 required number" placeholder="市场价格">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label"><em>* </em>供应价</label>
                             <div class="controls">
-                                <input type="text" name="shop_price" class="m-wrap span8 required number">
+                                <input type="text" name="shop_price" class="m-wrap span8 required number" placeholder="供应价">
                             </div>
                         </div>
                         <div class="control-group ">
@@ -173,10 +173,10 @@
                             </div>
                         </div>
                         <div class="control-group ">
-                           <label class="control-label"><em>* </em>用户积分</label>
-                           <div class="controls">
+                            <label class="control-label"><em>* </em>用户积分</label>
+                            <div class="controls">
                                 <input type="text" name="integral" class="m-wrap span8 required number" placeholder="100积分抵1块钱,0代表不抵，不使用"  value="0"/>
-                           </div>
+                            </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label"><em>* </em>减库存方式</label>
@@ -195,13 +195,13 @@
                                 <input type="text" name="tour_count" class="m-wrap span8 required number" placeholder="浏览量" value="0">
                             </div>
                         </div>
-                        <div class="control-group ">
+                        <div class="control-group">
                             <label class="control-label"><em>* </em>销售数量</label>
                             <div class="controls">
                                 <input type="text" name="sale_count" class="m-wrap span8 required number" placeholder="销售数量" value="0">
                             </div>
                         </div>
-                        <div class="control-group ">
+                        <div class="control-group">
                             <label class="control-label"><em>* </em>库存</label>
                             <div class="controls">
                                 <input type="text" name="in_stock" class="m-wrap span8 required number" placeholder="库存">
@@ -211,6 +211,12 @@
                             <label class="control-label"><em>* </em>排序</label>
                             <div class="controls">
                                 <input type="text" name="sort_order" class="m-wrap span8 required number" placeholder="排序">
+                            </div>
+                        </div>
+                        <div class="control-group add-goods-related-html">
+                            <label class="control-label"><em>* </em>关联产品</label>
+                            <div class="controls">
+                                <input type="text" name="related_goods_id" class="m-wrap span8 tooltips related_goods_id" placeholder="关联产品Id" data-original-title="双击可弹框选择关联产品" data-trigger="hover"  autocomplete="off" />
                             </div>
                         </div>
                         <?php if($attribute_group->num_rows()>0):?>
@@ -325,6 +331,7 @@
 </div>
 <?php $this->load->view('layout/footer'); ?>
 <?php $this->load->view('user/addSupplierUid/ajaxGetUser'); ?>
+<?php $this->load->view('mallgoods/addGoodBase/ajaxGetGoods');?>
 <script type="text/javascript">
 $(document).ready(function(){
     $('.mall-goods-add-step2').on("click", "input[name='transport_type']", function () {

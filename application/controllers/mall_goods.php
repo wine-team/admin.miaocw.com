@@ -441,7 +441,7 @@ class Mall_goods extends CS_Controller
     	        }
     	    }
     	}
-    	
+   
     	//验证运费模版
     	if ($this->input->post('transport_type') == 1) {
     		if (!$this->input->post('freight_id')) {
@@ -466,5 +466,30 @@ class Mall_goods extends CS_Controller
     	}
     	$_POST['address'] = $regionNames[0] .' '.$regionNames[1].' '.$regionNames[2].' '.($this->input->post('address') ? $this->input->post('address') : '　');
     	return $error;
+    }
+    
+    /**
+     * 获取
+     * @param number $pg
+     */
+    public function ajaxGetMallGoods($pg=1){
+    	
+    	$page_num = 15;
+    	$num = ($pg-1)*$page_num;
+    	$config['per_page'] = 15;
+    	$config['first_url'] = base_url('mall_goods/ajaxGetMallGoods').$this->pageGetParam($this->input->get());
+    	$config['suffix'] = $this->pageGetParam($this->input->get());
+    	$config['base_url'] = base_url('mall_goods/ajaxGetMallGoods');
+    	$config['total_rows'] = $this->mall_goods_base->total($this->input->get());
+    	$config['uri_segment'] = 3;
+    	$this->pagination->initialize($config);
+    	$data['pg_list']   = $this->pagination->create_links();
+    	$data['page_list'] = $this->mall_goods_base->page_list($page_num, $num, $this->input->get());
+    	$data['all_rows']  = $config['total_rows'];
+    	$data['pg_now']    = $pg;
+    	echo json_encode(array(
+    			'status'=>true,
+    			'html'  =>$this->load->view('mallgoods/addGoodBase/ajaxGoodsData', $data, true)
+    	));exit;
     }
 }
