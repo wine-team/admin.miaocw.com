@@ -262,10 +262,6 @@
 			                                </select>
 			                                <?php endif;?>
 			                                <?php endif;?>
-			                                
-			                                <?php if($item->attr_type=='date'):?>
-			                                <input type="text" name="attr[<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]" class="m-wrap span8 <?php if($item->values_required==1):?>required<?php endif;?> date-picker date" placeholder="<?php echo $item->attr_name;?>"/>
-			                                <?php endif;?>
 			                            </div>
 		                           </div>
 	                           <?php endforeach;?>
