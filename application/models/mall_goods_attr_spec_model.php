@@ -79,7 +79,8 @@ class Mall_goods_attr_spec_model extends CI_Model{
 	
 	public function updatePriceBatch($data)
 	{
-	    return $this->db->update_batch($this->table1, $data, 'attr_price_id');
+	    $this->db->update_batch($this->table1, $data, 'attr_price_id');
+	    return $this->db->affected_rows();
 	}
 	
 }
