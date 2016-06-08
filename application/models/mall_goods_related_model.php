@@ -49,6 +49,24 @@ class Mall_goods_related_model extends CI_Model{
 	    return $this->db->affected_rows();
 	}
 	
+	/**
+	 * 
+	 * @param unknown $relatedGoodsArray
+	 * @param unknown $goods_id
+	 */
+	public function insertBatch($relatedGoodsArray,$goods_id){
+		
+		$i = 0;
+		$relatedGoods = array();
+		foreach ($relatedGoodsArray as $item){
+			$relatedGoods[$i]['goods_id'] = $goods_id;
+			$relatedGoods[$i]['related_goods_id'] = $item;
+			$relatedGoods[$i]['is_double'] = 1;
+			$i++;
+		}
+		return $this->db->insert_batch($this->table,$relatedGoods);
+	}
+	
 }
 /* End of file Mall_goods_related_model.php */
 /* Location: ./application/models/Mall_goods_related_model.php */
