@@ -36,6 +36,10 @@ class Mall_goods_related extends MJ_Controller {
 	public function addPost()
 	{
 	    $postData = $this->input->post(); 
+	    $error = $this->validate($postData);
+	    if(!empty($error)){
+	    	$this->error('mall_goods_related/add','', '必填的项目加值');
+	    }
 	    $goods_id = $postData['goods_id'];
 	    $relatedGoodsArray = array_filter(explode(',', str_replace('，',',',$postData['related_goods_id'])));
 	    $is_double = $postData['is_double'];
@@ -81,7 +85,20 @@ class Mall_goods_related extends MJ_Controller {
         }
 	}
 	
+	 /**
+	 * 产品的验证
+	 * @param unknown $param
+	 */
+	public function validate($param){
+		
+		$error = array();
+		if($this->validateParam($param['goods_id'])){
+			$error[] = 'goods_id必填';
+		}
+		if($this->validateParam($param['related_goods_id'])){
+			$error[] = 'related_goods_id必填';
+		}
+		return $error;
+	}
 	
 }
-/** End of file Mall_goods_related.php */
-/** Location: ./application/controllers/Mall_goods_related.php */
