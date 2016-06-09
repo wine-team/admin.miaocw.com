@@ -65,12 +65,32 @@
                             </div>
                             <div class="span4">
                                 <div class="control-group">
-                                    <label class="control-label">省/市/区</label>
+                                    <label class="control-label">产品类型</label>
                                     <div class="controls">
-                                        <?php $this->load->view('commonhtml/districtSelect');?>
+                                        <select name="extension_code" class="m-wrap medium">
+                                            <option value="">请选择</option>
+                                            <?php foreach ($extension_code as $good_type => $type_name) : ?>
+                                            <option value="<?php echo $good_type ?>" <?php if($this->input->get('extension_code')==$good_type): ?>selected="selected" <?php endif; ?>><?php echo $type_name ?> </option>
+                                            <?php endforeach;?>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
+                            <div class="span4">
+                                <div class="control-group">
+                                    <label class="control-label">产品类型</label>
+                                    <div class="controls">
+                                        <select name="attr_set_id" class="m-wrap medium chosen">
+                                            <option value="">请选择</option>
+                                            <?php foreach ($attribute_set->result() as $attr) : ?>
+                                                <option value="<?php echo $good_type ?>" <?php if ($this->input->get('attr_set_id')==$attr->attr_set_id): ?>selected="selected" <?php endif; ?>><?php echo $attr->attr_set_name ?> </option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
                             <div class="span4">
                                 <div class="control-group">
                                     <label class="control-label">开始时间</label>
@@ -83,6 +103,14 @@
                                             <input type="text" name="end_date" size="16" value="2016-06-02" class="m-wrap m-ctrl-medium date-picker date">
                                             <span class="add-on"><i class="icon-calendar"></i></span>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">省/市/区</label>
+                                    <div class="controls">
+                                        <?php $this->load->view('commonhtml/districtSelect');?>
                                     </div>
                                 </div>
                             </div>

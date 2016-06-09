@@ -31,9 +31,12 @@ class Mall_goods extends CS_Controller
         $data['pg_link'] = $this->pagination->create_links();
         $data['mall_goods'] = $this->mall_goods_base->page_list($page_num, $num, $this->input->get());
         $data['all_rows'] = $config['total_rows'];
-        $data['is_on_sale'] = array('1' => '上架', '2' => '下架');
+		$data['pg_now'] = $pg;
+		$data['page_num'] = $page_num;
+		$data['attribute_set'] = $this->mall_attribute_set->findByReason(array('enabled'=>1));
+		$data['is_on_sale'] = array('1' => '上架', '2' => '下架');
         $data['is_check'] = array('1' => '待审核', '2' => '审核通过', '3' => '审核拒绝');
-        $data['pg_now'] = $pg;
+		$data['extension_code'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
         $this->load->view('mallgoods/grid', $data);
     }
     
