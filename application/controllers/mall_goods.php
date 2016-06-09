@@ -15,6 +15,7 @@ class Mall_goods extends CS_Controller
         $this->load->model('mall_attribute_value_model','mall_attribute_value');
         $this->load->model('mall_goods_attr_value_model','mall_goods_attr_value');
         $this->load->model('mall_goods_attr_spec_model','mall_goods_attr_spec');
+        $this->load->model('mall_goods_related_model','mall_goods_related');
     }
     
     public function grid($pg = 1)
@@ -130,17 +131,23 @@ class Mall_goods extends CS_Controller
     public function addPost()
     {
     	$param = $this->input->post();
+    	
     	$param['category_id'] = $this->getCategoryId($param);
     	$this->db->trans_begin();
     	$goods_id = $this->mall_goods_base->insertMallGoods($param);
     	$result = $this->mall_category_product->insert($goods_id,$param['category_id']);
+    	$relatedResult = true;
+    	if (!empty($param['related_goods_id'])) {
+    		$relatedGoodsArray = array_filter(explode(',', $param['related_goods_id']));
+    		$relatedResult = $this->mall_goods_related->insertBatch($relatedGoodsArray,$goods_id);
+    	}
     	if (isset($param['attr'][1])) {
     	    $goodsAttrResult = $this->mall_goods_attr_value->insertBatch($goods_id,$param['attr'][1]);
     	}
     	if (isset($param['attr'][2]) && isset($param['price'][2]) && isset($param['attrNum'][2]) && isset($param['attrStock'][2])) {
     	    $this->mall_goods_attr_spec->insertBatch(1,$param['attr'][2], $param['price'][2], $param['attrNum'][2], $param['attrStock'][2]);
     	}
-    	if (!$goods_id && !$result && $this->db->trans_status() === FALSE) {
+    	if (!$goods_id && !$result && !$relatedResult && $this->db->trans_status() === FALSE) {
     		$this->db->trans_rollback();
     		$this->jsen('保存失败！');
     	} else {
@@ -424,7 +431,7 @@ class Mall_goods extends CS_Controller
     	if ($this->input->post('in_stock') <= 0) {
     		$error[] = '库存必须大于0.';
     	}
-    	//验证属性
+    	/*验证属性
     	if (!$this->input->post('goods_id')) {
     	    $attr_value = $this->mall_attribute_value->findById(array('attr_set_id'=>$this->input->post('attribute_set_id'), 'values_required'=>1))->result();
     	    $post_attr = $this->input->post('attr');
@@ -440,8 +447,9 @@ class Mall_goods extends CS_Controller
     	            $error[] = '请选择属性：'.$a->attr_name;
     	        }
     	    }
-    	}
+    	}*/
     	
+   
     	//验证运费模版
     	if ($this->input->post('transport_type') == 1) {
     		if (!$this->input->post('freight_id')) {
@@ -466,5 +474,30 @@ class Mall_goods extends CS_Controller
     	}
     	$_POST['address'] = $regionNames[0] .' '.$regionNames[1].' '.$regionNames[2].' '.($this->input->post('address') ? $this->input->post('address') : '　');
     	return $error;
+    }
+    
+    /**
+     * 获取
+     * @param number $pg
+     */
+    public function ajaxGetMallGoods($pg=1){
+    	
+    	$page_num = 15;
+    	$num = ($pg-1)*$page_num;
+    	$config['per_page'] = 15;
+    	$config['first_url'] = base_url('mall_goods/ajaxGetMallGoods').$this->pageGetParam($this->input->get());
+    	$config['suffix'] = $this->pageGetParam($this->input->get());
+    	$config['base_url'] = base_url('mall_goods/ajaxGetMallGoods');
+    	$config['total_rows'] = $this->mall_goods_base->total($this->input->get());
+    	$config['uri_segment'] = 3;
+    	$this->pagination->initialize($config);
+    	$data['pg_list']   = $this->pagination->create_links();
+    	$data['page_list'] = $this->mall_goods_base->page_list($page_num, $num, $this->input->get());
+    	$data['all_rows']  = $config['total_rows'];
+    	$data['pg_now']    = $pg;
+    	echo json_encode(array(
+    			'status'=>true,
+    			'html'  =>$this->load->view('mallgoods/addGoodBase/ajaxGoodsData', $data, true)
+    	));exit;
     }
 }
