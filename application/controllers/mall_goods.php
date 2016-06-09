@@ -206,7 +206,7 @@ class Mall_goods extends CS_Controller
     	foreach ($attribute_value as $val) {
     	    $attribute[$val->attr_value_id] = $val;
     	}
-    	$data['attribute_value'] = $attribute;  //var_dump($attribute);die;
+    	$data['attribute_value'] = $attribute;  
     	$data['attr_value'] = $this->mall_goods_attr_value->findById(array('goods_id'=>$goods_id))->result();
     	$attr_spec = $this->mall_goods_attr_spec->findById(array('goods_id'=>$goods_id))->result();
     	$attr_spec_ids = array();
@@ -217,7 +217,7 @@ class Mall_goods extends CS_Controller
     	if (!empty($attr_spec_ids)) {
     	    $attr_price = $this->mall_goods_attr_spec->getPriceWhereIn('attr_spec_id', $attr_spec_ids)->result();
     	}
-    	$data['attr_price'] = $attr_price;   //var_dump($attr_price);die;
+    	$data['attr_price'] = $attr_price;   
     	$this->load->view('mallgoods/edit',$data);
     }
     
@@ -236,7 +236,7 @@ class Mall_goods extends CS_Controller
     	        $data[$i]['attr_stock'] = $param['attrStock'][$k];
     	        $i ++;
     	    }
-    	    $PriceBatch = $this->mall_goods_attr_spec->updatePriceBatch($data); //print_r($this->db->last_query());die;
+    	    $PriceBatch = $this->mall_goods_attr_spec->updatePriceBatch($data);  
     	} 
     	if (!$updateGoods && $this->db->trans_status() === FALSE) {
     		$this->db->trans_rollback();
