@@ -72,7 +72,7 @@
                                         <td><?php echo $item->attr_set_name;?></td>
                                         <td><?php if($item->enabled==1) echo '是';?></td>
                                         <td>
-                                            <a class="btn mini green" href="<?php echo base_url('mall_attribute_group/grid/?attr_set_id='.$item->attr_set_id); ?>" >查看属性</a>
+                                            <a class="btn mini green" href="<?php echo base_url('mall_attribute_group/grid?attr_set_id='.$item->attr_set_id); ?>" >查看属性</a>
                                             <a class="btn mini green" href="<?php echo base_url('mall_attribute_set/edit/'.$item->attr_set_id); ?>">编辑</a>
                                         </td>
                                     </tr>
