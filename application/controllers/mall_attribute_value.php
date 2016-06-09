@@ -34,6 +34,7 @@ class Mall_attribute_value extends MJ_Controller {
 	    $data['values_required'] = $postData['values_required'];
 	    $data['attr_index'] = $postData['attr_index'];
 	    $data['is_linked'] = $postData['is_linked'];
+	    $data['attr_spec'] = in_array($postData['attr_type'],array('select','multiselect')) ? '2' : '1';
 	    $data['sort_order'] = $postData['sort_order'];
 	    $res = $this->mall_attribute_value->insert($data);
 	    if ($res) {
@@ -74,6 +75,7 @@ class Mall_attribute_value extends MJ_Controller {
 	    $data['values_required'] = $postData['values_required'];
 	    $data['attr_index'] = $postData['attr_index'];
 	    $data['is_linked'] = $postData['is_linked'];
+	    $data['attr_spec'] = in_array($postData['attr_type'],array('select','multiselect')) ? '2' : '1';
 	    $data['sort_order'] = $postData['sort_order'];
         $res = $this->mall_attribute_value->update(array('attr_value_id'=>$postData['attr_value_id']), $data);  
         if ($res) {
