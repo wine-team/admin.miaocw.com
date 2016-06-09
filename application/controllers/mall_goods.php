@@ -141,8 +141,8 @@ class Mall_goods extends CS_Controller
     	$result = $this->mall_category_product->insert($goods_id,$param['category_id']);
     	$relatedResult = true;
     	if (!empty($param['related_goods_id'])) {
-    		$relatedGoodsArray = array_filter(explode(',', $param['related_goods_id']));
-    		$relatedResult = $this->mall_goods_related->insertBatch($relatedGoodsArray,$goods_id);
+    		$relatedGoodsArray = array_filter(explode(',', str_replace('，',',',$param['related_goods_id'])));
+    		$relatedResult = $this->mall_goods_related->insertBatch($relatedGoodsArray,$is_double=1,$goods_id);
     	}
     	if (isset($param['attr'][1])) {
     	    $goodsAttrResult = $this->mall_goods_attr_value->insertBatch($goods_id,$param['attr'][1]);
@@ -157,7 +157,7 @@ class Mall_goods extends CS_Controller
     		$this->db->trans_commit();
     		$this->session->set_flashdata('success', '保存成功!');
     		$this->jsen(base_url('mall_goods/grid'), TRUE);
-    	}exit;
+    	}
     }
     
     

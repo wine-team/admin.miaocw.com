@@ -36,10 +36,10 @@ class Mall_goods_related extends MJ_Controller {
 	public function addPost()
 	{
 	    $postData = $this->input->post(); 
-	    $data['goods_id'] = $postData['goods_id'];
-	    $data['related_goods_id'] = $postData['related_goods_id'];
-	    $data['is_double'] = $postData['is_double'];
-	    $res = $this->mall_goods_related->insert($data);
+	    $goods_id = $postData['goods_id'];
+	    $relatedGoodsArray = array_filter(explode(',', str_replace('，',',',$postData['related_goods_id'])));
+	    $is_double = $postData['is_double'];
+	    $res = $this->mall_goods_related->insertBatch($relatedGoodsArray,$is_double,$goods_id);
 	    if ($res) {
 	        $this->success('mall_goods_related/grid', $this->input->post('goods_id'), '新增成功！');
 	    } else {
