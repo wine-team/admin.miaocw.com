@@ -296,10 +296,7 @@
                                             <?php endforeach;?>
 			                                <?php endif;?>
 			                                <?php endif;?>
-<<<<<<< HEAD
 			                                <?php endif;?>
-=======
->>>>>>> 16613aeb72b6d98294d733fd6cfe2ee5583c98f0
 			                            </div>
 		                           </div>
 	                           <?php endforeach;?>
