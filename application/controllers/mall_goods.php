@@ -33,10 +33,10 @@ class Mall_goods extends CS_Controller
         $data['all_rows'] = $config['total_rows'];
 		$data['pg_now'] = $pg;
 		$data['page_num'] = $page_num;
-		$data['attribute_set'] = $this->mall_attribute_set->findByReason(array('enabled'=>1));
+		$data['attribute_set'] = $this->mall_attribute_set->find(true);
 		$data['is_on_sale'] = array('1' => '上架', '2' => '下架');
         $data['is_check'] = array('1' => '待审核', '2' => '审核通过', '3' => '审核拒绝');
-		$data['extension_code'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
+		$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
         $this->load->view('mallgoods/grid', $data);
     }
     
@@ -45,7 +45,7 @@ class Mall_goods extends CS_Controller
      */
     public function addstep1()
     {
-    	$data['extension'] = array('simple'=>'简单产品','virtual'=>'虚拟产品','giftcard'=>'礼品卡');
+		$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
     	$data['attribute'] = $this->mall_attribute_set->findByReason(array('enabled'=>1));
     	$this->load->view('mallgoods/addstep1',$data);
     }
@@ -60,7 +60,7 @@ class Mall_goods extends CS_Controller
     	}
     	$data['attr_set_id'] = $attr_set_id;
     	$data['brand'] = $this->mall_brand->findById(array('is_show'=>1));//品牌信息
-    	$data['extension'] = array('simple'=>'简单产品','virtual'=>'虚拟产品','giftcard'=>'礼品卡');
+		$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
     	$data['attribute_group'] = $this->mall_attribute_group->findByAttrSetId($attr_set_id);
     	$this->load->view('mallgoods/addstep2', $data);
     }
@@ -69,48 +69,57 @@ class Mall_goods extends CS_Controller
      * 设置产品上下架
      * @param unknown $goods_id
      * @param unknown $status
-     * @param unknown $pageNow
      */
-    public function setIsOnSaleStatus($goods_id, $status, $pageNow)
+    public function setIsOnSaleStatus()
     {
+		$goods_id = $this->input->post('goods_id');
+		$status = $this->input->post('flag');
     	switch ($status) {
     		case '1': $isOnSale = '2'; break;
     		case '2': $isOnSale = '1'; break;
     		default : $isOnSale = '1'; break;
     	}
-    	$param['is_on_sale'] = $isOnSale;
     	$this->db->trans_start();
-    	$result = $this->mall_goods_base->updateByGoodsId($goods_id,$param);
+		$isUpdate = $this->mall_goods_base->updateByGoodsId($goods_id, array('is_on_sale'=>$isOnSale));
     	$this->db->trans_complete();
-    	if ($this->db->trans_status() === TRUE) {
-    		$this->success('mall_goods/grid/'.$pageNow, $this->input->get(), '操作成功！');
-    	} else {
-    		$this->error('mall_goods/grid/'.$pageNow, $this->input->get(), '操作失败！');
-    	}
+		if ($this->db->trans_status() === TRUE && $isUpdate) {
+			echo json_encode(array(
+				'flag' => $isOnSale,
+			));
+		} else {
+			echo json_encode(array(
+				'flag' => 3,
+			));
+		}
     }
     
     /**
      * 设置产品审核状态
-     * @param unknown $goods_attr_id
+     * @param unknown $goods_id
      * @param unknown $status
-     * @param unknown $pageNow
      */
-    public function setIsCheckStatus($goods_id, $status, $pageNow)
+    public function setIsCheckStatus()
     {
+		$goods_id = $this->input->post('goods_id');
+		$status = $this->input->post('flag');
     	switch ($status) {
     		case '1': $isCheck = '2'; break;
     		case '2': $isCheck = '3'; break;
     		default : $isCheck = '1'; break;
     	}
-    	$param['is_check'] = $isCheck;
     	$this->db->trans_start();
-    	$result = $this->mall_goods_base->updateByGoodsId($goods_id, $param);
+		$isUpdate = $this->mall_goods_base->updateByGoodsId($goods_id, array('is_check'=>$isCheck));
     	$this->db->trans_complete();
     	if ($this->db->trans_status() === TRUE) {
-    		$this->success('mall_goods/grid/'.$pageNow, $this->input->get(), '操作成功！');
+    		echo json_encode(array(
+				'status' => true,
+			));
     	} else {
-    		$this->error('mall_goods/grid/'.$pageNow, $this->input->get(), '操作失败！');
+			echo json_encode(array(
+				'status' => false,
+			));
     	}
+		exit;
     }
     
      /**
@@ -197,7 +206,7 @@ class Mall_goods extends CS_Controller
     	$data['city_id'] = $data['mallgoods']->city_id;
     	$data['district_id'] = $data['mallgoods']->district_id;
     	$data['brand'] = $this->mall_brand->findById(array('is_show'=>1));//品牌信息
-    	$data['extension'] = array('simple'=>'简单产品','virtual'=>'虚拟产品','giftcard'=>'礼品卡');
+		$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
     	$data['attribute'] = $this->mall_attribute_set->findByReason(array('enabled'=>1));
     	$data['freight'] = $this->mall_freight_tpl->getTransport($data['mallgoods']->supplier_id);
     	
@@ -365,7 +374,7 @@ class Mall_goods extends CS_Controller
     	$data['city_id'] = $data['mallgoods']->city_id;
     	$data['district_id'] = $data['mallgoods']->district_id;
     	$data['brand'] = $this->mall_brand->findById(array('is_show'=>1));//品牌信息
-    	$data['extension'] = array('simple'=>'简单产品','virtual'=>'虚拟产品','giftcard'=>'礼品卡');
+		$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
     	$data['attribute'] = $this->mall_attribute_set->findByReason(array('enabled'=>1));
     	$data['freight'] = $this->mall_freight_tpl->getTransport($data['mallgoods']->supplier_id);
     	$this->load->view('mallgoods/copy',$data);

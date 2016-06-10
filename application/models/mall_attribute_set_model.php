@@ -3,11 +3,28 @@ class Mall_attribute_set_model extends CI_Model
 {
 	private $table = 'mall_attribute_set'; 
 	private $table1 = 'mall_attribute_value';
+
+	public function find($isArray=fasle)
+	{
+
+		$this->db->where('enabled', 1);
+		$result = $this->db->get($this->table);
+		if ($isArray) {
+			$rows = array();
+			foreach ($result->result_array() as $row) {
+				$rows[$row['attr_set_id']] = $row;
+			}
+			return $rows;
+		}
+		return $result;
+	}
+
 	public function findById($attr_set_id)
 	{
 		$this->db->where('attr_set_id', $attr_set_id);
 		return $this->db->get_where($this->table);
 	}
+
 	public function total($params=array())
 	{
 		$this->db->from($this->table);
@@ -16,6 +33,7 @@ class Mall_attribute_set_model extends CI_Model
 		}
 		return $this->db->count_all_results();
 	}
+
 	public function page_list($page_num, $num, $params=array())
 	{
 		$this->db->from($this->table);
@@ -46,13 +64,13 @@ class Mall_attribute_set_model extends CI_Model
 		$this->db->where('attr_set_id', $postData['attr_set_id']);
 		return $this->db->update($this->table, $data);
 	}
-	
+
 	 /**
 	 * 
 	 * @param unknown $param
 	 */
-	public function findByReason($param){
-		
+	public function findByReason($param)
+	{
 		if(!empty($param['enabled'])){
 			$this->db->where('enabled',$param['enabled']);
 		}
