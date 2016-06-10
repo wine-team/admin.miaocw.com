@@ -55,4 +55,4 @@
     </div>
 </div>
 <?php $this->load->view('layout/footer');?>
-<?php $this->load->view('mallgoods/addGoodBase/ajaxGetGoods');?>
+<?php $this->load->view('mall_goods_base/addGoodBase/ajaxGetGoods');?>
