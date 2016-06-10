@@ -1,5 +1,5 @@
 <?php 
-class Mall_goods extends CS_Controller
+class Mall_goods_base extends CS_Controller
 {
     public function _init()
     {
@@ -22,14 +22,14 @@ class Mall_goods extends CS_Controller
     {
         $page_num = 20;
         $num = ($pg-1)*$page_num;
-        $config['first_url'] = base_url('mall_goods/grid').$this->pageGetParam($this->input->get());
+        $config['first_url'] = base_url('mall_goods_base/grid').$this->pageGetParam($this->input->get());
         $config['suffix'] = $this->pageGetParam($this->input->get());
-        $config['base_url'] = base_url('mall_goods/grid');
+        $config['base_url'] = base_url('mall_goods_base/grid');
         $config['total_rows'] = $this->mall_goods_base->total($this->input->get());
         $config['uri_segment'] = 3;
         $this->pagination->initialize($config);
         $data['pg_link'] = $this->pagination->create_links();
-        $data['mall_goods'] = $this->mall_goods_base->page_list($page_num, $num, $this->input->get());
+        $data['page_list'] = $this->mall_goods_base->page_list($page_num, $num, $this->input->get());
         $data['all_rows'] = $config['total_rows'];
 		$data['pg_now'] = $pg;
 		$data['page_num'] = $page_num;
@@ -37,7 +37,7 @@ class Mall_goods extends CS_Controller
 		$data['is_on_sale'] = array('1' => '上架', '2' => '下架');
         $data['is_check'] = array('1' => '待审核', '2' => '审核通过', '3' => '审核拒绝');
 		$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
-        $this->load->view('mallgoods/grid', $data);
+        $this->load->view('mall_goods_base/grid', $data);
     }
     
      /**
@@ -47,7 +47,7 @@ class Mall_goods extends CS_Controller
     {
 		$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
     	$data['attribute'] = $this->mall_attribute_set->findByReason(array('enabled'=>1));
-    	$this->load->view('mallgoods/addstep1',$data);
+    	$this->load->view('mall_goods_base/addstep1',$data);
     }
     
     
@@ -56,13 +56,13 @@ class Mall_goods extends CS_Controller
     	$extension_code = $this->input->get('extension_code');
     	$attr_set_id = $this->input->get('attr_set_id');
     	if (empty($extension_code) || empty($attr_set_id)) {
-    		$this->error('mall_goods/addstep1', '', '请选择完整商品的类别和类型');
+    		$this->error('mall_goods_base/addstep1', '', '请选择完整商品的类别和类型');
     	}
     	$data['attr_set_id'] = $attr_set_id;
     	$data['brand'] = $this->mall_brand->findById(array('is_show'=>1));//品牌信息
 		$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
     	$data['attribute_group'] = $this->mall_attribute_group->findByAttrSetId($attr_set_id);
-    	$this->load->view('mallgoods/addstep2', $data);
+    	$this->load->view('mall_goods_base/addstep2', $data);
     }
     
     /**
@@ -129,7 +129,7 @@ class Mall_goods extends CS_Controller
     {
     	$error = $this->validate();
     	if (!empty($error)) {
-    		$this->jsen($error);
+    		$this->jsonMessage($error);
     	}
     	if ($this->input->post('goods_id')) {
     		$this->editPost();
@@ -165,7 +165,7 @@ class Mall_goods extends CS_Controller
     	} else {
     		$this->db->trans_commit();
     		$this->session->set_flashdata('success', '保存成功!');
-    		$this->jsen(base_url('mall_goods/grid'), TRUE);
+    		$this->jsen(base_url('mall_goods_base/grid'), TRUE);
     	}
     }
     
@@ -174,8 +174,8 @@ class Mall_goods extends CS_Controller
      * 分类名称
      * @param unknown $param
      */
-    public function getCategoryId($param){
-    
+    public function getCategoryId($param)
+	{
     	if( !empty($param['category_id'])){
     		return $param['category_id'];
     	}
@@ -194,11 +194,11 @@ class Mall_goods extends CS_Controller
      * 编辑
      * @param unknown $goods_id
      */
-    public function edit($goods_id){
-    	
+    public function edit($goods_id)
+	{
     	$result = $this->mall_goods_base->getInfoByGoodsId($goods_id);
     	if ($result->num_rows() <= 0) {
-    		$this->error('mall_goods/grid', '', '找不到产品相关信息！');
+    		$this->error('mall_goods_base/grid', '', '找不到产品相关信息！');
     	}
     	$attr_set_id = $this->input->get('attr_set_id');
     	$data['mallgoods'] = $result->row();
@@ -227,7 +227,7 @@ class Mall_goods extends CS_Controller
     	    $attr_price = $this->mall_goods_attr_spec->getPriceWhereIn('attr_spec_id', $attr_spec_ids)->result();
     	}
     	$data['attr_price'] = $attr_price;   
-    	$this->load->view('mallgoods/edit',$data);
+    	$this->load->view('mall_goods_base/edit',$data);
     }
     
     public function editPost()
@@ -253,7 +253,7 @@ class Mall_goods extends CS_Controller
     	} else {
     		$this->db->trans_complete();
     		$this->session->set_flashdata('success', '保存成功!');
-    		$this->jsen(base_url('mall_goods/grid'), TRUE);
+    		$this->jsen(base_url('mall_goods_base/grid'), TRUE);
     	}
     	exit;
     }
@@ -266,19 +266,19 @@ class Mall_goods extends CS_Controller
     {
     	$result = $this->mall_goods_base->getInfoByGoodsId($goods_id);
     	if ($result->num_rows() <= 0) {
-    		$this->error('mall_goods/grid', '', '找不到产品相关信息！');
+    		$this->error('mall_goods_base/grid', '', '找不到产品相关信息！');
     	}
     	$mallgoods = $result->row();
     	$data['mallgoods'] = $mallgoods;
     	$pics = $mallgoods->goods_img;
-    	if(!empty($pics)){
+    	if (!empty($pics)) {
     		$goods_img = array_filter(explode('|', $pics));
-    	}else{
+    	} else {
     		$goods_img = array();
     	}
     	$data['goods_img'] = $goods_img;
     	$data['goods_id'] = $goods_id;
-    	$this->load->view('mallgoods/images', $data);
+    	$this->load->view('mall_goods_base/images', $data);
     }
     
     /**
@@ -288,19 +288,19 @@ class Mall_goods extends CS_Controller
     public function saveImages()
     {
     	if (!$this->input->post('goods_id')) {
-    		$this->error('mall_goods/grid', '', '内部错误！');
+    		$this->error('mall_goods_base/grid', '', '内部错误！');
     	}
     	$goods_id = (int)$this->input->post('goods_id');
     	if (empty($_FILES['goods_img']['name'])) {
-    		$this->error('mall_goods/images', $goods_id, '请选择图片上传！');
+    		$this->error('mall_goods_base/images', $goods_id, '请选择图片上传！');
     	}
     	$imageData = $this->dealWithImages('goods_img', '', 'mall');
     	if ($imageData == false) {
-    		$this->error('mall_goods/images', $goods_id, '图片上传失败！');
+    		$this->error('mall_goods_base/images', $goods_id, '图片上传失败！');
     	}
     	$ifResize = $this->dealWithImagesResize($imageData, '360', '360');
     	if ($ifResize == false) {
-    		$this->error('mall_goods/images', $goods_id, '缩略图生成失败！');
+    		$this->error('mall_goods_base/images', $goods_id, '缩略图生成失败！');
     	}
     	$params['goods_id'] = $goods_id;
     	$params['goods_img'] = $this->input->post('pics').$imageData['file_name'].'|';
@@ -308,32 +308,32 @@ class Mall_goods extends CS_Controller
     	$resultId = $this->mall_goods_base->insertImage($params);
     	$this->db->trans_complete();
     	if (!$resultId) {
-    		$this->error('mall_goods/images', $goods_id, '数据保存失败！');
+    		$this->error('mall_goods_base/images', $goods_id, '数据保存失败！');
     	}
-    	$this->success('mall_goods/images', $goods_id, '数据保存成功！');
+    	$this->success('mall_goods_base/images', $goods_id, '数据保存成功！');
     }
     
-    public function deleteImage(){
-    	
+    public function deleteImage()
+	{
     	$goods_id = $this->input->get('goods_id');
     	$image_name = $this->input->get('image_name');
     	if (empty($goods_id)) {
-    		$this->error('mall_goods/grid', '', '内部错误！');
+    		$this->error('mall_goods_base/grid', '', '内部错误！');
     	}
     	$result = $this->mall_goods_base->getInfoByGoodsId($goods_id);
     	if ($result->num_rows() <= 0) {
-    		$this->error('mall_goods/grid', '', '找不到产品相关信息！');
+    		$this->error('mall_goods_base/grid', '', '找不到产品相关信息！');
     	}
     	$mallgoods = $result->row();
     	$pics = trim($mallgoods->goods_img, '|');
     	$params['goods_id'] = $goods_id;
     	$params['goods_img'] = str_replace($image_name.'|', '', $mallgoods->goods_img);
     	$resultId = $this->mall_goods_base->insertImage($params);
-    	$this->deleteOldfileName($image_name,'mall');
+    	$this->deleteOldfileName($image_name, 'mall');
     	if (!$resultId) {
-    		$this->error('mall_goods/images', $goods_id, '删除失败');
+    		$this->error('mall_goods_base/images', $goods_id, '删除失败');
     	}
-    	$this->success('mall_goods/images', $goods_id, '删除成功！');
+    	$this->success('mall_goods_base/images', $goods_id, '删除成功！');
     }
     
     /**
@@ -345,7 +345,7 @@ class Mall_goods extends CS_Controller
     	$goods_id = $this->input->get('goods_id');
     	$result = $this->mall_goods_base->getInfoByGoodsId($goods_id);
     	if ($result->num_rows() <= 0) {
-    		$this->error('mall_goods/grid', '', '找不到产品相关信息！');
+    		$this->error('mall_goods_base/grid', '', '找不到产品相关信息！');
     	}
     	$mall_goods = $result->row();
     	$image_name = $this->input->get('image_name');
@@ -354,20 +354,20 @@ class Mall_goods extends CS_Controller
     	$params['goods_id'] = $goods_id;
     	$resultId = $this->mall_goods_base->insertImage($params);
     	if (!$resultId) {
-    		$this->error('mall_goods/images', $goods_id, '删除失败');
+    		$this->error('mall_goods_base/images', $goods_id, '删除失败');
     	}
-    	$this->success('mall_goods/images', $goods_id, '删除成功！');
+    	$this->success('mall_goods_base/images', $goods_id, '删除成功！');
     }
     
     /**
      * 
      * @param unknown $goods_id
      */
-    public function copy($goods_id){
-    	
+    public function copy($goods_id)
+	{
     	$result = $this->mall_goods_base->getInfoByGoodsId($goods_id);
     	if ($result->num_rows() <= 0) {
-    		$this->error('mall_goods/grid', '', '找不到产品相关信息！');
+    		$this->error('mall_goods_base/grid', '', '找不到产品相关信息！');
     	}
     	$data['mallgoods'] = $result->row();
     	$data['province_id'] = $data['mallgoods']->province_id;
@@ -377,29 +377,20 @@ class Mall_goods extends CS_Controller
 		$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
     	$data['attribute'] = $this->mall_attribute_set->findByReason(array('enabled'=>1));
     	$data['freight'] = $this->mall_freight_tpl->getTransport($data['mallgoods']->supplier_id);
-    	$this->load->view('mallgoods/copy',$data);
+    	$this->load->view('mall_goods_base/copy',$data);
     }
     
-    private function jsen($error, $flag = false)
-    {
-    	echo json_encode(array(
-    			'status'   => $flag,
-    			'messages' => $error
-    	));
-    	exit;
-    }
-    
-    public function delete($goods_id){
-    	
+    public function delete($goods_id)
+	{
     	$this->db->trans_begin();
     	$status = $this->mall_goods_base->deleteById($goods_id);
     	$result = $this->mall_category_product->deleteByGoodsId($goods_id);
-    	if( $status && $result && ($this->db->trans_status() === TRUE)){
+    	if ($status && $result && ($this->db->trans_status() === TRUE)) {
     		$this->db->trans_complete();
-    		$this->success('mall_goods/grid', '', '删除成功');
-    	}else{
+    		$this->success('mall_goods_base/grid', '', '删除成功');
+    	} else {
     		$this->db->trans_rollback();
-    		$this->error('mall_goods/grid', '', '删除失败');
+    		$this->error('mall_goods_base/grid', '', '删除失败');
     	}
     }
     
@@ -492,14 +483,14 @@ class Mall_goods extends CS_Controller
      * 获取
      * @param number $pg
      */
-    public function ajaxGetMallGoods($pg=1){
-    	
+    public function ajaxGetMallGoods($pg=1)
+	{
     	$page_num = 15;
     	$num = ($pg-1)*$page_num;
     	$config['per_page'] = 15;
-    	$config['first_url'] = base_url('mall_goods/ajaxGetMallGoods').$this->pageGetParam($this->input->get());
+    	$config['first_url'] = base_url('mall_goods_base/ajaxGetMallGoods').$this->pageGetParam($this->input->get());
     	$config['suffix'] = $this->pageGetParam($this->input->get());
-    	$config['base_url'] = base_url('mall_goods/ajaxGetMallGoods');
+    	$config['base_url'] = base_url('mall_goods_base/ajaxGetMallGoods');
     	$config['total_rows'] = $this->mall_goods_base->total($this->input->get());
     	$config['uri_segment'] = 3;
     	$this->pagination->initialize($config);
@@ -508,8 +499,8 @@ class Mall_goods extends CS_Controller
     	$data['all_rows']  = $config['total_rows'];
     	$data['pg_now']    = $pg;
     	echo json_encode(array(
-    			'status'=>true,
-    			'html'  =>$this->load->view('mallgoods/addGoodBase/ajaxGoodsData', $data, true)
+			'status'=>true,
+			'html'  =>$this->load->view('mall_goods_base/addGoodBase/ajaxGoodsData', $data, true)
     	));exit;
     }
 }

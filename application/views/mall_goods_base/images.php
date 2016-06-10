@@ -1,9 +1,8 @@
 <?php $this->load->view('layout/header'); ?>
 <div class="container-fluid">
     <div class="span12">
-        <h3 class="page-title">妙网商城 <small>图片的添加</small>
-        </h3>
-        <?php echo breadcrumb(array('mall_goods/grid' => '妙网商城', "mall_goods/images/".$goods_id => '图片管理')); ?>
+        <h3 class="page-title">妙网商城 <small>图片的添加</small></h3>
+        <?php echo breadcrumb(array('mall_goods_base/grid' => '妙网商城', "mall_goods_base/images/".$goods_id => '图片管理')); ?>
     </div>
     <?php echo execute_alert_message() ?>
     <div class="row-fluid">
@@ -20,7 +19,7 @@
                     <div class="row-fluid">
                         <div class="span4"></div>
                         <div class="span8">
-                            <form class="line-form" action="<?php echo base_url('mall_goods/saveImages'); ?>" method="post"  enctype="multipart/form-data">
+                            <form class="line-form" action="<?php echo base_url('mall_goods_base/saveImages'); ?>" method="post"  enctype="multipart/form-data">
                                 <div class="pull-left">
                                     <input type="hidden" name="goods_id" value="<?php echo $this->uri->segment(3) ?>"/>
                                     <input type="hidden" name="pics" value="<?php echo $mallgoods->goods_img; ?>"/>

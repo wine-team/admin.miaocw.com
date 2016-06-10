@@ -3,7 +3,7 @@
     <div class="row-fluid">
         <div class="span12">
             <h3 class="page-title">妙网商城<small> 商品列表</small></h3>
-            <?php echo breadcrumb(array('mallgoods/grid'=>'妙网商城', 'mallgoods/grid'=>'商品列表')); ?>
+            <?php echo breadcrumb(array('mall_goods_base/grid'=>'妙网商城', 'mall_goods_base/grid'=>'商品列表')); ?>
         </div>
     </div>
     <?php echo execute_alert_message();?>
@@ -118,7 +118,7 @@
                 <div class="portlet-body flip-scroll">
                     <div class="dataTables_wrapper form-inline">
                         <div class="clearfix">
-                            <a href="<?php echo base_url('mall_goods/addstep1') ?>" class="add-button-link">
+                            <a href="<?php echo base_url('mall_goods_base/addstep1') ?>" class="add-button-link">
                                 <div class="btn-group">
                                     <button class="btn green"><i class="icon-plus"></i> 添加</button>
                                 </div>
@@ -170,10 +170,10 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <a class="btn mini green" href="<?php echo base_url('mall_goods/images/'.$item->goods_id) ?>">图片管理</a>
-                                            <a class="btn mini green" href="<?php echo base_url('mall_goods/edit/'.$item->goods_id.'?attr_set_id='.$item->attribute_set_id) ?>">编辑</a><p></p>
-                                            <a class="btn mini green" href="<?php echo base_url('mall_goods/copy/'.$item->goods_id) ?>">复制</a>
-                                            <a class="btn mini green" href="<?php echo base_url('mall_goods/delete/'.$item->goods_id) ?>">删除</a>
+                                            <a class="btn mini green" href="<?php echo base_url('mall_goods_base/images/'.$item->goods_id) ?>">图片管理</a>
+                                            <a class="btn mini green" href="<?php echo base_url('mall_goods_base/edit/'.$item->goods_id.'?attr_set_id='.$item->attribute_set_id) ?>">编辑</a><p></p>
+                                            <a class="btn mini green" href="<?php echo base_url('mall_goods_base/copy/'.$item->goods_id) ?>">复制</a>
+                                            <a class="btn mini green" href="<?php echo base_url('mall_goods_base/delete/'.$item->goods_id) ?>">删除</a>
                                         </td>
                                     </tr>
                                     <?php endforeach; ?>
@@ -202,7 +202,7 @@ $(function(){
             var goods_id = $(this).attr('data-goods-id');
             var flag = $(this).attr('data-flag');
             $.ajax({
-                url:hostUrl()+'/mall_goods/setIsOnSaleStatus',
+                url:hostUrl()+'/mall_goods_base/setIsOnSaleStatus',
                 type:'POST',
                 dataType:'json',
                 data: {goods_id:goods_id,flag:flag},
@@ -229,7 +229,7 @@ $(function(){
         }
         if (confirm('确定要'+status+'?')) {
             $.ajax({
-                url:hostUrl()+'/mall_goods/setIsCheckStatus',
+                url:hostUrl()+'/mall_goods_base/setIsCheckStatus',
                 type:'POST',
                 dataType:'json',
                 data: {goods_id:goodsId, flag:isCheck},

@@ -3,7 +3,7 @@
     <div class="row-fluid">
         <div class="span12">
             <h3 class="page-title">妙网商城<small> 商品添加</small></h3>
-            <?php echo breadcrumb(array('mall_goods/grid' => '妙网商城', "mall_goods/addstep1" => '商品添加')); ?>
+            <?php echo breadcrumb(array('mall_goods_base/grid' => '妙网商城', "mall_goods_base/addstep1" => '商品添加')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>
@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="portlet-body form">
-                    <form class="form-horizontal line-form mall-goods-add-step1" action="<?php echo base_url('mall_goods/addstep2') ?>" method="get" enctype="multipart/form-data">
+                    <form class="form-horizontal line-form mall-goods-add-step1" action="<?php echo base_url('mall_goods_base/addstep2') ?>" method="get" enctype="multipart/form-data">
                         <div class="alert alert-success">产品类型</div>
                         <div class="control-group">
                             <label class="control-label"><em>* </em>商品类别</label>
@@ -43,7 +43,7 @@
                         </div>
                         <div class="form-actions">
                             <button class="btn green" type="submit">下一步 <i class="m-icon-swapright m-icon-white"></i></button>
-                            <a class="btn" href="<?php echo base_url('mall_goods/grid');?>">返回列表</a>
+                            <a class="btn" href="<?php echo base_url('mall_goods_base/grid');?>">返回列表</a>
                         </div>
                     </form>
                 </div>
