@@ -157,7 +157,7 @@ class Mall_goods_base extends CS_Controller
     	    $goodsAttrResult = $this->mall_goods_attr_value->insertBatch($goods_id,$param['attr'][1]);
     	}
     	if (isset($param['attr'][2]) && isset($param['price'][2]) && isset($param['attrNum'][2]) && isset($param['attrStock'][2])) {
-    	    $this->mall_goods_attr_spec->insertBatch(1,$param['attr'][2], $param['price'][2], $param['attrNum'][2], $param['attrStock'][2]);
+    	    $this->mall_goods_attr_spec->insertBatch($goods_id,$param['attr'][2], $param['price'][2], $param['attrNum'][2], $param['attrStock'][2]);
     	}
     	if (!$goods_id && !$result && !$relatedResult && $this->db->trans_status() === FALSE) {
     		$this->db->trans_rollback();

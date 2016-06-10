@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="portlet-body form">
-                    <form class="form-horizontal form-search" action="<?php echo base_url('mall_goods/grid') ?>" method="get">
+                    <form class="form-horizontal form-search" action="<?php echo base_url('mall_goods_base/grid') ?>" method="get">
                         <div class="row-fluid">
                             <div class="span4">
                                 <div class="control-group">
