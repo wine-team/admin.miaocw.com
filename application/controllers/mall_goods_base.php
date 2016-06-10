@@ -249,11 +249,11 @@ class Mall_goods_base extends CS_Controller
     	} 
     	if (!$updateGoods && $this->db->trans_status() === FALSE) {
     		$this->db->trans_rollback();
-    		$this->jsen('保存失败！');
+    		$this->jsonMessage('保存失败！');
     	} else {
     		$this->db->trans_complete();
     		$this->session->set_flashdata('success', '保存成功!');
-    		$this->jsen(base_url('mall_goods_base/grid'), TRUE);
+    		$this->jsonMessage('', base_url('mall_goods_base/grid'));
     	}
     	exit;
     }

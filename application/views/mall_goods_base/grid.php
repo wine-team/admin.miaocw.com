@@ -124,7 +124,7 @@
                                 </div>
                             </a>
                         </div>
-                        <?php if ($mall_goods->num_rows()>0) :?>
+                        <?php if ($page_list->num_rows()>0) :?>
                             <table class="table table-striped table-bordered table-hover" id="sample_1">
                                 <thead class="flip-content">
                                     <tr>
@@ -143,7 +143,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($mall_goods->result() as $item): ?>
+                                    <?php foreach ($page_list->result() as $item): ?>
                                     <tr>
                                         <td><input type="checkbox" class="checkboxes" ></td>
                                         <td><?php echo $item->goods_id;?></td>
