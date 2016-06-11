@@ -3,7 +3,7 @@
     <div class="span12">
         <h3 class="page-title">妙网商城 <small>图片的添加</small>
         </h3>
-        <?php echo breadcrumb(array('mall_goods/grid' => '妙网商城', "mall_goods/images/".$goods_id => '图片管理')); ?>
+        <?php echo breadcrumb(array('mall_goods_base/grid' => '妙网商城', "mall_goods_base/images/".$goods_id => '图片管理')); ?>
     </div>
     <?php echo execute_alert_message() ?>
     <div class="row-fluid">
@@ -20,7 +20,7 @@
                     <div class="row-fluid">
                         <div class="span4"></div>
                         <div class="span8">
-                            <form class="line-form" action="<?php echo base_url('mall_goods/saveImages'); ?>" method="post"  enctype="multipart/form-data">
+                            <form class="line-form" action="<?php echo base_url('mall_goods_base/saveImages'); ?>" method="post"  enctype="multipart/form-data">
                                 <div class="pull-left">
                                     <input type="hidden" name="goods_id" value="<?php echo $this->uri->segment(3) ?>"/>
                                     <input type="hidden" name="pics" value="<?php echo $mallgoods->goods_img; ?>"/>
@@ -43,8 +43,8 @@
                                     </a>
                                     <?php if( $i!=1 ):?>
                                     <div class="details">
-                                        <a href="<?php echo base_url('mall_goods/deleteImage?goods_id='.$goods_id.'&image_name='.$val) ?>" class="icon" onclick="return confirm('确定要删除？')">删除</a>
-                                        <a href="<?php echo base_url('mall_goods/mainImage?goods_id='.$goods_id . '&image_name='.$val) ?>" class="icon" onclick="return confirm('确定要将此图片设置为默认图片？')">设成默认</a>
+                                        <a href="<?php echo base_url('mall_goods_base/deleteImage?goods_id='.$goods_id.'&image_name='.$val) ?>" class="icon" onclick="return confirm('确定要删除？')">删除</a>
+                                        <a href="<?php echo base_url('mall_goods_base/mainImage?goods_id='.$goods_id . '&image_name='.$val) ?>" class="icon" onclick="return confirm('确定要将此图片设置为默认图片？')">设成默认</a>
                                     </div>
                                     <?php endif;?>
                                 </div>

@@ -91,6 +91,18 @@
                         </div>
                         
                         <div class="control-group">
+                            <label class="control-label"><em>* </em>属性类别</label>
+                            <div class="controls">
+                            	<label class="radio">
+                                	<input type="radio" class="required" name="attr_spec" value="1" <?php if($res->attr_spec==1) echo 'checked="checked"';?>/>常规属性
+                                </label>
+                                <label class="radio">
+                                	<input type="radio" class="required" name="attr_spec" value="2" <?php if($res->attr_spec==2) echo 'checked="checked"';?>/>规格属性（与价格相关）
+                            	</label>
+                            </div>
+                        </div>
+                        
+                        <div class="control-group">
                             <label class="control-label"><em>* </em>是否关联相同属性值的商品</label>
                             <div class="controls">
                             	<label class="radio">
@@ -124,15 +136,17 @@
 <?php $this->load->view('layout/footer');?>
 <script type="text/javascript">
 $(function(){
-	$('select[name="attr_type"]').change(function(){
-		var parent_div = $('textarea[name="attr_values"]').parents('.control-group');
-		if ($(this).val()=='select' || $(this).val()=='multiselect') {
-			parent_div.find('label').prepend('<em>* </em>');
-			parent_div.find('textarea').addClass('required');
-		} else {
-			parent_div.find('em').remove();
-			parent_div.find('textarea').removeClass('required');
-		}
-	});
+    $('select[name="attr_type"]').change(function(){
+        var parent_div = $('textarea[name="attr_values"]').parents('.control-group');
+        if ($(this).val()=='select' || $(this).val()=='multiselect') {
+            parent_div.find('label').prepend('<em>* </em>');
+            parent_div.find('textarea').addClass('required');
+            $('input[name="attr_spec"]').parents('.control-group').show();
+        } else {
+            parent_div.find('em').remove();
+            parent_div.find('textarea').removeClass('required');
+            $('input[name="attr_spec"]').val('1').parents('.control-group').hide();
+        }
+    });
 });
 </script>

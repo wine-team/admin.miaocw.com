@@ -3,7 +3,7 @@
     <div class="row-fluid">
         <div class="span12">
             <h3 class="page-title">趣网商城 <small>商品添加</small></h3>
-            <?php echo breadcrumb(array('mall_goods/grid' => '趣网产品', "mall_goods/addstep1" => '商品添加第1步')); ?>
+            <?php echo breadcrumb(array('mall_goods_base/grid' => '趣网产品', "mall_goods_base/addstep1" => '商品添加第1步')); ?>
         </div>
     </div>
     <div class="alert alert-error" style="display:none;">
@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="portlet-body form">
-                    <form class="form-horizontal mall-goods-form" action="<?php echo base_url('mall_goods/addPost') ?>" method="post" enctype="multipart/form-data">
+                    <form class="form-horizontal mall-goods-form" action="<?php echo base_url('mall_goods_base/addPost') ?>" method="post" enctype="multipart/form-data">
                         <div class="alert alert-success">商品基本信息</div>
                         <div class="control-group">
                             <label class="control-label">商品分类</label>
@@ -243,22 +243,24 @@
 			                                </label>
 			                                <?php endif;?>
 			                                <?php if($item->attr_type=='date'):?>
-+			                                <input type="text" name="attr[1][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]" class="m-wrap span8 date-picker <?php if($item->values_required==1):?>required<?php endif;?>" placeholder="<?php echo $item->attr_name;?>" attr_value_id="<?php echo $item->attr_value_id;?>">
-+			                                <?php endif;?>
+			                                <input type="text" name="attr[1][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]" class="m-wrap span8 date-picker <?php if($item->values_required==1):?>required<?php endif;?>" placeholder="<?php echo $item->attr_name;?>" attr_value_id="<?php echo $item->attr_value_id;?>">
+			                                <?php endif;?>
 			                                <?php if($item->attr_type=='select') :?>
 			                                <?php if(!empty($item->attr_values)):?>
 			                                <?php $selectValue = explode(',',$item->attr_values)?>
 			                                <?php if($item->attr_spec==2):?>
 			                                <select class="m-wrap span2 <?php if($item->values_required==1):?>required<?php endif;?>" name="attr[2][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]">
+			                                    <option value="">请选择</option>
 			                                    <?php foreach ($selectValue as $attr_values) :?>
 			                                    <option value="<?php echo $attr_values;?>"><?php echo $attr_values;?></option>
 			                                    <?php endforeach;?>
 			                                </select>
-			                                <input type="text" name="price[2][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]" class="m-wrap span2 number <?php if($item->values_required==1):?>required<?php endif;?>" placeholder="价格" title="请输入价格" value="0" attr_value_id="<?php echo $item->attr_value_id;?>">
-			                                <input type="text" name="attrNum[2][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]" class="m-wrap span2 number <?php if($item->values_required==1):?>required<?php endif;?>" placeholder="属性数量" value="1000" title="请输入属性数量" attr_value_id="<?php echo $item->attr_value_id;?>">
-                                            <input type="text" name="attrStock[2][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]" class="m-wrap span2 number <?php if($item->values_required==1):?>required<?php endif;?>" placeholder="库存数量" value="1000" title="请输入库存数量" attr_value_id="<?php echo $item->attr_value_id;?>">
+			                                <input type="text" name="price[2][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]" class="m-wrap span2 number <?php if($item->values_required==1):?>required<?php endif;?>" placeholder="价格" value="0" title="请输入价格" attr_value_id="<?php echo $item->attr_value_id;?>">
+			                                <input type="text" name="attrNum[2][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]" class="m-wrap span2 number <?php if($item->values_required==1):?>required<?php endif;?>" placeholder="属性数量" value="0" title="请输入属性数量" attr_value_id="<?php echo $item->attr_value_id;?>">
+                                            <input type="text" name="attrStock[2][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]" class="m-wrap span2 number <?php if($item->values_required==1):?>required<?php endif;?>" placeholder="库存数量" value="0" title="请输入库存数量" attr_value_id="<?php echo $item->attr_value_id;?>">
 			                                <?php else :?>
 			                                <select class="m-wrap span8 <?php if($item->values_required==1):?>required<?php endif;?>" name="attr[1][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>]">
+			                                    <option value="">请选择</option>
 			                                    <?php foreach ($selectValue as $attr_values) :?>
 			                                    <option value="<?php echo $attr_values;?>"><?php echo $attr_values;?></option>
 			                                    <?php endforeach;?>
@@ -277,12 +279,12 @@
 			                                <?php foreach ($selectValue as $attr_values):?>
 			                                <tr>
     			                                <td  class="span6">
-                                                    <input type="checkbox" value="<?php echo $attr_values;?>" name="attr[2][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>][<?php echo $j;?>]" checked="checked"/><?php echo $attr_values;?>
+                                                    <input type="text" value="<?php echo $attr_values;?>" name="attr[2][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>][<?php echo $j;?>]" readonly/> 
                                                 </td>
                                                 <td  class="span8">
                                                     <input type="text" name="price[2][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>][<?php echo $j;?>]" class="m-wrap span4 number " placeholder="价格" value="0" title="请输入价格" attr_value_id="<?php echo $item->attr_value_id;?>">
-                                                    <input type="text" name="attrNum[2][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>][<?php echo $j;?>]" class="m-wrap span4 number " placeholder="属性数量" value="1000" title="请输入属性数量" attr_value_id="<?php echo $item->attr_value_id;?>">
-                                                    <input type="text" name="attrStock[2][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>][<?php echo $j;?>]" class="m-wrap span4 number " placeholder="库存数量" value="1000" title="请输入库存数量" attr_value_id="<?php echo $item->attr_value_id;?>">
+                                                    <input type="text" name="attrNum[2][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>][<?php echo $j;?>]" class="m-wrap span4 number " placeholder="属性数量" value="0" title="请输入属性数量" attr_value_id="<?php echo $item->attr_value_id;?>">
+                                                    <input type="text" name="attrStock[2][<?php echo $item->group_id?>][<?php echo $item->attr_value_id;?>][<?php echo $j;?>]" class="m-wrap span4 number " placeholder="库存数量" value="0" title="请输入库存数量" attr_value_id="<?php echo $item->attr_value_id;?>">
                                                 </td>
                                             </tr>
                                             <?php $j++;?>
@@ -350,7 +352,7 @@
                         </div>
                         <div class="form-actions">
                             <button class="btn green step4" type="submit"><i class="icon-ok"></i> 保存</button>
-                            <a class="btn step3" href="<?php echo base_url('mall_goods/addstep1')?>">返回上一步</a>
+                            <a class="btn step3" href="<?php echo base_url('mall_goods_base/addstep1')?>">返回上一步</a>
                         </div>
                     </form>
                 </div>
@@ -360,7 +362,7 @@
 </div>
 <?php $this->load->view('layout/footer'); ?>
 <?php $this->load->view('user/addSupplierUid/ajaxGetUser'); ?>
-<?php $this->load->view('mallgoods/addGoodBase/ajaxGetGoods');?>
+<?php $this->load->view('mall_goods_base/addGoodBase/ajaxGetGoods');?>
 <script type="text/javascript">
 $(document).ready(function(){
 	$('.mall-goods-add-step2 .table input[type="checkbox"]').click(function(){
@@ -420,7 +422,7 @@ $(document).ready(function(){
                 type: 'post',
                 async: true,
                 dataType: 'json',
-                url: hostUrl() + '/mall_goods/ajaxValidate',
+                url: hostUrl() + '/mall_goods_base/ajaxValidate',
                 data: $('form.mall-goods-form').serialize(),
                 success: function (data) {
                     if (data.status) {

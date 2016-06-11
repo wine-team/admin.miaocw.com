@@ -3,7 +3,7 @@
     <div class="row-fluid">
         <div class="span12">
             <h3 class="page-title">商品管理 <small>关联产品</small></h3>
-            <?php echo breadcrumb(array('mall_goods/grid'=>'商品管理','mall_goods_related/grid' => '关联产品')); ?>
+            <?php echo breadcrumb(array('mall_goods_base/grid'=>'商品管理','mall_goods_related/grid' => '关联产品')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>

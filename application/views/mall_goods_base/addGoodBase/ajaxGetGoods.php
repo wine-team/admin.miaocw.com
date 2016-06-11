@@ -47,7 +47,7 @@ $(document).ready(function(){
             type: 'get',
             async: false,
             dataType : 'json',
-            url: url ? url : hostUrl()+'/mall_goods/ajaxGetMallGoods',
+            url: url ? url : hostUrl()+'/mall_goods_base/ajaxGetMallGoods',
             data: url ? {} : $('.ajaxGoodsBaseSearch').serialize(),
             success: function(json) {
                 if (json.status) {

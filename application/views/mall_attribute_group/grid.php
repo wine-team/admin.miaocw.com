@@ -28,23 +28,23 @@
         </div>
         <div class="span10">
             <div class="inbox-header">
-                <?php $i=0;$j=0;foreach ($attributeGroup as $group) :?>
-                    <h3 class="pull-left">
+                <h3 class="pull-left"><span>
+                <?php if ($group_id) : ?>
+                   <?php foreach ($attributeGroup as $group) :?>
                         <?php if ($group_id==$group->group_id) : ?>
-                            <?php $i++; echo $group->group_name.'（ID：'.$group->group_id.'）' ?>
-                        <?php else : ?>
-                            <?php if ($j == 0) : ?>
-                                <span>所有属性组</span>
-                            <?php $j++;endif; ?>
+                        <?php echo $group->group_name.'（ID：'.$group->group_id.'）' ?>
                         <?php endif; ?>
-                    </h3>
-                    <h3 class="pull-right">
-                        <?php if ($i != 0) :?>
-                            <a class="btn mini green" href="<?php echo base_url('mall_attribute_group/delete/'.$group->group_id.'?attr_set_id='.$attr_set_id); ?>" onclick="return confirm('删除属性组将会删除属性组下的所有属性值，确定要删除？')">删除属性组</a>
-                        <?php endif; ?>
-                        <a class="btn mini green" href="<?php echo base_url('mall_attribute_value/add/'.$group->group_id.'?attr_set_id='.$attr_set_id); ?>" >新增属性值</a>
-                    </h3>
-                <?php endforeach;?>
+                    <?php endforeach;?> 
+                <?php else : ?>
+                                        所有属性组
+                <?php endif;?>
+                </span></h3>
+                <h3 class="pull-right">
+                    <?php if ($group_id) :?>
+                    <a class="btn mini green" href="<?php echo base_url('mall_attribute_group/delete/'.$group_id.'?attr_set_id='.$attr_set_id); ?>" onclick="return confirm('删除属性组将会删除属性组下的所有属性值，确定要删除？')">删除属性组</a>
+                    <a class="btn mini green" href="<?php echo base_url('mall_attribute_value/add/'.$group_id.'?attr_set_id='.$attr_set_id); ?>" >新增属性值</a>
+                    <?php endif;?>
+                </h3>
             </div>
             <div class="inbox-content">
                 <table class="table table-striped table-bordered table-hover">

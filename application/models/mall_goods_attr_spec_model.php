@@ -9,14 +9,15 @@ class Mall_goods_attr_spec_model extends CI_Model{
 	 * @param unknown $goods_id
 	 * @param unknown $attrValue
 	 */
-	public function insertBatch($goods_id,$attrSpec,$attrPrice,$attrNum,$attrStock){
+	public function insertBatch($goods_id, $attrSpec, $attrPrice, $attrNum, $attrStock){
 	    foreach ($attrSpec as $key=>$item){
 	        foreach ($item as $jj=>$val){ 
 	            $attr_name = $this->mall_attribute_value->findById(array('attr_value_id'=>$jj))->row()->attr_name;
 	            $spec['goods_id'] = $goods_id;
 	            $spec['attr_value_id'] = $jj;
 	            $spec['attr_name'] = $attr_name;
-	            $attr_spec_id = $this->db->insert($this->table, $spec);
+	            $this->db->insert($this->table, $spec);
+	            $attr_spec_id = $this->db->insert_id();
 	            if(is_array($val)){
 	                $i = 0;
 	                foreach($val as $k=>$v)
@@ -25,9 +26,9 @@ class Mall_goods_attr_spec_model extends CI_Model{
 	                    $price1[$i]['attr_value_id'] = $jj;
 	                    $price1[$i]['attr_value'] = $v;
 	                    $price1[$i]['attr_price'] = $attrPrice[$key][$jj][$k];
-	                    $price1[$i]['attr_num'] = $attrNum[$key][$jj][$k] ? $attrNum[$key][$jj][$k] : 1000;
-	                    $price1[$i]['attr_stock'] = $attrStock[$key][$jj][$k] ? $attrStock[$key][$jj][$k] : 1000;
-	                    $i ++;
+	                    $price1[$i]['attr_num'] = $attrNum[$key][$jj][$k];
+	                    $price1[$i]['attr_stock'] = $attrStock[$key][$jj][$k];
+	                    $i ++; 
 	                }
 	                $this->db->insert_batch($this->table1,$price1);
 	            }else{
@@ -40,7 +41,7 @@ class Mall_goods_attr_spec_model extends CI_Model{
 	                $this->db->insert($this->table1, $price2);
 	            }
 	        }
-	    }
+	    } 
 	}
 	
 	public function findById($where)
@@ -77,8 +78,19 @@ class Mall_goods_attr_spec_model extends CI_Model{
 	    return $this->db->get($this->table1);
 	}
 	
-	public function updatePriceBatch($data)
+	/**
+	 * 价格属性修改
+	 * */
+	public function updatePriceBatch($attrPrice, $attrNum, $attrStock)
 	{
+	    $i = 0;
+	    foreach ($attrPrice as $k=>$v) {	
+	        $data[$i]['attr_price_id'] = $k; 
+	        $data[$i]['attr_price'] = $v;
+	        $data[$i]['attr_num'] = $attrNum[$k];
+	        $data[$i]['attr_stock'] = $attrStock[$k];
+	        $i ++;
+	    }
 	    $this->db->update_batch($this->table1, $data, 'attr_price_id');
 	    return $this->db->affected_rows();
 	}

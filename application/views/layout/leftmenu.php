@@ -85,7 +85,7 @@
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
-                        <li><a href="<?php echo base_url('mall_goods/grid');?>">商品列表</a></li>
+                        <li><a href="<?php echo base_url('mall_goods_base/grid');?>">商品列表</a></li>
                         <li><a href="<?php echo base_url('mall_goods_related/grid');?>">商品关联</a></li>
                         <li><a href="<?php echo base_url('mall_category/grid');?>">类别管理</a></li>
                         <li><a href="<?php echo base_url('mall_attribute_set/grid');?>">商品类型</a></li>

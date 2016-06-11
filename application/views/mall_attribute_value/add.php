@@ -84,6 +84,17 @@
                             	</label>
                             </div>
                         </div>
+                        <div class="control-group" style="display:none;">
+                            <label class="control-label"><em>* </em>属性类别</label>
+                            <div class="controls">
+                            	<label class="radio">
+                                	<input type="radio" class="required" name="attr_spec" value="1"  checked="checked"/>常规属性
+                                </label>
+                                <label class="radio">
+                                	<input type="radio" class="required" name="attr_spec" value="2" />规格属性（与价格相关）
+                            	</label>
+                            </div>
+                        </div>
                         <div class="control-group">
                             <label class="control-label"><em>* </em>是否关联相同属性值的商品</label>
                             <div class="controls">
@@ -121,9 +132,11 @@
             if ($(this).val()=='select' || $(this).val()=='multiselect') {
                 parent_div.find('label').prepend('<em>* </em>');
                 parent_div.find('textarea').addClass('required');
+                $('input[name="attr_spec"]').parents('.control-group').show();
             } else {
                 parent_div.find('em').remove();
                 parent_div.find('textarea').removeClass('required');
+                $('input[name="attr_spec"]').val('1').parents('.control-group').hide();
             }
         });
     });

@@ -33,8 +33,9 @@ class Mall_attribute_value extends MJ_Controller {
 	    $data['attr_values'] = toEnComma($postData['attr_values']);
 	    $data['values_required'] = $postData['values_required'];
 	    $data['attr_index'] = $postData['attr_index'];
+	    $data['attr_spec'] = $postData['attr_spec'];
 	    $data['is_linked'] = $postData['is_linked'];
-	    $data['sort_order'] = $postData['sort_order'];
+	    $data['sort_order'] = $postData['sort_order']; 
 	    $res = $this->mall_attribute_value->insert($data);
 	    if ($res) {
 	        $this->success('mall_attribute_group/grid/'.$postData['group_id'], array('attr_set_id'=>$postData['attr_set_id']), '新增成功！');
@@ -73,8 +74,9 @@ class Mall_attribute_value extends MJ_Controller {
 	    $data['attr_values'] = toEnComma($postData['attr_values']);
 	    $data['values_required'] = $postData['values_required'];
 	    $data['attr_index'] = $postData['attr_index'];
+	    $data['attr_spec'] = $postData['attr_spec'];
 	    $data['is_linked'] = $postData['is_linked'];
-	    $data['sort_order'] = $postData['sort_order'];
+	    $data['sort_order'] = $postData['sort_order']; 
         $res = $this->mall_attribute_value->update(array('attr_value_id'=>$postData['attr_value_id']), $data);  
         if ($res) {
             $this->success('mall_attribute_group/grid/'.$postData['group_id'], array('attr_set_id'=>$postData['attr_set_id']), '修改成功！');

@@ -3,7 +3,7 @@
     <div class="row-fluid">
         <div class="span12">
             <h3 class="page-title">趣网商城 <small>商品添加</small></h3>
-            <?php echo breadcrumb(array('mall_goods/grid' => '趣网产品', '编辑商品')); ?>
+            <?php echo breadcrumb(array('mall_goods_base/grid' => '趣网产品', '编辑商品')); ?>
         </div>
     </div>
     <div class="alert alert-error" style="display:none;">
@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="portlet-body form">
-                    <form class="form-horizontal mall-goods-form" action="<?php echo base_url('mall_goods/addPost') ?>" method="post" enctype="multipart/form-data">
+                    <form class="form-horizontal mall-goods-form" action="<?php echo base_url('mall_goods_base/addPost') ?>" method="post" enctype="multipart/form-data">
                         <div class="alert alert-success">商品基本信息</div>
                         <div class="control-group">
                             <label class="control-label">商品分类</label>
@@ -276,7 +276,7 @@
                         </div>
                         <div class="form-actions">
                             <button class="btn green step4" type="submit"><i class="icon-ok"></i> 保存</button>
-                            <a class="btn step3" href="<?php echo base_url('mall_goods/addstep1')?>">返回上一步</a>
+                            <a class="btn step3" href="<?php echo base_url('mall_goods_base/addstep1')?>">返回上一步</a>
                         </div>
                     </form>
                 </div>
@@ -333,7 +333,7 @@ $(document).ready(function(){
                 type: 'post',
                 async: true,
                 dataType: 'json',
-                url: hostUrl() + '/mall_goods/ajaxValidate',
+                url: hostUrl() + '/mall_goods_base/ajaxValidate',
                 data: $('form.mall-goods-form').serialize(),
                 success: function (data) {
                     if (data.status) {
