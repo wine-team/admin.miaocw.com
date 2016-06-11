@@ -2,7 +2,11 @@
 <div class="container-fluid mall-goods-add-step2">
     <div class="row-fluid">
         <div class="span12">
+<<<<<<< HEAD:application/views/mall_goods_base/addstep2.php
             <h3 class="page-title">趣网商城 <small>商品添加</small></h3>
+=======
+            <h3 class="page-title">趣网商城 <small> 商品添加</small></h3>
+>>>>>>> 3fd183d709a48b9bfe5787742ca738d5df2fc29c:application/views/mall_goods_base/addstep2.php
             <?php echo breadcrumb(array('mall_goods_base/grid' => '趣网产品', "mall_goods_base/addstep1" => '商品添加第1步')); ?>
         </div>
     </div>
@@ -373,7 +377,6 @@ $(document).ready(function(){
 		}
 	});
 
-	
     $('.mall-goods-add-step2').on("click", "input[name='transport_type']", function () {
         var obj = $(this).parents('label').next();
         var uid = $('input[name=supplier_id]').val();

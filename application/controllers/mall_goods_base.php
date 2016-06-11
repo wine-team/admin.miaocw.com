@@ -45,7 +45,7 @@ class Mall_goods_base extends CS_Controller
      */
     public function addstep1()
     {
-    	$data['extension'] = array('simple'=>'简单产品','virtual'=>'虚拟产品','giftcard'=>'礼品卡');
+		$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
     	$data['attribute'] = $this->mall_attribute_set->findByReason(array('enabled'=>1));
     	$this->load->view('mall_goods_base/addstep1',$data);
     }
@@ -60,7 +60,7 @@ class Mall_goods_base extends CS_Controller
     	}
     	$data['attr_set_id'] = $attr_set_id;
     	$data['brand'] = $this->mall_brand->findById(array('is_show'=>1));//品牌信息
-    	$data['extension'] = array('simple'=>'简单产品','virtual'=>'虚拟产品','giftcard'=>'礼品卡');
+		$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
     	$data['attribute_group'] = $this->mall_attribute_group->findByAttrSetId($attr_set_id);
     	$this->load->view('mall_goods_base/addstep2', $data);
     }
@@ -69,48 +69,71 @@ class Mall_goods_base extends CS_Controller
      * 设置产品上下架
      * @param unknown $goods_id
      * @param unknown $status
-     * @param unknown $pageNow
      */
-    public function setIsOnSaleStatus($goods_id, $status, $pageNow)
+    public function setIsOnSaleStatus()
     {
+		$goods_id = $this->input->post('goods_id');
+		$status = $this->input->post('flag');
     	switch ($status) {
     		case '1': $isOnSale = '2'; break;
     		case '2': $isOnSale = '1'; break;
     		default : $isOnSale = '1'; break;
     	}
-    	$param['is_on_sale'] = $isOnSale;
     	$this->db->trans_start();
-    	$result = $this->mall_goods_base->updateByGoodsId($goods_id,$param);
+		$isUpdate = $this->mall_goods_base->updateByGoodsId($goods_id, array('is_on_sale'=>$isOnSale));
     	$this->db->trans_complete();
+<<<<<<< HEAD:application/controllers/mall_goods_base.php
     	if ($this->db->trans_status() === TRUE) {
     		$this->success('mall_goods_base/grid/'.$pageNow, $this->input->get(), '操作成功！');
     	} else {
     		$this->error('mall_goods_base/grid/'.$pageNow, $this->input->get(), '操作失败！');
     	}
+=======
+		if ($this->db->trans_status() === TRUE && $isUpdate) {
+			echo json_encode(array(
+				'flag' => $isOnSale,
+			));
+		} else {
+			echo json_encode(array(
+				'flag' => 3,
+			));
+		}
+>>>>>>> 3fd183d709a48b9bfe5787742ca738d5df2fc29c:application/controllers/mall_goods_base.php
     }
     
     /**
      * 设置产品审核状态
-     * @param unknown $goods_attr_id
+     * @param unknown $goods_id
      * @param unknown $status
-     * @param unknown $pageNow
      */
-    public function setIsCheckStatus($goods_id, $status, $pageNow)
+    public function setIsCheckStatus()
     {
+		$goods_id = $this->input->post('goods_id');
+		$status = $this->input->post('flag');
     	switch ($status) {
     		case '1': $isCheck = '2'; break;
     		case '2': $isCheck = '3'; break;
     		default : $isCheck = '1'; break;
     	}
-    	$param['is_check'] = $isCheck;
     	$this->db->trans_start();
-    	$result = $this->mall_goods_base->updateByGoodsId($goods_id, $param);
+		$isUpdate = $this->mall_goods_base->updateByGoodsId($goods_id, array('is_check'=>$isCheck));
     	$this->db->trans_complete();
     	if ($this->db->trans_status() === TRUE) {
+<<<<<<< HEAD:application/controllers/mall_goods_base.php
     		$this->success('mall_goods_base/grid/'.$pageNow, $this->input->get(), '操作成功！');
     	} else {
     		$this->error('mall_goods_base/grid/'.$pageNow, $this->input->get(), '操作失败！');
+=======
+    		echo json_encode(array(
+				'status' => true,
+			));
+    	} else {
+			echo json_encode(array(
+				'status' => false,
+			));
+>>>>>>> 3fd183d709a48b9bfe5787742ca738d5df2fc29c:application/controllers/mall_goods_base.php
     	}
+		exit;
     }
     
      /**
@@ -120,7 +143,7 @@ class Mall_goods_base extends CS_Controller
     {
     	$error = $this->validate();
     	if (!empty($error)) {
-    		$this->jsen($error);
+    		$this->jsonMessage($error);
     	}
     	if ($this->input->post('goods_id')) {
     		$this->editPost();
@@ -141,15 +164,19 @@ class Mall_goods_base extends CS_Controller
     	$result = $this->mall_category_product->insert($goods_id,$param['category_id']);
     	$relatedResult = true;
     	if (!empty($param['related_goods_id'])) {
-    		$relatedGoodsArray = array_filter(explode(',', $param['related_goods_id']));
-    		$relatedResult = $this->mall_goods_related->insertBatch($relatedGoodsArray,$goods_id);
+    		$relatedGoodsArray = array_filter(explode(',', str_replace('，',',',$param['related_goods_id'])));
+    		$relatedResult = $this->mall_goods_related->insertBatch($relatedGoodsArray,$is_double=1,$goods_id);
     	}
     	if (isset($param['attr'][1])) {
     	    $goodsAttrResult = $this->mall_goods_attr_value->insertBatch($goods_id,$param['attr'][1]);
     	}
     	if (isset($param['attr'][2]) && isset($param['price'][2]) && isset($param['attrNum'][2]) && isset($param['attrStock'][2])) {
     	    $this->mall_goods_attr_spec->insertBatch($goods_id,$param['attr'][2], $param['price'][2], $param['attrNum'][2], $param['attrStock'][2]);
+<<<<<<< HEAD:application/controllers/mall_goods_base.php
     	} 
+=======
+    	}
+>>>>>>> 3fd183d709a48b9bfe5787742ca738d5df2fc29c:application/controllers/mall_goods_base.php
     	if (!$goods_id && !$result && !$relatedResult && $this->db->trans_status() === FALSE) {
     		$this->db->trans_rollback();
     		$this->jsen('保存失败！');
@@ -157,7 +184,11 @@ class Mall_goods_base extends CS_Controller
     		$this->db->trans_commit();
     		$this->session->set_flashdata('success', '保存成功!');
     		$this->jsen(base_url('mall_goods_base/grid'), TRUE);
+<<<<<<< HEAD:application/controllers/mall_goods_base.php
     	}exit;
+=======
+    	}
+>>>>>>> 3fd183d709a48b9bfe5787742ca738d5df2fc29c:application/controllers/mall_goods_base.php
     }
     
     
@@ -165,8 +196,8 @@ class Mall_goods_base extends CS_Controller
      * 分类名称
      * @param unknown $param
      */
-    public function getCategoryId($param){
-    
+    public function getCategoryId($param)
+	{
     	if( !empty($param['category_id'])){
     		return $param['category_id'];
     	}
@@ -185,8 +216,8 @@ class Mall_goods_base extends CS_Controller
      * 编辑
      * @param unknown $goods_id
      */
-    public function edit($goods_id){
-    	
+    public function edit($goods_id)
+	{
     	$result = $this->mall_goods_base->getInfoByGoodsId($goods_id);
     	if ($result->num_rows() <= 0) {
     		$this->error('mall_goods_base/grid', '', '找不到产品相关信息！');
@@ -197,7 +228,7 @@ class Mall_goods_base extends CS_Controller
     	$data['city_id'] = $data['mallgoods']->city_id;
     	$data['district_id'] = $data['mallgoods']->district_id;
     	$data['brand'] = $this->mall_brand->findById(array('is_show'=>1));//品牌信息
-    	$data['extension'] = array('simple'=>'简单产品','virtual'=>'虚拟产品','giftcard'=>'礼品卡');
+		$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
     	$data['attribute'] = $this->mall_attribute_set->findByReason(array('enabled'=>1));
     	$data['freight'] = $this->mall_freight_tpl->getTransport($data['mallgoods']->supplier_id);
     	$data['attribute_group'] = $this->mall_attribute_group->findByAttrSetId($attr_set_id);
@@ -212,7 +243,11 @@ class Mall_goods_base extends CS_Controller
     	if (!empty($attr_spec_ids)) {
     	    $attr_price = $this->mall_goods_attr_spec->getPriceWhereIn('attr_spec_id', $attr_spec_ids)->result();
     	}
+<<<<<<< HEAD:application/controllers/mall_goods_base.php
     	$data['attr_price'] = $attr_price;    
+=======
+    	$data['attr_price'] = $attr_price;   
+>>>>>>> 3fd183d709a48b9bfe5787742ca738d5df2fc29c:application/controllers/mall_goods_base.php
     	$this->load->view('mall_goods_base/edit',$data);
     }
     
@@ -232,11 +267,15 @@ class Mall_goods_base extends CS_Controller
 
     	if (!$updateGoods && $this->db->trans_status() === FALSE) {
     		$this->db->trans_rollback();
-    		$this->jsen('保存失败！');
+    		$this->jsonMessage('保存失败！');
     	} else {
     		$this->db->trans_complete();
     		$this->session->set_flashdata('success', '保存成功!');
+<<<<<<< HEAD:application/controllers/mall_goods_base.php
     		$this->jsen(base_url('mall_goods_base/grid'), TRUE);
+=======
+    		$this->jsonMessage('', base_url('mall_goods_base/grid'));
+>>>>>>> 3fd183d709a48b9bfe5787742ca738d5df2fc29c:application/controllers/mall_goods_base.php
     	}
     	exit;
     }
@@ -254,9 +293,9 @@ class Mall_goods_base extends CS_Controller
     	$mallgoods = $result->row();
     	$data['mallgoods'] = $mallgoods;
     	$pics = $mallgoods->goods_img;
-    	if(!empty($pics)){
+    	if (!empty($pics)) {
     		$goods_img = array_filter(explode('|', $pics));
-    	}else{
+    	} else {
     		$goods_img = array();
     	}
     	$data['goods_img'] = $goods_img;
@@ -296,8 +335,8 @@ class Mall_goods_base extends CS_Controller
     	$this->success('mall_goods_base/images', $goods_id, '数据保存成功！');
     }
     
-    public function deleteImage(){
-    	
+    public function deleteImage()
+	{
     	$goods_id = $this->input->get('goods_id');
     	$image_name = $this->input->get('image_name');
     	if (empty($goods_id)) {
@@ -312,7 +351,7 @@ class Mall_goods_base extends CS_Controller
     	$params['goods_id'] = $goods_id;
     	$params['goods_img'] = str_replace($image_name.'|', '', $mallgoods->goods_img);
     	$resultId = $this->mall_goods_base->insertImage($params);
-    	$this->deleteOldfileName($image_name,'mall');
+    	$this->deleteOldfileName($image_name, 'mall');
     	if (!$resultId) {
     		$this->error('mall_goods_base/images', $goods_id, '删除失败');
     	}
@@ -346,8 +385,8 @@ class Mall_goods_base extends CS_Controller
      * 
      * @param unknown $goods_id
      */
-    public function copy($goods_id){
-    	
+    public function copy($goods_id)
+	{
     	$result = $this->mall_goods_base->getInfoByGoodsId($goods_id);
     	if ($result->num_rows() <= 0) {
     		$this->error('mall_goods_base/grid', '', '找不到产品相关信息！');
@@ -357,30 +396,25 @@ class Mall_goods_base extends CS_Controller
     	$data['city_id'] = $data['mallgoods']->city_id;
     	$data['district_id'] = $data['mallgoods']->district_id;
     	$data['brand'] = $this->mall_brand->findById(array('is_show'=>1));//品牌信息
-    	$data['extension'] = array('simple'=>'简单产品','virtual'=>'虚拟产品','giftcard'=>'礼品卡');
+		$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
     	$data['attribute'] = $this->mall_attribute_set->findByReason(array('enabled'=>1));
     	$data['freight'] = $this->mall_freight_tpl->getTransport($data['mallgoods']->supplier_id);
     	$this->load->view('mall_goods_base/copy',$data);
     }
     
-    private function jsen($error, $flag = false)
-    {
-    	echo json_encode(array(
-    			'status'   => $flag,
-    			'messages' => $error
-    	));
-    	exit;
-    }
-    
-    public function delete($goods_id){
-    	
+    public function delete($goods_id)
+	{
     	$this->db->trans_begin();
     	$status = $this->mall_goods_base->deleteById($goods_id);
     	$result = $this->mall_category_product->deleteByGoodsId($goods_id);
-    	if( $status && $result && ($this->db->trans_status() === TRUE)){
+    	if ($status && $result && ($this->db->trans_status() === TRUE)) {
     		$this->db->trans_complete();
     		$this->success('mall_goods_base/grid', '', '删除成功');
+<<<<<<< HEAD:application/controllers/mall_goods_base.php
     	}else{
+=======
+    	} else {
+>>>>>>> 3fd183d709a48b9bfe5787742ca738d5df2fc29c:application/controllers/mall_goods_base.php
     		$this->db->trans_rollback();
     		$this->error('mall_goods_base/grid', '', '删除失败');
     	}
@@ -476,8 +510,8 @@ class Mall_goods_base extends CS_Controller
      * 获取
      * @param number $pg
      */
-    public function ajaxGetMallGoods($pg=1){
-    	
+    public function ajaxGetMallGoods($pg=1)
+	{
     	$page_num = 15;
     	$num = ($pg-1)*$page_num;
     	$config['per_page'] = 15;
@@ -492,8 +526,13 @@ class Mall_goods_base extends CS_Controller
     	$data['all_rows']  = $config['total_rows'];
     	$data['pg_now']    = $pg;
     	echo json_encode(array(
+<<<<<<< HEAD:application/controllers/mall_goods_base.php
     			'status'=>true,
     			'html'  =>$this->load->view('mall_goods_base/addGoodBase/ajaxGoodsData', $data, true)
+=======
+			'status'=>true,
+			'html'  =>$this->load->view('mall_goods_base/addGoodBase/ajaxGoodsData', $data, true)
+>>>>>>> 3fd183d709a48b9bfe5787742ca738d5df2fc29c:application/controllers/mall_goods_base.php
     	));exit;
     }
 }

@@ -3,7 +3,7 @@
     <div class="row-fluid">
         <div class="span12">
             <h3 class="page-title">商品管理 <small> 属性组管理</small></h3>
-            <?php echo breadcrumb(array('mall_attribute_set/grid'=>'商品类型', '属性组管理')); ?>
+            <?php echo breadcrumb(array('mall_attribute_set/grid'=>'商品类型', 'mall_attribute_group/grid?attr_set_id='.$attr_set_id=>'属性组管理')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>

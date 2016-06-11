@@ -22,13 +22,13 @@
                         <div class="control-group">
                             <label class="control-label"><em>* </em>商品ID</label>
                             <div class="controls">
-                                <input type="text" class="m-wrap large " name="goods_id" placeholder="商品ID"/> 
+                                <input type="text" class="m-wrap large required" name="goods_id" placeholder="商品ID"/> 
                             </div>
                         </div>
-                        <div class="control-group add-goodsid-html">
-                            <label class="control-label"><em>* </em>关联商品ID</label>
+                        <div class="control-group add-goods-related-html">
+                            <label class="control-label"><em>* </em>关联产品</label>
                             <div class="controls">
-                                <input type="text" class="m-wrap large related_goods_id" name="related_goods_id" placeholder="关联商品ID"/> 
+                                <input type="text" name="related_goods_id" class="m-wrap span8 tooltips related_goods_id required" placeholder="关联产品Id" data-original-title="双击可弹框选择关联产品" data-trigger="hover"  autocomplete="off" />
                             </div>
                         </div>
                         <div class="control-group">
@@ -55,3 +55,4 @@
     </div>
 </div>
 <?php $this->load->view('layout/footer');?>
+<?php $this->load->view('mall_goods_base/addGoodBase/ajaxGetGoods');?>

@@ -89,7 +89,7 @@ function toEnComma($str)
 {
     $str = str_replace('，',',',$str);
     $str_arr = @explode(',',$str); 
-    $str_arr = array_flip(array_flip($str_arr)); 
+    $str_arr = array_flip(array_flip($str_arr));  // 去除重复值
     $new_arr = array();
     foreach ($str_arr as $s)
     {

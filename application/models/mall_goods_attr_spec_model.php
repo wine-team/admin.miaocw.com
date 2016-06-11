@@ -1,6 +1,6 @@
 <?php
-
 class Mall_goods_attr_spec_model extends CI_Model{
+	
 	private $table = 'mall_goods_attr_spec';      
 	private $table1 = 'mall_goods_attr_price';
 	
