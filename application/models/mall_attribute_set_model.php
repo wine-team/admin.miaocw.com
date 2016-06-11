@@ -3,22 +3,6 @@ class Mall_attribute_set_model extends CI_Model
 {
 	private $table = 'mall_attribute_set'; 
 	private $table1 = 'mall_attribute_value';
-<<<<<<< HEAD
-	
-	public function find($isArray=fasle)
-	{
-	    $this->db->where('enabled', 1);
-	    $result = $this->db->get($this->table);
-	    if ($isArray) {
-	        $rows = array();
-	        foreach ($result->result_array() as $row) {
-	            $rows[$row['attr_set_id']] = $row;
-	        }
-	        return $rows;
-	    }
-	    return $result;
-	}
-=======
 
 	public function find($isArray=fasle)
 	{
@@ -35,7 +19,6 @@ class Mall_attribute_set_model extends CI_Model
 		return $result;
 	}
 
->>>>>>> 3fd183d709a48b9bfe5787742ca738d5df2fc29c
 	public function findById($attr_set_id)
 	{
 		$this->db->where('attr_set_id', $attr_set_id);

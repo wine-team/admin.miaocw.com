@@ -1,12 +1,7 @@
 <?php $this->load->view('layout/header'); ?>
 <div class="container-fluid">
     <div class="span12">
-<<<<<<< HEAD:application/views/mall_goods_base/images.php
-        <h3 class="page-title">妙网商城 <small>图片的添加</small>
-        </h3>
-=======
         <h3 class="page-title">妙网商城 <small>图片的添加</small></h3>
->>>>>>> 3fd183d709a48b9bfe5787742ca738d5df2fc29c:application/views/mall_goods_base/images.php
         <?php echo breadcrumb(array('mall_goods_base/grid' => '妙网商城', "mall_goods_base/images/".$goods_id => '图片管理')); ?>
     </div>
     <?php echo execute_alert_message() ?>

@@ -82,13 +82,11 @@ class Mall_goods_base extends CS_Controller
     	$this->db->trans_start();
 		$isUpdate = $this->mall_goods_base->updateByGoodsId($goods_id, array('is_on_sale'=>$isOnSale));
     	$this->db->trans_complete();
-<<<<<<< HEAD:application/controllers/mall_goods_base.php
     	if ($this->db->trans_status() === TRUE) {
     		$this->success('mall_goods_base/grid/'.$pageNow, $this->input->get(), '操作成功！');
     	} else {
     		$this->error('mall_goods_base/grid/'.$pageNow, $this->input->get(), '操作失败！');
     	}
-=======
 		if ($this->db->trans_status() === TRUE && $isUpdate) {
 			echo json_encode(array(
 				'flag' => $isOnSale,
@@ -98,7 +96,6 @@ class Mall_goods_base extends CS_Controller
 				'flag' => 3,
 			));
 		}
->>>>>>> 3fd183d709a48b9bfe5787742ca738d5df2fc29c:application/controllers/mall_goods_base.php
     }
     
     /**
@@ -110,29 +107,23 @@ class Mall_goods_base extends CS_Controller
     {
 		$goods_id = $this->input->post('goods_id');
 		$status = $this->input->post('flag');
-    	switch ($status) {
-    		case '1': $isCheck = '2'; break;
-    		case '2': $isCheck = '3'; break;
-    		default : $isCheck = '1'; break;
+        switch ($status) {
+    		case '1': $isOnSale = '2'; break;
+    		case '2': $isOnSale = '1'; break;
+    		default : $isOnSale = '1'; break;
     	}
     	$this->db->trans_start();
-		$isUpdate = $this->mall_goods_base->updateByGoodsId($goods_id, array('is_check'=>$isCheck));
+		$isUpdate = $this->mall_goods_base->updateByGoodsId($goods_id, array('is_on_sale'=>$isOnSale));
     	$this->db->trans_complete();
-    	if ($this->db->trans_status() === TRUE) {
-<<<<<<< HEAD:application/controllers/mall_goods_base.php
-    		$this->success('mall_goods_base/grid/'.$pageNow, $this->input->get(), '操作成功！');
-    	} else {
-    		$this->error('mall_goods_base/grid/'.$pageNow, $this->input->get(), '操作失败！');
-=======
-    		echo json_encode(array(
-				'status' => true,
-			));
-    	} else {
+        if ($this->db->trans_status() === TRUE && $isUpdate) {
 			echo json_encode(array(
-				'status' => false,
+				'flag' => $isOnSale,
 			));
->>>>>>> 3fd183d709a48b9bfe5787742ca738d5df2fc29c:application/controllers/mall_goods_base.php
-    	}
+		} else {
+			echo json_encode(array(
+				'flag' => 3,
+			));
+		}
 		exit;
     }
     
@@ -172,11 +163,7 @@ class Mall_goods_base extends CS_Controller
     	}
     	if (isset($param['attr'][2]) && isset($param['price'][2]) && isset($param['attrNum'][2]) && isset($param['attrStock'][2])) {
     	    $this->mall_goods_attr_spec->insertBatch($goods_id,$param['attr'][2], $param['price'][2], $param['attrNum'][2], $param['attrStock'][2]);
-<<<<<<< HEAD:application/controllers/mall_goods_base.php
-    	} 
-=======
     	}
->>>>>>> 3fd183d709a48b9bfe5787742ca738d5df2fc29c:application/controllers/mall_goods_base.php
     	if (!$goods_id && !$result && !$relatedResult && $this->db->trans_status() === FALSE) {
     		$this->db->trans_rollback();
     		$this->jsen('保存失败！');
@@ -184,11 +171,7 @@ class Mall_goods_base extends CS_Controller
     		$this->db->trans_commit();
     		$this->session->set_flashdata('success', '保存成功!');
     		$this->jsen(base_url('mall_goods_base/grid'), TRUE);
-<<<<<<< HEAD:application/controllers/mall_goods_base.php
     	}exit;
-=======
-    	}
->>>>>>> 3fd183d709a48b9bfe5787742ca738d5df2fc29c:application/controllers/mall_goods_base.php
     }
     
     
@@ -243,11 +226,8 @@ class Mall_goods_base extends CS_Controller
     	if (!empty($attr_spec_ids)) {
     	    $attr_price = $this->mall_goods_attr_spec->getPriceWhereIn('attr_spec_id', $attr_spec_ids)->result();
     	}
-<<<<<<< HEAD:application/controllers/mall_goods_base.php
     	$data['attr_price'] = $attr_price;    
-=======
     	$data['attr_price'] = $attr_price;   
->>>>>>> 3fd183d709a48b9bfe5787742ca738d5df2fc29c:application/controllers/mall_goods_base.php
     	$this->load->view('mall_goods_base/edit',$data);
     }
     
@@ -271,11 +251,8 @@ class Mall_goods_base extends CS_Controller
     	} else {
     		$this->db->trans_complete();
     		$this->session->set_flashdata('success', '保存成功!');
-<<<<<<< HEAD:application/controllers/mall_goods_base.php
     		$this->jsen(base_url('mall_goods_base/grid'), TRUE);
-=======
     		$this->jsonMessage('', base_url('mall_goods_base/grid'));
->>>>>>> 3fd183d709a48b9bfe5787742ca738d5df2fc29c:application/controllers/mall_goods_base.php
     	}
     	exit;
     }
@@ -410,11 +387,7 @@ class Mall_goods_base extends CS_Controller
     	if ($status && $result && ($this->db->trans_status() === TRUE)) {
     		$this->db->trans_complete();
     		$this->success('mall_goods_base/grid', '', '删除成功');
-<<<<<<< HEAD:application/controllers/mall_goods_base.php
-    	}else{
-=======
     	} else {
->>>>>>> 3fd183d709a48b9bfe5787742ca738d5df2fc29c:application/controllers/mall_goods_base.php
     		$this->db->trans_rollback();
     		$this->error('mall_goods_base/grid', '', '删除失败');
     	}
@@ -526,13 +499,8 @@ class Mall_goods_base extends CS_Controller
     	$data['all_rows']  = $config['total_rows'];
     	$data['pg_now']    = $pg;
     	echo json_encode(array(
-<<<<<<< HEAD:application/controllers/mall_goods_base.php
     			'status'=>true,
     			'html'  =>$this->load->view('mall_goods_base/addGoodBase/ajaxGoodsData', $data, true)
-=======
-			'status'=>true,
-			'html'  =>$this->load->view('mall_goods_base/addGoodBase/ajaxGoodsData', $data, true)
->>>>>>> 3fd183d709a48b9bfe5787742ca738d5df2fc29c:application/controllers/mall_goods_base.php
     	));exit;
     }
 }

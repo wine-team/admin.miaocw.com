@@ -35,12 +35,7 @@ class Mall_attribute_value extends MJ_Controller {
 	    $data['attr_index'] = $postData['attr_index'];
 	    $data['attr_spec'] = $postData['attr_spec'];
 	    $data['is_linked'] = $postData['is_linked'];
-<<<<<<< HEAD
 	    $data['sort_order'] = $postData['sort_order']; 
-=======
-	    $data['attr_spec'] = in_array($postData['attr_type'],array('select','multiselect')) ? '2' : '1';
-	    $data['sort_order'] = $postData['sort_order'];
->>>>>>> 3fd183d709a48b9bfe5787742ca738d5df2fc29c
 	    $res = $this->mall_attribute_value->insert($data);
 	    if ($res) {
 	        $this->success('mall_attribute_group/grid/'.$postData['group_id'], array('attr_set_id'=>$postData['attr_set_id']), '新增成功！');
@@ -81,12 +76,7 @@ class Mall_attribute_value extends MJ_Controller {
 	    $data['attr_index'] = $postData['attr_index'];
 	    $data['attr_spec'] = $postData['attr_spec'];
 	    $data['is_linked'] = $postData['is_linked'];
-<<<<<<< HEAD
 	    $data['sort_order'] = $postData['sort_order']; 
-=======
-	    $data['attr_spec'] = in_array($postData['attr_type'],array('select','multiselect')) ? '2' : '1';
-	    $data['sort_order'] = $postData['sort_order'];
->>>>>>> 3fd183d709a48b9bfe5787742ca738d5df2fc29c
         $res = $this->mall_attribute_value->update(array('attr_value_id'=>$postData['attr_value_id']), $data);  
         if ($res) {
             $this->success('mall_attribute_group/grid/'.$postData['group_id'], array('attr_set_id'=>$postData['attr_set_id']), '修改成功！');
