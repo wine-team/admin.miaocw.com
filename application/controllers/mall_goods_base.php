@@ -82,11 +82,6 @@ class Mall_goods_base extends CS_Controller
     	$this->db->trans_start();
 		$isUpdate = $this->mall_goods_base->updateByGoodsId($goods_id, array('is_on_sale'=>$isOnSale));
     	$this->db->trans_complete();
-    	if ($this->db->trans_status() === TRUE) {
-    		$this->success('mall_goods_base/grid/'.$pageNow, $this->input->get(), '操作成功！');
-    	} else {
-    		$this->error('mall_goods_base/grid/'.$pageNow, $this->input->get(), '操作失败！');
-    	}
 		if ($this->db->trans_status() === TRUE && $isUpdate) {
 			echo json_encode(array(
 				'flag' => $isOnSale,
@@ -96,6 +91,7 @@ class Mall_goods_base extends CS_Controller
 				'flag' => 3,
 			));
 		}
+		exit;
     }
     
     /**
@@ -107,21 +103,22 @@ class Mall_goods_base extends CS_Controller
     {
 		$goods_id = $this->input->post('goods_id');
 		$status = $this->input->post('flag');
-        switch ($status) {
-    		case '1': $isOnSale = '2'; break;
-    		case '2': $isOnSale = '1'; break;
-    		default : $isOnSale = '1'; break;
-    	}
-    	$this->db->trans_start();
-		$isUpdate = $this->mall_goods_base->updateByGoodsId($goods_id, array('is_on_sale'=>$isOnSale));
-    	$this->db->trans_complete();
-        if ($this->db->trans_status() === TRUE && $isUpdate) {
+		switch ($status) {
+			case '1': $isCheck = '1'; break;
+			case '2': $isCheck = '2'; break;
+			case '3': $isCheck = '3'; break;
+			default : $isCheck = '1'; break;
+		}
+		$this->db->trans_start();
+		$isUpdate = $this->mall_goods_base->updateByGoodsId($goods_id, array('is_check'=>$isCheck));
+		$this->db->trans_complete();
+		if ($this->db->trans_status() === TRUE) {
 			echo json_encode(array(
-				'flag' => $isOnSale,
+				'status' => true,
 			));
 		} else {
 			echo json_encode(array(
-				'flag' => 3,
+				'status' => false,
 			));
 		}
 		exit;

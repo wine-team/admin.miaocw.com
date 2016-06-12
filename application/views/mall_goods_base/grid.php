@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="portlet-body form">
-                    <form class="form-horizontal form-search" action="<?php echo base_url('mall_goods_base/grid') ?>" method="get">
+                    <form class="form-horizontal form-search" action="<?php echo base_url('mall_goods/grid') ?>" method="get">
                         <div class="row-fluid">
                             <div class="span4">
                                 <div class="control-group">
@@ -65,24 +65,37 @@
                             </div>
                             <div class="span4">
                                 <div class="control-group">
-                                    <label class="control-label">省/市/区</label>
+                                    <label class="control-label">商品类型</label>
                                     <div class="controls">
-                                        <?php $this->load->view('commonhtml/districtSelect');?>
+                                        <select name="extension_code" class="m-wrap medium">
+                                            <option value="">请选择</option>
+                                            <?php foreach ($extension as $good_type => $type_name) : ?>
+                                                <option value="<?php echo $good_type ?>" <?php if($this->input->get('extension_code')==$good_type): ?>selected="selected" <?php endif; ?>><?php echo $type_name ?> </option>
+                                            <?php endforeach;?>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="span4">
                                 <div class="control-group">
-                                    <label class="control-label">开始时间</label>
-                                    <div class="controls form-search-time">
-                                        <div class="input-append date date-picker">
-                                            <input type="text" name="start_date" size="16" value="2016-05-26" class="m-wrap m-ctrl-medium date-picker date">
-                                            <span class="add-on"><i class="icon-calendar"></i></span>
-                                        </div>
-                                        <div class="input-append date date-picker">
-                                            <input type="text" name="end_date" size="16" value="2016-06-02" class="m-wrap m-ctrl-medium date-picker date">
-                                            <span class="add-on"><i class="icon-calendar"></i></span>
-                                        </div>
+                                    <label class="control-label">商品属性</label>
+                                    <div class="controls">
+                                        <select name="attr_set_id" class="m-wrap medium chosen">
+                                            <option value="">请选择</option>
+                                            <?php foreach ($attribute_set as $good_type=>$attr) : ?>
+                                                <option value="<?php echo $good_type ?>" <?php if ($this->input->get('attr_set_id')==$attr['attr_set_id']): ?>selected="selected"<?php endif; ?>><?php echo $attr['attr_set_name'] ?> </option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">省/市/区</label>
+                                    <div class="controls">
+                                        <?php $this->load->view('commonhtml/districtSelect');?>
                                     </div>
                                 </div>
                             </div>
@@ -114,23 +127,23 @@
                         <?php if ($page_list->num_rows()>0) :?>
                             <table class="table table-striped table-bordered table-hover" id="sample_1">
                                 <thead class="flip-content">
-                                    <tr>
-                                        <th width="15"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"></th>
-                                        <th>编号</th>
-                                        <th>商品编号</th>
-                                        <th width="150">商品名称</th>
-                                        <th>商品类型</th>
-                                        <th>商品属性</th>
-                                        <th>供应商</th>
-                                        <th>价格</th>
-                                        <th>库存</th>
-                                        <th width="95">审核状态</th>
-                                        <th>上下架</th>
-                                        <th width="125">操作</th>
-                                    </tr>
+                                <tr>
+                                    <th width="15"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"></th>
+                                    <th>编号</th>
+                                    <th>商品编号</th>
+                                    <th width="150">商品名称</th>
+                                    <th>商品类型</th>
+                                    <th>商品属性</th>
+                                    <th>供应商</th>
+                                    <th>价格</th>
+                                    <th>库存</th>
+                                    <th width="95">审核状态</th>
+                                    <th>上下架</th>
+                                    <th width="125">操作</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($page_list->result() as $item): ?>
+                                <?php foreach ($page_list->result() as $item): ?>
                                     <tr>
                                         <td><input type="checkbox" class="checkboxes" ></td>
                                         <td><?php echo $item->goods_id;?></td>
@@ -163,7 +176,7 @@
                                             <a class="btn mini green" href="<?php echo base_url('mall_goods_base/delete/'.$item->goods_id) ?>">删除</a>
                                         </td>
                                     </tr>
-                                    <?php endforeach; ?>
+                                <?php endforeach; ?>
                                 </tbody>
                             </table>
                             <?php $this->load->view('layout/pagination');?>
@@ -177,3 +190,58 @@
     </div>
 </div>
 <?php $this->load->view('layout/footer');?>
+<script type="text/javascript">
+    $(function(){
+        $('.modify-updown').click(function(){
+            var status = '下架';
+            if ($(this).hasClass('remove_2')) {
+                status = '上架';
+            }
+            if (confirm('确定要'+status+'?')) {
+                var obj = $(this);
+                var goods_id = $(this).attr('data-goods-id');
+                var flag = $(this).attr('data-flag');
+                $.ajax({
+                    url:hostUrl()+'/mall_goods_base/setIsOnSaleStatus',
+                    type:'POST',
+                    dataType:'json',
+                    data: {goods_id:goods_id,flag:flag},
+                    success: function(data) {
+                        if (data.flag == 2) {
+                            obj.attr('data-flag', data.flag).addClass('remove_2').removeClass('ok_2');
+                        } else if(data.flag == 1) {
+                            obj.attr('data-flag', data.flag).addClass('ok_2').removeClass('remove_2');
+                        } else {
+                            alert('操作失败');
+                        }
+                    }
+                });
+            }
+        });
+
+        $('.is-check-status').click(function(){
+            var obj = $(this);
+            var isCheck = obj.attr('data-status');
+            var goodsId = obj.attr('data-goods-id');
+            var status = '通过审核';
+            if (isCheck == 3) {
+                status = '审核拒绝';
+            }
+            if (confirm('确定要'+status+'?')) {
+                $.ajax({
+                    url:hostUrl()+'/mall_goods_base/setIsCheckStatus',
+                    type:'POST',
+                    dataType:'json',
+                    data: {goods_id:goodsId, flag:isCheck},
+                    success: function(data) {
+                        if (data.status) {
+                            obj.siblings('p').text(status).siblings('a').remove();
+                        } else {
+                            alert('操作失败');
+                        }
+                    }
+                });
+            }
+        });
+    });
+</script>
