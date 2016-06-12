@@ -384,6 +384,8 @@ class Mall_goods_base extends CS_Controller
     	$this->db->trans_begin();
     	$status = $this->mall_goods_base->deleteById($goods_id);
     	$result = $this->mall_category_product->deleteByGoodsId($goods_id);
+    	$deletePrice = $this->mall_goods_attr_spec->deletePrice($goods_id); 
+    	$deleteAttr = $this->mall_goods_attr_value->deleteAttr($goods_id);
     	if ($status && $result && ($this->db->trans_status() === TRUE)) {
     		$this->db->trans_complete();
     		$this->success('mall_goods_base/grid', '', '删除成功');

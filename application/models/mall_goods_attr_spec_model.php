@@ -61,15 +61,27 @@ class Mall_goods_attr_spec_model extends CI_Model{
 	    return $this->db->affected_rows();
 	}
 	
-	public function delete($where)  
+	public function deletePrice($goods_id)  
 	{
-	    $this->db->delete($this->table, $where);
+	    $spec = $this->findById(array('goods_id'=>$goods_id))->result();
+	    $spec_ids = array();
+	    foreach ($spec as $s) {
+	        $spec_ids[] = $s->attr_spec_id;
+	    }
+	    if (!empty($spec_ids)) {
+	        $price = $this->getPriceWhereIn('attr_spec_id', $spec_ids)->result();
+	        $price_ids = array();
+	        foreach ($price as $p) {
+	            $price_ids[] = $p->attr_price_id;
+	        }
+	        if (!empty($price_ids)) {
+	            $this->db->where_in('attr_price_id', $price_ids);
+	            $this->db->delete($this->table1);
+	        }
+	        $this->db->where_in('attr_spec_id', $spec_ids);
+	        $this->db->delete($this->table);
+	    }
 	    return $this->db->affected_rows();
-	}
-	
-	public function findPriceById($where)
-	{
-	    return $this->db->get_where($this->table1, $where);
 	}
 	
 	public function getPriceWhereIn($field, $arr)

@@ -47,6 +47,13 @@ class Mall_goods_attr_value_model extends CI_Model{
 	    return $this->db->affected_rows();
 	}
 	
+	public function deleteAttr($goods_id)
+	{
+	    $this->db->delete($this->table, array('goods_id'=>$goods_id));
+	    return $this->db->affected_rows();
+	}
+	
+	
 	
 }
 
