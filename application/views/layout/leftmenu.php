@@ -100,7 +100,7 @@
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
-                        <li><a href="javascript:;">订单管理</a></li>
+                        <li><a href="<?php echo base_url('mall_order_base/grid');?>">订单管理</a></li>
                         <li><a href="javascript:;">评价管理</a></li>
                         <li><a href="javascript:;">退款审核</a></li>
                         <li><a href="javascript:;">换货审核</a></li>
