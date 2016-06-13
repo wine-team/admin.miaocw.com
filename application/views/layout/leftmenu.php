@@ -106,6 +106,17 @@
                         <li><a href="javascript:;">换货审核</a></li>
                     </ul>
                 </li>
+                <li>
+                    <a href="javascript:;">
+                        <span class="title">快递管理</span>
+                        <span class="selected "></span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu" style="display: none;">
+                        <li><a href="<?php echo base_url('deliver_base/grid'); ?>">快递公司</a></li>
+                        <li><a href="<?php echo base_url('deliver_order/grid'); ?>">快递查询</a></li>
+                    </ul>
+                </li>
                 <li><a href="<?php echo base_url('keyword_search/grid');?>">热门搜索</a></li>
             </ul>
         </li>
