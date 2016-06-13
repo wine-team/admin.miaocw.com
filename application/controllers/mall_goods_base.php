@@ -62,7 +62,7 @@ class Mall_goods_base extends CS_Controller
     	$data['brand'] = $this->mall_brand->findById(array('is_show'=>1));//品牌信息
 		$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
     	$data['attribute_group'] = $this->mall_attribute_group->findByAttrSetId($attr_set_id);
-    	$this->load->view('mall_goods_base/addstep3', $data);
+    	$this->load->view('mall_goods_base/addstep2', $data);
     }
     
     /**
