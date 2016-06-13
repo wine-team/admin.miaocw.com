@@ -62,7 +62,7 @@ class Mall_goods_base extends CS_Controller
     	$data['brand'] = $this->mall_brand->findById(array('is_show'=>1));//品牌信息
 		$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
     	$data['attribute_group'] = $this->mall_attribute_group->findByAttrSetId($attr_set_id);
-    	$this->load->view('mall_goods_base/addstep2', $data);
+    	$this->load->view('mall_goods_base/addstep3', $data);
     }
     
     /**
@@ -163,11 +163,11 @@ class Mall_goods_base extends CS_Controller
     	}
     	if (!$goods_id && !$result && !$relatedResult && $this->db->trans_status() === FALSE) {
     		$this->db->trans_rollback();
-    		$this->jsen('保存失败！');
+    		$this->jsonMessage('保存失败！');
     	} else {
     		$this->db->trans_commit();
     		$this->session->set_flashdata('success', '保存成功!');
-    		$this->jsen(base_url('mall_goods_base/grid'), TRUE);
+    		$this->jsonMessage('',base_url('mall_goods_base/grid'));
     	}exit;
     }
     
