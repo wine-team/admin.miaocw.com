@@ -81,10 +81,10 @@ class Adminrole extends CS_Controller
         foreach($actions as $action) {
             $priv_arr[$action['parent_id']]['priv'][$action['action_code']] = $action;
         }
-
         // 将同一组的权限使用 "," 连接起来，供JS全选
         foreach ($priv_arr AS $action_id => $action_group) {
             $priv_arr[$action_id]['cando'] = (strpos($editing['action_list'], $action_group['action_code']) !== false || $editing['action_list'] == 'all') ? 1 : 0;
+            if (!isset($action_group['priv'])) continue;
             $priv_arr[$action_id]['priv_list'] = $action_group['action_code'].','.join(',', @array_keys($action_group['priv']));
             foreach ($action_group['priv'] AS $key => $val) {
                 $priv_arr[$action_id]['priv'][$key]['cando'] = (strpos($editing['action_list'], $val['action_code']) !== false || $editing['action_list'] == 'all') ? 1 : 0;
