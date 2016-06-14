@@ -101,10 +101,7 @@ class Admin_user_model extends CI_Model
     {
         $this->db->where('name', $postData['name']);
         $this->db->or_where('email', $postData['email']);
-        if ($this->db->count_all_results($this->table) > 0) {
-            return true;
-        }
-        return false;
+        return $this->db->count_all_results($this->table);
     }
     
      /**
@@ -114,12 +111,9 @@ class Admin_user_model extends CI_Model
      */
     public function login($postData)
     {
-        $this->db->select('admin_user.*, admin_role.name AS role_name,admin_role.action_list');
-        $this->db->from($this->table.' AS admin_user');
-        $this->db->join($this->table_2.' AS admin_role', 'admin_user.role_id = admin_role.id');
-        $this->db->where('admin_user.name', $postData['username']);
-        $this->db->where('admin_user.password', md5($postData['password']));
-        return $this->db->get();
+        $this->db->where('name', $postData['username']);
+        $this->db->where('password', md5($postData['password']));
+        return $this->db->get($this->table);
     }
     
     function resetpwd($uid)

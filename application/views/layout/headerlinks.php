@@ -1,6 +1,3 @@
-<?php
-    $adminUser = $this->session->userdata('adminUser');
-?>
 <div class="header navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container-fluid">
@@ -194,7 +191,7 @@
                 <li class="dropdown user">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">
                     <img src="skins/admin/images/avatar1_small.jpg" alt="">
-                    <span class="username"><?php echo $adminUser->realname ? $adminUser->realname : ($adminUser->name ? $adminUser->name : $adminUser->email);?></span>
+                    <span class="username"><?php echo $this->realname ? $this->realname : ($this->admin_name ? $this->admin_name : $this->admin_email);?></span>
                     <i class="icon-angle-down"></i>
                     </a>
                     <ul class="dropdown-menu">
