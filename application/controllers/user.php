@@ -3,7 +3,6 @@ class User extends CS_Controller
 {
     public function _init()
     {
-        $this->load->helper(array('common'));
         $this->load->library('pagination');
         $this->load->model('user_model', 'user');
     }

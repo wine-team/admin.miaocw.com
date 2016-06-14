@@ -3,7 +3,7 @@ class Adminaction extends CS_Controller
 {
     public function _init()
     {
-        $this->load->helper(array('common', 'email'));
+        $this->load->helper(array('email'));
         $this->load->library('pagination');
         $this->load->model('admin_action_model', 'admin_action');
     }

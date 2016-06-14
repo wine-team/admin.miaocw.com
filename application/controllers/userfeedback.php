@@ -1,8 +1,8 @@
 <?php
 class Userfeedback extends MJ_Controller{
     
-    public function _init(){
-        $this->load->helper(array('common'));
+    public function _init()
+    {
         $this->load->library('pagination');
         $this->load->model('user_feedback_model', 'user_feedback');
     }
@@ -11,8 +11,8 @@ class Userfeedback extends MJ_Controller{
      * 分页显示
      * @param number $pg
      */
-    public function grid($pg = 1){
-    	
+    public function grid($pg = 1)
+    {
     	$page_num = 20;
         $num = ($pg-1)*$page_num;
         $getData = $this->input->get();
@@ -34,8 +34,8 @@ class Userfeedback extends MJ_Controller{
      * 反馈类型
      * @return multitype:string
      */
-    public function feedback(){
-    	
+    public function feedback()
+    {
     	return array(
     		'1' => '美酒',
     	    '2' => '成人',
