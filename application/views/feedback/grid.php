@@ -3,7 +3,7 @@
     <div class="row-fluid">
         <div class="span12">
             <h3 class="page-title">网站设置<small>用户反馈</small></h3>
-            <?php echo breadcrumb(array('网站设置', "userfeedback/grid"=>'用户反馈')); ?>
+            <?php echo breadcrumb(array('网站设置', "feedback/grid"=>'用户反馈')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>
@@ -18,9 +18,9 @@
                     </div>
                 </div>
                 <div class="portlet-body form">
-                    <form class="form-horizontal form-search" action="<?php echo base_url('userfeedback/grid') ?>" method="get">
+                    <form class="form-horizontal form-search" action="<?php echo base_url('feedback/grid') ?>" method="get">
                         <div class="row-fluid">
-                            <div class="span5">
+                            <div class="span4">
                                 <div class="control-group">
                                     <label class="control-label">反馈类型</label>
                                     <div class="controls">
@@ -33,7 +33,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="span7">
+                            <div class="span4">
                                 <div class="control-group">
                                     <label class="control-label">电话号码</label>
                                     <div class="controls">
@@ -41,26 +41,16 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row-fluid">
-                            <div class="span5">
+                            <div class="span4">
                                 <div class="control-group">
-                                    <label class="control-label">电子邮件</label>
-                                    <div class="controls">
-                                        <input type="text" name="ms_email" value="<?php echo $this->input->get('ms_email');?>" placeholder="请输入电子邮件" class="m-wrap medium">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="span7">
-                                <div class="control-group">
-                                    <label class="control-label">创建时间</label>
-                                    <div class="controls">
+                                    <label class="control-label">反馈时间</label>
+                                    <div class="controls form-search-time">
                                         <div class="input-append date date-picker">
-                                            <input type="text" name="start_date" size="16" value="<?php echo $this->input->get('start_date');?>" class="m-wrap small date-picker date">
+                                            <input type="text" name="start_date" size="16" value="<?php echo $this->input->get('start_date') ?>" class="m-wrap m-ctrl-medium date-picker date">
                                             <span class="add-on"><i class="icon-calendar"></i></span>
-                                        </div> - 
+                                        </div>
                                         <div class="input-append date date-picker">
-                                            <input type="text" name="end_date" size="16" value="<?php echo $this->input->get('end_date');?>" class="m-wrap small date-picker date">
+                                            <input type="text" name="end_date" size="16" value="<?php echo $this->input->get('end_date')?>" class="m-wrap m-ctrl-medium date-picker date">
                                             <span class="add-on"><i class="icon-calendar"></i></span>
                                         </div>
                                     </div>
@@ -111,18 +101,9 @@
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
-                        <div class="row-fluid">
-                            <div class="span6">
-                                <div class="dataTables_info">
-                                    <span>当前第</span><span style="color: red"><?php echo $pg_now ?></span>页
-                                    <span>共</span><span style="color: red"><?php echo $all_rows ?></span>条数据
-                                    <span>每页显示20条 </span>
-                                    <?php echo $pg_list ?>
-                                </div>
-                            </div>
-                        </div>
+                        <?php $this->load->view('layout/pagination');?>
                     <?php else : ?>
-                            <div class="alert"><p>未找到数据。<p></div>
+                        <div class="alert"><p>未找到数据。<p></div>
                     <?php endif; ?>
                     </div>
                 </div>

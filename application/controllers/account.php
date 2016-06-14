@@ -3,7 +3,7 @@ class Account extends MJ_Controller
 {
 	public function _init()
     {
-        $this->load->helper(array('common', 'email'));
+        $this->load->helper(array('email'));
         $this->load->model('admin_user_model', 'admin_user');
     }
     
@@ -31,14 +31,15 @@ class Account extends MJ_Controller
         }
         
         $result = $this->admin_user->login($this->input->post());
-        if (!$result) {
+        if ($result->num_rows() <= 0) {
             $this->error('account/login', '', '用户名或密码错误');
         }
         $adminUser = $result->row();
         if ($adminUser->flag != 1) {
             $this->error('account/login', '', '此帐号已被冻结，请与管理员联系');
         }
-        $this->session->set_userdata('adminUser', $adminUser);
+        set_cookie('adminUser', base64_encode(serialize($adminUser)), 86400);
+        $this->memcache->setData('adminUser', base64_encode(serialize($adminUser)));
         if ($this->input->post('backurl')) {
             $directUrl = $this->input->post('backurl');
         } else {
@@ -52,7 +53,13 @@ class Account extends MJ_Controller
      */
     public function logout()
     {
-        $this->session->sess_destroy();
+        if (get_cookie('adminUser')) {//修改成功退出登录。
+            delete_cookie('adminUser');
+        }
+        if (get_cookie('bz_session')) {
+            delete_cookie('bz_session');
+        }
+        $this->memcache->deleteMemcache('adminUser');
         $this->redirect('account/login');
     }
     

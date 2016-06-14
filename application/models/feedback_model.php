@@ -1,7 +1,7 @@
 <?php
-class User_feedback_model extends CI_Model
+class Feedback_model extends CI_Model
 {
-    private $table = 'user_feedback';
+    private $table = 'feedback';
     
     /**
      * 符合搜索条件数据的总数量

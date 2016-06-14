@@ -3,6 +3,7 @@ class Mall_category extends MJ_Controller
 {
 	public function _init()
 	{
+		$this->load->helper(array('dictionary'));
 	    $this->load->library('pagination');
 	    $this->load->model('mall_category_model','mall_category');
 	}

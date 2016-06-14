@@ -2,26 +2,34 @@
 require_once 'CS_Controller.php';
 class MJ_Controller extends CI_Controller
 {
-    private $url = '';
     public $uid;
     public $admin_name;
-    public $actionList;
+    public $admin_email;
+    public $actionList = '';
 
     public function __construct()
     {
         parent::__construct();
-        $adminUser = $this->session->userdata('adminUser');
+        $adminUser = unserialize(base64_decode(get_cookie('adminUser')));
         if ($adminUser) {
             $this->uid = $adminUser->id;
             $this->admin_name = $adminUser->name;
-            $this->action_list = $adminUser->action_list;
+            $this->realname = $adminUser->realname;
+            $this->admin_email = $adminUser->email;
+            if (empty($this->role)) {
+                $this->load->model('admin_role_model', 'admin_role');
+            }
+            $role = $this->admin_role->findById($adminUser->role_id);
+            if ($role->num_rows() > 0) {
+                $this->actionList = $role->row(0)->action_list;
+            }
         }
 
         $this->_init(); //用着重载
         
         // 开发模式下开启性能分析
         if (ENVIRONMENT === 'development') {
-//             $this->output->enable_profiler(TRUE);
+             $this->output->enable_profiler(TRUE);
         }
     }
     

@@ -149,7 +149,7 @@
                 <li><a href="<?php echo base_url('help_category/grid');?>">网站资讯</a></li>
                 <li><a href="<?php echo base_url('link/grid');?>">友情链接</a></li>
                 <li><a href="<?php echo base_url('cacheclear/grid');?>">缓存管理</a></li>
-                <li><a href="<?php echo base_url('userfeedback/grid');?>">用户反馈</a></li>
+                <li><a href="<?php echo base_url('feedback/grid');?>">用户反馈</a></li>
                 <li><a href="<?php echo base_url('help_category/grid');?>">帮助中心</a></li>
                
             </ul>
