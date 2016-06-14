@@ -2,9 +2,9 @@
 class Deliver_base_model extends CI_Model
 {
     private $table = 'deliver_base';
-    public function findById($id)
+    public function findById($deliver_id)
     {
-        $this->db->where('id', $id);
+        $this->db->where('deliver_id', $deliver_id);
         return $this->db->get($this->table);
     }
 
@@ -38,7 +38,7 @@ class Deliver_base_model extends CI_Model
     {
         $data = array(
             'deliver_name' => $postData['deliver_name'],
-            'deliver_flag' => $postData['deliver_flag'],
+            'deliver_flag' => trim($postData['deliver_flag']),
             'created_at'   => date('Y-m-d H:i:s')
         );
         $this->db->insert($this->table, $data);
@@ -49,9 +49,9 @@ class Deliver_base_model extends CI_Model
     {
         $data = array(
             'deliver_name' => $postData['deliver_name'],
-            'deliver_name' => trim($postData['deliver_name']),
+            'deliver_flag' => trim($postData['deliver_flag']),
         );
-        $this->db->where('id', $postData['id']);
+        $this->db->where('deliver_id', $postData['deliver_id']);
         return $this->db->update($this->table, $data);
     }
     
