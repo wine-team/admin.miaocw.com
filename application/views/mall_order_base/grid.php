@@ -36,8 +36,8 @@
                                             <option value="">请选择</option>
                                             <option <?php if($this->input->get('state')==1)echo 'selected="selected"';?> value="1">未付款</option>
                                             <option <?php if($this->input->get('state')==2)echo 'selected="selected"';?> value="2">已付款</option>
-                                            <option <?php if($this->input->get('state')==3)echo 'selected="selected"';?> value="3">电脑端</option>
-                                            <option <?php if($this->input->get('state')==4)echo 'selected="selected"';?> value="4">已完成</option>
+                                            <option <?php if($this->input->get('state')==3)echo 'selected="selected"';?> value="3">已完成</option>
+                                            <option <?php if($this->input->get('state')==4)echo 'selected="selected"';?> value="4">评价</option>
                                             <option <?php if($this->input->get('state')==5)echo 'selected="selected"';?> value="5">退款</option>
                                         </select>
                                     </div>

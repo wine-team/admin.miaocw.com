@@ -22,7 +22,7 @@ class Mall_order_base extends MJ_Controller {
 	    $config['first_url']   = base_url('mall_order_base/grid').$this->pageGetParam($this->input->get());
 	    $config['suffix']      = $this->pageGetParam($getData);
 	    $config['base_url']    = base_url('mall_order_base/grid');
-	    $config['total_rows']  = $this->mall_order_base->mall_order_base_list(0, 0, $search)->num_rows();
+	    $config['total_rows']  = $this->mall_order_base->total($search);
 	    $config['uri_segment'] = 3; 
 	    $this->pagination->initialize($config);
 	    $data['pg_link']   = $this->pagination->create_links();

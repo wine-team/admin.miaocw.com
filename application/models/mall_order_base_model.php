@@ -5,10 +5,24 @@ class Mall_order_base_model extends CI_Model{
 	private $table1 = 'mall_order_product';
 	private $table2 = 'deliver_order';
 	
+	public function total($search)
+	{
+	    if(!empty($search['item'])) {
+	        $this->db->like('user_name', $search['item']);
+	        $this->db->or_like('order_note', $search['item']);
+	    }
+	    if (!empty($search['state'])) $this->db->where('state', $search['state']);
+	    if (!empty($search['status'])) $this->db->where('status', $search['status']);
+	    if (!empty($search['seller_uid'])) $this->db->where('seller_uid', $search['seller_uid']);
+	    if (!empty($search['is_form'])) $this->db->where('is_form', $search['is_form']);
+	    if (!empty($search['sta_time'])) $this->db->where('created_at >', $search['sta_time']);
+	    if (!empty($search['end_time'])) $this->db->where('created_at <', $search['end_time']);
+	    return $this->db->count_all_results($this->table);
+	}
+	
 	public function mall_order_base_list($page, $perpage, $search, $order='order_id DESC')
 	{
-	    if(!empty($search['item']))
-	    {
+	    if(!empty($search['item'])) {
 	        $this->db->like('user_name', $search['item']);
 	        $this->db->or_like('order_note', $search['item']);
 	    }
