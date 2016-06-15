@@ -84,7 +84,7 @@
                                         <th>用户UID</th>
                                         <th>快递名称</th>
                                         <th>快递单号</th>
-                                        <th>状态/th>
+                                        <th>状态</th>
                                         <th>添加时间</th>
                                         <th>操作</th>
                                     </tr>
@@ -99,7 +99,7 @@
                                         <td><?php echo $item->deliver_name;?></td>
                                         <td><?php echo $item->deliver_number;?></td>
                                         <td><?php echo $ischeck[$item->ischeck];?></td>
-                                        <td><?php echo $item->created_at;?></td>
+                                        <td><?php echo $item->create_at;?></td>
                                         <td width="145">
                                             <a href="<?php echo base_url('deliver_order/edit/'.$item->deliver_order_id) ?>" class="btn mini green"><i class="icon-edit"></i> 编辑</a>
                                             <a href="<?php echo base_url('deliver_order/delete/'.$item->deliver_order_id) ?>" class="btn mini green" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a><p></p>

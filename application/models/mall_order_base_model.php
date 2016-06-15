@@ -11,12 +11,27 @@ class Mall_order_base_model extends CI_Model{
 	        $this->db->like('user_name', $search['item']);
 	        $this->db->or_like('order_note', $search['item']);
 	    }
-	    if (!empty($search['state'])) $this->db->where('state', $search['state']);
-	    if (!empty($search['status'])) $this->db->where('status', $search['status']);
-	    if (!empty($search['seller_uid'])) $this->db->where('seller_uid', $search['seller_uid']);
-	    if (!empty($search['is_form'])) $this->db->where('is_form', $search['is_form']);
-	    if (!empty($search['sta_time'])) $this->db->where('created_at >', $search['sta_time']);
-	    if (!empty($search['end_time'])) $this->db->where('created_at <', $search['end_time']);
+	    if (!empty($search['state'])) {
+	        $this->db->where('state', $search['state']);
+	    }
+	    if (!empty($search['status'])) {
+	        $this->db->where('status', $search['status']);
+	    }
+	    if (!empty($search['seller_uid'])) {
+	        $this->db->where('seller_uid', $search['seller_uid']);
+	    }
+	    if (!empty($search['is_form'])) {
+	        $this->db->where('is_form', $search['is_form']);
+	    }
+	    if (!empty($search['sta_time'])) {
+	        $sta_time = $search['sta_time'] ? ($search['sta_time']<date('Y-m-d') ? $search['sta_time'].' 00:00:00' : date('Y-m-d H:i:s')) : '';
+	        $this->db->where('created_at >', $sta_time);
+	    }
+	    if (!empty($search['end_time'])) {
+	        
+	        $end_time = $search['end_time'] ? ($search['end_time']>=$search['sta_time'] ? $search['end_time'].' 59:59:59' : '') : '';
+	        $this->db->where('created_at <', $end_time);
+	    }
 	    return $this->db->count_all_results($this->table);
 	}
 	
@@ -26,12 +41,27 @@ class Mall_order_base_model extends CI_Model{
 	        $this->db->like('user_name', $search['item']);
 	        $this->db->or_like('order_note', $search['item']);
 	    }
-	    if (!empty($search['state'])) $this->db->where('state', $search['state']);
-	    if (!empty($search['status'])) $this->db->where('status', $search['status']);
-	    if (!empty($search['seller_uid'])) $this->db->where('seller_uid', $search['seller_uid']);
-	    if (!empty($search['is_form'])) $this->db->where('is_form', $search['is_form']);
-	    if (!empty($search['sta_time'])) $this->db->where('created_at >', $search['sta_time']);
-	    if (!empty($search['end_time'])) $this->db->where('created_at <', $search['end_time']);
+	    if (!empty($search['state'])) {
+	        $this->db->where('state', $search['state']);
+	    }
+	    if (!empty($search['status'])) {
+	        $this->db->where('status', $search['status']);
+	    }
+	    if (!empty($search['seller_uid'])) {
+	        $this->db->where('seller_uid', $search['seller_uid']);
+	    }
+	    if (!empty($search['is_form'])) {
+	        $this->db->where('is_form', $search['is_form']);
+	    }
+	    if (!empty($search['sta_time'])) {
+	        $sta_time = $search['sta_time'] ? ($search['sta_time']<date('Y-m-d') ? $search['sta_time'].' 00:00:00' : date('Y-m-d H:i:s')) : '';
+	        $this->db->where('created_at >', $sta_time);
+	    }
+	    if (!empty($search['end_time'])) {
+	        
+	        $end_time = $search['end_time'] ? ($search['end_time']>=$search['sta_time'] ? $search['end_time'].' 59:59:59' : '') : '';
+	        $this->db->where('created_at <', $end_time);
+	    }
 	    $this->db->order_by($order);
 	    if($perpage) $this->db->limit($perpage, $perpage*$page);
 	    return $this->db->get($this->table);
@@ -67,6 +97,18 @@ class Mall_order_base_model extends CI_Model{
 	public function delete($where)  
 	{
 	    $this->db->delete($this->table, $where);
+	    return $this->db->affected_rows();
+	}
+	
+	public function deleteOrderProduct($where)
+	{
+	    $this->db->delete($this->table1, $where);
+	    return $this->db->affected_rows();
+	}
+	
+	public function deleteOrderDeliver($where)
+	{
+	    $this->db->delete($this->table2, $where);
 	    return $this->db->affected_rows();
 	}
 	

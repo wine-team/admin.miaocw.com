@@ -12,23 +12,20 @@ class Mall_order_base extends MJ_Controller {
 	{   
 	    $getData = $this->input->get();
 	    $perpage = 20;
-	    $search['item'] = $getData['item'];
-	    $search['state'] = $getData['state'];
-	    $search['status'] = $getData['status'];
-	    $search['seller_uid'] = $getData['seller_uid'];
-	    $search['is_form'] = $getData['is_form'];
-	    $search['sta_time'] = $getData['sta_time'] ? ($getData['sta_time']<date('Y-m-d') ? $getData['sta_time'].' 00:00:00' : date('Y-m-d H:i:s')) : '';
-	    $search['end_time'] = $getData['end_time'] ? ($getData['end_time']>=$getData['sta_time'] ? $getData['end_time'].' 59:59:59' : '') : '';
 	    $config['first_url']   = base_url('mall_order_base/grid').$this->pageGetParam($this->input->get());
 	    $config['suffix']      = $this->pageGetParam($getData);
 	    $config['base_url']    = base_url('mall_order_base/grid');
-	    $config['total_rows']  = $this->mall_order_base->total($search);
+	    $config['total_rows']  = $this->mall_order_base->total($getData);
 	    $config['uri_segment'] = 3; 
 	    $this->pagination->initialize($config);
 	    $data['pg_link']   = $this->pagination->create_links();
-	    $data['res_list'] = $this->mall_order_base->mall_order_base_list($pg-1, $perpage, $search)->result();
+	    $data['res_list'] = $this->mall_order_base->mall_order_base_list($pg-1, $perpage, $getData)->result();
 	    $data['all_rows']  = $config['total_rows'];
 	    $data['pg_now']    = $pg; 
+	    $data['page_num']    = $perpage;
+	    $data['state_arr'] = array('1'=>'未付款', '2'=>'已付款', '3'=>'已完成', '4'=>'评价', '5'=>'退款');
+	    $data['status_arr'] = array('1'=>'取消订单', '2'=>'未付款', '3'=>'已付款', '4'=>'已发货', '5'=>'已收货', '6'=>'已评价');
+	    $data['is_form_arr'] = array('1'=>'电脑端', '2'=>'手机端', '3'=>'其他');
 	    $this->load->view('mall_order_base/grid', $data);
 	}
 	
@@ -41,32 +38,27 @@ class Mall_order_base extends MJ_Controller {
 	    $data['order'] = $res->row();
 	    $data['product'] = $this->mall_order_base->findOrderProduct(array('order_id'=>$order_id))->result();
 	    $data['delivery'] = $this->mall_order_base->findOrderDeliver(array('order_id'=>$order_id));
+	    $data['state_arr'] = array('1'=>'未付款', '2'=>'已付款', '3'=>'已完成', '4'=>'评价', '5'=>'退款');
+	    $data['status_arr'] = array('1'=>'取消订单', '2'=>'未付款', '3'=>'已付款', '4'=>'已发货', '5'=>'已收货', '6'=>'已评价');
+	    $data['is_form_arr'] = array('1'=>'电脑端', '2'=>'手机端', '3'=>'其他');
+	    $data['delivery_ischeck_arr'] = array('0'=>'在途中','1'=>'揽件', '2'=>'疑难', '3'=>'签收');
+	    $data['delivery_state_arr'] = array('0'=>'在途中', '1'=>'已揽收', '2'=>'疑难', '3'=>'已签收', '4'=>'退签', '5'=>'同城派送中', '6'=>'退回', '7'=>'转单');
+	    $data['extension_code_arr'] = array('simple'=>'简单产品', 'virtual'=>'虚拟产品', 'giftcard'=>'礼品卡');
 	    $this->load->view('mall_order_base/edit', $data);
 	}
 	
-	public function ajaxGetDelivery()
+	public function delete($order_id)
 	{
-	    $data['delivery'] = $this->mall_order_base->findOrderDeliver(array('deliver_order_id'=>$this->input->get('deliver_order_id')));
-	    $res['html'] = $this->load->view('mall_order_base/delivery/ajaxDeliveryData', $data, true);
-	    $res['status'] = true;
-	    echo json_encode($res);
-	}
-	
-	public function delete($brand_id)
-	{
-	    $brand = $this->mall_order_base->findById(array('brand_id'=>$brand_id));
-	    $logo = $brand->num_rows()>0 ? $brand->row()->brand_logo : '';
-	    if (!empty($logo) && file_exists($this->config->upload_image_path('brand', $logo)))
-	    {
-	        @unlink($this->config->upload_image_path('brand', $logo));
-	    }
-        $is_delete = $this->mall_order_base->delete(array('brand_id'=>$brand_id));
-        if ($is_delete) {
+	    $this->db->trans_start();
+        $this->mall_order_base->deleteOrderProduct(array('order_id'=>$order_id));
+        $this->mall_order_base->deleteOrderDeliver(array('order_id'=>$order_id));
+        $is_delete = $this->mall_order_base->delete(array('order_id'=>$order_id));
+        $this->db->trans_complete();
+        if ($is_delete && $this->db->trans_status()===TRUE) {
             $this->success('mall_order_base/grid', '', '删除成功！');
         } else {
             $this->error('mall_order_base/grid', '', '删除失败！');
         }
-	    
 	}
 	
 }

@@ -2,8 +2,8 @@
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
-            <h3 class="page-title">商品订单 <small>订单管理</small></h3>
-            <?php echo breadcrumb(array('商品订单 ', 'mall_order_base/grid'=>'订单管理')); ?>
+            <h3 class="page-title">商品订单 <small>退款审核</small></h3>
+            <?php echo breadcrumb(array('商品订单 ', 'mall_order_refund/grid'=>'退款审核')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>
@@ -18,24 +18,24 @@
                     </div>
                 </div>
                 <div class="portlet-body form">
-                    <form class="form-horizontal form-search" action="<?php echo base_url('mall_order_base/grid') ?>" method="get">
+                    <form class="form-horizontal form-search" action="<?php echo base_url('mall_order_refund/grid') ?>" method="get">
                         <div class="row-fluid">
                             <div class="span4">
                                 <div class="control-group">
                                     <label class="control-label">用户名搜索</label>
                                     <div class="controls">
-                                        <input type="text" name="item" value="<?php echo $this->input->get('item');?>" class="m-wrap medium" placeholder="请输入用户名称、订单备注">
+                                        <input type="text" name="item" value="<?php echo $this->input->get('item');?>" class="m-wrap medium" placeholder="请输入用户名称、电话、退款原因、拒绝原因">
                                     </div>
                                 </div>
                             </div>
                             <div class="span4">
                                 <div class="control-group">
-                                    <label class="control-label">订单状态</label>
+                                    <label class="control-label">申请状态</label>
                                     <div class="controls">
                                         <select name="state" class="m-wrap medium">
                                             <option value="">请选择</option>
-                                            <?php foreach($state_arr as $k1=>$state) :?>
-                                            <option <?php if($this->input->get('state')==$k1)echo 'selected="selected"';?> value="<?php echo $k1;?>"><?php echo $state;?></option>
+                                            <?php foreach($status_arr as $k1=>$status) :?>
+                                            <option <?php if($this->input->get('status')==$k1)echo 'selected="selected"';?> value="<?php echo $k1;?>"><?php echo $status;?></option>
                                             <?php endforeach;?>
                                         </select>
                                     </div>
@@ -43,12 +43,12 @@
                             </div>
                             <div class="span4">
                                 <div class="control-group">
-                                    <label class="control-label">当前状态</label>
+                                    <label class="control-label">退款状态</label>
                                     <div class="controls">
-                                        <select name="status" class="m-wrap medium">
+                                        <select name="flag" class="m-wrap medium">
                                             <option value="">请选择</option>
-                                            <?php foreach($status_arr as $k2=>$status) :?>
-                                            <option <?php if($this->input->get('status')==$k2)echo 'selected="selected"';?> value="<?php echo $k2;?>"><?php echo $status;?></option>
+                                            <?php foreach($flag_arr as $k2=>$flag) :?>
+                                            <option <?php if($this->input->get('flag')==$k2)echo 'selected="selected"';?> value="<?php echo $k2;?>"><?php echo $flag;?></option>
                                             <?php endforeach;?>
                                         </select>
                                     </div>
@@ -66,20 +66,7 @@
                             </div>
                             <div class="span4">
                                 <div class="control-group">
-                                    <label class="control-label">来源</label>
-                                    <div class="controls">
-                                        <select name="is_form" class="m-wrap medium">
-                                            <option  value="">请选择</option>
-                                            <?php foreach($is_form_arr as $k3=>$is_form) :?>
-                                            <option <?php if($this->input->get('is_form')==$k3)echo 'selected="selected"';?> value="<?php echo $k3;?>"><?php echo $is_form;?></option>
-                                            <?php endforeach;?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="span4">
-                                <div class="control-group">
-                                    <label class="control-label">下单时间</label>
+                                    <label class="control-label">创建时间</label>
                                     <div class="controls form-search-time">
                                         <div class="input-append date date-picker">
                                             <input type="text" name="sta_time" size="16" value="<?php echo date('Y-m-d',strtotime('-1 week'));?>" class="m-wrap m-ctrl-medium date-picker date">
@@ -87,6 +74,21 @@
                                         </div>
                                         <div class="input-append date date-picker">
                                             <input type="text" name="end_time" size="16" value="<?php echo date('Y-m-d');?>" class="m-wrap m-ctrl-medium date-picker date">
+                                            <span class="add-on"><i class="icon-calendar"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span4">
+                                <div class="control-group">
+                                    <label class="control-label">审核时间</label>
+                                    <div class="controls form-search-time">
+                                        <div class="input-append date date-picker">
+                                            <input type="text" name="verify_sta_time" size="16" value="<?php echo date('Y-m-d',strtotime('-1 week'));?>" class="m-wrap m-ctrl-medium date-picker date">
+                                            <span class="add-on"><i class="icon-calendar"></i></span>
+                                        </div>
+                                        <div class="input-append date date-picker">
+                                            <input type="text" name="verify_end_time" size="16" value="<?php echo date('Y-m-d');?>" class="m-wrap m-ctrl-medium date-picker date">
                                             <span class="add-on"><i class="icon-calendar"></i></span>
                                         </div>
                                     </div>
@@ -119,12 +121,14 @@
                                     <th><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"></th>
                                     <th>编号</th>
                                     <th>用户名</th>
-                                    <th>订单状态</th>
-                                    <th>当前状态</th>
+                                    <th>退款产品</th>
+                                    <th>退款数量</th>
+                                    <th>手续费</th>
+                                    <th>申请状态</th>
+                                    <th>退款状态</th>
                                     <th>快递</th>
-                                    <th>价格</th>
-                                    <th>备注</th>
-                                    <th>下单时间</th>
+                                    <th>退款原因</th>
+                                    <th>拒绝理由</th>
                                     <th>操作</th>
                                 </tr>
                             </thead>
@@ -132,22 +136,22 @@
                                 <?php foreach ($res_list as $r) : ?>
                                 <tr>
                                     <td width="15"><input type="checkbox" class="checkboxes" value="1" ></td>
-                                    <td><?php echo $r->order_id;?></td>
-                                    <td><?php echo $r->user_name;?></td>
-                                    <td><?php echo $state_arr[$r->state];?></td>
+                                    <td><?php echo $r->refund_id;?></td>
+                                    <td><?php echo $r->user_name.'</br>'.$r->cellphone;?></td>
+                                    <td>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_order_base/edit/'.$r->order_id); ?>"><i class="icon-edit"></i>订单</a>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_goods_base/edit/'.$r->goods_id); ?>"><i class="icon-edit"></i>商品</a>
+                                    </td>
+                                    <td>原：<?php echo $r->existing;?></br>退：<?php echo $r->number;?></td>
+                                    <td><?php echo $r->counter_fee;?></td>
                                     <td><?php echo $status_arr[$r->status];?></td>
-                                    <td>
-                                        <?php echo '运费：￥'.$r->deliver_price.'</br>地址：'.json_decode($r->delivery_address).'</br>';?>
-                                        <?php if ($r->deliver_order_id) :?>快递ID（<?php echo $r->deliver_order_id;?>）<?php else :?>未发货<?php endif;?>
-                                    </td>
-                                    <td>
-                                        <?php echo '供应价：￥'.$r->order_supply_price.'</br>支付价：￥'.$r->actual_price.'</br>使用积分'.$r->integral;?>
-                                    </td>
-                                    <td><?php echo $r->order_note;?></td>
-                                    <td><?php echo $is_form_arr[$r->is_form].'</br>'.$r->pay_time;;?></td>
+                                    <td><?php echo $flag_arr[$r->flag];?></td>
+                                    <td><?php if ($r->deliver_order_id) :?>快递ID（<?php echo $r->deliver_order_id;?>）<?php else :?>未发货<?php endif;?></td>
+                                    <td><?php echo $r->refund_content;?></td>
+                                    <td><?php echo $r->reject_content;?></td>
                                     <td width="145">
-                                        <a class="btn mini green" href="<?php echo base_url('mall_order_base/edit/'.$r->order_id); ?>"><i class="icon-edit"></i>查看</a>
-                                        <a class="btn mini green" href="<?php echo base_url('mall_order_base/delete/'.$r->order_id); ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_order_refund/edit/'.$r->order_id); ?>"><i class="icon-edit"></i>查看</a>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_order_refund/delete/'.$r->order_id); ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
                                     </td>
                                 </tr>
                                 <?php endforeach;?>
@@ -164,3 +168,4 @@
     </div>
 </div>
 <?php $this->load->view('layout/footer');?>
+<?php $this->load->view('mall_order_refund/delivery/ajaxGetDelivery');?>

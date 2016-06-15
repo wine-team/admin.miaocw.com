@@ -21,21 +21,8 @@
                     <div class="portlet-body">
                         <ul>
                             <li>编号：<?php echo $order->order_id;?></li>
-                            <li>订单状态：<?php switch ($order->state) {
-                                            case 1 : echo '未付款';break;
-                                            case 2 : echo '已付款';break;
-                                            case 3 : echo '已完成';break;
-                                            case 4 : echo '评价';break;
-                                            case 5 : echo '退款';break;
-                                        }?></li>
-                            <li>当前状态：<?php switch ($order->status) {
-                                            case 1 : echo '取消订单';break;
-                                            case 2 : echo '未付款';break;
-                                            case 3 : echo '已付款';break;
-                                            case 4 : echo '已发货';break;
-                                            case 5 : echo '已收货';break;
-                                            case 6 : echo '已评价';break;
-                                        }?></li>
+                            <li>订单状态：<?php echo $state_arr[$order->state];?></li>
+                            <li>当前状态：<?php echo $status_arr[$order->status];?></li>
                             <li>供应商编号：<?php if ($order->seller_uid) :?><a class="btn mini green" href="<?php echo base_url('/'.$order->seller_uid);?>">查看供应商</a><?php else :?>自营<?php endif;?></li>
                             <li>用户名称：<?php echo $order->user_name;?></li>
                             <li>支付方式：<?php echo $order->pay_method;?></li>
@@ -51,11 +38,7 @@
                             <li>使用积分：<?php echo $order->integral;?></li>
                             <li>发票信息：<?php echo json_decode($order->order_invoice);?></li>
                             <li>订单备注：<?php echo $order->order_note;?></li>
-                            <li>来源：<?php switch ($order->is_form) {
-                                            case 1 : echo '电脑端';break;
-                                            case 2 : echo '手机端';break;
-                                            case 3 : echo '其他';break;
-                                        }?></li>
+                            <li>来源：<?php echo $is_form_arr[$order->is_form];?></li>
                             <li>支付时间：<?php echo $order->pay_time;?></li>
                             <li>下单时间：<?php echo $order->created_at;?></li>
                             <li>最后更新时间：<?php echo $order->updated_at;?></li>
@@ -78,23 +61,9 @@
                             <li>快递编号：<?php echo $delivery->row()->deliver_order_id;?></li>
                             <li>快递名称：<?php echo $delivery->row()->deliver_name;?></li>
                             <li>快递标示：<?php echo $delivery->row()->deliver_flag;?></li>
-                            <li>快递单号：<?php echo $delivery->row()->	deliver_number;?></li>
-                            <li>查询结果：<?php switch ($delivery->row()->ischeck) {
-                                            case 0 : echo '在途中';break;
-                                            case 1 : echo '揽件';break;
-                                            case 2 : echo '疑难';break;
-                                            case 3 : echo '签收';break;
-                                        }?></li>
-                            <li>快递状态：<?php switch ($delivery->row()->state) {
-                                            case 0 : echo '在途中';break; 
-                                            case 1 : echo '已揽收';break;
-                                            case 2 : echo '疑难';break;
-                                            case 3 : echo '已签收';break;
-                                            case 4 : echo '退签';break;
-                                            case 5 : echo '同城派送中';break;
-                                            case 6 : echo '退回';break;
-                                            case 7 : echo '转单';break;
-                                        }?></li>
+                            <li>快递单号：<?php echo $delivery->row()->deliver_number;?></li>
+                            <li>查询结果：<?php echo $delivery_ischeck_arr[$delivery->row()->ischeck];?></li>
+                            <li>快递状态：<?php echo $delivery_state_arr[$delivery->row()->state];?></li>
                             <li>快递内容：<?php echo json_decode($delivery->row()->context);?></li>
                             <li>创建时间：<?php echo $delivery->row()->create_at;?></li>
                             <li>更新时间：<?php echo $delivery->row()->update_at;?></li>
@@ -148,11 +117,7 @@
                                     <td><?php echo $p->goods_name;?></td>
                                     <td><?php echo json_decode($p->attr_value);?></td>
                                     <td><?php echo $p->goods_img;?></td>
-                                    <td><?php switch ($p->extension_code) {
-                                        case 'simple' : echo '简单产品';break; 
-                                        case 'virtual' : echo '虚拟产品';break;
-                                        case 'giftcard' : echo '礼品卡';break;
-                                    }?></td>
+                                    <td><?php echo $extension_code[$p->extension_code];?></td>
                                     <td><?php echo $p->number;?></td>
                                     <td><?php echo $p->barter_num;?></td>
                                     <td><?php echo $p->refund_num;?></td>
