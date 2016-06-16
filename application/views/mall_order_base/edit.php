@@ -117,7 +117,7 @@
                                     <td><?php echo $p->goods_name;?></td>
                                     <td><?php echo json_decode($p->attr_value);?></td>
                                     <td><?php echo $p->goods_img;?></td>
-                                    <td><?php echo $extension_code[$p->extension_code];?></td>
+                                    <td><?php echo $extension_code_arr[$p->extension_code];?></td>
                                     <td><?php echo $p->number;?></td>
                                     <td><?php echo $p->barter_num;?></td>
                                     <td><?php echo $p->refund_num;?></td>

@@ -38,7 +38,9 @@ class Mall_order_refund extends MJ_Controller {
 	    $data['refund'] = $res->row();
 	    $data['status_arr'] = array('1'=>'申请退款', '2'=>'同意退款', '3'=>'拒绝退款');
 	    $data['flag_arr'] = array('1'=>'未退款', '2'=>'已退款');
-// 	    $data['delivery'] = $this->mall_order_base->findOrderDeliver(array('order_id'=>$order_id));
+	    $data['delivery'] = $this->mall_order_base->findOrderDeliver(array('deliver_order_id'=>$res->row()->deliver_order_id));
+	    $data['delivery_ischeck_arr'] = array('0'=>'在途中','1'=>'揽件', '2'=>'疑难', '3'=>'签收');
+	    $data['delivery_state_arr'] = array('0'=>'在途中', '1'=>'已揽收', '2'=>'疑难', '3'=>'已签收', '4'=>'退签', '5'=>'同城派送中', '6'=>'退回', '7'=>'转单');
 	    $this->load->view('mall_order_refund/edit', $data);
 	}
 	
@@ -46,9 +48,9 @@ class Mall_order_refund extends MJ_Controller {
 	{
 	    $is_delete = $this->mall_order_refund->delete(array('refund_id'=>$refund_id));
 	    if ($is_delete) {
-	        $this->success('mall_order_base/grid', '', '删除成功！');
+	        $this->success('mall_order_refund/grid', '', '删除成功！');
 	    } else {
-	        $this->error('mall_order_base/grid', '', '删除失败！');
+	        $this->error('mall_order_refund/grid', '', '删除失败！');
 	    }
 	}
 	

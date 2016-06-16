@@ -37,7 +37,7 @@ class Mall_order_base extends MJ_Controller {
 	    }
 	    $data['order'] = $res->row();
 	    $data['product'] = $this->mall_order_base->findOrderProduct(array('order_id'=>$order_id))->result();
-	    $data['delivery'] = $this->mall_order_base->findOrderDeliver(array('order_id'=>$order_id));
+	    $data['delivery'] = $this->mall_order_base->findOrderDeliver(array('deliver_order_id'=>$res->row()->deliver_order_id));
 	    $data['state_arr'] = array('1'=>'未付款', '2'=>'已付款', '3'=>'已完成', '4'=>'评价', '5'=>'退款');
 	    $data['status_arr'] = array('1'=>'取消订单', '2'=>'未付款', '3'=>'已付款', '4'=>'已发货', '5'=>'已收货', '6'=>'已评价');
 	    $data['is_form_arr'] = array('1'=>'电脑端', '2'=>'手机端', '3'=>'其他');
