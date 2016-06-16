@@ -72,16 +72,6 @@ class Mall_order_base_model extends CI_Model{
 	    return $this->db->get_where($this->table, $where);
 	}
 	
-	public function findOrderProduct($where)
-	{
-	    return $this->db->get_where($this->table1, $where);
-	}
-	
-	public function findOrderDeliver($where)
-	{
-	    return $this->db->get_where($this->table2, $where);
-	}
-	
 	public function insert($data) 
 	{
 	    $this->db->insert($this->table, $data);
@@ -97,18 +87,6 @@ class Mall_order_base_model extends CI_Model{
 	public function delete($where)  
 	{
 	    $this->db->delete($this->table, $where);
-	    return $this->db->affected_rows();
-	}
-	
-	public function deleteOrderProduct($where)
-	{
-	    $this->db->delete($this->table1, $where);
-	    return $this->db->affected_rows();
-	}
-	
-	public function deleteOrderDeliver($where)
-	{
-	    $this->db->delete($this->table2, $where);
 	    return $this->db->affected_rows();
 	}
 	

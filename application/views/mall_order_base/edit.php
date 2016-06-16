@@ -45,8 +45,47 @@
                         </ul>
                     </div>
                 </div>
+            </div>
+            <div class="span6">
+                <div class="portlet  box green">
+                    <div class="portlet-title">
+                        <div class="caption"><i class="icon-search"></i>订单操作记录</div>
+                        <div class="tools">
+                            <a class="collapse" href="javascript:;"></a>
+                            <a class="remove" href="javascript:;"></a>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="dataTables_wrapper form-inline">
+                            <?php if (count($product) > 0) :?>
+                            <table class="table table-striped table-bordered table-hover" id="sample_1">
+                                <thead class="flip-content">
+                                    <tr>
+                                        <th>编号</th>
+                                        <th>上次操作编号</th>
+                                        <th>订单状态</th>
+                                        <th>操作说明</th>
+                                        <th>操作时间</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($status_history as $h) : ?>
+                                    <tr>
+                                        <td><?php echo $h->history_id;?></td>
+                                        <td><?php echo $h->parent_id;?></td>
+                                        <td><?php echo $h->status;?></td>
+                                        <td><?php echo $h->comment;?></td>
+                                        <td><?php echo $h->created_at;?></td>
+                                    </tr>
+                                    <?php endforeach;?>
+                                </tbody>
+                            </table>
+                            <?php else: ?>
+                                <div class="alert"><p>未找到数据。<p></div>
+                            <?php endif ?>
+                        </div>
+                    </div>
                 </div>
-                <div class="span6">
                 <div class="portlet  box green">
                     <div class="portlet-title">
                         <div class="caption"><i class="icon-search"></i>快递详情</div>

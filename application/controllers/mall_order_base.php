@@ -6,6 +6,9 @@ class Mall_order_base extends MJ_Controller {
 	{
 	    $this->load->library('pagination');
 	    $this->load->model('mall_order_base_model','mall_order_base');
+	    $this->load->model('deliver_order_model','deliver_order');
+	    $this->load->model('mall_order_product_model','mall_order_product');
+	    $this->load->model('mall_order_status_history_model','mall_order_status_history');
 	}
 
     public function grid($pg = 1)
@@ -36,8 +39,9 @@ class Mall_order_base extends MJ_Controller {
 	        $this->error('mall_order_base/grid', '', '无法找到该ID结果值');
 	    }
 	    $data['order'] = $res->row();
-	    $data['product'] = $this->mall_order_base->findOrderProduct(array('order_id'=>$order_id))->result();
-	    $data['delivery'] = $this->mall_order_base->findOrderDeliver(array('deliver_order_id'=>$res->row()->deliver_order_id));
+	    $data['product'] = $this->mall_order_product->findById(array('order_id'=>$order_id))->result();
+	    $data['delivery'] = $this->deliver_order->findById($res->row()->deliver_order_id);
+	    $data['status_history'] = $this->mall_order_status_history->findById(array('order_id'=>$order_id))->result();
 	    $data['state_arr'] = array('1'=>'未付款', '2'=>'已付款', '3'=>'已完成', '4'=>'评价', '5'=>'退款');
 	    $data['status_arr'] = array('1'=>'取消订单', '2'=>'未付款', '3'=>'已付款', '4'=>'已发货', '5'=>'已收货', '6'=>'已评价');
 	    $data['is_form_arr'] = array('1'=>'电脑端', '2'=>'手机端', '3'=>'其他');
@@ -49,9 +53,12 @@ class Mall_order_base extends MJ_Controller {
 	
 	public function delete($order_id)
 	{
+	    $order = $this->mall_order_base->findById(array('order_id'=>$order_id))->row();
 	    $this->db->trans_start();
-        $this->mall_order_base->deleteOrderProduct(array('order_id'=>$order_id));
-        $this->mall_order_base->deleteOrderDeliver(array('order_id'=>$order_id));
+        $this->mall_order_product->delete(array('order_id'=>$order_id));
+        if ($order->deliver_order_id) {
+            $this->deliver_order->deleteById($order->deliver_order_id);
+        }
         $is_delete = $this->mall_order_base->delete(array('order_id'=>$order_id));
         $this->db->trans_complete();
         if ($is_delete && $this->db->trans_status()===TRUE) {
