@@ -30,7 +30,6 @@
     <?php css('admin', 'datepicker');?>
     <?php css('admin', 'datetimepicker');?>
     <?php css('admin', 'timepicker');?>
-    
     <?php css('admin', 'jquery.gritter');?>
     <?php css('admin', 'daterangepicker');?>
     <?php css('admin', 'fullcalendar');?>

@@ -11,52 +11,68 @@
         <a href="javascript:;" class="glyphicons no-js remove_2"><i></i><p></p></a>
     </div>
     <div class="row-fluid">
-       <form class="mall-goods-form form-vertical" enctype="multipart/form-data">
-            <div class="tabbable tabbable-custom tabbable-full-width">
-				<ul class="nav nav-tabs">
-					<li class="active"><a data-toggle="tab" href="#tab_1">商品基本信息</a></li>
-					<li><a data-toggle="tab" href="#tab_2">商品销售信息</a></li>
-					<li><a data-toggle="tab" href="#tab_3">商品属性信息</a></li>
-					<li><a data-toggle="tab" href="#tab_4">商品运费信息</a></li>
+        <div class="span12">
+           <div class="tabbable tabbable-custom boxless">
+               <form class="form-horizontal form-row-seperated mall-goods-form" enctype="multipart/form-data">
+               <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab_1" data-toggle="tab">基本信息</a></li>
+                    <li><a href="#tab_2" data-toggle="tab">销售信息</a></li>
+                    <li><a href="#tab_3" data-toggle="tab">属性信息</a></li>
+                    <li><a href="#tab_4" data-toggle="tab">运费信息</a></li>
 				</ul>
-	            <div class="tab-content">
-					<div id="tab_1" class="tab-pane active">
-	                     <div class="row-fluid">
-	                          <div class="span10 booking-search">
-								    <div class="control-group">
+				<div class="tab-content">
+				    <div class="tab-pane active"  id="tab_1">
+					    <div class="portlet box green">
+							<div class="portlet-title">
+								 <div class="caption"><i class="icon-reorder"></i>商品基本信息</div>
+							     <div class="tools">
+			                        <a class="collapse" href="javascript:;"></a>
+			                        <a class="remove" href="javascript:;"></a>
+			                     </div>
+							 </div>
+                             <div class="portlet-body form">
+                                    <div class="control-group">
 			                            <label class="control-label">商品分类</label>
 			                            <div class="controls">
-			                                 <?php $this->load->view('commonhtml/categorySelect');?>
+			                                <select data-placeholder="输入商品分类"  name="category_id[]" class="chosen span12 m-wrap required" multiple="multiple" tabindex="6">
+			                                    <?php foreach ($category as $key=>$item):?>
+			                                    <optgroup label="<?php echo $item['cat_name'];?>">
+			                                        <?php foreach ($item['childCat'] as $i=>$jitem):?>
+			                                        <option value="<?php echo $jitem['cat_id']?>"><?php echo $jitem['cat_name']?></option>
+			                                        <?php endforeach;?>
+			                                    </optgroup>
+			                                    <?php endforeach;?>
+			                                </select>
 			                            </div>
-				                    </div>
-				                    <div class="control-group">
-			                            <label class="control-label"><em>* </em>商品类别</label>
-			                            <input type="hidden" name="attribute_set_id" value="<?php echo $this->input->get('attr_set_id');?>" />
+                                    </div>
+                                    <div class="control-group">
+										<label class="control-label">商品类别</label>
+										<input type="hidden" name="attribute_set_id" value="<?php echo $this->input->get('attr_set_id');?>" />
 			                            <input type="hidden" name="extensionCode" value="<?php echo $this->input->get('extension_code');?>" />
-			                            <div class="controls">
-			                                <select name="extension_code" class="medium m-wrap valid" disabled="disabled">
-		                                    <?php foreach ($extension as $key=>$value) : ?>
+										<div class="controls">
+											<select  class="m-wrap span12"  name="extension_code" disabled="disabled">
+												<?php foreach ($extension as $key=>$value) : ?>
 		                                        <option value="<?php echo $key;?>" <?php if($this->input->get('extension_code')==$key):?>selected="selected"<?php endif;?>><?php echo $value; ?></option>
-		                                    <?php endforeach;?>
+		                                        <?php endforeach;?>
 					                        </select>
-	                            	    </div>
-	                                </div>
-	                                <div class="control-group">
+										</div>
+									</div>
+									<div class="control-group">
 			                            <label class="control-label"><em>* </em>商品名称</label>
 			                            <div class="controls">
-			                                <input type="text" class="m-wrap span8 required" placeholder="商品名称" name="goods_name">
+			                                <input type="text" class="m-wrap span12 required" placeholder="商品名称" name="goods_name">
 			                            </div>
 	                        		</div>
-				                    <div class="control-group">
+									<div class="control-group">
 			                            <label class="control-label"><em>* </em>商品编号</label>
 			                            <div class="controls">
-			                                <input type="text" class="m-wrap span8 required" placeholder="商品编号" name="goods_sku">
+			                                <input type="text" class="m-wrap span12 required" placeholder="商品编号" name="goods_sku">
 			                            </div>
 				                    </div>
-					                <div class="control-group">
+									<div class="control-group">
 					                    <label class="control-label">商品品牌</label>
 					                    <div class="controls">
-			                                <select name="brand_id" class="m-wrap span8">
+			                                <select name="brand_id" class="m-wrap span12">
 			                                    <option value="0">请选择</option>
 			                                    <?php if ($brand->num_rows() > 0) : ?>
 		                                        <?php foreach ($brand->result() as $item) : ?>
@@ -66,28 +82,28 @@
 		                                    </select>
 				                        </div>
 				                    </div>
-			                        <div class="control-group ">
+									<div class="control-group ">
 			                            <label class="control-label"><em>* </em>净重（kg）</label>
 			                            <div class="controls">
-			                                <input type="text" name="goods_weight" class="m-wrap span8 required number" placeholder="重量(kg)">
+			                                <input type="text" name="goods_weight" class="m-wrap span12 required number" placeholder="重量(kg)">
 			                            </div>
 			                        </div>
-			                        <div class="control-group">
+									<div class="control-group">
 			                            <label class="control-label"><em>* </em>商品简介</label>
 			                            <div class="controls">
-			                                <textarea name="goods_brief" rows="4" class="m-wrap span8 required" placeholder="商品简介"></textarea>
+			                                <textarea name="goods_brief" rows="4" class="m-wrap span12 required" placeholder="商品简介"></textarea>
 			                            </div>
 			                        </div>
-			                        <div class="control-group add-supplieruid-html">
+									<div class="control-group add-supplieruid-html">
 			                            <label class="control-label"><em>* </em>供应商</label>
 			                            <div class="controls">
-			                                <input type="text" name="supplier_id" placeholder="供应商UID" class="m-wrap span8 supplieruid required tooltips" data-original-title="双击可弹框选择供应商；直接输入‘用户名称或编号’可提示" data-trigger="hover"  autocomplete="off">
+			                                <input type="text" name="supplier_id" placeholder="供应商UID" class="m-wrap span12 supplieruid required tooltips" data-original-title="双击可弹框选择供应商；直接输入‘用户名称或编号’可提示" data-trigger="hover"  autocomplete="off">
 			                            </div>
 			                        </div>
 			                        <div class="control-group">
 			                            <label class="control-label"><em>* </em>审核状态</label>
 			                            <div class="controls">
-			                                <select class="m-wrap span8 number required" name="is_check">
+			                                <select class="m-wrap span12 number required" name="is_check">
 			                                    <option value="1">未审核</option>
 			                                    <option value="2">审核通过</option>
 			                                    <option value="3">审核拒绝</option>
@@ -97,7 +113,7 @@
 			                        <div class="control-group">
 			                            <label class="control-label"><em>* </em>上下架</label>
 			                            <div class="controls">
-			                                <select class="m-wrap span8 required" name="is_on_sale">
+			                                <select class="m-wrap span12 required" name="is_on_sale">
 			                                    <option value="1">上架</option>
 			                                    <option value="2">下架</option>
 			                                </select>
@@ -106,37 +122,48 @@
 			                        <div class="control-group">
 			                            <label class="control-label"><em>* </em>pc商品详情</label>
 			                            <div class="controls">
-			                                <textarea name="goods_desc"  class="textarea-multipart-edit m-wrap span9 required" placeholder="pc商品详情"></textarea>
+			                                <textarea name="goods_desc"  class="textarea-multipart-edit m-wrap span12 required" placeholder="pc商品详情"></textarea>
 			                            </div>
 			                        </div>
 			                        <div class="control-group">
 			                            <label class="control-label"><em>* </em>wap商品详情</label>
 			                            <div class="controls">
-			                                <textarea name="wap_goods_desc" class="textarea-multipart-edit m-wrap span9 required" placeholder="wap商品详情"></textarea>
+			                                <textarea name="wap_goods_desc" class="textarea-multipart-edit m-wrap span12 required" placeholder="wap商品详情"></textarea>
 			                            </div>
 			                        </div>
-							   </div>
-					      </div>
-			         </div>
-			         <div id="tab_2" class="tab-pane">
-	                     <div class="row-fluid">
-	                          <div class="span10 booking-search">
-	                                <div class="control-group ">
-			                            <label class="control-label">市场价格</label>
-			                            <div class="controls">
-			                                <input type="text" name="market_price" class="m-wrap span8 required number" placeholder="市场价格">
-			                            </div>
-	                                </div>
-			                        <div class="control-group">
+									<div class="form-actions">
+	                         			<button class="btn green step4" type="submit"><i class="icon-ok"></i> 保存</button>
+	                         			<a class="btn step3" href="<?php echo base_url('mall_goods_base/addstep1')?>">返回上一步</a>
+	                    			</div>
+							 </div>
+						</div>
+					</div>
+					<div class="tab-pane"  id="tab_2">
+					    <div class="portlet box green">
+							 <div class="portlet-title">
+								 <div class="caption"><i class="icon-reorder"></i>商品销售信息</div>
+							     <div class="tools">
+			                        <a class="collapse" href="javascript:;"></a>
+			                        <a class="remove" href="javascript:;"></a>
+			                     </div>
+							 </div>
+							 <div class="portlet-body form">
+						         <div class="control-group">
+		                             <label class="control-label">市场价格</label>
+		                             <div class="controls">
+		                                 <input type="text" name="market_price" class="m-wrap span12 required number" placeholder="市场价格">
+		                             </div>
+		                         </div>
+		                         <div class="control-group">
 			                            <label class="control-label"><em>* </em>供应价</label>
 			                            <div class="controls">
-			                                <input type="text" name="shop_price" class="m-wrap span8 required number" placeholder="供应价">
+			                                <input type="text" name="shop_price" class="m-wrap span12 required number" placeholder="供应价">
 			                            </div>
 			                        </div>
 			                        <div class="control-group ">
 			                            <label class="control-label"><em>* </em>促销价</label>
 			                            <div class="controls">
-			                                <input type="text" name="promote_price" class="m-wrap span8 required number" placeholder="促销价">
+			                                <input type="text" name="promote_price" class="m-wrap span12 required number" placeholder="促销价">
 			                            </div>
 			                        </div>
 			                        <div class="control-group">
@@ -159,28 +186,28 @@
 			                                </label>
 			                            </div>
 			                        </div>
-			                        <div class="control-group ">
+			                        <div class="control-group">
 			                            <label class="control-label"><em>* </em>限制购买数量</label>
 			                            <div class="controls">
-			                                <input type="text" name="limit_num" class="m-wrap span8 required" placeholder="限制购买数量 ,0代表不限制" value="0">
+			                                <input type="text" name="limit_num" class="m-wrap span12 required" placeholder="限制购买数量 ,0代表不限制" value="0">
 			                            </div>
 			                        </div>
 			                        <div class="control-group ">
 			                            <label class="control-label"><em>* </em>促销开始时间</label>
 			                            <div class="controls">
-			                                <input type="text" name="promote_start_date" class="m-wrap span8 required date-picker date" placeholder="促销开始时间" value="<?php echo date('Y-m-d') ?>">
+			                                <input type="text" name="promote_start_date" class="m-wrap span12 required date-picker date" placeholder="促销开始时间" value="<?php echo date('Y-m-d') ?>">
 			                            </div>
 			                        </div>
 			                        <div class="control-group ">
 			                            <label class="control-label"><em>* </em>促销结束时间</label>
 			                            <div class="controls">
-			                                <input type="text" name="promote_end_date" class="m-wrap span8 required date-picker date" placeholder="促销结束时间" value="<?php echo date('2016-12-31')?>">
+			                                <input type="text" name="promote_end_date" class="m-wrap span12 required date-picker date" placeholder="促销结束时间" value="<?php echo date('2016-12-31')?>">
 			                            </div>
 			                        </div>
 			                        <div class="control-group ">
 			                            <label class="control-label"><em>* </em>用户积分</label>
 			                            <div class="controls">
-			                                <input type="text" name="integral" class="m-wrap span8 required number" placeholder="100积分抵1块钱,0代表不抵，不使用"  value="0"/>
+			                                <input type="text" name="integral" class="m-wrap span12 required number" placeholder="100积分抵1块钱,0代表不抵，不使用"  value="0"/>
 			                            </div>
 			                        </div>
 			                        <div class="control-group">
@@ -197,43 +224,54 @@
 			                        <div class="control-group ">
 			                            <label class="control-label"><em>* </em>浏览量</label>
 			                            <div class="controls">
-			                                <input type="text" name="tour_count" class="m-wrap span8 required number" placeholder="浏览量" value="0">
+			                                <input type="text" name="tour_count" class="m-wrap span12 required number" placeholder="浏览量" value="0">
 			                            </div>
 			                        </div>
 			                        <div class="control-group">
 			                            <label class="control-label"><em>* </em>销售数量</label>
 			                            <div class="controls">
-			                                <input type="text" name="sale_count" class="m-wrap span8 required number" placeholder="销售数量" value="0">
+			                                <input type="text" name="sale_count" class="m-wrap span12 required number" placeholder="销售数量" value="0">
 			                            </div>
 			                        </div>
 			                        <div class="control-group">
 			                            <label class="control-label"><em>* </em>库存</label>
 			                            <div class="controls">
-			                                <input type="text" name="in_stock" class="m-wrap span8 required number" placeholder="库存">
+			                                <input type="text" name="in_stock" class="m-wrap span12 required number" placeholder="库存">
 			                            </div>
 			                        </div>
 			                        <div class="control-group ">
 			                            <label class="control-label"><em>* </em>排序</label>
 			                            <div class="controls">
-			                                <input type="text" name="sort_order" class="m-wrap span8 required number" placeholder="排序">
+			                                <input type="text" name="sort_order" class="m-wrap span12 required number" placeholder="排序">
 			                            </div>
 			                        </div>
 			                        <div class="control-group add-goods-related-html">
 			                            <label class="control-label">关联产品</label>
 			                            <div class="controls">
-			                                <input type="text" name="related_goods_id" class="m-wrap span8 tooltips related_goods_id" placeholder="关联产品Id" data-original-title="双击可弹框选择关联产品" data-trigger="hover"  autocomplete="off" />
+			                                <input type="text" name="related_goods_id" class="m-wrap span12 tooltips related_goods_id" placeholder="关联产品Id" data-original-title="双击可弹框选择关联产品" data-trigger="hover"  autocomplete="off" />
 			                            </div>
 			                        </div>
-	                          </div>
-	                     </div>
-	                </div>
-			        <div id="tab_3" class="tab-pane">
-	                    <div class="row-fluid">
-	                         <div class="span10 booking-search">
-	                           <?php if($attribute_group->num_rows()>0):?>
-	                           <?php foreach ($attribute_group->result() as $val):?>
-	                           <?php $attribute_value = $this->mall_attribute_value->getAttrbuteValue($val->group_id,$val->attr_set_id);?>
-	                           <?php if($attribute_value->num_rows()>0):?>
+		                            <div class="form-actions">
+	                         			<button class="btn green step4" type="submit"><i class="icon-ok"></i> 保存</button>
+	                         			<a class="btn step3" href="<?php echo base_url('mall_goods_base/addstep1')?>">返回上一步</a>
+	                    			</div>
+					          </div>
+					    </div>
+					 </div>
+					 <div class="tab-pane"  id="tab_3">
+					    <div class="portlet box green">
+					          <div class="portlet-title">
+								 <div class="caption"><i class="icon-reorder"></i>商品属性信息</div>
+							     <div class="tools">
+			                        <a class="collapse" href="javascript:;"></a>
+			                        <a class="remove" href="javascript:;"></a>
+			                     </div>
+							  </div>
+							  <div class="portlet-body form">
+							       <?php if($attribute_group->num_rows()>0):?>
+	                               <?php foreach ($attribute_group->result() as $val):?>
+	                               <?php $attribute_value = $this->mall_attribute_value->getAttrbuteValue($val->group_id,$val->attr_set_id);?>
+	                               <?php if($attribute_value->num_rows()>0):?>
 		                           <div class="alert alert-success"><?php echo $val->group_name;?></div>
 		                           <?php foreach ($attribute_value->result() as $item):?>
 			                           <div class="control-group ">
@@ -315,68 +353,83 @@
 				                            </div>
 			                           </div>
 		                           <?php endforeach;?>
-	                           <?php endif;?>
-	                           <?php endforeach;?>
-	                           <?php endif;?>
-			                 </div>
-			            </div>
-			        </div>
-			        <div id="tab_4" class="tab-pane">
-			        	<div class="control-group">
-	                        <label class="control-label"><em>* </em>配送地址</label>
-	                        <div class="controls">
-	                            <?php $this->load->view('commonhtml/districtSelect'); ?>
-	                        </div>
-	                    </div>
-	                    <div class="control-group ">
-	                        <label class="control-label"> 详细地址</label>
-	                        <div class="controls">
-	                            <input type="text" class="m-wrap span8 required" placeholder="用于根据地址搜索您的产品" name="address" />
-	                        </div>
-	                    </div>
-	                    <div class="control-group">
-	                        <label class="control-label"><em>* </em>支付方式</label>
-	                        <div class="controls">
-	                            <label class="checkbox">
-	                                 <input type="checkbox" class="required" value="1" name="payments[]" checked="checked"/>在线支付
-	                            </label>
-	                            <label class="checkbox">
-	                                 <input type="checkbox" class="required" value="2" name='payments[]'/>货到付款
-	                            </label>
-	                        </div>
-	                    </div>
-	                    <div class="control-group">
-	                        <label class="control-label">运费</label>
-	                        <div class="controls transport">
-	                             <label class="checkbox">
-	                                 <input type="radio" value="1" name="transport_type"/>
-	                             </label>
-	                             <select name="freight_id" id="freight_id" class="medium" style="display:none;">
-	                             </select>
-	                             <label class="checkbox">使用运费模板</label>
-	                        </div>
-	                    </div>
-	                    <div class="control-group">
-	                         <label class="control-label"></label>
-	                         <div class="controls transport">
-	                             <label class="checkbox">
-	                                 <input type="radio" value="2" name="transport_type"  checked="checked"/>
-	                             </label>
-	                             <input type="text" name="freight_cost" id="freight_cost" class="required" />
-	                             <label class="checkbox">自定义运费价格</label>
-	                         </div>
-	                    </div>
-	                    <div class="form-actions">
-	                         <button class="btn green step4" type="submit"><i class="icon-ok"></i> 保存</button>
-	                         <a class="btn step3" href="<?php echo base_url('mall_goods_base/addstep1')?>">返回上一步</a>
-	                    </div>
-			        </div>
-			    </div>
-		    </div>
-		</form>
+	                               <?php endif;?>
+	                               <?php endforeach;?>
+	                               <?php endif;?>
+	                               <div class="form-actions">
+	                         			<button class="btn green step4" type="submit"><i class="icon-ok"></i>保存</button>
+	                         			<a class="btn step3" href="<?php echo base_url('mall_goods_base/addstep1')?>">返回上一步</a>
+	                    		   </div>
+							  </div>
+					    </div>
+					 </div>
+					 <div class="tab-pane"  id="tab_4">
+					    <div class="portlet box green">
+					        <div class="portlet-title">
+								 <div class="caption"><i class="icon-reorder"></i>商品运费信息</div>
+							     <div class="tools">
+			                        <a class="collapse" href="javascript:;"></a>
+			                        <a class="remove" href="javascript:;"></a>
+			                     </div>
+							</div>
+							<div class="portlet-body form">
+							    <div class="control-group">
+			                        <label class="control-label"><em>* </em>配送地址</label>
+			                        <div class="controls">
+			                            <?php $this->load->view('commonhtml/districtSelect'); ?>
+			                        </div>
+			                    </div>
+			                    <div class="control-group ">
+			                        <label class="control-label"> 详细地址</label>
+			                        <div class="controls">
+			                            <input type="text" class="m-wrap span8 required" placeholder="用于根据地址搜索您的产品" name="address" />
+			                        </div>
+			                    </div>
+			                    <div class="control-group">
+			                        <label class="control-label"><em>* </em>支付方式</label>
+			                        <div class="controls">
+			                            <label class="checkbox">
+			                                 <input type="checkbox" class="required" value="1" name="payments[]" checked="checked"/>在线支付
+			                            </label>
+			                            <label class="checkbox">
+			                                 <input type="checkbox" class="required" value="2" name='payments[]'/>货到付款
+			                            </label>
+			                        </div>
+			                    </div>
+			                    <div class="control-group">
+			                        <label class="control-label">运费</label>
+			                        <div class="controls transport">
+			                             <label class="checkbox">
+			                                 <input type="radio" value="1" name="transport_type"/>
+			                             </label>
+			                             <select name="freight_id" id="freight_id" class="medium" style="display:none;">
+			                             </select>
+			                             <label class="checkbox">使用运费模板</label>
+			                        </div>
+			                    </div>
+			                    <div class="control-group">
+			                         <label class="control-label"></label>
+			                         <div class="controls transport">
+			                             <label class="checkbox">
+			                                 <input type="radio" value="2" name="transport_type"  checked="checked"/>
+			                             </label>
+			                             <input type="text" name="freight_cost" id="freight_cost" class="required" />
+			                             <label class="checkbox">自定义运费价格</label>
+			                         </div>
+			                    </div>
+			                    <div class="form-actions">
+			                         <button class="btn green step4" type="submit"><i class="icon-ok"></i> 保存</button>
+			                         <a class="btn step3" href="<?php echo base_url('mall_goods_base/addstep1')?>">返回上一步</a>
+			                    </div>
+							</div>
+					    </div>
+					 </div>
+				 </div>
+			  </form>  
+           </div>
+        </div>
     </div>
 </div>
- 
 <?php $this->load->view('layout/footer');?>
 <?php $this->load->view('user/addSupplierUid/ajaxGetUser'); ?>
 <?php $this->load->view('mall_goods_base/addGoodBase/ajaxGetGoods');?>

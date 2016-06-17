@@ -47,6 +47,33 @@ class Mall_category_model extends CI_Model{
 		}
 		return array();
 	}
+	
+	 /**
+	 *获取所有的分类
+	 */
+	public function getAllCategory(){
+		
+		$this->db->where('is_show',1);
+		$category = $this->db->get($this->table);
+		$firstCat = array();
+		foreach ($category->result() as $key=>$val) {
+			if (($val->cat_type==1) && ($val->parent_id==0) ) {
+				$firstCat[$key]['cat_id'] = $val->cat_id;
+				$firstCat[$key]['cat_name'] = $val->cat_name;
+				$firstCat[$key]['childCat'][0]['cat_id'] = $val->cat_id;
+				$firstCat[$key]['childCat'][0]['cat_name'] = $val->cat_name;
+			}
+		}
+		foreach ($firstCat as $key=>$item){
+			foreach ($category->result() as $ikey=>$jitem) {
+					if( $jitem->parent_id == $item['cat_id'] ){
+						$firstCat[$key]['childCat'][$ikey+1]['cat_id'] = $jitem->cat_id;
+						$firstCat[$key]['childCat'][$ikey+1]['cat_name'] = $jitem->cat_name;
+					}
+			}
+		}
+		return $firstCat;
+	}
 }
 
 /* End of file Mall_category_model.php */

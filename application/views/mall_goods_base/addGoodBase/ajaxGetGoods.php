@@ -35,17 +35,18 @@ $(document).ready(function(){
     });
 
     //翻页
-    $('#goods-responsive').on('click', '.dataTables_info a', function(e){
+    $('#goods-responsive').on('click', '.dataTables_paginate a', function(e){
+    	e.preventDefault();
         var url = $(this).attr('href');
-        ajaxGetUser(url);
-        return e.preventDefault();
+        ajaxGetGoodsBase(url)
+        return false;
     });
 
     //获取数据
     function ajaxGetGoodsBase(url) {
         $.ajax({
             type: 'get',
-            async: false,
+            async: true,
             dataType : 'json',
             url: url ? url : hostUrl()+'/mall_goods_base/ajaxGetMallGoods',
             data: url ? {} : $('.ajaxGoodsBaseSearch').serialize(),

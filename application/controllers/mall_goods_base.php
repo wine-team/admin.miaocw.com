@@ -62,6 +62,7 @@ class Mall_goods_base extends CS_Controller
     	$data['brand'] = $this->mall_brand->findById(array('is_show'=>1));//品牌信息
 		$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
     	$data['attribute_group'] = $this->mall_attribute_group->findByAttrSetId($attr_set_id);
+    	$data['category'] = $this->mall_category->getAllCategory();
     	$this->load->view('mall_goods_base/addstep2', $data);
     }
     
@@ -145,11 +146,9 @@ class Mall_goods_base extends CS_Controller
     public function addPost()
     {
     	$param = $this->input->post();
-    	
-    	$param['category_id'] = $this->getCategoryId($param);
     	$this->db->trans_begin();
     	$goods_id = $this->mall_goods_base->insertMallGoods($param);
-    	$result = $this->mall_category_product->insert($goods_id,$param['category_id']);
+    	$result = $this->mall_category_product->insertBatch($goods_id,$param['category_id']);
     	$relatedResult = true;
     	if (!empty($param['related_goods_id'])) {
     		$relatedGoodsArray = array_filter(explode(',', str_replace('，',',',$param['related_goods_id'])));
@@ -451,7 +450,6 @@ class Mall_goods_base extends CS_Controller
     	    }
     	} 
     	
-   
     	//验证运费模版
     	if ($this->input->post('transport_type') == 1) {
     		if (!$this->input->post('freight_id')) {
@@ -484,19 +482,20 @@ class Mall_goods_base extends CS_Controller
      */
     public function ajaxGetMallGoods($pg=1)
 	{
-    	$page_num = 15;
+    	$page_num = 8;
     	$num = ($pg-1)*$page_num;
-    	$config['per_page'] = 15;
+    	$config['per_page'] = 8;
     	$config['first_url'] = base_url('mall_goods_base/ajaxGetMallGoods').$this->pageGetParam($this->input->get());
     	$config['suffix'] = $this->pageGetParam($this->input->get());
     	$config['base_url'] = base_url('mall_goods_base/ajaxGetMallGoods');
     	$config['total_rows'] = $this->mall_goods_base->total($this->input->get());
     	$config['uri_segment'] = 3;
     	$this->pagination->initialize($config);
-    	$data['pg_list']   = $this->pagination->create_links();
+    	$data['pg_link']   = $this->pagination->create_links();
     	$data['page_list'] = $this->mall_goods_base->page_list($page_num, $num, $this->input->get());
     	$data['all_rows']  = $config['total_rows'];
     	$data['pg_now']    = $pg;
+    	$data['page_num']  = $page_num;
     	echo json_encode(array(
     			'status'=>true,
     			'html'  =>$this->load->view('mall_goods_base/addGoodBase/ajaxGoodsData', $data, true)

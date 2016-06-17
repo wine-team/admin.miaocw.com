@@ -25,4 +25,20 @@ class Mall_category_product_model extends CI_Model
     	$this->db->where('goods_id',$goods_id);
     	return $this->db->delete($this->table);
     }
+    
+    /**
+     * 数组插入
+     * @param unknown $goods_id
+     * @param unknown $category_id
+     */
+    public function insertBatch($goods_id,$category_id=array()){
+    	
+    	$insertArray= array();
+    	foreach ($category_id as $key=>$item){
+    		$insertArray[$key]['category_id'] = $item;
+    		$insertArray[$key]['goods_id'] = $goods_id;
+    		$insertArray[$key]['position'] = 50;
+    	}
+    	return $this->db->insert_batch($this->table,$insertArray);
+    }
 }

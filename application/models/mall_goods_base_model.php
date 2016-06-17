@@ -61,7 +61,7 @@ class Mall_goods_base_model extends CI_Model{
 	 public function insertMallGoods($param){
 	 	
 	 	$data = array(
-	 		'category_id'  => $param['category_id'],
+	 		'category_id'  => implode(',',array_filter($param['category_id'])),
 	 	    'goods_name'   => $param['goods_name'],
 	 	    'goods_sku'    => $param['goods_sku'],
 	 	    'brand_id'     => $param['brand_id'],
