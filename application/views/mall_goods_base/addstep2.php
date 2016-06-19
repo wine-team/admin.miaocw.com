@@ -48,9 +48,9 @@
                                     <div class="control-group">
 										<label class="control-label">商品类别</label>
 										<input type="hidden" name="attribute_set_id" value="<?php echo $this->input->get('attr_set_id');?>" />
-			                            <input type="hidden" name="extensionCode" value="<?php echo $this->input->get('extension_code');?>" />
+			                            <input type="hidden" name="extension_code" value="<?php echo $this->input->get('extension_code');?>" />
 										<div class="controls">
-											<select  class="m-wrap span12"  name="extension_code" disabled="disabled">
+											<select  class="m-wrap span12"  name="extensionCode" disabled="disabled">
 												<?php foreach ($extension as $key=>$value) : ?>
 		                                        <option value="<?php echo $key;?>" <?php if($this->input->get('extension_code')==$key):?>selected="selected"<?php endif;?>><?php echo $value; ?></option>
 		                                        <?php endforeach;?>

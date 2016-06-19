@@ -135,6 +135,7 @@ class Mall_goods_base extends CS_Controller
     		$this->jsonMessage($error);
     	}
     	if ($this->input->post('goods_id')) {
+    		
     		$this->editPost();
     	} else {
     		$this->addPost();
@@ -167,27 +168,6 @@ class Mall_goods_base extends CS_Controller
     		$this->db->trans_commit();
     		$this->session->set_flashdata('success', '保存成功!');
     		$this->jsonMessage('',base_url('mall_goods_base/grid'));
-    	}exit;
-    }
-    
-    
-     /**
-     * 分类名称
-     * @param unknown $param
-     */
-    public function getCategoryId($param)
-	{
-    	if( !empty($param['category_id'])){
-    		return $param['category_id'];
-    	}
-    	if( !empty($param['class_c']) ){
-    		return $param['class_c'];
-    	}
-    	if( !empty($param['class_b']) && empty($param['class_c'])){
-    		return $param['class_b'];
-    	}
-    	if( !empty($param['class_a']) && empty($param['class_b']) && empty($param['class_c'])){
-    		return $param['class_a'];
     	}
     }
     
@@ -207,13 +187,20 @@ class Mall_goods_base extends CS_Controller
     	$data['city_id'] = $data['mallgoods']->city_id;
     	$data['district_id'] = $data['mallgoods']->district_id;
     	$data['brand'] = $this->mall_brand->findById(array('is_show'=>1));//品牌信息
-		$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
+		
+    	$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
+    	
+    	$data['category_name'] = $this->mall_category->getCategoryByCatId(array('category_id'=>$data['mallgoods']->category_id));
+		
+    	$data['related_goods'] = $this->mall_goods_related->findRealtedByGoodsId($goods_id);
+		
     	$data['attribute'] = $this->mall_attribute_set->findByReason(array('enabled'=>1));
     	$data['freight'] = $this->mall_freight_tpl->getTransport($data['mallgoods']->supplier_id);
     	$data['attribute_group'] = $this->mall_attribute_group->findByAttrSetId($attr_set_id);
     	
     	$data['attr_value'] = $this->mall_goods_attr_value->findById(array('goods_id'=>$goods_id))->result();
     	$data['attr_spec'] = $this->mall_goods_attr_spec->findById(array('goods_id'=>$goods_id))->result();
+
     	$attr_spec_ids = array();
     	foreach ($data['attr_spec'] as $spec) {
     	    $attr_spec_ids[] = $spec->attr_spec_id;
@@ -222,8 +209,8 @@ class Mall_goods_base extends CS_Controller
     	if (!empty($attr_spec_ids)) {
     	    $attr_price = $this->mall_goods_attr_spec->getPriceWhereIn('attr_spec_id', $attr_spec_ids)->result();
     	}
-    	$data['attr_price'] = $attr_price;    
-    	$data['attr_price'] = $attr_price;   
+    	$data['attr_price'] = $attr_price;
+    	$data['category'] = $this->mall_category->getAllCategory();
     	$this->load->view('mall_goods_base/edit',$data);
     }
     
@@ -232,22 +219,28 @@ class Mall_goods_base extends CS_Controller
     	$goods_id = $this->input->post('goods_id');
     	$param = $this->input->post();
     	$this->db->trans_begin();
+    	
     	$updateGoods = $this->mall_goods_base->updateMallGoodsBase($this->input->post(),$goods_id);
 
+    	if (!empty($param['category_id'])) {
+    		$this->mall_category_product->deleteByGoodsId($goods_id);
+    		$updateCategory = $this->mall_category_product->insertBatch($goods_id,$param['category_id']);
+    	}
+    	
     	if (isset($param['attr'][1])) {
     	    $goodsAttrResult = $this->mall_goods_attr_value->updateAttrBatch($param['attr'][1]); 
     	}
+    	
     	if (isset($param['attr'][2]) && isset($param['price'][2]) && isset($param['attrNum'][2]) && isset($param['attrStock'][2])) {
     	    $this->mall_goods_attr_spec->updatePriceBatch($param['price'][2], $param['attrNum'][2], $param['attrStock'][2]);
     	}
 
-    	if (!$updateGoods && $this->db->trans_status() === FALSE) {
+    	if ( !$updateGoods && !$updateCategory && $this->db->trans_status() === FALSE) {
     		$this->db->trans_rollback();
-    		$this->jsonMessage('保存失败！');
+    		$this->jsonMessage('编辑失败！');
     	} else {
     		$this->db->trans_complete();
-    		$this->session->set_flashdata('success', '保存成功!');
-    		$this->jsen(base_url('mall_goods_base/grid'), TRUE);
+    		$this->session->set_flashdata('success', '编辑成功!');
     		$this->jsonMessage('', base_url('mall_goods_base/grid'));
     	}
     	exit;
@@ -360,18 +353,39 @@ class Mall_goods_base extends CS_Controller
      */
     public function copy($goods_id)
 	{
-    	$result = $this->mall_goods_base->getInfoByGoodsId($goods_id);
-    	if ($result->num_rows() <= 0) {
-    		$this->error('mall_goods_base/grid', '', '找不到产品相关信息！');
-    	}
-    	$data['mallgoods'] = $result->row();
-    	$data['province_id'] = $data['mallgoods']->province_id;
-    	$data['city_id'] = $data['mallgoods']->city_id;
-    	$data['district_id'] = $data['mallgoods']->district_id;
-    	$data['brand'] = $this->mall_brand->findById(array('is_show'=>1));//品牌信息
+		$result = $this->mall_goods_base->getInfoByGoodsId($goods_id);
+		if ($result->num_rows() <= 0) {
+			$this->error('mall_goods_base/grid', '', '找不到产品相关信息！');
+		}
+		$attr_set_id = $this->input->get('attr_set_id');
+		$data['mallgoods'] = $result->row();
+		$data['province_id'] = $data['mallgoods']->province_id;
+		$data['city_id'] = $data['mallgoods']->city_id;
+		$data['district_id'] = $data['mallgoods']->district_id;
+		$data['brand'] = $this->mall_brand->findById(array('is_show'=>1));//品牌信息
 		$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
-    	$data['attribute'] = $this->mall_attribute_set->findByReason(array('enabled'=>1));
-    	$data['freight'] = $this->mall_freight_tpl->getTransport($data['mallgoods']->supplier_id);
+		 
+		$data['category_name'] = $this->mall_category->getCategoryByCatId(array('category_id'=>$data['mallgoods']->category_id));
+		
+		$data['related_goods'] = $this->mall_goods_related->findRealtedByGoodsId($goods_id);
+		
+		$data['attribute'] = $this->mall_attribute_set->findByReason(array('enabled'=>1));
+		$data['freight'] = $this->mall_freight_tpl->getTransport($data['mallgoods']->supplier_id);
+		$data['attribute_group'] = $this->mall_attribute_group->findByAttrSetId($attr_set_id);
+		 
+		$data['attr_value'] = $this->mall_goods_attr_value->findById(array('goods_id'=>$goods_id))->result();
+		$data['attr_spec'] = $this->mall_goods_attr_spec->findById(array('goods_id'=>$goods_id))->result();
+		 
+		$attr_spec_ids = array();
+		foreach ($data['attr_spec'] as $spec) {
+			$attr_spec_ids[] = $spec->attr_spec_id;
+		}
+		$attr_price = array();
+		if (!empty($attr_spec_ids)) {
+			$attr_price = $this->mall_goods_attr_spec->getPriceWhereIn('attr_spec_id', $attr_spec_ids)->result();
+		}
+		$data['attr_price'] = $attr_price;
+		$data['category'] = $this->mall_category->getAllCategory();
     	$this->load->view('mall_goods_base/copy',$data);
     }
     
@@ -382,6 +396,7 @@ class Mall_goods_base extends CS_Controller
     	$result = $this->mall_category_product->deleteByGoodsId($goods_id);
     	$deletePrice = $this->mall_goods_attr_spec->deletePrice($goods_id); 
     	$deleteAttr = $this->mall_goods_attr_value->deleteAttr($goods_id);
+    	$deleteRelated = $this->mall_goods_related->deleteByGoodsId($goods_id);
     	if ($status && $result && ($this->db->trans_status() === TRUE)) {
     		$this->db->trans_complete();
     		$this->success('mall_goods_base/grid', '', '删除成功');

@@ -78,7 +78,7 @@ class Mall_goods_base_model extends CI_Model{
 	 		'promote_start_date' => $param['promote_start_date'],
 	 		'promote_end_date'   => $param['promote_end_date'],
 	 		'attribute_set_id'   => $param['attribute_set_id'],
-	 	    'extension_code'     => $param['extensionCode'],
+	 	    'extension_code'     => $param['extension_code'],
 	 		'tour_count'         => $param['tour_count'],
 	 		'sale_count'         => $param['sale_count'],
 	 		'in_stock'           => $param['in_stock'],
@@ -133,20 +133,26 @@ class Mall_goods_base_model extends CI_Model{
 	 			'district_id'        => $param['district_id'],
 	 			'address'            => $param['address'],
 	 			'in_stock'           => $param['in_stock'],
+	 			'extension_code'     => $param['extension_code'],
 	 			'limit_num'          => $param['limit_num'],
 	 			'minus_stock'        => $param['minus_stock'],
 	 			'integral'      => empty($param['integral']) ? '0' : $param['integral'],
 	 			'sort_order'    => empty($param['sort_order']) ? '1' : $param['sort_order'],
-	 			'update_at'    => date('Y-m-d H:i:s'),
+	 			'update_at'     => date('Y-m-d H:i:s'),
 	 	);
-	 	//运费模版
-	 	if ($param['transport_type'] == 1) {
+	 	
+	 	if (!empty($param['category_id'])){
+	 		$data['category_id'] = implode(',',array_filter($param['category_id']));
+	 	}
+
+	 	if ($param['transport_type'] == 1) {//运费模版
 	 		$data['freight_id'] = $param['freight_id'];
 	 		$data['freight_cost'] = 0;
 	 	} else {
 	 		$data['freight_id'] = 0;
 	 		$data['freight_cost'] = $param['freight_cost'];
 	 	}
+	 	
 	 	$this->db->where('goods_id',$goods_id);
 	 	return $this->db->update($this->table,$data);
 	 }

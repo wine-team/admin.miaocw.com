@@ -74,6 +74,26 @@ class Mall_category_model extends CI_Model{
 		}
 		return $firstCat;
 	}
+	
+	/**
+	 * 根据cat_id
+	 * @param unknown $param
+	 */
+	public function getCategoryByCatId($param = array()){
+		
+		if(!empty($param['category_id'])){
+			$category_id = array_filter(explode(',',$param['category_id']));
+			$this->db->where_in('cat_id',$category_id);
+		}
+		$result = $this->db->get($this->table);
+		$cat_name = array();
+		if( $result->num_rows()>0 ){
+			foreach ($result->result() as $key=>$item){
+				$cat_name[] = $item->cat_name;
+			}
+		}
+		return $cat_name;
+	}
 }
 
 /* End of file Mall_category_model.php */

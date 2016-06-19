@@ -50,6 +50,16 @@ class Mall_goods_related_model extends CI_Model{
 	}
 	
 	/**
+	 * delete
+	 * @param unknown $goods_id
+	 */
+	public function deleteByGoodsId($goods_id){
+		
+		$this->db->where('goods_id',$goods_id);
+		return $this->db->delete($this->table);
+	}
+	
+	/**
 	 * 
 	 * @param unknown $relatedGoodsArray
 	 * @param unknown $goods_id
@@ -66,6 +76,20 @@ class Mall_goods_related_model extends CI_Model{
 		}
 		return $this->db->insert_batch($this->table,$relatedGoods);
 	}
+	
+	public function findRealtedByGoodsId($goods_id){
+		
+		$this->db->where('goods_id',$goods_id);
+		$result = $this->db->get($this->table);
+		$returnArray = array();
+		if ($result->num_rows()>0) {
+			foreach ($result->result() as $key=>$item) {
+				$returnArray[] = $item->related_goods_id;
+			}
+		}
+		return $returnArray;
+	}
+	
 	
 }
 /* End of file Mall_goods_related_model.php */
