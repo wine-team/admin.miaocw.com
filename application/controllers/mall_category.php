@@ -23,20 +23,18 @@ class Mall_category extends MJ_Controller
 	public function addPost()
 	{
 	    $error = $this->validate(); 
-	    if (!empty($error))
-	    {
-	        $this->error('mall_category/add', $this->input->post('id'), $error);
+	    if (!empty($error)) {
+	        $this->error('mall_category/add','', $error);
 	    }
 	    $postData = $this->input->post();
 	    $data['cat_name'] = $postData['cat_name'];
 	    $data['parent_id'] = $postData['parent_id'];
 	    $data['cat_type'] = $postData['parent_id'] ? 2 : 1;
-	    if($postData['parent_id'])
-	    {
+	    if ($postData['parent_id']) {
 	        $data['cat_type'] = 2;
 	        $first_cat = $this->mall_category->findById(array('cat_id'=>$postData['parent_id']))->row();
 	        $data['full_name'] = $first_cat->cat_name.'>'.$postData['cat_name'];
-	    }else{
+	    } else {
 	        $data['cat_type'] = 1;
 	        $data['full_name'] = $postData['cat_name'];
 	    }
@@ -57,7 +55,7 @@ class Mall_category extends MJ_Controller
 	public function edit($cat_id)
 	{
 	    $res = $this->mall_category->findById(array('cat_id'=>$cat_id));
-	    if ($res->num_rows() <= 0){
+	    if ($res->num_rows() <= 0) {
 	    	$this->error('mall_category/grid', '', '没找到对应分类值');
 	    }
         $data['res'] = $res->row();
@@ -67,8 +65,7 @@ class Mall_category extends MJ_Controller
 	public function editPost()
 	{
 	    $error = $this->validate();
-        if (!empty($error))
-        {
+        if (!empty($error)) {
             $this->error('mall_category/edit', $this->input->post('cat_id'), $error);
         }
         $postData = $this->input->post();
