@@ -69,9 +69,9 @@ class Mall_goods_related extends MJ_Controller {
 		$param['is_double'] = $postData['is_double'];
 		$res = $this->mall_goods_related->update(array('related_id'=>$postData['related_id']),$param);
 		if ($res) {
-			$this->success('mall_goods_related/grid',$param['goods_id'], '新增成功！');
+			$this->success('mall_goods_related/grid',array('goods_id'=>$param['goods_id']),'编辑成功！');
 		} else {
-			$this->error('mall_goods_related/edit/'.$postData['related_id'],'', '新增失败！');
+			$this->error('mall_goods_related/edit/'.$postData['related_id'],'', '编辑失败！');
 		}
 	}
 	
@@ -79,9 +79,9 @@ class Mall_goods_related extends MJ_Controller {
 	{
         $is_delete = $this->mall_goods_related->delete(array('related_id'=>$related_id));
         if ($is_delete) {
-            $this->success('mall_goods_related/grid', $this->input->get('goods_id'), '删除成功！');
+            $this->success('mall_goods_related/grid', array('goods_id'=>$this->input->get('goods_id')), '删除成功！');
         } else {
-            $this->error('mall_goods_related/grid', $this->input->get('goods_id'), '删除失败！');
+            $this->error('mall_goods_related/grid', array('goods_id'=>$this->input->get('goods_id')), '删除失败！');
         }
 	}
 	

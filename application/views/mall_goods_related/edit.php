@@ -36,10 +36,10 @@
                             <label class="control-label"><em>* </em>是否双向关联</label>
                             <div class="controls">
                             	<label class="radio">
-                                	<input type="radio" class="required" name="is_double" value="1"  checked="checked"/>是
+                                	<input type="radio" class="required" name="is_double" value="1" <?php if($goods_related->is_double==1):?>checked="checked"<?php endif;?>/>是
                                 </label>
                                 <label class="radio">
-                                	<input type="radio" class="required" name="is_double" value="2" />否
+                                	<input type="radio" class="required" name="is_double" value="2" <?php if($goods_related->is_double==2):?>checked="checked"<?php endif;?>/>否
                             	</label>
                             </div>
                         </div>
