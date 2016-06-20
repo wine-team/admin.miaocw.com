@@ -141,7 +141,7 @@
                                         <?php if ($r->deliver_order_id) :?>快递ID（<?php echo $r->deliver_order_id;?>）<?php else :?>未发货<?php endif;?>
                                     </td>
                                     <td>
-                                        <?php echo '供应价：￥'.$r->order_supply_price.'</br>支付价：￥'.$r->actual_price.'</br>使用积分'.$r->integral;?>
+                                        <?php echo '供应价：￥'.$r->order_supply_price.'</br>支付价：￥'.$r->actual_price.'</br>使用积分：'.$r->integral;?>
                                     </td>
                                     <td><?php echo $r->order_note;?></td>
                                     <td><?php echo $is_form_arr[$r->is_form].'</br>'.$r->pay_time;;?></td>
