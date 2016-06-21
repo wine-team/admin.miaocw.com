@@ -2,8 +2,8 @@
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
-            <h3 class="page-title">商品订单 <small>订单管理</small></h3>
-            <?php echo breadcrumb(array('商品订单 ', 'mall_order_base/grid'=>'订单管理')); ?>
+            <h3 class="page-title">商品订单 <small>评价管理</small></h3>
+            <?php echo breadcrumb(array('商品订单 ', 'mall_order_reviews/grid'=>'评价管理')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>
@@ -18,24 +18,24 @@
                     </div>
                 </div>
                 <div class="portlet-body form">
-                    <form class="form-horizontal form-search" action="<?php echo base_url('mall_order_base/grid') ?>" method="get">
+                    <form class="form-horizontal form-search" action="<?php echo base_url('mall_order_reviews/grid') ?>" method="get">
                         <div class="row-fluid">
                             <div class="span4">
                                 <div class="control-group">
                                     <label class="control-label">用户名搜索</label>
                                     <div class="controls">
-                                        <input type="text" name="item" value="<?php echo $this->input->get('item');?>" class="m-wrap medium" placeholder="请输入用户名称、订单备注">
+                                        <input type="text" name="item" value="<?php echo $this->input->get('item');?>" class="m-wrap medium" placeholder="请输入用户名称、产品名、评价内容">
                                     </div>
                                 </div>
                             </div>
                             <div class="span4">
                                 <div class="control-group">
-                                    <label class="control-label">订单状态</label>
+                                    <label class="control-label">审核状态</label>
                                     <div class="controls">
-                                        <select name="state" class="m-wrap medium">
+                                        <select name="status" class="m-wrap medium">
                                             <option value="">请选择</option>
-                                            <?php foreach($state_arr as $k1=>$state) :?>
-                                            <option <?php if($this->input->get('state')==$k1)echo 'selected="selected"';?> value="<?php echo $k1;?>"><?php echo $state;?></option>
+                                            <?php foreach($status_arr as $k1=>$status) :?>
+                                            <option <?php if($this->input->get('status')==$k1)echo 'selected="selected"';?> value="<?php echo $k1;?>"><?php echo $status;?></option>
                                             <?php endforeach;?>
                                         </select>
                                     </div>
@@ -43,13 +43,13 @@
                             </div>
                             <div class="span4">
                                 <div class="control-group">
-                                    <label class="control-label">当前状态</label>
+                                    <label class="control-label">评分</label>
                                     <div class="controls">
-                                        <select name="status" class="m-wrap medium">
+                                        <select name="score" class="m-wrap medium">
                                             <option value="">请选择</option>
-                                            <?php foreach($status_arr as $k2=>$status) :?>
-                                            <option <?php if($this->input->get('status')==$k2)echo 'selected="selected"';?> value="<?php echo $k2;?>"><?php echo $status;?></option>
-                                            <?php endforeach;?>
+                                            <?php for($i=1;$i<6;$i++) :?>
+                                            <option <?php if($this->input->get('score')==$i)echo 'selected="selected"';?> value="<?php echo $i;?>"><?php echo $i;?>分</option>
+                                            <?php endfor;?>
                                         </select>
                                     </div>
                                 </div>
@@ -58,28 +58,23 @@
                         <div class="row-fluid">
                             <div class="span4">
                                 <div class="control-group">
-                                    <label class="control-label">供应商ID</label>
+                                    <label class="control-label">订单ID</label>
                                     <div class="controls">
-                                        <input type="number" name="seller_uid" value="<?php echo $this->input->get('seller_uid');?>" class="m-wrap medium" placeholder="请输入供应商ID">
+                                        <input type="number" name="order_id" value="<?php echo $this->input->get('order_id');?>" class="m-wrap medium" placeholder="请输入订单ID">
                                     </div>
                                 </div>
                             </div>
                             <div class="span4">
                                 <div class="control-group">
-                                    <label class="control-label">来源</label>
+                                    <label class="control-label">商品ID</label>
                                     <div class="controls">
-                                        <select name="is_form" class="m-wrap medium">
-                                            <option  value="">请选择</option>
-                                            <?php foreach($is_form_arr as $k3=>$is_form) :?>
-                                            <option <?php if($this->input->get('is_form')==$k3)echo 'selected="selected"';?> value="<?php echo $k3;?>"><?php echo $is_form;?></option>
-                                            <?php endforeach;?>
-                                        </select>
+                                        <input type="number" name="goods_id" value="<?php echo $this->input->get('goods_id');?>" class="m-wrap medium" placeholder="请输入商品ID">
                                     </div>
                                 </div>
                             </div>
                             <div class="span4">
                                 <div class="control-group">
-                                    <label class="control-label">下单时间</label>
+                                    <label class="control-label">创建时间</label>
                                     <div class="controls form-search-time">
                                         <div class="input-append date date-picker">
                                             <input type="text" name="sta_time" size="16" value="<?php echo date('Y-m-d',strtotime('-1 week'));?>" class="m-wrap m-ctrl-medium date-picker date">
@@ -119,12 +114,11 @@
                                     <th><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"></th>
                                     <th>编号</th>
                                     <th>用户名</th>
-                                    <th>订单状态</th>
-                                    <th>当前状态</th>
-                                    <th>快递</th>
-                                    <th>价格</th>
-                                    <th>备注</th>
-                                    <th>下单时间</th>
+                                    <th>商品</th>
+                                    <th>商品属性</th>
+                                    <th>评价内容</th>
+                                    <th>评分</th>
+                                    <th>审核状态</th>
                                     <th>操作</th>
                                 </tr>
                             </thead>
@@ -132,24 +126,26 @@
                                 <?php foreach ($res_list as $r) : ?>
                                 <tr>
                                     <td width="15"><input type="checkbox" class="checkboxes" value="1" ></td>
-                                    <td><?php echo $r->order_id;?></td>
+                                    <td><?php echo $r->reviews_id;?></td>
                                     <td><?php echo $r->user_name;?></td>
-                                    <td><?php echo $state_arr[$r->state];?></td>
-                                    <td><?php echo $status_arr[$r->status];?></td>
-                                    <td>
-                                        <?php echo '运费：￥'.$r->deliver_price.'</br>地址：'.json_decode($r->delivery_address).'</br>';?>
-                                        <?php if ($r->deliver_order_id) :?>快递ID（<?php echo $r->deliver_order_id;?>）<?php else :?>未发货<?php endif;?>
+                                    <td><?php echo $r->goods_name;?><br>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_order_base/edit/'.$r->order_id); ?>">订单</a>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_goods_base/edit/'.$r->goods_id); ?>">商品</a>
                                     </td>
+                                    <td><?php echo json_decode($r->goods_attr);?></td>
+                                    <td><?php echo $r->content;?></td>
+                                    <td><?php echo $r->score;?></td>
                                     <td>
-                                        <?php echo '供应价：￥'.$r->order_supply_price.'</br>支付价：￥'.$r->actual_price.'</br>使用积分：'.$r->integral;?>
+                                    <?php if($r->status==1) :?>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_order_reviews/editPost?status=2&reviews_id='.$r->reviews_id); ?>">审核通过</a>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_order_reviews/editPost?status=3&reviews_id='.$r->reviews_id); ?>">审核不通过</a>
+                                    <?php else :?>
+                                    <?php echo $status_arr[$r->status];?>
+                                    <?php endif;?>
                                     </td>
-                                    <td><?php echo $r->order_note;?></td>
-                                    <td><?php echo $is_form_arr[$r->is_form].'</br>'.$r->pay_time;;?></td>
                                     <td width="145">
-                                        <a class="btn mini green" href="<?php echo base_url('mall_order_base/edit/'.$r->order_id); ?>"><i class="icon-edit"></i>查看</a>
-                                        <a class="btn mini green" href="<?php echo base_url('mall_order_base/delete/'.$r->order_id); ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
-                                        <p></p>
-                                        <a class="btn mini green" href="<?php echo base_url('mall_order_reviews/grid?order_id='.$r->order_id); ?>">评价</a>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_order_reviews/edit/'.$r->reviews_id); ?>"><i class="icon-edit"></i>修改</a>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_order_reviews/delete/'.$r->reviews_id); ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
                                     </td>
                                 </tr>
                                 <?php endforeach;?>

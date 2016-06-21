@@ -1,62 +1,57 @@
 <?php
 
-class Mall_order_base_model extends CI_Model{
-	private $table = 'mall_order_base';
-	private $table1 = 'mall_order_product';
-	private $table2 = 'deliver_order';
+class Mall_order_reviews_model extends CI_Model{
+	private $table = 'mall_order_reviews';
 	
 	public function total($search)
 	{
 	    if(!empty($search['item'])) {
-	        $this->db->where("((`user_name` LIKE '%{$search['item']}%') OR (`order_note`='{$search['item']}'))");
+	        $this->db->where("((`goods_name` LIKE '%{$search['item']}%') OR (`user_name`='{$search['item']}') OR (`content`='{$search['item']}'))");
 	    }
-	    if (!empty($search['state'])) {
-	        $this->db->where('state', $search['state']);
+	    if (!empty($search['order_id'])) {
+	        $this->db->where('order_id', $search['order_id']);
+	    }
+	    if (!empty($search['goods_id'])) {
+	        $this->db->where('goods_id', $search['goods_id']);
+	    }
+	    if (!empty($search['score'])) {
+	        $this->db->where('score', $search['score']);
 	    }
 	    if (!empty($search['status'])) {
 	        $this->db->where('status', $search['status']);
 	    }
-	    if (!empty($search['seller_uid'])) {
-	        $this->db->where('seller_uid', $search['seller_uid']);
-	    }
-	    if (!empty($search['is_form'])) {
-	        $this->db->where('is_form', $search['is_form']);
-	    }
+	    
 	    if (!empty($search['sta_time'])) {
 	        $sta_time = $search['sta_time'] ? ($search['sta_time']<date('Y-m-d') ? $search['sta_time'].' 00:00:00' : date('Y-m-d H:i:s')) : '';
 	        $this->db->where('created_at >', $sta_time);
 	    }
 	    if (!empty($search['end_time'])) {
-	        
 	        $end_time = $search['end_time'] ? ($search['end_time']>=$search['sta_time'] ? $search['end_time'].' 59:59:59' : '') : '';
 	        $this->db->where('created_at <', $end_time);
 	    }
 	    return $this->db->count_all_results($this->table);
 	}
 	
-	public function mall_order_base_list($page, $perpage, $search, $order='order_id DESC')
+	public function mall_order_reviews_list($page, $perpage, $search, $order='order_id DESC')
 	{
 	    if(!empty($search['item'])) {
-	        $this->db->where("((`user_name` LIKE '%{$search['item']}%') OR (`order_note`='{$search['item']}'))");
+	        $this->db->where("((`goods_name` LIKE '%{$search['item']}%') OR (`user_name`='{$search['item']}') OR (`content`='{$search['item']}'))");
 	    }
-	    if (!empty($search['state'])) {
-	        $this->db->where('state', $search['state']);
+	    if (!empty($search['order_id'])) {
+	        $this->db->where('order_id', $search['order_id']);
+	    }
+	    if (!empty($search['score'])) {
+	        $this->db->where('score', $search['score']);
 	    }
 	    if (!empty($search['status'])) {
 	        $this->db->where('status', $search['status']);
 	    }
-	    if (!empty($search['seller_uid'])) {
-	        $this->db->where('seller_uid', $search['seller_uid']);
-	    }
-	    if (!empty($search['is_form'])) {
-	        $this->db->where('is_form', $search['is_form']);
-	    }
+	    
 	    if (!empty($search['sta_time'])) {
 	        $sta_time = $search['sta_time'] ? ($search['sta_time']<date('Y-m-d') ? $search['sta_time'].' 00:00:00' : date('Y-m-d H:i:s')) : '';
 	        $this->db->where('created_at >', $sta_time);
 	    }
 	    if (!empty($search['end_time'])) {
-	        
 	        $end_time = $search['end_time'] ? ($search['end_time']>=$search['sta_time'] ? $search['end_time'].' 59:59:59' : '') : '';
 	        $this->db->where('created_at <', $end_time);
 	    }
@@ -90,5 +85,5 @@ class Mall_order_base_model extends CI_Model{
 	
 }
 
-/* End of file Mall_order_base_model.php */
-/* Location: ./application/models/Mall_order_base_model.php */
+/* End of file mall_order_reviews_model.php */
+/* Location: ./application/models/mall_order_reviews_model.php */

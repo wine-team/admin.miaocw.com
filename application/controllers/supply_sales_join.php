@@ -12,17 +12,14 @@ class Supply_sales_join extends MJ_Controller {
 	{
 	    $getData = $this->input->get();
 	    $perpage = 20;
-	    $search['item'] = $getData['item'];
-	    $search['type'] = $getData['type'];
-	    $search['flag'] = $getData['flag'];
 	    $config['first_url']   = base_url('supply_sales_join/grid').$this->pageGetParam($this->input->get());
 	    $config['suffix']      = $this->pageGetParam($getData);
 	    $config['base_url']    = base_url('supply_sales_join/grid');
-	    $config['total_rows']  = $this->supply_sales_join->supply_sales_join_list(null, null, $search)->num_rows();
+	    $config['total_rows']  = $this->supply_sales_join->total($getData)->num_rows();
 	    $config['uri_segment'] = 3; 
 	    $this->pagination->initialize($config);
 	    $data['pg_link']   = $this->pagination->create_links();
-	    $data['res_list'] = $this->supply_sales_join->supply_sales_join_list($pg-1, $perpage, $search)->result();
+	    $data['res_list'] = $this->supply_sales_join->supply_sales_join_list($pg-1, $perpage, $getData)->result();
 	    $data['all_rows']  = $config['total_rows'];
 	    $data['pg_now']    = $pg; 
 	    $this->load->view('supply_sales_join/grid', $data);

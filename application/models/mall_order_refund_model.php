@@ -6,10 +6,7 @@ class Mall_order_refund_model extends CI_Model{
 	public function total($search)
 	{
 	    if(!empty($search['item'])) {
-	        $this->db->like('user_name', $search['item']);
-	        $this->db->or_like('cellphone', $search['item']);
-	        $this->db->or_like('refund_content', $search['item']);
-	        $this->db->or_like('reject_content', $search['item']);
+	        $this->db->where("((`user_name` LIKE '%{$search['item']}%') OR (`cellphone`='{$search['item']}') OR (`refund_content`='{$search['item']}') OR (`reject_content`='{$search['item']}'))");
 	    }
 	    if (!empty($search['seller_uid'])) {
 	        $this->db->where('seller_uid', $search['seller_uid']);
@@ -42,10 +39,7 @@ class Mall_order_refund_model extends CI_Model{
 	public function mall_order_refund_list($page, $perpage, $search, $order='order_id DESC')
 	{
 	    if(!empty($search['item'])) {
-	        $this->db->like('user_name', $search['item']);
-	        $this->db->or_like('cellphone', $search['item']);
-	        $this->db->or_like('refund_content', $search['item']);
-	        $this->db->or_like('reject_content', $search['item']);
+	        $this->db->where("((`user_name` LIKE '%{$search['item']}%') OR (`cellphone`='{$search['item']}') OR (`refund_content`='{$search['item']}') OR (`reject_content`='{$search['item']}'))");
 	    }
 	    if (!empty($search['seller_uid'])) {
 	        $this->db->where('seller_uid', $search['seller_uid']);

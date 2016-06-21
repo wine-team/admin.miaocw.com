@@ -7,6 +7,7 @@ class Mall_order_refund extends MJ_Controller {
 	    $this->load->library('pagination');
 	    $this->load->model('mall_order_refund_model','mall_order_refund');
 	    $this->load->model('mall_order_base_model','mall_order_base');
+	    $this->load->model('deliver_order_model','deliver_order');
 	}
 
     public function grid($pg = 1)
@@ -16,7 +17,7 @@ class Mall_order_refund extends MJ_Controller {
 	    $config['first_url']   = base_url('mall_order_refund/grid').$this->pageGetParam($this->input->get());
 	    $config['suffix']      = $this->pageGetParam($getData);
 	    $config['base_url']    = base_url('mall_order_refund/grid');
-	    $config['total_rows']  = $this->mall_order_refund->mall_order_refund_list(0, 0, $getData)->num_rows();
+	    $config['total_rows']  = $this->mall_order_refund->total($getData);
 	    $config['uri_segment'] = 3; 
 	    $this->pagination->initialize($config);
 	    $data['pg_link']   = $this->pagination->create_links();
@@ -38,7 +39,7 @@ class Mall_order_refund extends MJ_Controller {
 	    $data['refund'] = $res->row();
 	    $data['status_arr'] = array('1'=>'申请退款', '2'=>'同意退款', '3'=>'拒绝退款');
 	    $data['flag_arr'] = array('1'=>'未退款', '2'=>'已退款');
-	    $data['delivery'] = $this->mall_order_base->findOrderDeliver(array('deliver_order_id'=>$res->row()->deliver_order_id));
+	    $data['delivery'] = $this->deliver_order->findById($res->row()->deliver_order_id);
 	    $data['delivery_ischeck_arr'] = array('0'=>'在途中','1'=>'揽件', '2'=>'疑难', '3'=>'签收');
 	    $data['delivery_state_arr'] = array('0'=>'在途中', '1'=>'已揽收', '2'=>'疑难', '3'=>'已签收', '4'=>'退签', '5'=>'同城派送中', '6'=>'退回', '7'=>'转单');
 	    $this->load->view('mall_order_refund/edit', $data);

@@ -3,17 +3,33 @@
 class Supply_sales_join_model extends CI_Model{
 	private $table = 'supply_sales_join';        
 	
+	public function total($search)
+	{
+	    if(!empty($search['item']))
+	    {
+	        $this->db->where("((`user_name` LIKE '%{$search['item']}%') OR (`company`='{$search['item']}') OR (`address`='{$search['item']}') OR (`phone`='{$search['item']}'))");
+	    }
+	    if(!empty($search['type'])) {
+	        $this->db->where('type', $search['type']);
+	    }
+	    if(!empty($search['flag'])) {
+	        $this->db->where('flag', $search['flag']);
+	    }
+	    return $this->db->count_all_results($this->table);
+	}
+	
 	public function supply_sales_join_list($page, $perpage, $search, $order='id DESC')
 	{
 	    if(!empty($search['item']))
 	    {
-	        $this->db->like('user_name', $search['item']);
-	        $this->db->or_like('company', $search['item']);
-	        $this->db->or_like('address', $search['item']);
-	        $this->db->or_like('phone', $search['item']);
+		    $this->db->where("((`user_name` LIKE '%{$search['item']}%') OR (`company`='{$search['item']}') OR (`address`='{$search['item']}') OR (`phone`='{$search['item']}'))");
 	    }
-	    if(!empty($search['type'])) $this->db->where('type', $search['type']);
-	    if(!empty($search['flag'])) $this->db->where('flag', $search['flag']);
+	    if(!empty($search['type'])) {
+	        $this->db->where('type', $search['type']);
+	    }
+	    if(!empty($search['flag'])) {
+	        $this->db->where('flag', $search['flag']);
+	    }
 	    $this->db->order_by($order);
 	    if($perpage) $this->db->limit($perpage, $perpage*$page);
 	    return $this->db->get($this->table);

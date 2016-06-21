@@ -139,8 +139,8 @@
                                     <td><?php echo $r->refund_id;?></td>
                                     <td><?php echo $r->user_name.'</br>'.$r->cellphone;?></td>
                                     <td>
-                                        <a class="btn mini green" href="<?php echo base_url('mall_order_base/edit/'.$r->order_id); ?>"><i class="icon-edit"></i>订单</a>
-                                        <a class="btn mini green" href="<?php echo base_url('mall_goods_base/edit/'.$r->goods_id); ?>"><i class="icon-edit"></i>商品</a>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_order_base/edit/'.$r->order_id); ?>">订单</a>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_goods_base/edit/'.$r->goods_id); ?>">商品</a>
                                     </td>
                                     <td>原：<?php echo $r->existing;?></br>退：<?php echo $r->number;?></td>
                                     <td><?php echo $r->counter_fee;?></td>
@@ -150,8 +150,8 @@
                                     <td><?php echo $r->refund_content;?></td>
                                     <td><?php echo $r->reject_content;?></td>
                                     <td width="145">
-                                        <a class="btn mini green" href="<?php echo base_url('mall_order_refund/edit/'.$r->order_id); ?>"><i class="icon-edit"></i>查看</a>
-                                        <a class="btn mini green" href="<?php echo base_url('mall_order_refund/delete/'.$r->order_id); ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_order_refund/edit/'.$r->refund_id); ?>"><i class="icon-edit"></i>查看</a>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_order_refund/delete/'.$r->refund_id); ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
                                     </td>
                                 </tr>
                                 <?php endforeach;?>
@@ -168,4 +168,3 @@
     </div>
 </div>
 <?php $this->load->view('layout/footer');?>
-<?php $this->load->view('mall_order_refund/delivery/ajaxGetDelivery');?>
