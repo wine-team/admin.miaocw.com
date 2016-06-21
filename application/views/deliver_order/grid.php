@@ -24,7 +24,7 @@
                                 <div class="control-group">
                                     <label class="control-label">订单搜索</label>
                                     <div class="controls">
-                                        <input type="text" name="order_id" value="<?php echo $this->input->get('order_id')?>" class="m-wrap medium" placeholder="搜索订单编号或者用户UID">
+                                        <input type="text" name="order_search" value="<?php echo $this->input->get('order_search')?>" class="m-wrap medium" placeholder="搜索订单编号或者用户UID">
                                     </div>
                                 </div>
                             </div>
@@ -32,7 +32,7 @@
                                 <div class="control-group">
                                     <label class="control-label">快递搜索</label>
                                     <div class="controls">
-                                        <input type="text" name="deliver_name" value="<?php echo $this->input->get('deliver_name')?>" class="m-wrap medium" placeholder="搜索快递名称或者快递单号">
+                                        <input type="text" name="deliver_search" value="<?php echo $this->input->get('deliver_search')?>" class="m-wrap medium" placeholder="搜索快递名称或者快递单号">
                                     </div>
                                 </div>
                             </div>
@@ -67,13 +67,6 @@
                 </div>
                 <div class="portlet-body flip-scroll">
                     <div class="dataTables_wrapper form-inline">
-                        <div class="clearfix">
-                            <a href="<?php echo base_url('deliver_order/add') ?>" class="add-button-link">
-                                <div class="btn-group">
-                                    <button class="btn green"><i class="icon-plus"></i> 添加</button>
-                                </div>
-                            </a>
-                        </div>
                         <?php if ($all_rows > 0) :?>
                             <table class="table table-striped table-bordered table-hover" id="sample_1">
                                 <thead class="flip-content">
@@ -86,7 +79,7 @@
                                         <th>快递单号</th>
                                         <th>状态</th>
                                         <th>添加时间</th>
-                                        <th>操作</th>
+                                        <th width="125">操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -100,7 +93,7 @@
                                         <td><?php echo $item->deliver_number;?></td>
                                         <td><?php echo $ischeck[$item->ischeck];?></td>
                                         <td><?php echo $item->create_at;?></td>
-                                        <td width="145">
+                                        <td>
                                             <a href="<?php echo base_url('deliver_order/edit/'.$item->deliver_order_id) ?>" class="btn mini green"><i class="icon-edit"></i> 编辑</a>
                                             <a href="<?php echo base_url('deliver_order/delete/'.$item->deliver_order_id) ?>" class="btn mini green" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a><p></p>
                                         </td>
@@ -113,7 +106,6 @@
                             <div class="alert"><p>未找到数据。<p></div>
                         <?php endif ?>
                     </div>
-                    
                 </div>
             </div>
         </div>

@@ -2,6 +2,7 @@
 class Deliver_order_model extends CI_Model
 {
     private $table = 'deliver_order';
+
     public function findById($deliver_order_id)
     {
         $this->db->where('deliver_order_id', $deliver_order_id);
@@ -11,11 +12,14 @@ class Deliver_order_model extends CI_Model
     public function total($params=array()) 
     {
         $this->db->from($this->table);
-        if (!empty($params['deliver_name'])) {
-            $this->db->where('deliver_name', $params['deliver_name']);
+        if (!empty($params['order_search'])) {
+            $this->db->where(("order_id = '{$params['order_search']}' OR uid = '{$params['order_search']}'"));
         }
-        if (!empty($params['deliver_flag'])) {
-            $this->db->where('deliver_flag', $params['deliver_flag']);
+        if (!empty($params['deliver_search'])) {
+            $this->db->where(("deliver_name = '{$params['deliver_search']}' OR deliver_number = '{$params['deliver_search']}'"));
+        }
+        if (!empty($params['ischeck'])) {
+            $this->db->where('ischeck', $params['ischeck']);
         }
         return $this->db->count_all_results();
     }
@@ -23,11 +27,14 @@ class Deliver_order_model extends CI_Model
     public function page_list($page_num, $num, $params=array())
     {
     	$this->db->from($this->table);
-        if (!empty($params['deliver_name'])) {
-            $this->db->where('deliver_name', $params['deliver_name']);
+        if (!empty($params['order_search'])) {
+            $this->db->where(("order_id = '{$params['order_search']}' OR uid = '{$params['order_search']}'"));
         }
-        if (!empty($params['deliver_flag'])) {
-            $this->db->where('deliver_flag', $params['deliver_flag']);
+        if (!empty($params['deliver_search'])) {
+            $this->db->where(("deliver_name = '{$params['deliver_search']}' OR deliver_number = '{$params['deliver_search']}'"));
+        }
+        if (!empty($params['ischeck'])) {
+            $this->db->where('ischeck', $params['ischeck']);
         }
         $this->db->order_by('deliver_order_id', 'DESC');
         $this->db->limit($page_num, $num);
