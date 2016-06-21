@@ -19,30 +19,25 @@
                 </div>
                 <div class="portlet-body form">
                     <form class="form-horizontal line-form" action="<?php echo base_url('mall_keyword/editPost') ?>" method="post" enctype="multipart/form-data">
-                        
-                        <input type="hidden" name="id" value="<?php echo $res->id;?>">
-                        
                         <div class="control-group">
                             <label class="control-label">关键字</label>
                             <div class="controls">
+                                <input type="hidden" name="id" value="<?php echo $res->id;?>">
                                 <input type="text" class="m-wrap large" readonly value="<?php echo $res->key_word;?>"/> 
                             </div>
                         </div>
-                        
                         <div class="control-group">
                             <label class="control-label">搜索次数</label>
                             <div class="controls">
                                 <input type="text" value="<?php echo $res->number;?>" class="m-wrap large" readonly="readonly"/>
                             </div>
                         </div>
-                        
                         <div class="control-group">
                             <label class="control-label"><em>* </em>排序</label>
                             <div class="controls">
                                 <input type="number" name="sort" value="<?php echo $res->sort;?>" maxlength=3 class="m-wrap large required"/>
                             </div>
                         </div>
-                        
                         <div class="form-actions">
                             <button class="btn green" type="submit"><i class="icon-ok"></i> 保存</button>
                             <a href="<?php echo base_url('mall_keyword/grid') ?>">
