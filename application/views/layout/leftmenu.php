@@ -144,13 +144,9 @@
                 <li><a href="<?php echo base_url('advert/grid');?>">幻灯片广告管理</a></li>
                 <li><a href="<?php echo base_url('cmsblock/grid');?>">区块广告设置</a></li>
                 <li><a href="<?php echo base_url('ewm/grid');?>">二维码编辑器</a></li>
-                <li><a href="<?php echo base_url('supply_sales_join/grid');?>">分销供应申请</a></li>
-                <li><a href="<?php echo base_url('help_category/grid');?>">网站资讯</a></li>
                 <li><a href="<?php echo base_url('link/grid');?>">友情链接</a></li>
                 <li><a href="<?php echo base_url('cacheclear/grid');?>">缓存管理</a></li>
                 <li><a href="<?php echo base_url('feedback/grid');?>">用户反馈</a></li>
-                <li><a href="<?php echo base_url('help_category/grid');?>">帮助中心</a></li>
-               
             </ul>
         </li>
     </ul>
