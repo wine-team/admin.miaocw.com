@@ -112,7 +112,7 @@
                         <span class="selected "></span>
                         <span class="arrow"></span>
                     </a>
-                    <ul class="sub-menu" style="display: none;">
+                    <ul class="sub-menu">
                         <li><a href="<?php echo base_url('deliver_base/grid'); ?>">快递公司</a></li>
                         <li><a href="<?php echo base_url('deliver_order/grid'); ?>">快递查询</a></li>
                     </ul>
@@ -127,7 +127,7 @@
                 <span class="selected"></span>
                 <span class="arrow"></span>
             </a>
-            <ul class="sub-menu" style="display: none;">
+            <ul class="sub-menu">
                 <li><a href="<?php echo base_url('help_category/grid');?>">帮助中心</a></li>
                 <li><a href="<?php echo base_url('supply_sales_join/grid?type=1');?>">代理商申请</a></li>
                 <li><a href="<?php echo base_url('supply_sales_join/grid?type=2');?>">供应商申请</a></li>
