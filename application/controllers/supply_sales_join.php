@@ -15,7 +15,7 @@ class Supply_sales_join extends MJ_Controller {
 	    $config['first_url']   = base_url('supply_sales_join/grid').$this->pageGetParam($this->input->get());
 	    $config['suffix']      = $this->pageGetParam($getData);
 	    $config['base_url']    = base_url('supply_sales_join/grid');
-	    $config['total_rows']  = $this->supply_sales_join->total($getData);
+	    $config['total_rows']  =  $this->supply_sales_join->total($getData);
 	    $config['uri_segment'] = 3; 
 	    $this->pagination->initialize($config);
 	    $data['pg_link']   = $this->pagination->create_links();
