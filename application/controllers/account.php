@@ -63,6 +63,10 @@ class Account extends MJ_Controller
         $this->redirect('account/login');
     }
     
+     /**
+     * 验证
+     * @return multitype:string
+     */
     public function validate()
     {
         $error = array();
@@ -75,6 +79,9 @@ class Account extends MJ_Controller
         return $error;
     }
     
+     /**
+     * 自动补全
+     */
     public function autocompleteUser()
     {
         $result = $this->user->findByAutocomplete();

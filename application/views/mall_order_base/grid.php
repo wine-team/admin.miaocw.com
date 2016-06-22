@@ -145,9 +145,9 @@
                                     </td>
                                     <td><?php echo $r->order_note;?></td>
                                     <td><?php echo $is_form_arr[$r->is_form].'</br>'.$r->pay_time;;?></td>
-                                    <td width="145">
-                                        <a class="btn mini green" href="<?php echo base_url('mall_order_base/edit/'.$r->order_id); ?>"><i class="icon-edit"></i>查看</a>
-                                        <a class="btn mini green" href="<?php echo base_url('mall_order_base/delete/'.$r->order_id); ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
+                                    <td width="100">
+                                        <a class="btn mini green" href="<?php echo base_url('mall_order_base/edit/'.$r->order_id); ?>">查看</a>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_order_base/delete/'.$r->order_id); ?>" onclick="return confirm('确定要删除？')">删除</a>
                                         <p></p>
                                         <a class="btn mini green" href="<?php echo base_url('mall_order_reviews/grid?order_id='.$r->order_id); ?>">评价</a>
                                     </td>

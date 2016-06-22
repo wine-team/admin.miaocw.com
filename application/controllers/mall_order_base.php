@@ -69,5 +69,3 @@ class Mall_order_base extends MJ_Controller {
 	}
 	
 }
-/** End of file Mall_order_base.php */
-/** Location: ./application/controllers/Mall_order_base.php */
