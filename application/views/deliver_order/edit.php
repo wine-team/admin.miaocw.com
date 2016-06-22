@@ -2,44 +2,96 @@
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
-            <h3 class="page-title">快递管理<small> 快递订单记录</small></h3>
-            <?php echo breadcrumb(array('快递管理', '快递订单记录', '编辑')); ?>
+            <h3 class="page-title">快递管理<small> 快递订单记录详情</small></h3>
+            <?php echo breadcrumb(array('快递管理', '快递订单记录', '快递订单记录详情')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>
     <div class="row-fluid">
-        <div class="span12">
-            <div class="portlet box green">
+        <div class="span6">
+            <div class="portlet sale-summary">
                 <div class="portlet-title">
-                    <div class="caption"><i class="icon-plus-sign"></i>编辑</div>
+                    <div class="caption">快递订单记录详情</div>
                     <div class="tools">
                         <a class="collapse" href="javascript:;"></a>
                         <a class="remove" href="javascript:;"></a>
                     </div>
                 </div>
-                <div class="portlet-body form">
-                    <form class="form-horizontal line-form" action="<?php echo base_url('deliver_order/editPost') ?>" method="post" enctype="multipart/form-data">
-                        <div class="control-group">
-                            <label class="control-label"><em>* </em>快递名称</label>
-                            <div class="controls">
-                                <input type="hidden" name="deliver_id" value="<?php echo $deliverOrder->deliver_order_id ?>">
-                                <input type="text" name="deliver_name" value="<?php echo $deliverOrder->deliver_name ?>" class="m-wrap large required">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label"><em>* </em>公司编码</label>
-                            <div class="controls">
-                                <input type="text" name="deliver_flag" value="<?php echo $deliverOrder->deliver_flag ?>" class="m-wrap large required">
-                            </div>
-                        </div>
-                        <div class="form-actions">
-                            <button class="btn green" type="submit"><i class="icon-ok"></i> 保存</button>
-                            <a href="<?php echo base_url('deliver_order/grid') ?>">
-                                <button class="btn" type="button">返回</button>
-                            </a>
-                        </div>
-                    </form>
+                <ul class="unstyled">
+                    <li>
+                        <span class="sale-info">编号</span>
+                        <span class="sale-num"><?php echo $deliverOrder->deliver_order_id ?></span>
+                    </li>
+                    <li>
+                        <span class="sale-info">订单编号</span>
+                        <span class="sale-num"><?php echo $deliverOrder->order_id ?></span>
+                    </li>
+                    <li>
+                        <span class="sale-info">用户编号</span>
+                        <span class="sale-num"><?php echo $deliverOrder->uid ?></span>
+                    </li>
+                    <li>
+                        <span class="sale-info">快递名称</span>
+                        <span class="sale-num"><?php echo $deliverOrder->deliver_name ?></span>
+                    </li>
+                    <li>
+                        <span class="sale-info">快递标识</span>
+                        <span class="sale-num"><?php echo $deliverOrder->deliver_flag ?></span>
+                    </li>
+                    <li>
+                        <span class="sale-info">快递单号</span>
+                        <span class="sale-num"><?php echo $deliverOrder->deliver_number ?></span>
+                    </li>
+                    <li>
+                        <span class="sale-info">快递结果状态</span>
+                        <span class="sale-num"><?php echo $ischeck[$deliverOrder->ischeck] ?></span>
+                    </li>
+                    <li>
+                        <span class="sale-info">快递当前状态</span>
+                        <span class="sale-num"><?php echo $state[$deliverOrder->state] ?></span>
+                    </li>
+                    <li>
+                        <span class="sale-info">快递添加时间</span>
+                        <span class="sale-num"><?php echo $deliverOrder->created_at ?></span>
+                    </li>
+                    <li>
+                        <span class="sale-info">快递更新时间</span>
+                        <span class="sale-num"><?php echo $deliverOrder->updated_at ?></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="span6">
+            <div class="portlet sale-summary">
+                <div class="portlet-title">
+                    <div class="caption"><i class="icon-plus-sign"></i>快递订单跟踪</div>
+                    <div class="tools">
+                        <a class="collapse" href="javascript:;"></a>
+                        <a class="remove" href="javascript:;"></a>
+                    </div>
                 </div>
+                <?php $context = $deliverOrder->context; ?>
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Item</th>
+                        <th class="hidden-480">Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Hardware</td>
+                        <td class="hidden-480">Server hardware purchase</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Furniture</td>
+                        <td class="hidden-480">Office furniture purchase</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
