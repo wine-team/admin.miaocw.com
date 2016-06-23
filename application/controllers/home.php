@@ -1,5 +1,5 @@
 <?php
-class Home extends MJ_Controller
+class Home extends CS_Controller
 {
     public function _init()
     {
