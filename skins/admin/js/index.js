@@ -45,7 +45,7 @@ jQuery(document).ready(function($) {
         }
     });
     
-    $('.line-form').validate();
+    $('.line-form').validate({ignore: '',});
 
     //CKedit 编辑器 js
     if ($('textarea.textarea-multipart-edit').size() > 0) {
