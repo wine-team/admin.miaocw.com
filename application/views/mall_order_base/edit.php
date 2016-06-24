@@ -57,29 +57,29 @@
                     </div>
                     <div class="portlet-body">
                         <div class="dataTables_wrapper form-inline">
-                            <?php if (count($product) > 0) :?>
-                            <table class="table table-striped table-bordered table-hover" id="sample_1">
-                                <thead class="flip-content">
-                                    <tr>
-                                        <th>编号</th>
-                                        <th>上次操作编号</th>
-                                        <th>订单状态</th>
-                                        <th>操作说明</th>
-                                        <th>操作时间</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($status_history as $h) : ?>
-                                    <tr>
-                                        <td><?php echo $h->history_id;?></td>
-                                        <td><?php echo $h->parent_id;?></td>
-                                        <td><?php echo $h->status;?></td>
-                                        <td><?php echo $h->comment;?></td>
-                                        <td><?php echo $h->created_at;?></td>
-                                    </tr>
-                                    <?php endforeach;?>
-                                </tbody>
-                            </table>
+                            <?php if (count($status_history) > 0) :?>
+                                <table class="table table-striped table-bordered table-hover" id="sample_1">
+                                    <thead class="flip-content">
+                                        <tr>
+                                            <th>编号</th>
+                                            <th>上次操作编号</th>
+                                            <th>订单状态</th>
+                                            <th>操作说明</th>
+                                            <th>操作时间</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($status_history as $h) : ?>
+                                        <tr>
+                                            <td><?php echo $h->history_id;?></td>
+                                            <td><?php echo $h->parent_id;?></td>
+                                            <td><?php echo $h->status;?></td>
+                                            <td><?php echo $h->comment;?></td>
+                                            <td><?php echo $h->created_at;?></td>
+                                        </tr>
+                                        <?php endforeach;?>
+                                    </tbody>
+                                </table>
                             <?php else: ?>
                                 <div class="alert"><p>未找到数据。<p></div>
                             <?php endif ?>
@@ -96,24 +96,23 @@
                     </div>
                     <div class="portlet-body">
                         <?php if($delivery->num_rows() > 0) :?>
-                        <ul>
-                            <li>快递编号：<?php echo $delivery->row()->deliver_order_id;?></li>
-                            <li>快递名称：<?php echo $delivery->row()->deliver_name;?></li>
-                            <li>快递标示：<?php echo $delivery->row()->deliver_flag;?></li>
-                            <li>快递单号：<?php echo $delivery->row()->deliver_number;?></li>
-                            <li>查询结果：<?php echo $delivery_ischeck_arr[$delivery->row()->ischeck];?></li>
-                            <li>快递状态：<?php echo $delivery_state_arr[$delivery->row()->state];?></li>
-                            <li>快递内容：<?php echo json_decode($delivery->row()->context);?></li>
-                            <li>创建时间：<?php echo $delivery->row()->create_at;?></li>
-                            <li>更新时间：<?php echo $delivery->row()->update_at;?></li>
-                        </ul>
+                            <ul>
+                                <li>快递编号：<?php echo $delivery->row()->deliver_order_id;?></li>
+                                <li>快递名称：<?php echo $delivery->row()->deliver_name;?></li>
+                                <li>快递标示：<?php echo $delivery->row()->deliver_flag;?></li>
+                                <li>快递单号：<?php echo $delivery->row()->deliver_number;?></li>
+                                <li>查询结果：<?php echo $delivery_ischeck_arr[$delivery->row()->ischeck];?></li>
+                                <li>快递状态：<?php echo $delivery_state_arr[$delivery->row()->state];?></li>
+                                <li>快递内容：<?php echo json_decode($delivery->row()->context);?></li>
+                                <li>创建时间：<?php echo $delivery->row()->created_at;?></li>
+                                <li>更新时间：<?php echo $delivery->row()->updated_at;?></li>
+                            </ul>
                         <?php else :?>
-                        <p>暂无快递信息</p>
+                            <p>暂无快递信息</p>
                         <?php endif;?>
                     </div>
                 </div>
             </div>
-            
             <div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption"><i class="icon-reorder"></i>产品列表</div>
@@ -128,16 +127,14 @@
                         <table class="table table-striped table-bordered table-hover" id="sample_1">
                             <thead class="flip-content">
                                 <tr>
-                                    <th><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"></th>
                                     <th>编号</th>
                                     <th>商品ID</th>
                                     <th>商品名称</th>
                                     <th>规格属性</th>
-                                    <th>商品图片</th>
                                     <th>商品分类</th>
                                     <th>购买数量</th>
-                                    <th>换货锁定数量</th>
-                                    <th>剩余数量</th>
+                                    <th>换货数量</th>
+                                    <th>退货数量</th>
                                     <th>销售价</th>
                                     <th>贝竹价</th>
                                     <th>供应价</th>
@@ -150,12 +147,10 @@
                             <tbody>
                                 <?php foreach ($product as $p) : ?>
                                 <tr>
-                                    <td width="15"><input type="checkbox" class="checkboxes" value="1" ></td>
                                     <td><?php echo $p->order_product_id;?></td>
                                     <td><?php echo $p->goods_id;?></td>
                                     <td><?php echo $p->goods_name;?></td>
                                     <td><?php echo json_decode($p->attr_value);?></td>
-                                    <td><?php echo $p->goods_img;?></td>
                                     <td><?php echo $extension_code_arr[$p->extension_code];?></td>
                                     <td><?php echo $p->number;?></td>
                                     <td><?php echo $p->barter_num;?></td>
@@ -171,14 +166,12 @@
                                 <?php endforeach;?>
                             </tbody>
                         </table>
-                        
                         <?php else: ?>
                             <div class="alert"><p>未找到数据。<p></div>
                         <?php endif ?>
                     </div>
                 </div>
             </div>
-            
         </div>
     </div>
 </div>
