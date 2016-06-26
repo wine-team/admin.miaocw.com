@@ -4,9 +4,8 @@ class Mall_attribute_set_model extends CI_Model
 	private $table = 'mall_attribute_set'; 
 	private $table1 = 'mall_attribute_value';
 
-	public function find($isArray=fasle)
+	public function find($isArray=false)
 	{
-
 		$this->db->where('enabled', 1);
 		$result = $this->db->get($this->table);
 		if ($isArray) {

@@ -20,10 +20,24 @@
                 <div class="portlet-body form">
                     <form class="form-horizontal form-search" action="<?php echo base_url('mall_brand/grid');?>" method="get">
                         <div class="row-fluid">
-                            <div class="span5">
+                            <div class="span4">
                                 <div class="control-group">
+                                    <label class="control-label">品牌名称</label>
                                     <div class="controls">
-                                        <input type="text" name="item" value="<?php echo trim($this->input->get('item'));?>" placeholder="品牌名称、描述" class="m-wrap medium">
+                                        <input type="text" name="brand_name" value="<?php echo $this->input->get('brand_name');?>" placeholder="请输入品牌名称" class="m-wrap medium">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span4">
+                                <div class="control-group">
+                                    <label class="control-label">显示</label>
+                                    <div class="controls">
+                                        <select name="is_show" class="m-wrap span12">
+                                            <option value="">请选择</option>
+                                            <?php foreach (array('1'=>'是', '2'=>'否') as $key=>$value) :?>
+                                                <option value="<?php echo $key;?>" <?php if ($key == $this->input->get('is_show')):?> selected="selected"<?php endif;?>><?php echo $value;?></option>
+                                            <?php endforeach;?>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -54,47 +68,42 @@
                             </a>
                         </div>
                         <?php if ($all_rows > 0) :?>
-                        <table class="table table-striped table-bordered table-hover" id="sample_1">
-                            <thead class="flip-content">
-                                <tr>
-                                    <th><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"></th>
-                                    <th>编号</th>
-                                    <th>品牌名称</th>
-                                    <th>品牌logo</th>
-                                    <th>站点</th>
-                                    <th>排序</th>
-                                    <th>显示</th>
-                                    <th>操作</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($res_list as $r) : ?>
-                                <tr>
-                                    <td width="15"><input type="checkbox" class="checkboxes" value="1" ></td>
-                                    <td><?php echo $r->brand_id;?></td>
-                                    <td><?php echo $r->brand_name;?></td>
-                                    <td><?php if($r->brand_logo) :?><img style="max-height:80px;" src="<?php echo $this->config->show_image_url('brand', $r->brand_logo);?>"><?php endif;?></td>
-                                    <td><?php echo $r->site_url;?></td>
-                                    <td><?php echo $r->sort_order;?></td>
-                                    <td><?php if($r->is_show==1) echo '是';?></td>
-                                    <td width="145">
-                                        <a class="btn mini green" href="<?php echo base_url('mall_brand/edit/'.$r->brand_id); ?>"><i class="icon-edit"></i> 编辑</a>
-                                        <a class="btn mini green" href="<?php echo base_url('mall_brand/delete/'.$r->brand_id); ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
-                                    </td>
-                                </tr>
-                                <?php endforeach;?>
-                            </tbody>
-                        </table>
-                        <div class="row-fluid">
-                            <div class="span6">
-                                <div class="dataTables_info">
-                                    <span>当前第</span><span style="color: red"><?php echo $pg_now?></span>页 
-                                    <span>共</span><span style="color: red"><?php echo $all_rows?></span>条数据
-                                    <span>每页显示20条 </span>
-                                    <?php echo $pg_link ?>
-                                </div>
-                            </div>
-                        </div>
+                            <table class="table table-striped table-bordered table-hover" id="sample_1">
+                                <thead class="flip-content">
+                                    <tr>
+                                        <th><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"></th>
+                                        <th>编号</th>
+                                        <th>品牌名称</th>
+                                        <th>品牌logo</th>
+                                        <th>站点</th>
+                                        <th>排序</th>
+                                        <th>显示</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($res_list->result() as $item) : ?>
+                                    <tr>
+                                        <td width="15"><input type="checkbox" class="checkboxes" value="1" ></td>
+                                        <td><?php echo $item->brand_id;?></td>
+                                        <td><?php echo $item->brand_name;?></td>
+                                        <td>
+                                            <?php if ($item->brand_logo) :?>
+                                                <img width="80" src="<?php echo $this->config->show_image_url('brand', $item->brand_logo);?>">
+                                            <?php endif;?>
+                                        </td>
+                                        <td><?php echo $item->site_url;?></td>
+                                        <td><?php echo $item->sort_order;?></td>
+                                        <td><?php if($item->is_show==1) echo '是';?></td>
+                                        <td width="145">
+                                            <a class="btn mini green" href="<?php echo base_url('mall_brand/edit/'.$item->brand_id); ?>"><i class="icon-edit"></i> 编辑</a>
+                                            <a class="btn mini green" href="<?php echo base_url('mall_brand/delete/'.$item->brand_id); ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach;?>
+                                </tbody>
+                            </table>
+                            <?php $this->load->view('layout/pagination');?>
                         <?php else: ?>
                             <div class="alert"><p>未找到数据。<p></div>
                         <?php endif ?>

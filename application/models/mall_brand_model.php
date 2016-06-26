@@ -1,26 +1,38 @@
 <?php
-
-class Mall_brand_model extends CI_Model{
+class Mall_brand_model extends CI_Model
+{
 	private $table = 'mall_brand';        
-	
-	public function mall_brand_list($page, $perpage, $search, $order='brand_id DESC')
+
+	public function total($params=array())
 	{
-	    if(!empty($search['item']))
-	    {
-	        $this->db->like('brand_name', $search['item']);
-	        $this->db->or_like('brand_desc', $search['item']);
-	    }
-	    $this->db->order_by($order);
-	    if($perpage) $this->db->limit($perpage, $perpage*$page);
+		if (!empty($params['brand_name'])) {
+			$this->db->like('brand_name', $params['brand_name']);
+		}
+		if (!empty($params['is_show'])) {
+			$this->db->where('is_show', $params['is_show']);
+		}
+		return $this->db->count_all_results($this->table);
+	}
+
+	public function page_list($page_num, $num, $params=array())
+	{
+		if (!empty($params['brand_name'])) {
+			$this->db->like('brand_name', $params['brand_name']);
+		}
+		if (!empty($params['is_show'])) {
+			$this->db->where('is_show', $params['is_show']);
+		}
+	    $this->db->order_by('brand_id', 'DESC');
+	    $this->db->limit($page_num, $num);
 	    return $this->db->get($this->table);
 	}
 	
-	public function findById($where)
+	public function findByCondition($where)
 	{
 	    return $this->db->get_where($this->table, $where);
 	}
 	
-	public function insert($data) 
+	public function insert($data)
 	{
 	    $this->db->insert($this->table, $data);
 	    return $this->db->insert_id();
@@ -37,8 +49,4 @@ class Mall_brand_model extends CI_Model{
 	    $this->db->delete($this->table, $where);
 	    return $this->db->affected_rows();
 	}
-	
 }
-
-/* End of file Mall_brand_model.php */
-/* Location: ./application/models/Mall_brand_model.php */

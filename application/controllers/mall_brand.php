@@ -11,18 +11,19 @@ class Mall_brand extends MJ_Controller {
     public function grid($pg = 1)
 	{
 	    $getData = $this->input->get();
-	    $perpage = 20;
-	    $search['item'] = $getData['item'];
+	    $page_num = 20;
+		$num = ($pg-1)*$page_num;
 	    $config['first_url']   = base_url('mall_brand/grid').$this->pageGetParam($this->input->get());
-	    $config['suffix']      = $this->pageGetParam($getData);
+	    $config['suffix']      = $this->pageGetParam($this->input->get());
 	    $config['base_url']    = base_url('mall_brand/grid');
-	    $config['total_rows']  = $this->mall_brand->mall_brand_list(null, null, $search)->num_rows();
+	    $config['total_rows']  = $this->mall_brand->total($getData);
 	    $config['uri_segment'] = 3; 
 	    $this->pagination->initialize($config);
 	    $data['pg_link']   = $this->pagination->create_links();
-	    $data['res_list'] = $this->mall_brand->mall_brand_list($pg-1, $perpage, $search)->result();
+	    $data['res_list'] = $this->mall_brand->page_list($page_num, $num, $getData);
 	    $data['all_rows']  = $config['total_rows'];
-	    $data['pg_now']    = $pg; 
+	    $data['pg_now']    = $pg;
+		$data['page_num'] = $page_num;
 	    $this->load->view('mall_brand/grid', $data);
 	}
 	
@@ -62,7 +63,7 @@ class Mall_brand extends MJ_Controller {
 	
 	public function edit($brand_id)
 	{
-	    $res = $this->mall_brand->findById(array('brand_id'=>$brand_id));
+	    $res = $this->mall_brand->findById($brand_id);
 	    if ($res->num_rows() <= 0){
 	    	$this->error('mall_brand/grid', '', '无法找到该ID结果值');
 	    } 
@@ -102,10 +103,9 @@ class Mall_brand extends MJ_Controller {
 	
 	public function delete($brand_id)
 	{
-	    $brand = $this->mall_brand->findById(array('brand_id'=>$brand_id));
+	    $brand = $this->mall_brand->findById($brand_id);
 	    $logo = $brand->num_rows()>0 ? $brand->row()->brand_logo : '';
-	    if (!empty($logo) && file_exists($this->config->upload_image_path('brand', $logo)))
-	    {
+	    if (!empty($logo) && file_exists($this->config->upload_image_path('brand', $logo))) {
 	        @unlink($this->config->upload_image_path('brand', $logo));
 	    }
         $is_delete = $this->mall_brand->delete(array('brand_id'=>$brand_id));

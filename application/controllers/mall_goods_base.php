@@ -46,8 +46,8 @@ class Mall_goods_base extends CS_Controller
     public function addstep1()
     {
 		$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
-    	$data['attribute'] = $this->mall_attribute_set->findByReason(array('enabled'=>1));
-    	$this->load->view('mall_goods_base/addstep1',$data);
+    	$data['attribute'] = $this->mall_attribute_set->find();
+    	$this->load->view('mall_goods_base/addstep1', $data);
     }
     
     
@@ -59,10 +59,10 @@ class Mall_goods_base extends CS_Controller
     		$this->error('mall_goods_base/addstep1', '', '请选择完整商品的类别和类型');
     	}
     	$data['attr_set_id'] = $attr_set_id;
-    	$data['brand'] = $this->mall_brand->findById(array('is_show'=>1));//品牌信息
-		$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
+    	$data['brand'] = $this->mall_brand->findByCondition(array('is_show'=>1));//品牌信息
     	$data['attribute_group'] = $this->mall_attribute_group->findByAttrSetId($attr_set_id);
     	$data['category'] = $this->mall_category->getAllCategory();
+		$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
     	$this->load->view('mall_goods_base/addstep2', $data);
     }
     
@@ -135,7 +135,6 @@ class Mall_goods_base extends CS_Controller
     		$this->jsonMessage($error);
     	}
     	if ($this->input->post('goods_id')) {
-    		
     		$this->editPost();
     	} else {
     		$this->addPost();
@@ -167,7 +166,7 @@ class Mall_goods_base extends CS_Controller
     	} else {
     		$this->db->trans_commit();
     		$this->session->set_flashdata('success', '保存成功!');
-    		$this->jsonMessage('',base_url('mall_goods_base/grid'));
+    		$this->jsonMessage('', base_url('mall_goods_base/grid'));
     	}
     }
     
@@ -186,7 +185,7 @@ class Mall_goods_base extends CS_Controller
     	$data['province_id'] = $data['mallgoods']->province_id;
     	$data['city_id'] = $data['mallgoods']->city_id;
     	$data['district_id'] = $data['mallgoods']->district_id;
-    	$data['brand'] = $this->mall_brand->findById(array('is_show'=>1));//品牌信息
+    	$data['brand'] = $this->mall_brand->findByCondition(array('is_show'=>1));//品牌信息
 		
     	$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
     	
@@ -362,7 +361,7 @@ class Mall_goods_base extends CS_Controller
 		$data['province_id'] = $data['mallgoods']->province_id;
 		$data['city_id'] = $data['mallgoods']->city_id;
 		$data['district_id'] = $data['mallgoods']->district_id;
-		$data['brand'] = $this->mall_brand->findById(array('is_show'=>1));//品牌信息
+		$data['brand'] = $this->mall_brand->findByCondition(array('is_show'=>1));//品牌信息
 		$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
 		 
 		$data['category_name'] = $this->mall_category->getCategoryByCatId(array('category_id'=>$data['mallgoods']->category_id));
