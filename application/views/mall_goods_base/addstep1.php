@@ -18,12 +18,11 @@
                     </div>
                 </div>
                 <div class="portlet-body form">
-                    <form class="form-horizontal line-form mall-goods-add-step1" action="<?php echo base_url('mall_goods_base/addstep2') ?>" method="get" enctype="multipart/form-data">
-                        <div class="alert alert-success">产品类型</div>
+                    <form class="form-horizontal line-form" action="<?php echo base_url('mall_goods_base/addstep2') ?>" method="get" enctype="multipart/form-data">
                         <div class="control-group">
                             <label class="control-label"><em>* </em>商品类别</label>
                             <div class="controls">
-                                <select name="extension_code" class="medium m-wrap valid">
+                                <select name="extension_code" class="medium m-wrap required">
                                     <?php foreach ($extension as $key=>$value) : ?>
                                         <option value="<?php echo $key;?>"><?php echo $value; ?></option>
                                     <?php endforeach;?>
@@ -33,7 +32,7 @@
                         <div class="control-group">
                             <label class="control-label"><em>* </em>商品属性</label>
                             <div class="controls">
-                                <select name="attr_set_id" data-placeholder="请选择商品属性" class="medium m-wrap chosen" tabindex="1">
+                                <select name="attr_set_id" class="medium m-wrap chosen required" data-placeholder="请选择商品属性">
                                     <option value=""></option>
                                     <?php foreach ($attribute->result() as $key=>$value) : ?>
                                         <option value="<?php echo $value->attr_set_id;?>"><?php echo $value->attr_set_name;?></option>
