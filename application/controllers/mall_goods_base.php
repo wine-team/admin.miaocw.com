@@ -511,8 +511,8 @@ class Mall_goods_base extends CS_Controller
     	$data['pg_now']    = $pg;
     	$data['page_num']  = $page_num;
     	echo json_encode(array(
-    			'status'=>true,
-    			'html'  =>$this->load->view('mall_goods_base/addGoodBase/ajaxGoodsData', $data, true)
+			'status'=>true,
+			'html'  =>$this->load->view('mall_goods_base/addGoodBase/ajaxGoodsData', $data, true)
     	));exit;
     }
 }
