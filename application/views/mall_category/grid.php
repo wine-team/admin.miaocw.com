@@ -37,9 +37,7 @@
                                     <th >分类等级</th>
                                     <th >显示状态</th>
                                     <th >排序</th>
-                                    <th >关键字</th>
                                     <th >类名全名</th>
-                                    <th >商品属性ID</th>
                                     <th >操作</th>
                                 </tr>
                             </thead>
@@ -54,9 +52,7 @@
                                     <td style="table-layout:fixed;width:80px;"><?php if($r->cat_type==1){echo '一级分类';}else{echo '二级分类';} ;?></td>
                                     <td style="table-layout:fixed;width:80px;"><?php if($r->is_show==1)echo '是';?></td>
                                     <td style="table-layout:fixed;width:50px;"><?php echo $r->sort_order;?></td>
-                                    <td style="table-layout:fixed;width:100px;"><?php echo $r->keyword;?></td>
                                     <td style="table-layout:fixed;width:150px;"><?php echo $r->full_name;?></td>
-                                    <td style="table-layout:fixed;"><?php echo $r->filter_attr;?></td>
                                     <td style="table-layout:fixed;width:153px;">
                                         <a class="btn mini green" href="<?php echo base_url('mall_category/edit/'.$r->cat_id); ?>"><i class="icon-edit"></i> 编辑</a>
                                         <a class="btn mini green" href="<?php echo base_url('mall_category/delete/'.$r->cat_id); ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
