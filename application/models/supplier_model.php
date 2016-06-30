@@ -1,21 +1,45 @@
 <?php
+class Supplier_model extends CI_Model
+{
+	private $table = 'supplier';
 
-class Supplier_model extends CI_Model{
-	private $table = 'supplier';        
-	
-	public function supplier_list($page, $perpage, $search, $order='supplier_id DESC')
+	public function findById($supplier_id)
 	{
-	    if(!empty($search['item']))
-	    {
-	        $this->db->like('supplier_name', $search['item']);
-	        $this->db->or_like('supplier_desc', $search['item']);
+		$this->db->where('supplier_id', $supplier_id);
+		return $this->db->get($this->table);
+	}
+
+	public function total($params=array())
+	{
+		if (!empty($params['supplier_id'])) {
+			$this->db->where('supplier_id', $params['supplier_id']);
+		}
+		if (!empty($params['uid'])) {
+			$this->db->where('uid', $params['uid']);
+		}
+		if (!empty($params['supplier_name'])) {
+			$this->db->like('supplier_name', $params['supplier_name']);
+		}
+		return $this->db->count_all_results($this->table);
+	}
+
+	public function page_list($page_num, $num, $params=array())
+	{
+		if (!empty($params['supplier_id'])) {
+			$this->db->where('supplier_id', $params['supplier_id']);
+		}
+		if (!empty($params['uid'])) {
+			$this->db->where('uid', $params['uid']);
+		}
+	    if (!empty($params['supplier_name'])) {
+	        $this->db->like('supplier_name', $params['supplier_name']);
 	    }
-	    $this->db->order_by($order);
-	    if($perpage) $this->db->limit($perpage, $perpage*$page);
+	    $this->db->order_by('supplier_id', 'DESC');
+	    $this->db->limit($page_num, $num);
 	    return $this->db->get($this->table);
 	}
-	
-	public function findById($where)
+
+	public function findByParams($where)
 	{
 	    return $this->db->get_where($this->table, $where);
 	}

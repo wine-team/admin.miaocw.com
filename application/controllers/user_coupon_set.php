@@ -5,6 +5,8 @@ class User_coupon_set extends MJ_Controller
     {
         $this->load->library('pagination');
         $this->load->model('user_coupon_set_model', 'user_coupon_set');
+        $this->load->model('mall_category_model','mall_category');
+        $this->load->model('supplier_model','supplier');
     }
 
     public function grid($pg = 1)
@@ -39,7 +41,7 @@ class User_coupon_set extends MJ_Controller
         }
 
         $this->db->trans_start();
-        $resultId = $this->user_coupon_set->insertDeliverBase($this->input->post());
+        $resultId = $this->user_coupon_set->insert($this->input->post());
         $this->db->trans_complete();
 
         if ($resultId) {
@@ -61,21 +63,21 @@ class User_coupon_set extends MJ_Controller
 
     public function editPost()
     {
-        $deliver_id = $this->input->post('deliver_id');
+        $coupon_set_id = $this->input->post('coupon_set_id');
         $error = $this->validate();
         if (!empty($error)) {
-            $this->error('user_coupon_set/edit', $deliver_id, $error);
+            $this->error('user_coupon_set/edit', $coupon_set_id, $error);
             return ;
         }
 
         $this->db->trans_start();
-        $resultId = $this->deliver_base->updateDeliverBase($this->input->post());
+        $resultId = $this->user_coupon_set->update($this->input->post());
         $this->db->trans_complete();
 
         if ($resultId) {
             $this->success('user_coupon_set/grid', '', '保存成功！');
         } else {
-            $this->error('user_coupon_set/edit', $deliver_id, '保存失败！');
+            $this->error('user_coupon_set/edit', $coupon_set_id, '保存失败！');
         }
     }
 
@@ -92,11 +94,30 @@ class User_coupon_set extends MJ_Controller
     public function validate()
     {
         $error = array();
-        if ($this->validateParam($this->input->post('deliver_name'))) {
-            $error[] = '快递名称不能为空。';
+        if ($this->input->post('scope') == 1) { //自营劵
+            if ($this->input->post('related_id') > 0) {
+                $result = $this->mall_category->findById($this->input->post('related_id'));
+                if ($result->num_rows() <= 0) {
+                    $error[] = '自营劵分类ID（'.$this->input->post('related_id').'）不存在';
+                }
+            }
+        } else { //店铺劵
+            $result = $this->supplier->findById($this->input->post('related_id'));
+            if ($result->num_rows() <= 0) {
+                $error[] = '店铺劵：店铺ID（'.$this->input->post('related_id').'）不存在';
+            }
         }
-        if ($this->validateParam($this->input->post('deliver_flag'))) {
-            $error[] = '快递标识不能为空。';
+        if ($this->input->post('amount') > 0) {
+            $error[] = '优惠劵金额必须大于零';
+        }
+        if ($this->input->post('number') > 0) {
+            $error[] = '优惠劵数量必须大于零';
+        }
+        if ($this->validateParam($this->input->post('start_time'))) {
+            $error[] = '开始使用时间';
+        }
+        if ($this->validateParam($this->input->post('end_time'))) {
+            $error[] = '结束使用时间';
         }
         return $error;
     }

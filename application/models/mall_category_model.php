@@ -1,6 +1,6 @@
 <?php
-
-class Mall_category_model extends CI_Model{
+class Mall_category_model extends CI_Model
+{
 	private $table = 'mall_category';        
 	
 	public function findById($where)
@@ -11,8 +11,7 @@ class Mall_category_model extends CI_Model{
 	public function getWherein($item,$arr) 
 	{
 	    $this->db->where_in($item, $arr);
-	    $res = $this->db->get($this->table);
-	    return $res;
+		return $this->db->get($this->table);
 	}
 	
 	public function insert($data) 
@@ -79,15 +78,15 @@ class Mall_category_model extends CI_Model{
 	 * 根据cat_id
 	 * @param unknown $param
 	 */
-	public function getCategoryByCatId($param = array()){
-		
-		if(!empty($param['category_id'])){
+	public function getCategoryByCatId($param = array())
+	{
+		if (!empty($param['category_id'])){
 			$category_id = array_filter(explode(',',$param['category_id']));
 			$this->db->where_in('cat_id',$category_id);
 		}
 		$result = $this->db->get($this->table);
 		$cat_name = array();
-		if( $result->num_rows()>0 ){
+		if ( $result->num_rows()>0 ) {
 			foreach ($result->result() as $key=>$item){
 				$cat_name[] = $item->cat_name;
 			}

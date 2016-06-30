@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
-class Supplier extends MJ_Controller {
+class Supplier extends MJ_Controller
+{
 	public function _init()
 	{
 	    $this->load->library('pagination');
@@ -10,18 +10,19 @@ class Supplier extends MJ_Controller {
     public function grid($pg = 1)
 	{
 	    $getData = $this->input->get();
-	    $perpage = 20;
-	    $search['item'] = $getData['item'];
+	    $page_num = 20;
+		$num = ($pg-1)*$page_num;
 	    $config['first_url']   = base_url('supplier/grid').$this->pageGetParam($this->input->get());
-	    $config['suffix']      = $this->pageGetParam($getData);
+	    $config['suffix']      = $this->pageGetParam($this->input->get());
 	    $config['base_url']    = base_url('supplier/grid');
-	    $config['total_rows']  = $this->supplier->supplier_list(null, null, $search)->num_rows();
+	    $config['total_rows']  = $this->supplier->total($getData);
 	    $config['uri_segment'] = 3; 
 	    $this->pagination->initialize($config);
 	    $data['pg_link']   = $this->pagination->create_links();
-	    $data['res_list'] = $this->supplier->supplier_list($pg-1, $perpage, $search)->result();
+	    $data['res_list'] = $this->supplier->supplier_list($page_num, $num, $getData);
 	    $data['all_rows']  = $config['total_rows'];
-	    $data['pg_now']    = $pg; 
+	    $data['pg_now']    = $pg;
+		$data['page_num'] = $page_num;
 	    $this->load->view('supplier/grid', $data);
 	}
 	
@@ -33,8 +34,7 @@ class Supplier extends MJ_Controller {
 	public function addPost()
 	{
 	    $error = $this->validate(); 
-	    if (!empty($error))
-	    {
+	    if (!empty($error)) {
 	        $this->jsonMessage($error);
 	    }
 	    $postData = $this->input->post();
@@ -55,9 +55,8 @@ class Supplier extends MJ_Controller {
 	
 	public function edit($supplier_id)
 	{
-	    $res = $this->supplier->findById(array('supplier_id'=>$supplier_id));
-	    if ($res->num_rows() > 0)
-	    {
+	    $res = $this->supplier->findById($supplier_id);
+	    if ($res->num_rows() > 0) {
 	        $data['res'] = $res->row();
 	        $this->load->view('supplier/edit',$data);
 	    } else {
@@ -68,8 +67,7 @@ class Supplier extends MJ_Controller {
 	public function editPost()
 	{
 	    $error = $this->validate(); 
-	    if (!empty($error))
-	    {
+	    if (!empty($error)) {
 	        $this->jsonMessage($error);
 	    }
 	    $postData = $this->input->post();
@@ -90,7 +88,7 @@ class Supplier extends MJ_Controller {
 	
 	public function delete($supplier_id)
 	{ 
-	    $is_delete = $this->supplier->delete(array('supplier_id'=>$supplier_id));
+	    $is_delete = $this->supplier->delete($supplier_id);
 	    if ($is_delete) {
 	        $this->success('supplier/grid', '', '删除成功！');
 	    } else {
@@ -100,13 +98,10 @@ class Supplier extends MJ_Controller {
 	
 	public function validateUser()
 	{
-	    if ($this->input->post('supplier_id'))
-	    {
-	        $supplier = $this->supplier->findById(array('uid'=>$this->input->post('uid')));
-	        if ($supplier->num_rows() > 0)
-	        {
-	            if ($supplier->row()->supplier_id == $this->input->post('supplier_id'))
-	            {
+	    if ($this->input->post('supplier_id')) {
+	        $supplier = $this->supplier->findByParams(array('uid'=>$this->input->post('uid')));
+	        if ($supplier->num_rows() > 0) {
+	            if ($supplier->row()->supplier_id == $this->input->post('supplier_id')) {
 	                echo 'true';
 	            } else {
 	                echo 'false';
@@ -115,9 +110,8 @@ class Supplier extends MJ_Controller {
 	            echo 'true';
 	        }
 	    } else {
-	        $user_num = $this->supplier->findById(array('uid'=>$this->input->post('uid')))->num_rows();
-	        if ($user_num > 0)
-	        {
+	        $user_num = $this->supplier->findByParams(array('uid'=>$this->input->post('uid')))->num_rows();
+	        if ($user_num > 0) {
 	            echo 'false';
 	        } else {
 	            echo 'true';
@@ -135,6 +129,3 @@ class Supplier extends MJ_Controller {
 	    return $error;
 	}
 }
-
-/** End of file Supplier.php */
-/** Location: ./application/controllers/Supplier.php */
