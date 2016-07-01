@@ -12,6 +12,9 @@ class User_coupon_set_model extends CI_Model
     public function total($params=array()) 
     {
         $this->db->from($this->table);
+        if (!empty($params['coupon_name'])) {
+            $this->db->where('coupon_name', $params['coupon_name']);
+        }
         if (!empty($params['scope'])) {
             $this->db->where('scope', $params['scope']);
         }
@@ -27,6 +30,9 @@ class User_coupon_set_model extends CI_Model
     public function page_list($page_num, $num, $params=array())
     {
     	$this->db->from($this->table);
+        if (!empty($params['coupon_name'])) {
+            $this->db->where('coupon_name', $params['coupon_name']);
+        }
         if (!empty($params['scope'])) {
             $this->db->where('scope', $params['scope']);
         }
@@ -44,6 +50,7 @@ class User_coupon_set_model extends CI_Model
     public function insert($postData=array())
     {
         $data = array(
+            'coupon_name'=> $postData['coupon_name'],
             'scope'       => $postData['scope'],
             'related_id' => $postData['related_id'],
             'amount'      => $postData['amount'],
@@ -61,6 +68,7 @@ class User_coupon_set_model extends CI_Model
     public function update($postData=array())
     {
         $data = array(
+            'coupon_name'=> $postData['coupon_name'],
             'scope'       => $postData['scope'],
             'related_id' => $postData['related_id'],
             'amount'      => $postData['amount'],
