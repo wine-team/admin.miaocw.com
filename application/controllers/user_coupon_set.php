@@ -94,6 +94,9 @@ class User_coupon_set extends MJ_Controller
     public function validate()
     {
         $error = array();
+        if ($this->validateParam($this->input->post('coupon_name'))) {
+            $error[] = '优惠劵名称';
+        }
         if ($this->input->post('scope') == 1) { //自营劵
             if ($this->input->post('related_id') > 0) {
                 $result = $this->mall_category->findById($this->input->post('related_id'));

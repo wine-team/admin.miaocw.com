@@ -20,6 +20,13 @@
                 <div class="portlet-body form">
                     <form class="form-horizontal line-form" action="<?php echo base_url('user_coupon_set/editPost') ?>" method="post" enctype="multipart/form-data">
                         <div class="control-group">
+                            <label class="control-label"><em>* </em>优惠劵名称</label>
+                            <div class="controls">
+                                <input type="hidden" name="coupon_set_id" value="<?php echo $userCouponSet->coupon_set_id ?>">
+                                <input type="text" name="coupon_name" value="<?php echo $userCouponSet->coupon_name ?>" class="m-wrap span8 required">
+                            </div>
+                        </div>
+                        <div class="control-group">
                             <label class="control-label"><em>* </em>优惠劵类型</label>
                             <div class="controls">
                                 <label class="radio">
@@ -33,15 +40,14 @@
                         <div class="control-group">
                             <label class="control-label"><em>* </em>关联编号</label>
                             <div class="controls">
-                                <input type="hidden" name="coupon_set_id" value="<?php echo $userCouponSet->coupon_set_id ?>">
-                                <input type="text" name="related_id" class="m-wrap span8 required" placeholder="自营劵为分类ID，默认0,支持所有自营商品；店铺劵为供应商编号">
+                                <input type="text" name="related_id" value="<?php echo $userCouponSet->related_id ?>" class="m-wrap span8 required" placeholder="自营劵为商品属性ID，默认0,支持所有自营商品；店铺劵为供应商编号">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">开始使用时间</label>
                             <div class="controls">
                                 <div class="input-append date date-picker" data-date-format="yyyy-mm-dd">
-                                    <input type="text" size="16" class="m-wrap date-picker" readonly="readonly">
+                                    <input type="text" name="start_time" value="<?php echo $userCouponSet->start_time ?>" size="16" class="m-wrap date-picker" readonly="readonly">
                                     <span class="add-on"><i class="icon-calendar"></i></span>
                                 </div>
                             </div>
@@ -50,7 +56,7 @@
                             <label class="control-label">结束使用时间</label>
                             <div class="controls">
                                 <div class="input-append date date-picker" data-date-format="yyyy-mm-dd">
-                                    <input type="text" size="16" class="m-wrap date-picker" readonly="readonly">
+                                    <input type="text" name="end_time" value="<?php echo $userCouponSet->end_time ?>" size="16" class="m-wrap date-picker" readonly="readonly">
                                     <span class="add-on"><i class="icon-calendar"></i></span>
                                 </div>
                             </div>
@@ -58,25 +64,25 @@
                         <div class="control-group">
                             <label class="control-label"><em>* </em>优惠劵金额</label>
                             <div class="controls">
-                                <input type="text" name="amount" class="m-wrap span8 required" placeholder="请输入可以使用的金额">
+                                <input type="text" name="amount" value="<?php echo $userCouponSet->amount ?>" class="m-wrap span8 required" placeholder="请输入可以使用的金额">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><em>* </em>优惠劵数量</label>
+                            <label class="control-label"><em>* </em>剩余数量</label>
                             <div class="controls">
-                                <input type="text" name="number" class="m-wrap span8 required" placeholder="请输入发布的优惠劵数量">
+                                <input type="text" name="number" value="<?php echo $userCouponSet->number ?>" class="m-wrap span8 required" placeholder="请输入发布的优惠劵数量">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><em>* </em>满多少可用</label>
+                            <label class="control-label">满减</label>
                             <div class="controls">
-                                <input type="text" name="condition" class="m-wrap span8 number required" placeholder="请输入优惠劵使用条件，请填写金额，默认为零不限制">
+                                <input type="text" name="condition" value="<?php echo $userCouponSet->condition ?>" class="m-wrap span8 number required" placeholder="请输入优惠劵使用条件，请填写金额，默认为零不限制">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">使用说明</label>
                             <div class="controls">
-                                <textarea name="note" class="m-wrap span8"  placeholder="请输入优惠劵使用说明"></textarea>
+                                <textarea name="note" value="<?php echo $userCouponSet->note ?>" class="m-wrap span8"  placeholder="请输入优惠劵使用说明"></textarea>
                             </div>
                         </div>
                         <div class="form-actions">

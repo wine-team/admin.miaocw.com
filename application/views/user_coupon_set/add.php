@@ -20,6 +20,12 @@
                 <div class="portlet-body form">
                     <form class="form-horizontal line-form" action="<?php echo base_url('user_coupon_set/addPost') ?>" method="post" enctype="multipart/form-data">
                         <div class="control-group">
+                            <label class="control-label"><em>* </em>优惠劵名称</label>
+                            <div class="controls">
+                                <input type="text" name="coupon_name" class="m-wrap span8 required">
+                            </div>
+                        </div>
+                        <div class="control-group">
                             <label class="control-label"><em>* </em>优惠劵类型</label>
                             <div class="controls">
                                 <label class="radio">
@@ -33,7 +39,7 @@
                         <div class="control-group">
                             <label class="control-label"><em>* </em>关联编号</label>
                             <div class="controls">
-                                <input type="text" name="related_id" class="m-wrap span8 required" placeholder="自营劵为分类ID，默认0,支持所有自营商品；店铺劵为供应商编号">
+                                <input type="text" name="related_id" class="m-wrap span8 required" placeholder="自营劵为商品属性ID，默认0,支持所有自营商品；店铺劵为供应商编号">
                             </div>
                         </div>
                         <div class="control-group">
@@ -67,7 +73,7 @@
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><em>* </em>满多少可用</label>
+                            <label class="control-label">满减</label>
                             <div class="controls">
                                 <input type="text" name="condition" class="m-wrap span8 number required" placeholder="请输入优惠劵使用条件，请填写金额，默认为零不限制">
                             </div>

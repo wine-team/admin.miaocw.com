@@ -22,9 +22,17 @@
                         <div class="row-fluid">
                             <div class="span4">
                                 <div class="control-group">
+                                    <label class="control-label">优惠劵名称</label>
+                                    <div class="controls">
+                                        <input type="text" name="coupon_name" value="<?php echo $this->input->get('coupon_name') ?>" class="m-wrap span12">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span4">
+                                <div class="control-group">
                                     <label class="control-label">优惠劵类型</label>
                                     <div class="controls">
-                                        <select name="scope" class="m-wrap medium">
+                                        <select name="scope" class="m-wrap span12">
                                             <option value="0">全部</option>
                                             <?php foreach ($scope as $key=>$value):?>
                                                 <option value="<?php echo $key?>" <?php if($key == $this->input->get('scope')):?>selected="selected"<?php endif;?>><?php echo $value;?></option>
@@ -79,12 +87,12 @@
                                     <tr>
                                         <th><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"></th>
                                         <th>编号</th>
+                                        <th>优惠劵名称</th>
                                         <th>优惠劵类型</th>
                                         <th>关联编号</th>
                                         <th>优惠劵金额</th>
                                         <th>优惠劵数量</th>
-                                        <th>满多少可用</th>
-                                        <th>使用说明</th>
+                                        <th>满减</th>
                                         <th>开始时间</th>
                                         <th>结束时间</th>
                                         <th width="100">操作</th>
@@ -95,12 +103,12 @@
                                     <tr>
                                         <td><input type="checkbox" class="checkboxes" value="1" ></td>
                                         <td><?php echo $item->coupon_set_id;?></td>
+                                        <td><?php echo $item->coupon_name;?></td>
                                         <td><?php echo $scope[$item->scope];?></td>
                                         <td><?php echo $item->related_id;?></td>
                                         <td><?php echo $item->amount;?></td>
                                         <td><?php echo $item->number;?></td>
                                         <td><?php echo $item->condition;?></td>
-                                        <td><?php echo $item->note;?></td>
                                         <td><?php echo $item->start_time;?></td>
                                         <td><?php echo $item->end_time;?></td>
                                         <td>
