@@ -94,7 +94,7 @@ class User_coupon_set extends MJ_Controller
     {
         $error = array();
         if ($this->validateParam($this->input->post('coupon_name'))) {
-            $error[] = '优惠劵名称';
+            $error[] = '优惠劵名称不能为空';
         }
         if ($this->input->post('scope') == 1) { //自营劵
             if ($this->input->post('related_id') > 0) {
@@ -116,10 +116,10 @@ class User_coupon_set extends MJ_Controller
             $error[] = '优惠劵数量必须大于零';
         }
         if ($this->validateParam($this->input->post('start_time'))) {
-            $error[] = '开始使用时间';
+            $error[] = '开始使用时间不能为空';
         }
         if ($this->validateParam($this->input->post('end_time'))) {
-            $error[] = '结束使用时间';
+            $error[] = '结束使用时间不能为空';
         }
         return $error;
     }

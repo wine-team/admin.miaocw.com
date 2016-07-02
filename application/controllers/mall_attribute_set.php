@@ -78,7 +78,30 @@ class Mall_attribute_set extends MJ_Controller
         }
 	    return $error;
 	}
-	
+
+	/**
+	 * ajax 翻页函数部分。
+	 * @param number $pg
+	 */
+	public function ajaxAttributeSet($pg = 1)
+	{
+		$page_num = 10;
+		$num = ($pg-1)*$page_num;
+		$config['per_page'] = 10;
+		$config['first_url'] = base_url('mall_attribute_set/ajaxAttributeSet').$this->pageGetParam($this->input->get());
+		$config['suffix'] = $this->pageGetParam($this->input->get());
+		$config['base_url'] = base_url('mall_attribute_set/ajaxAttributeSet');
+		$config['total_rows'] = $this->user->total($this->input->get());
+		$config['uri_segment'] = 3;
+		$this->pagination->initialize($config);
+		$data['pg_list']   = $this->pagination->create_links();
+		$data['page_list'] = $this->user->page_list($page_num, $num, $this->input->get());
+		$data['all_rows']  = $config['total_rows'];
+		$data['pg_now']    = $pg;
+
+		echo json_encode(array(
+			'status'=> true,
+			'html'  => $this->load->view('mall_attribute_set/ajaxAttributeSet/ajaxData', $data, true)
+		));exit;
+	}
 }
-/** End of file Mall_attribute_set.php */
-/** Location: ./application/controllers/Mall_attribute_set.php */
