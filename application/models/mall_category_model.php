@@ -3,9 +3,27 @@ class Mall_category_model extends CI_Model
 {
 	private $table = 'mall_category';        
 	
-	public function findById($where)
+	public function findById($cat_id)
 	{
-	    return $this->db->get_where($this->table, $where);
+		$this->db->where('cat_id', $cat_id);
+	    return $this->db->get($this->table);
+	}
+
+	public function findByParams($params = array())
+	{
+		if (!empty($params['cat_id'])) {
+			$this->db->where('cat_id', $params['cat_id']);
+		}
+		if (!empty($params['parent_id'])) {
+			$this->db->where('parent_id', $params['parent_id']);
+		}
+		if (!empty($params['cat_name'])) {
+			$this->db->like('cat_name', $params['cat_name']);
+		}
+		if (!empty($params['is_show'])) {
+			$this->db->where('is_show', $params['is_show']);
+		}
+		return $this->db->get($this->table);
 	}
 	
 	public function getWherein($item,$arr) 

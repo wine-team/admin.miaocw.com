@@ -10,13 +10,13 @@ class Mall_category extends MJ_Controller
 
 	public function grid()
 	{ 
-	    $data['res'] = $this->mall_category->findById(array())->result();
+	    $data['res'] = $this->mall_category->findByParams()->result();
 	    $this->load->view('mall_category/grid', $data);
 	}
 	
 	public function add()
 	{
-	    $data['res'] = $this->mall_category->findById(array())->result();
+	    $data['res'] = $this->mall_category->findByParams()->result();
 	    $this->load->view('mall_category/add', $data);
 	}
 	
@@ -32,7 +32,7 @@ class Mall_category extends MJ_Controller
 	    $data['cat_type'] = $postData['parent_id'] ? 2 : 1;
 	    if ($postData['parent_id']) {
 	        $data['cat_type'] = 2;
-	        $first_cat = $this->mall_category->findById(array('cat_id'=>$postData['parent_id']))->row();
+	        $first_cat = $this->mall_category->findByParams(array('cat_id'=>$postData['parent_id']))->row();
 	        $data['full_name'] = $first_cat->cat_name.'>'.$postData['cat_name'];
 	    } else {
 	        $data['cat_type'] = 1;
@@ -54,7 +54,7 @@ class Mall_category extends MJ_Controller
 	
 	public function edit($cat_id)
 	{
-	    $res = $this->mall_category->findById(array('cat_id'=>$cat_id));
+	    $res = $this->mall_category->findByParams(array('cat_id'=>$cat_id));
 	    if ($res->num_rows() <= 0) {
 	    	$this->error('mall_category/grid', '', '没找到对应分类值');
 	    }
@@ -73,7 +73,7 @@ class Mall_category extends MJ_Controller
 	    $data['is_show'] = $postData['is_show'];
 	    $data['sort_order'] = $postData['sort_order'];
 	    $data['filter_attr'] = toNumStr($postData['filter_attr']);
-	    if( !empty($postData['keyword']) ){
+	    if ( !empty($postData['keyword']) ) {
 	    	$data['keyword'] = $postData['keyword'];
 	    }
         $res = $this->mall_category->update(array('cat_id'=>$postData['cat_id']), $data); 
@@ -98,11 +98,10 @@ class Mall_category extends MJ_Controller
 	
 	public function delete($cat_id)
 	{
-	    $chlid_num = $this->mall_category->findById(array('parent_id'=>$cat_id))->num_rows();
-	    if ($chlid_num > 0)
-	    {
+	    $chlid_num = $this->mall_category->findByParams(array('parent_id'=>$cat_id))->num_rows();
+	    if ($chlid_num > 0) {
 	        $this->error('mall_category/grid', '', '此分类下还有子类，不能删除！');
-	    }else{
+	    } else {
 	        $is_delete = $this->mall_category->delete(array('cat_id'=>$cat_id));
 	        if ($is_delete) {
 	            $this->success('mall_category/grid', '', '删除成功！');
@@ -115,8 +114,7 @@ class Mall_category extends MJ_Controller
 	public function validate()
 	{
 	    $error = array();
-        if ($this->validateParam($this->input->post('cat_name')))
-        {
+        if ($this->validateParam($this->input->post('cat_name'))) {
             $error[] = '分类名称不能为空';
         }
 	    return $error;

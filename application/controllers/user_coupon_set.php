@@ -57,7 +57,7 @@ class User_coupon_set extends MJ_Controller
         if($result->num_rows() <= 0) {
             $this->redirect('user_coupon_set/grid');
         }
-        $data['userCouponSet'] = $result->row();
+        $data['userCouponSet'] = $result->row(0);
         $this->load->view('user_coupon_set/edit', $data);
     }
 
@@ -67,7 +67,6 @@ class User_coupon_set extends MJ_Controller
         $error = $this->validate();
         if (!empty($error)) {
             $this->error('user_coupon_set/edit', $coupon_set_id, $error);
-            return ;
         }
 
         $this->db->trans_start();
@@ -110,10 +109,10 @@ class User_coupon_set extends MJ_Controller
                 $error[] = '店铺劵：店铺ID（'.$this->input->post('related_id').'）不存在';
             }
         }
-        if ($this->input->post('amount') > 0) {
+        if ($this->input->post('amount') <= 0) {
             $error[] = '优惠劵金额必须大于零';
         }
-        if ($this->input->post('number') > 0) {
+        if ($this->input->post('number') <= 0) {
             $error[] = '优惠劵数量必须大于零';
         }
         if ($this->validateParam($this->input->post('start_time'))) {
