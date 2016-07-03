@@ -1,22 +1,31 @@
 <?php
-class User_coupon_set_model extends CI_Model
+class User_coupon_get_model extends CI_Model
 {
-    private $table = 'user_coupon_set';
+    private $table = 'user_coupon_get';
 
-    public function findById($coupon_set_id)
+    public function findById($coupon_get_id)
     {
-        $this->db->where('coupon_set_id', $coupon_set_id);
+        $this->db->where('coupon_get_id', $coupon_get_id);
         return $this->db->get($this->table);
     }
 
     public function total($params=array()) 
     {
         $this->db->from($this->table);
+        if (!empty($params['coupon_set_id'])) {
+            $this->db->where('coupon_set_id', $params['coupon_set_id']);
+        }
         if (!empty($params['coupon_name'])) {
             $this->db->where('coupon_name', $params['coupon_name']);
         }
+        if (!empty($params['uid'])) {
+            $this->db->where('uid', $params['uid']);
+        }
         if (!empty($params['scope'])) {
             $this->db->where('scope', $params['scope']);
+        }
+        if (!empty($params['status'])) {
+            $this->db->where('status', $params['status']);
         }
         if (!empty($params['start_time'])) {
             $this->db->where('created_at >=', $params['start_time'].' 00:00:00');
@@ -30,11 +39,20 @@ class User_coupon_set_model extends CI_Model
     public function page_list($page_num, $num, $params=array())
     {
     	$this->db->from($this->table);
+        if (!empty($params['coupon_set_id'])) {
+            $this->db->where('coupon_set_id', $params['coupon_set_id']);
+        }
         if (!empty($params['coupon_name'])) {
             $this->db->where('coupon_name', $params['coupon_name']);
         }
+        if (!empty($params['uid'])) {
+            $this->db->where('uid', $params['uid']);
+        }
         if (!empty($params['scope'])) {
             $this->db->where('scope', $params['scope']);
+        }
+        if (!empty($params['status'])) {
+            $this->db->where('status', $params['status']);
         }
         if (!empty($params['start_time'])) {
             $this->db->where('created_at >=', $params['start_time'].' 00:00:00');
@@ -42,7 +60,7 @@ class User_coupon_set_model extends CI_Model
         if (!empty($params['end_time'])) {
             $this->db->where('created_at <=', $params['end_time'].' 23:59:59');
         }
-        $this->db->order_by('coupon_set_id', 'DESC');
+        $this->db->order_by('coupon_get_id', 'DESC');
         $this->db->limit($page_num, $num);
         return $this->db->get();
     }
@@ -77,13 +95,13 @@ class User_coupon_set_model extends CI_Model
             'start_time'  => date('Y-m-d 00:00:00', strtotime($postData['start_time'])),
             'end_time'    => date('Y-m-d 23:59:59', strtotime($postData['end_time'])),
         );
-        $this->db->where('coupon_set_id', $postData['coupon_set_id']);
+        $this->db->where('coupon_get_id', $postData['coupon_get_id']);
         return $this->db->update($this->table, $data);
     }
     
-    public function deleteById($coupon_set_id)
+    public function deleteById($coupon_get_id)
     {
-        $this->db->where('coupon_set_id', $coupon_set_id);
+        $this->db->where('coupon_get_id', $coupon_get_id);
         return $this->db->delete($this->table);
     }
 }

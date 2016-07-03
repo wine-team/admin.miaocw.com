@@ -1,8 +1,7 @@
 <?php
 class Mall_attribute_set_model extends CI_Model
 {
-	private $table = 'mall_attribute_set'; 
-	private $table1 = 'mall_attribute_value';
+	private $table = 'mall_attribute_set';
 
 	public function find($isArray=false)
 	{
@@ -27,6 +26,9 @@ class Mall_attribute_set_model extends CI_Model
 	public function total($params=array())
 	{
 		$this->db->from($this->table);
+		if (!empty($params['attr_set_id'])) {
+			$this->db->where('attr_set_id', $params['attr_set_id']);
+		}
 		if (!empty($params['attr_set_name'])) {
 			$this->db->where('attr_set_name', $params['attr_set_name']);
 		}
@@ -36,6 +38,9 @@ class Mall_attribute_set_model extends CI_Model
 	public function page_list($page_num, $num, $params=array())
 	{
 		$this->db->from($this->table);
+		if (!empty($params['attr_set_id'])) {
+			$this->db->where('attr_set_id', $params['attr_set_id']);
+		}
 		if (!empty($params['attr_set_name'])) {
 			$this->db->where('attr_set_name', $params['attr_set_name']);
 		}
