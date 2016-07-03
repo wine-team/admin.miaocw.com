@@ -2,8 +2,8 @@
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
-            <h3 class="page-title">快递管理<small> 快递公司</small></h3>
-            <?php echo breadcrumb(array('快递管理', '快递公司', '编辑')); ?>
+            <h3 class="page-title">优惠劵设置<small> 优惠劵设置</small></h3>
+            <?php echo breadcrumb(array('优惠劵设置', '优惠劵设置', '优惠劵设置编辑')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>
@@ -98,3 +98,21 @@
     </div>
 </div>
 <?php $this->load->view('layout/footer');?>
+<?php $this->load->view('supplier/ajaxSupplier/ajaxGet');?>
+<?php $this->load->view('mall_attribute_set/ajaxAttributeSet/ajaxGet');?>
+<script type="text/javascript">
+    $(document).ready(function () {
+        function autoSelectClass()
+        {
+            if ($('input[name=scope]:checked').val() == 1) {//自营劵
+                $('.add-pop-up-html input[name=related_id]').removeClass('supplieruid').addClass('attributeSet');
+            } else {
+                $('.add-pop-up-html input[name=related_id]').removeClass('attributeSet').addClass('supplieruid');
+            }
+        }
+        autoSelectClass();
+        $('input[name=scope]').click(function () {
+            autoSelectClass();
+        });
+    });
+</script>

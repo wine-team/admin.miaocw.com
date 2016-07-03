@@ -4,7 +4,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
     //弹框操作
-    $('.add-supplieruid-html').on('dblclick', '.supplieruid', function(){
+    $('.add-pop-up-html').on('dblclick', '.supplieruid', function(){
         supplieruid = $(this);
         $('#user-responsive').modal();
     });
@@ -28,7 +28,7 @@ $(document).ready(function(){
     });
 
     //选择数据
-    $('#user-responsive').on('click', 'table input[name=uid]', function(e){
+    $('#user-responsive').on('click', 'table input[type=radio]', function(e){
         supplieruid.val($(this).val());
         $('#user-responsive').modal('hide');
         e.preventDefault();

@@ -1,12 +1,12 @@
 <?php
-class User_coupon_set extends MJ_Controller
+class User_coupon_set extends CS_Controller
 {
     public function _init()
     {
         $this->load->library('pagination');
         $this->load->model('user_coupon_set_model', 'user_coupon_set');
-        $this->load->model('mall_category_model','mall_category');
-        $this->load->model('supplier_model','supplier');
+        $this->load->model('mall_category_model', 'mall_category');
+        $this->load->model('supplier_model', 'supplier');
     }
 
     public function grid($pg = 1)

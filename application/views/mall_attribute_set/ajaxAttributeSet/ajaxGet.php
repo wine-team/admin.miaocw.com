@@ -4,8 +4,8 @@
 <script type="text/javascript">
 $(document).ready(function(){
     //弹框操作
-    $('.add-attributeSet-html').on('dblclick', '.attributeSet', function(){
-        supplieruid = $(this);
+    $('.add-pop-up-html').on('dblclick', '.attributeSet', function(){
+        attributeSet = $(this);
         $('#attribute-responsive').modal();
     });
     
@@ -28,8 +28,8 @@ $(document).ready(function(){
     });
 
     //选择数据
-    $('#attribute-responsive').on('click', 'table input[name=uid]', function(e){
-        supplieruid.val($(this).val());
+    $('#attribute-responsive').on('click', 'table input[type=radio]', function(e){
+        attributeSet.val($(this).val());
         $('#attribute-responsive').modal('hide');
         e.preventDefault();
     });
@@ -40,7 +40,7 @@ $(document).ready(function(){
             type: 'get',
             async: false,
             dataType : 'json',
-            url: url ? url : hostUrl()+'/supplier/ajaxAttributeSet',
+            url: url ? url : hostUrl()+'/mall_attribute_set/ajaxAttributeSet',
             data: url ? {} : $('.ajaxSearch').serialize(),
             success: function(json) {
                 if (json.status) {

@@ -91,13 +91,14 @@ class Mall_attribute_set extends MJ_Controller
 		$config['first_url'] = base_url('mall_attribute_set/ajaxAttributeSet').$this->pageGetParam($this->input->get());
 		$config['suffix'] = $this->pageGetParam($this->input->get());
 		$config['base_url'] = base_url('mall_attribute_set/ajaxAttributeSet');
-		$config['total_rows'] = $this->user->total($this->input->get());
+		$config['total_rows'] = $this->mall_attribute_set->total($this->input->get());
 		$config['uri_segment'] = 3;
 		$this->pagination->initialize($config);
-		$data['pg_list']   = $this->pagination->create_links();
-		$data['page_list'] = $this->user->page_list($page_num, $num, $this->input->get());
+		$data['pg_link']   = $this->pagination->create_links();
+		$data['page_list'] = $this->mall_attribute_set->page_list($page_num, $num, $this->input->get());
 		$data['all_rows']  = $config['total_rows'];
 		$data['pg_now']    = $pg;
+		$data['page_num'] = $page_num;
 
 		echo json_encode(array(
 			'status'=> true,

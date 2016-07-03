@@ -36,7 +36,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="control-group">
+                        <div class="control-group add-pop-up-html">
                             <label class="control-label"><em>* </em>关联编号</label>
                             <div class="controls">
                                 <input type="text" name="related_id" class="m-wrap span8 required" placeholder="自营劵为商品属性ID，默认0,支持所有自营商品；店铺劵为供应商编号">
@@ -97,3 +97,21 @@
     </div>
 </div>
 <?php $this->load->view('layout/footer');?>
+<?php $this->load->view('supplier/ajaxSupplier/ajaxGet');?>
+<?php $this->load->view('mall_attribute_set/ajaxAttributeSet/ajaxGet');?>
+<script type="text/javascript">
+    $(document).ready(function () {
+        function autoSelectClass()
+        {
+            if ($('input[name=scope]:checked').val() == 1) {//自营劵
+                $('.add-pop-up-html input[name=related_id]').removeClass('supplieruid').addClass('attributeSet');
+            } else {
+                $('.add-pop-up-html input[name=related_id]').removeClass('attributeSet').addClass('supplieruid');
+            }
+        }
+        autoSelectClass();
+        $('input[name=scope]').click(function () {
+            autoSelectClass();
+        });
+    });
+</script>

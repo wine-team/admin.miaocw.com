@@ -237,10 +237,11 @@ class User extends CS_Controller
         $config['total_rows'] = $this->user->total($this->input->get());
         $config['uri_segment'] = 3;
         $this->pagination->initialize($config);
-        $data['pg_list']   = $this->pagination->create_links();
+        $data['pg_link']   = $this->pagination->create_links();
         $data['page_list'] = $this->user->page_list($page_num, $num, $this->input->get());
         $data['all_rows']  = $config['total_rows'];
         $data['pg_now']    = $pg;
+        $data['page_num'] = $page_num;
         
         echo json_encode(array(
             'status'=>true,

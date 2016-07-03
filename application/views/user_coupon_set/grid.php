@@ -91,7 +91,7 @@
                                         <th>优惠劵类型</th>
                                         <th>关联编号</th>
                                         <th>优惠劵金额</th>
-                                        <th>优惠劵数量</th>
+                                        <th>剩余数量</th>
                                         <th>满减</th>
                                         <th>开始时间</th>
                                         <th>结束时间</th>
@@ -114,6 +114,7 @@
                                         <td>
                                             <a href="<?php echo base_url('user_coupon_set/edit/'.$item->coupon_set_id) ?>" class="btn mini green">编辑</a>
                                             <a href="<?php echo base_url('user_coupon_set/delete/'.$item->coupon_set_id) ?>" class="btn mini green" onclick="return confirm('确定要删除？')"> 删除</a><p></p>
+                                            <a href="<?php echo base_url('user_coupon_get/grid').'?coupon_set_id='.$item->coupon_set_id ?>" class="btn mini green">领取记录</a>
                                         </td>
                                     </tr>
                                     <?php endforeach;?>
