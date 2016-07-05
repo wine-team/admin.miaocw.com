@@ -2,8 +2,8 @@
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
-            <h3 class="page-title">优惠劵设置<small> 优惠劵设置</small></h3>
-            <?php echo breadcrumb(array('优惠劵设置', '优惠劵设置', '优惠劵设置添加')); ?>
+            <h3 class="page-title">用户优惠劵<small> 用户优惠劵</small></h3>
+            <?php echo breadcrumb(array('用户优惠劵', '用户优惠劵', '用户优惠劵添加')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>
@@ -11,18 +11,25 @@
         <div class="span12">
             <div class="portlet box green">
                 <div class="portlet-title">
-                    <div class="caption"><i class="icon-plus-sign"></i>添加</div>
+                    <div class="caption"><i class="icon-plus-sign"></i>编辑</div>
                     <div class="tools">
                         <a class="collapse" href="javascript:;"></a>
                         <a class="remove" href="javascript:;"></a>
                     </div>
                 </div>
                 <div class="portlet-body form">
-                    <form class="form-horizontal line-form" action="<?php echo base_url('user_coupon_set/addPost') ?>" method="post" enctype="multipart/form-data">
+                    <form class="form-horizontal line-form" action="<?php echo base_url('user_coupon_get/addPost') ?>" method="post" enctype="multipart/form-data">
                         <div class="control-group">
                             <label class="control-label"><em>* </em>优惠劵名称</label>
                             <div class="controls">
+                                <input type="hidden" name="coupon_set_id" value="<?php echo $this->input->get('coupon_set_id') ?>">
                                 <input type="text" name="coupon_name" class="m-wrap span8 required">
+                            </div>
+                        </div>
+                        <div class="control-group add-pop-up-html">
+                            <label class="control-label"><em>* </em>用户编号</label>
+                            <div class="controls">
+                                <input type="text" name="uid" class="m-wrap span8 useruid required" placeholder="双击选择用户编号">
                             </div>
                         </div>
                         <div class="control-group">
@@ -46,7 +53,7 @@
                             <label class="control-label">开始使用时间</label>
                             <div class="controls">
                                 <div class="input-append date date-picker" data-date-format="yyyy-mm-dd">
-                                    <input type="text" size="16" class="m-wrap date-picker" readonly="readonly">
+                                    <input type="text" name="start_time" size="16" class="m-wrap date-picker" readonly="readonly">
                                     <span class="add-on"><i class="icon-calendar"></i></span>
                                 </div>
                             </div>
@@ -55,7 +62,7 @@
                             <label class="control-label">结束使用时间</label>
                             <div class="controls">
                                 <div class="input-append date date-picker" data-date-format="yyyy-mm-dd">
-                                    <input type="text" size="16" class="m-wrap date-picker" readonly="readonly">
+                                    <input type="text" name="end_time" size="16" class="m-wrap date-picker" readonly="readonly">
                                     <span class="add-on"><i class="icon-calendar"></i></span>
                                 </div>
                             </div>
@@ -67,15 +74,20 @@
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><em>* </em>优惠劵数量</label>
+                            <label class="control-label">满减条件</label>
                             <div class="controls">
-                                <input type="text" name="number" class="m-wrap span8 required" placeholder="请输入发布的优惠劵数量">
+                                <input type="text" name="condition" class="m-wrap span8 number required" placeholder="请输入优惠劵使用条件，请填写金额，默认为零不限制">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">满减</label>
+                            <label class="control-label"><em>* </em>使用状态</label>
                             <div class="controls">
-                                <input type="text" name="condition" class="m-wrap span8 number required" placeholder="请输入优惠劵使用条件，请填写金额，默认为零不限制">
+                                <label class="radio">
+                                    <input type="radio" name="status" value="1" checked="checked"> 未使用
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="status" value="2"> 已使用
+                                </label>
                             </div>
                         </div>
                         <div class="control-group">
@@ -85,8 +97,8 @@
                             </div>
                         </div>
                         <div class="form-actions">
-                            <button type="submit" class="btn green"><i class="icon-ok"></i> 保存</button>
-                            <a href="<?php echo base_url('user_coupon_set/grid') ?>">
+                            <button class="btn green" type="submit"><i class="icon-ok"></i> 保存</button>
+                            <a href="<?php echo base_url('user_coupon_get/grid').'?coupon_set_id='.$this->input->get('coupon_set_id') ?>">
                                 <button class="btn" type="button">返回</button>
                             </a>
                         </div>
@@ -99,6 +111,7 @@
 <?php $this->load->view('layout/footer');?>
 <?php $this->load->view('supplier/ajaxSupplier/ajaxGet');?>
 <?php $this->load->view('mall_attribute_set/ajaxAttributeSet/ajaxGet');?>
+<?php $this->load->view('user/ajaxUser/ajaxGet');?>
 <script type="text/javascript">
     $(document).ready(function () {
         function autoSelectClass()

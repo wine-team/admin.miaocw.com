@@ -1,10 +1,10 @@
 <div class="modal-header">
     <button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
-    <h3>选择供应商</h3>
+    <h3>选择用户</h3>
 </div>
 <div class="modal-body">
     <div class="well">
-        <form class="form-horizontal ajaxUserSearch">
+        <form class="form-horizontal ajaxSearch">
             <span>用户昵称 <input type="text" name="username" value="<?php echo $this->input->get('username');?>" placeholder="用户UID或昵称" class="m-wrap small"></span>
             <span>手机号 <input type="text" name="phone" value="<?php echo $this->input->get('phone');?>" placeholder="手机号" class="m-wrap small"></span>
             <span>邮箱 <input type="text" name="email" value="<?php echo $this->input->get('email');?>" placeholder="邮箱" class="m-wrap small"></span>
@@ -48,12 +48,7 @@
                 <?php endforeach;?>
             </tbody>
         </table>
-        <div class="dataTables_info">
-            <span>当前第</span><span style="color: red"><?php echo $pg_now?></span>页 
-            <span>共</span><span style="color: red"><?php echo $all_rows?></span>条数据
-            <span>每页显示10条 </span>
-            <?php echo $pg_list ?>
-        </div>
+        <?php $this->load->view('layout/pagination');?>
     <?php else : ?>
         <div class="alert"><p>未找到数据。<p></div>
     <?php endif;?>

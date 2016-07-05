@@ -73,7 +73,7 @@
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">满减</label>
+                            <label class="control-label">满减条件</label>
                             <div class="controls">
                                 <input type="text" name="condition" class="m-wrap span8 number required" placeholder="请输入优惠劵使用条件，请填写金额，默认为零不限制">
                             </div>

@@ -37,7 +37,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="control-group">
+                        <div class="control-group add-pop-up-html">
                             <label class="control-label"><em>* </em>关联编号</label>
                             <div class="controls">
                                 <input type="text" name="related_id" value="<?php echo $userCouponSet->related_id ?>" class="m-wrap span8 required" placeholder="自营劵为商品属性ID，默认0,支持所有自营商品；店铺劵为供应商编号">
@@ -74,7 +74,7 @@
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">满减</label>
+                            <label class="control-label">满减条件</label>
                             <div class="controls">
                                 <input type="text" name="condition" value="<?php echo $userCouponSet->condition ?>" class="m-wrap span8 number required" placeholder="请输入优惠劵使用条件，请填写金额，默认为零不限制">
                             </div>

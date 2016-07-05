@@ -98,7 +98,7 @@
                 <div class="portlet-body flip-scroll">
                     <div class="dataTables_wrapper form-inline">
                         <div class="clearfix">
-                            <a href="<?php echo base_url('user_coupon_get/add') ?>" class="add-button-link">
+                            <a href="<?php echo base_url('user_coupon_get/add').'?coupon_set_id='.$this->input->get('coupon_set_id') ?>" class="add-button-link">
                                 <div class="btn-group">
                                     <button class="btn green"><i class="icon-plus"></i> 添加</button>
                                 </div>
@@ -115,7 +115,7 @@
                                         <th>优惠劵类型</th>
                                         <th>关联编号</th>
                                         <th>优惠劵金额</th>
-                                        <th>满减</th>
+                                        <th>满减条件</th>
                                         <th>开始时间</th>
                                         <th>结束时间</th>
                                         <th>状态</th>
@@ -137,8 +137,8 @@
                                         <td><?php echo $item->end_time;?></td>
                                         <td><?php echo $status[$item->status];?></td>
                                         <td>
-                                            <a href="<?php echo base_url('user_coupon_get/edit/'.$item->coupon_get_id) ?>" class="btn mini green">编辑</a>
-                                            <a href="<?php echo base_url('user_coupon_get/delete/'.$item->coupon_get_id) ?>" class="btn mini green" onclick="return confirm('确定要删除？')"> 删除</a><p></p>
+                                            <a href="<?php echo base_url('user_coupon_get/edit/'.$item->coupon_get_id).'?coupon_set_id='.$this->input->get('coupon_set_id') ?>" class="btn mini green">编辑</a>
+                                            <a href="<?php echo base_url('user_coupon_get/delete/'.$item->coupon_get_id).'?coupon_set_id='.$this->input->get('coupon_set_id') ?>" class="btn mini green" onclick="return confirm('确定要删除？')"> 删除</a><p></p>
                                         </td>
                                     </tr>
                                     <?php endforeach;?>

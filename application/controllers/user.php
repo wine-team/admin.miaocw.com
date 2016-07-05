@@ -226,14 +226,14 @@ class User extends CS_Controller
      * ajax 翻页函数部分。
      * @param number $pg
      */
-    public function ajaxGetUser($pg = 1)
+    public function ajaxGet($pg = 1)
     {
         $page_num = 10;
         $num = ($pg-1)*$page_num;
         $config['per_page'] = 10;
-        $config['first_url'] = base_url('user/ajaxGetUser').$this->pageGetParam($this->input->get());
+        $config['first_url'] = base_url('user/ajaxGet').$this->pageGetParam($this->input->get());
         $config['suffix'] = $this->pageGetParam($this->input->get());
-        $config['base_url'] = base_url('user/ajaxGetUser');
+        $config['base_url'] = base_url('user/ajaxGet');
         $config['total_rows'] = $this->user->total($this->input->get());
         $config['uri_segment'] = 3;
         $this->pagination->initialize($config);
@@ -245,7 +245,7 @@ class User extends CS_Controller
         
         echo json_encode(array(
             'status'=>true,
-            'html'  =>$this->load->view('user/addSupplierUid/ajaxUserData', $data, true)
+            'html'  =>$this->load->view('user/ajaxUser/ajaxData', $data, true)
         ));exit;
     }
 }
