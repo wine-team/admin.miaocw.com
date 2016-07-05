@@ -25,7 +25,7 @@ class User_model extends CI_Model
     {
         $this->db->from($this->table);
         if (!empty($params['username'])) {
-            $this->db->where("((`user`.`uid`='%{$params['username']}%') OR (`user`.`alias_name` LIKE '%{$params['username']}%'))");
+            $this->db->where("((`user`.`uid`='{$params['username']}') OR (`user`.`alias_name` LIKE '%{$params['username']}%'))");
         }
         if (!empty($params['phone'])) {
             $this->db->where('phone', $params['phone']);
@@ -52,7 +52,7 @@ class User_model extends CI_Model
     {
         $this->db->from($this->table.' as user');
         if (!empty($params['username'])) {
-            $this->db->where("((`user`.`uid`='%{$params['username']}%') OR (`user`.`alias_name` LIKE '%{$params['username']}%'))");
+            $this->db->where("((`user`.`uid`='{$params['username']}') OR (`user`.`alias_name` LIKE '%{$params['username']}%'))");
         }
         if (!empty($params['phone'])) {
             $this->db->where('phone', $params['phone']);
