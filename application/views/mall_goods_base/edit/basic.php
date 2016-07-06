@@ -93,10 +93,10 @@
                 <textarea name="goods_brief" rows="4" class="m-wrap span12 required" placeholder="商品简介"><?php echo $mallgoods->goods_brief;?></textarea>
             </div>
         </div>
-        <div class="control-group add-supplieruid-html">
+        <div class="control-group add-pop-up-html">
             <label class="control-label"><em>* </em>供应商</label>
             <div class="controls">
-                <input type="text" name="supplier_id" placeholder="供应商UID" class="m-wrap span12 supplieruid required tooltips" data-original-title="双击可弹框选择供应商；直接输入‘用户名称或编号’可提示" data-trigger="hover"  autocomplete="off" value="<?php echo $mallgoods->supplier_id;?>">
+                <input type="text" name="supplier_id" placeholder="供应商UID" class="m-wrap span12 supplieruid required tooltips" data-original-title="双击可弹框选择供应商" data-trigger="hover"  autocomplete="off" value="<?php echo $mallgoods->supplier_id;?>">
             </div>
         </div>
         <div class="control-group">

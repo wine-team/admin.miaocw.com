@@ -494,11 +494,11 @@ class Mall_goods_base extends CS_Controller
      * 获取
      * @param number $pg
      */
-    public function ajaxGetMallGoods($pg=1)
+    public function ajaxGoodsBase($pg=1)
 	{
-    	$page_num = 8;
+    	$page_num = 10;
     	$num = ($pg-1)*$page_num;
-    	$config['per_page'] = 8;
+    	$config['per_page'] = $page_num;
     	$config['first_url'] = base_url('mall_goods_base/ajaxGetMallGoods').$this->pageGetParam($this->input->get());
     	$config['suffix'] = $this->pageGetParam($this->input->get());
     	$config['base_url'] = base_url('mall_goods_base/ajaxGetMallGoods');
@@ -512,7 +512,7 @@ class Mall_goods_base extends CS_Controller
     	$data['page_num']  = $page_num;
     	echo json_encode(array(
 			'status'=>true,
-			'html'  =>$this->load->view('mall_goods_base/addGoodBase/ajaxGoodsData', $data, true)
+			'html'  =>$this->load->view('mall_goods_base/ajaxGoodsBase/ajaxData', $data, true)
     	));exit;
     }
 }

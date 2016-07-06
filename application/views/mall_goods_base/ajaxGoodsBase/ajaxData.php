@@ -4,7 +4,7 @@
 </div>
 <div class="modal-body">
     <div class="well">
-        <form class="form-horizontal ajaxGoodsBaseSearch">
+        <form class="form-horizontal ajaxSearch">
             <span>商品名称 <input type="text" name="goods_name" value="<?php echo $this->input->get('goods_name');?>" placeholder="商品名称 " class="m-wrap small"></span>
             <span>商品编号<input type="text" name="goods_sku" value="<?php echo $this->input->get('goods_sku');?>" placeholder="商品编号" class="m-wrap small"></span>
             <span>
@@ -51,11 +51,15 @@
                     <td><?php echo $item->goods_sku;?></td>
                     <td><?php echo $item->market_price;?></td>
                     <td><?php echo $item->shop_price;?></td>
-                    <td><?php switch ($item->is_check){
-                    	          case '1': echo '未审核';break;
-                    	          case '2': echo '审核通过';break;
-                    	          case '3': echo '未通过'; break;
-                    };?></td>
+                    <td>
+                    <?php
+                        switch ($item->is_check){
+                            case '1': echo '未审核';break;
+                            case '2': echo '审核通过';break;
+                            case '3': echo '未通过'; break;
+                        };
+                    ?>
+                    </td>
                     <td><?php echo $item->is_on_sale==1 ? '上架' : '下架';?></td>
                 </tr>
                 <?php endforeach;?>

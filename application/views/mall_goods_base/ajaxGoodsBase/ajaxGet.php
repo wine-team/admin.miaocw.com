@@ -3,8 +3,8 @@
 <script type="text/javascript">
 $(document).ready(function(){
     //弹框操作
-    $('.add-goods-related-html').on('dblclick', '.related_goods_id', function(e){
-    	related_goods_id = $(this);
+    $('.add-pop-up-html').on('dblclick', '.goodsBaseId', function(e){
+        goodsBaseId = $(this);
         $('#goods-responsive').modal();
         e.preventDefault();
     });
@@ -22,24 +22,22 @@ $(document).ready(function(){
 
     //搜索
     $('#goods-responsive').on('click', 'button[type="button"]', function(e){
-
     	var goodsId = new Array;
         $('#goods-responsive input[type="checkbox"]').each(function(index,element){
-            if($(this).is(':checked')){
+            if ($(this).is(':checked')) {
             	goodsId[index] = $(this).attr('value');
             }
-        })
-    	related_goods_id.val(goodsId);
+        });
+        goodsBaseId.val(goodsId);
         $('#goods-responsive').modal('hide');
         e.preventDefault();
     });
 
     //翻页
     $('#goods-responsive').on('click', '.dataTables_paginate a', function(e){
-    	e.preventDefault();
         var url = $(this).attr('href');
         ajaxGetGoodsBase(url)
-        return false;
+        e.preventDefault();
     });
 
     //获取数据
@@ -48,8 +46,8 @@ $(document).ready(function(){
             type: 'get',
             async: true,
             dataType : 'json',
-            url: url ? url : hostUrl()+'/mall_goods_base/ajaxGetMallGoods',
-            data: url ? {} : $('.ajaxGoodsBaseSearch').serialize(),
+            url: url ? url : hostUrl()+'/mall_goods_base/ajaxGoodsBase',
+            data: url ? {} : $('.ajaxSearch').serialize(),
             success: function(json) {
                 if (json.status) {
                     $('#goods-responsive').html(json.html);
