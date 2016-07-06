@@ -35,10 +35,10 @@
                                 </div>
                             </div>
                             <div class="span6">
-                                <div class="control-group add-supplieruid-html">
+                                <div class="control-group add-pop-up-html">
                                     <label class="control-label">模板所属</label>
                                     <div class="controls">
-                                        <input type="text" class="m-wrap large required supplieruid" name="uid" placeholder="双击指定用户uid"/>
+                                        <input type="text" class="m-wrap large required useruid" name="uid" placeholder="双击指定用户uid"/>
                                     </div>
                                 </div>
                             </div>
@@ -225,4 +225,4 @@
     })
 </script>
 <?php $this->load->view('layout/footer'); ?>
-<?php $this->load->view('user/addSupplierUid/ajaxGetUser'); ?>
+<?php $this->load->view('user/ajaxUser/ajaxGet');?>
