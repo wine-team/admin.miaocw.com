@@ -60,7 +60,7 @@
                                         <th><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"></th>
                                         <th>编号</th>
                                         <th>供应商名称</th>
-                                        <th>用户id</th>
+                                        <th>用户UID</th>
                                         <th>状态</th>
                                         <th>创建时间</th>
                                         <th>排序</th>

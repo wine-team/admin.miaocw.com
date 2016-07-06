@@ -20,9 +20,9 @@
                 <div class="portlet-body form">
                     <form class="form-horizontal line-form supplier-form" action="<?php echo base_url('supplier/addPost') ?>" method="post" enctype ="multipart/form-data" >
                         <div class="control-group add-pop-up-html">
-                            <label class="control-label"><em>* </em>用户id</label>
+                            <label class="control-label"><em>* </em>用户UID</label>
                             <div class="controls">
-                                <input type="text" name="uid" value="1" class="m-wrap medium useruid tooltips number" data-original-title="双击可弹框选择供应商；直接输入‘用户名称或编号’可提示" data-trigger="hover">
+                                <input type="text" name="uid" value="1" class="m-wrap medium useruid tooltips number" data-original-title="双击可弹框选择用户" data-trigger="hover">
                             </div>
                         </div>
                         <div class="control-group">

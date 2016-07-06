@@ -21,7 +21,7 @@
                     <form class="form-horizontal line-form supplier-form" action="<?php echo base_url('supplier/addPost') ?>" method="post" enctype ="multipart/form-data" >
                         <input type="hidden" name="supplier_id" value="<?php echo $res->supplier_id;?>">
                         <div class="control-group add-pop-up-html">
-                            <label class="control-label"><em>* </em>用户id</label>
+                            <label class="control-label"><em>* </em>用户UID</label>
                             <div class="controls">
                                 <input type="text" name="uid" value="<?php echo $res->uid;?>" class="m-wrap medium useruid tooltips number" data-original-title="双击可弹框选择用户" data-trigger="hover">
                             </div>
