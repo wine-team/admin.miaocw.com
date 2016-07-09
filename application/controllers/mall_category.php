@@ -9,7 +9,7 @@ class Mall_category extends MJ_Controller
 	}
 
 	public function grid()
-	{ 
+	{  
 	    $data['res'] = $this->mall_category->findByParams()->result();
 	    $this->load->view('mall_category/grid', $data);
 	}
