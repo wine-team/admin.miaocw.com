@@ -48,15 +48,15 @@
 $active_group  = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
-$db['default']['password'] = '';
-$db['default']['database'] = 'meijiu';
+// $db['default']['hostname'] = 'localhost';
+// $db['default']['username'] = 'root';
+// $db['default']['password'] = '';
+// $db['default']['database'] = 'meijiu';
 
-// $db['default']['hostname'] = 'mysql.sql71.cdncenter.net';
-// $db['default']['username'] = 'sq_zhangkunch';
-// $db['default']['password'] = '123456';
-// $db['default']['database'] = 'sq_zhangkunch';
+$db['default']['hostname'] = 'mysql.sql71.cdncenter.net';
+$db['default']['username'] = 'sq_zhangkunch';
+$db['default']['password'] = '123456';
+$db['default']['database'] = 'sq_zhangkunch';
 
 $db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = '';

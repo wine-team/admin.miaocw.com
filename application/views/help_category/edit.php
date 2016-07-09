@@ -20,7 +20,7 @@
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><em>* </em>菜单栏展示</label>
+                            <label class="control-label"><em>* </em>左侧菜单栏展示</label>
                             <div class="controls">
                                 <select name="flag" class="medium m-wrap valid">
                                         <option value="1" <?php if($category->flag==1):?>selected="selected"<?php endif;?>>是</option>
