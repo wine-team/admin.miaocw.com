@@ -144,6 +144,16 @@ class User_model extends CI_Model
     	$data['password'] = sha1(base64_encode('123456'));
     	return $this->db->update($this->table, $data, array('uid'=>$uid));
     }
+    
+    /**
+     * 删除uid
+     * @param unknown $uid
+     */
+    public function deleteById($uid){
+    	
+    	$this->db->where('uid',$uid);
+    	return $this->db->delete($this->table);
+    }
      
     /**
      * 验证手机号码
