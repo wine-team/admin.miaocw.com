@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Mall_category extends MJ_Controller
+class Mall_category extends CS_Controller
 {
 	public function _init()
 	{
@@ -9,7 +9,7 @@ class Mall_category extends MJ_Controller
 	}
 
 	public function grid()
-	{  
+	{
 	    $data['res'] = $this->mall_category->findByParams()->result();
 	    $this->load->view('mall_category/grid', $data);
 	}

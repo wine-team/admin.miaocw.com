@@ -12,7 +12,7 @@ class Account extends MJ_Controller
      */
     public function login()
     {
-        if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], 'account/dashboard') === false) {
+        if (isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], 'account/login') === false) {
             $data['backurl'] = $_SERVER['HTTP_REFERER'];
         } else {
             $data['backurl'] = base_url('home/dashboard');
