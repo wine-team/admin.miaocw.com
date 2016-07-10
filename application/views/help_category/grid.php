@@ -18,13 +18,26 @@
                     </div>
                 </div>
                 <div class="portlet-body form">
-                    <form class="form-horizontal form-search" action="<?php echo base_url('help_center/grid');?>" method="get">
+                    <form class="form-horizontal form-search" action="<?php echo base_url('help_category/grid');?>" method="get">
                         <div class="row-fluid">
                             <div class="span5">
                                 <div class="control-group">
                                     <label class="control-label">分类名</label>
                                     <div class="controls">
                                          <input type="text" name="category_name" value="<?php echo trim($this->input->get('category_name'));?>" placeholder="分类名" class="m-wrap medium">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span5">
+                                <div class="control-group">
+                                    <label class="control-label">所属栏目</label>
+                                    <div class="controls">
+                                        <select name="flag" class="medium m-wrap valid">
+                                            <option value="">请选择栏目</option>
+                                            <?php foreach ($menuArray as $key=>$value) : ?>
+                                                <option value="<?php echo $key;?>" <?php if ($key == $this->input->get('flag')): ?>selected="selected"<?php endif;?>><?php echo $value;?></option>
+                                            <?php endforeach;?>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -62,7 +75,7 @@
                                     <th>编号</th>
                                     <th>分类</th>
                                     <th>排序</th>
-                                    <th>左边菜单栏</th>
+                                    <th>栏目</th>
                                     <th>时间</th>
                                     <th>操作</th>
                                 </tr>
@@ -74,7 +87,7 @@
                                     <td><?php echo $item->category_id;?></td>
                                     <td><?php echo $item->help_category_name;?></td>
                                     <td><?php echo $item->sort;?></td>
-                                    <td><?php echo $item->flag == '1' ? '左边显示' : '否'?></td>
+                                    <td><?php echo $menuArray[$item->flag];?></td>
                                     <td><?php echo $item->creat_at;?></td>
                                     <td width="145">
                                         <a class="btn mini green" href="<?php echo base_url('help_category/edit/'.$item->category_id); ?>">编辑</a>

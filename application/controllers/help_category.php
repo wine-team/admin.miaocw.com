@@ -2,11 +2,16 @@
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Help_category extends MJ_Controller {
 
+	private $menuArray;
 	public function _init()
 	{
 	    $this->load->library('pagination');
 	    $this->load->model('help_center_model','help_center');
 	    $this->load->model('help_category_model','help_category');
+	    $this->menuArray = array(
+	    	   '1' => '帮助中心',
+	    	   '2' => '资讯中心'
+	    );
 	}
 
 	public function grid($pg = 1)
@@ -24,12 +29,14 @@ class Help_category extends MJ_Controller {
 	    $data['pg_list']   = $this->help_category->pg_list($num, $page_num, $getData);
 	    $data['all_rows']  = $config['total_rows'];
 	    $data['pg_now']    = $pg;
+	    $data['menuArray'] = $this->menuArray;
 	    $this->load->view('help_category/grid', $data);
 	}
 	
 	public function add()
 	{
-	    $this->load->view('help_category/add');
+		$data['menuArray'] = $this->menuArray;
+	    $this->load->view('help_category/add',$data);
 	}
 	
 	public function addPost()
@@ -53,6 +60,7 @@ class Help_category extends MJ_Controller {
 	    	$this->error('help_category/grid','', '无结果');
 	    }
 	    $data['category'] = $reult->row(0);
+	    $data['menuArray'] = $this->menuArray;
 	    $this->load->view('help_category/edit',$data);
 	}
 	
