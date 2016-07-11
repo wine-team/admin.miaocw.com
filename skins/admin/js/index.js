@@ -69,25 +69,6 @@ jQuery(document).ready(function($) {
         });
         jQuery.uniform.update(set);
     });
-
-    $("#tree_1").on('click', '[data-toggle=branch]', function (event) {
-        if ($(this).hasClass('closed'))  {
-            $(this).removeClass('closed').next('ul .branch').addClass('in');
-        } else {
-            $(this).addClass('closed').next('ul .branch').removeClass('in');
-        }
-        event.preventDefault();
-    });
-
-    $('#tree_1_collapse').click(function () {
-        $('.tree-toggle', $('#tree_1 > li > ul')).addClass("closed");
-        $('.branch', $('#tree_1 > li > ul')).removeClass("in");
-    });
-
-    $('#tree_1_expand').click(function () {
-        $('.tree-toggle', $('#tree_1 > li > ul')).removeClass("closed");
-        $('.branch', $('#tree_1 > li > ul')).addClass("in");
-    });
 });
 
 
