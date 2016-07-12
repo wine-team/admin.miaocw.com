@@ -1,6 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Mall_category extends CS_Controller
 {
+	public $categorys;
 	public function _init()
 	{
 		$this->load->helper(array('dictionary'));
@@ -10,10 +11,26 @@ class Mall_category extends CS_Controller
 
 	public function grid()
 	{
-	    $data['res'] = $this->mall_category->findByParams()->result();
+	    $this->categorys = $this->mall_category->findByParams();
+		$data['tree'] = array(); //build_tree(0);
 	    $this->load->view('mall_category/grid', $data);
 	}
-	
+
+	function build_tree($root_id)
+	{
+		$childs = findChild($this->categorys, $root_id);
+		if (empty($childs)) {
+			return null;
+		}
+		foreach ($childs as $k => $v) {
+			$rescurTree = build_tree($v[id]);
+			if( null != $rescurTree){
+				$childs[$k]['childs']=$rescurTree;
+			}
+		}
+		return $childs;
+	}
+
 	public function add()
 	{
 	    $data['res'] = $this->mall_category->findByParams()->result();
