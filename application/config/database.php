@@ -57,7 +57,6 @@ $db['default']['database'] = 'meijiu';
 // $db['default']['username'] = 'sq_zhangkunch';
 // $db['default']['password'] = '123456';
 // $db['default']['database'] = 'sq_zhangkunch';
-
 $db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = FALSE;
