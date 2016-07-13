@@ -163,7 +163,7 @@ class Mall_goods_base extends CS_Controller
     	if (!$goods_id && !$result && !$relatedResult && $this->db->trans_status() === FALSE) {
     		$this->db->trans_rollback();
     		$this->jsonMessage('保存失败！');
-    	} else {
+    	} else { 
     		$this->db->trans_commit();
     		$this->session->set_flashdata('success', '保存成功!');
     		$this->jsonMessage('', base_url('mall_goods_base/grid'));
@@ -447,7 +447,7 @@ class Mall_goods_base extends CS_Controller
     	}
     	//验证属性
     	if (!$this->input->post('goods_id')) {
-    	    $attr_value = $this->mall_attribute_value->findById(array('attr_set_id'=>$this->input->post('attribute_set_id'), 'values_required'=>1))->result();
+    	    $attr_value = $this->mall_attribute_value->getWhere(array('attr_set_id'=>$this->input->post('attribute_set_id'), 'values_required'=>1))->result();
     	    $post_attr = $this->input->post('attr');
     	    $require_ids = array();
     	    foreach ($post_attr as $k1=>$v1) {

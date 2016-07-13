@@ -10,7 +10,7 @@ class Mall_address extends MJ_Controller {
 
 	public function grid($uid = 0)
 	{
-	    $res = $this->mall_address->findById(array('uid'=>$uid));
+	    $res = $this->mall_address->findByUid(array('uid'=>$uid));
 	    $data['uid'] = $uid;
         $data['res'] = $res->result();
         $this->load->view('mall_address/grid', $data);
@@ -73,7 +73,7 @@ class Mall_address extends MJ_Controller {
         {
             $this->mall_address->setNoDefault($this->input->post('uid'));
         }
-        $res = $this->mall_address->updateMallAddress($postData['address_id'], $postData);
+        $res = $this->mall_address->updateMallAddress($postData);
         $this->db->trans_complete(); 
         if ($this->db->trans_status() === TRUE) {
             $this->success('mall_address/grid', $this->input->post('uid'), '修改成功！');

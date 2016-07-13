@@ -12,7 +12,7 @@ class Mall_goods_attr_spec_model extends CI_Model{
 	public function insertBatch($goods_id, $attrSpec, $attrPrice, $attrNum, $attrStock){
 	    foreach ($attrSpec as $key=>$item){
 	        foreach ($item as $jj=>$val){ 
-	            $attr_name = $this->mall_attribute_value->findById(array('attr_value_id'=>$jj))->row()->attr_name;
+	            $attr_name = $this->mall_attribute_value->findById($jj)->row()->attr_name;
 	            $spec['goods_id'] = $goods_id;
 	            $spec['attr_value_id'] = $jj;
 	            $spec['attr_name'] = $attr_name;

@@ -22,16 +22,16 @@
 				</ul>
 				<div class="tab-content">
 				    <div class="tab-pane active" id="tab_1">
-					    <?php $this->load->view('mall_goods_base/add/basic') ?>;
+					    <?php $this->load->view('mall_goods_base/add/basic') ;?>
 					</div>
 					<div class="tab-pane" id="tab_2">
-						<?php $this->load->view('mall_goods_base/add/sales') ?>;
+						<?php $this->load->view('mall_goods_base/add/sales') ;?>
 					 </div>
 					 <div class="tab-pane" id="tab_3">
-						 <?php $this->load->view('mall_goods_base/add/spec') ?>;
+						 <?php $this->load->view('mall_goods_base/add/spec') ;?>
 					 </div>
 					 <div class="tab-pane" id="tab_4">
-						 <?php $this->load->view('mall_goods_base/add/freight') ?>;
+						 <?php $this->load->view('mall_goods_base/add/freight') ;?>
 					 </div>
 				 </div>
 			  </form>  

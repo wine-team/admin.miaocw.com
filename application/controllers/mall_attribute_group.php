@@ -44,12 +44,11 @@ class Mall_attribute_group extends MJ_Controller
         $postData = $this->input->post();
         $data['attr_set_id'] = $postData['attr_set_id'];
         $data['group_name'] = $postData['group_name'];
-        $group = $this->mall_attribute_group->findById($data)->num_rows();
+        $group = $this->mall_attribute_group->getWhere($data)->num_rows();
         if( $group > 0) {
             $this->error('mall_attribute_set/edit', $postData['attr_set_id'], '组名已存在，新增失败！');
         } else{
-            $data['sort'] = $postData['sort'];
-            $res = $this->mall_attribute_group->insert($data);
+            $res = $this->mall_attribute_group->insertAttributeGroup($postData);
             if ($res) {
                 $this->success('mall_attribute_group/grid', array('attr_set_id'=>$postData['attr_set_id']), '新增成功！');
             } else {

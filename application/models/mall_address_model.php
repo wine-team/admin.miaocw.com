@@ -9,9 +9,14 @@ class Mall_address_model extends CI_Model{
 	    $this->load->model('region_model', 'region');
 	}
 	
-	public function findById($where)
+	public function findById($address_id)
 	{
-	    return $this->db->get_where($this->table, $where);
+	    return $this->db->get_where($this->table, array('address_id'=>$address_id));
+	}
+	
+	public function findByUid($uid)
+	{
+	    return $this->db->get_where($this->table, array('uid'=>$uid));
 	}
 	
 	public function insertMallAddress($postData) 
@@ -46,7 +51,7 @@ class Mall_address_model extends CI_Model{
 	    return $this->db->affected_rows();
 	}
 	
-	public function updateMallAddress($address_id, $postData)  
+	public function updateMallAddress($postData)  
 	{
 	    $region = $this->region->getByRegionIds(array($postData['province_id'], $postData['city_id'], $postData['district_id']))->result();
 	    $data = array(
@@ -63,7 +68,7 @@ class Mall_address_model extends CI_Model{
 	        'code'             => $postData['code'],
 	        'is_default'       => $postData['is_default'],
 	    );
-	    $this->db->update($this->table, $data, array('address_id'=>$address_id));
+	    $this->db->update($this->table, $data, array('address_id'=>$postData['address_id']));
 	    return $this->db->affected_rows();
 	}
 	

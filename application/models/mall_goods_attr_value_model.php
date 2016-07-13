@@ -13,9 +13,9 @@ class Mall_goods_attr_value_model extends CI_Model{
 		$i = 0;
 		$batch = array();
 		foreach ($attrValue as $key=>$item){
-			$result = $this->mall_attribute_group->findById(array('group_id'=>$key));
+			$result = $this->mall_attribute_group->findById($key);
 			foreach ($item as $jj=>$val){
-				$res = $this->mall_attribute_value->findById(array('attr_value_id'=>$jj)); 
+				$res = $this->mall_attribute_value->getWhere(array('attr_value_id'=>$jj));
 				$batch[$i]['goods_id'] = $goods_id;
 				$batch[$i]['attr_value_id'] = $jj;
 				$batch[$i]['attr_name'] = $res->row(0)->attr_name;

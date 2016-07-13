@@ -16,20 +16,49 @@ class Mall_attribute_value_model extends CI_Model{
 	    return $this->db->get($this->table);
 	}
 	
-	public function findById($where)
+	public function findById($attr_value_id)
+	{
+	    return $this->db->get_where($this->table, array('attr_value_id'=>$attr_value_id));
+	}
+	
+	public function getWhere($where)
 	{
 	    return $this->db->get_where($this->table, $where);
 	}
 	
-	public function insert($data) 
+	public function insertAttrVal($postData) 
 	{
+	    $data = array(
+	        'group_id'     => $postData['group_id'],
+	        'attr_set_id'  => $postData['attr_set_id'],
+	        'attr_name'    => $postData['attr_name'],
+	        'attr_type'    => $postData['attr_type'],
+	        'attr_values'  => toEnComma($postData['attr_values']),
+	        'values_required' => $postData['values_required'],
+	        'attr_index'   => $postData['attr_index'],
+	        'attr_spec'    => $postData['attr_spec'],
+	        'is_linked'    => $postData['is_linked'],
+	        'sort_order'   => $postData['sort_order'],
+	    );
 	    $this->db->insert($this->table, $data);
 	    return $this->db->insert_id();
 	}
 	
-	public function update($where, $data)  
+	public function updateAttrVal($postData)  
 	{
-	    $this->db->update($this->table, $data, $where);
+	    $data = array(
+	        'group_id'     => $postData['group_id'],
+	        'attr_set_id'  => $postData['attr_set_id'],
+	        'attr_name'    => $postData['attr_name'],
+	        'attr_type'    => $postData['attr_type'],
+	        'attr_values'  => toEnComma($postData['attr_values']),
+	        'values_required' => $postData['values_required'],
+	        'attr_index'   => $postData['attr_index'],
+	        'attr_spec'    => $postData['attr_spec'],
+	        'is_linked'    => $postData['is_linked'],
+	        'sort_order'   => $postData['sort_order'],
+	    );
+	    $this->db->update($this->table, $data, array('attr_value_id'=>$postData['attr_value_id']));
 	    return $this->db->affected_rows();
 	}
 	

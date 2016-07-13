@@ -4,7 +4,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
     //弹框操作
-    $('.add-pop-up-html').on('dblclick', '.supplieruid', function(){
+    $('.add-supplieruid-html').on('dblclick', '.supplieruid', function(){
         supplieruid = $(this);
         $('#supplier-responsive').modal();
     });

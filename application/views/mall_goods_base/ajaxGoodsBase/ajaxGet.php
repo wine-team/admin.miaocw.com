@@ -3,7 +3,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
     //弹框操作
-    $('.add-pop-up-html').on('dblclick', '.goodsBaseId', function(e){
+    $('.add-goods-related-html').on('dblclick', '.related_goods_id', function(e){
         goodsBaseId = $(this);
         $('#goods-responsive').modal();
         e.preventDefault();
