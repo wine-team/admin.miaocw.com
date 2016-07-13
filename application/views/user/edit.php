@@ -59,10 +59,10 @@
                                 <input type="text" name="pay_points" value="<?php echo $row->pay_points;?>" class="m-wrap large">
                             </div>
                         </div>
-                        <div class="control-group add-supplieruid-html">
+                        <div class="control-group add-pop-up-html">
                             <label class="control-label"><em>* </em>父级序号</label>
                             <div class="controls">
-                                 <input type="text" name="parent_id" value="<?php echo $row->parent_id;?>" class="m-wrap medium supplieruid tooltips number" data-original-title="双击可弹框选择供应商；直接输入‘用户名称或编号’可提示" data-trigger="hover">
+                                 <input type="text" name="parent_id" value="<?php echo $row->parent_id;?>" class="m-wrap medium useruid tooltips number" data-original-title="双击可弹框选择用户" data-trigger="hover">
                             </div>
                         </div>
                         <div class="control-group">
@@ -129,7 +129,7 @@
     </div>
 </div>
 <?php $this->load->view('layout/footer');?>
-<?php $this->load->view('user/addSupplierUid/ajaxGetUser');?>
+<?php $this->load->view('user/ajaxUser/ajaxGet');?>
 <script type="text/javascript" >
 $('form.user-form').submit(function(){
     return false;

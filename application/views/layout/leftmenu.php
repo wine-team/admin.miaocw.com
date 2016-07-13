@@ -129,7 +129,7 @@
                 <span class="arrow"></span>
             </a>
             <ul class="sub-menu">
-                <li><a href="<?php echo base_url('help_category/grid');?>">帮助中心</a></li>
+                <li><a href="<?php echo base_url('help_category/grid');?>">资讯帮助中心</a></li>
                 <li><a href="<?php echo base_url('supply_sales_join/grid?type=1');?>">代理商申请</a></li>
                 <li><a href="<?php echo base_url('supply_sales_join/grid?type=2');?>">供应商申请</a></li>
                 <li><a href="<?php echo base_url('feedback/grid');?>">用户反馈</a></li>

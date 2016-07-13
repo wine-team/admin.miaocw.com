@@ -10,7 +10,6 @@
 </div>
 
 <?php js('admin', 'jquery.uniform.min');?>
-<?php js('admin', 'bootstrap-tree');?>
 <?php js('admin', 'bootstrap-datepicker');?>
 <?php js('admin', 'bootstrap-datetimepicker');?>
 <?php js('admin', 'bootstrap-timepicker');?>
@@ -18,7 +17,6 @@
 <?php js('admin', 'select2.min');?>
 <?php js('admin', 'jquery.multi-select');?>
 <?php js('admin', 'form-components');?>
-<?php js('admin', 'ui-tree');?>
 
 <?php js('admin', 'jquery.slimscroll.min');?>
 <?php js('admin', 'jquery.blockui.min');?>

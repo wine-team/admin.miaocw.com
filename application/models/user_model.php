@@ -136,6 +136,26 @@ class User_model extends CI_Model
     }
 
     /**
+     * 更新密码
+     * @param unknown $uid
+     */
+    public function updatePasswordByUid($uid){
+    	
+    	$data['password'] = sha1(base64_encode('123456'));
+    	return $this->db->update($this->table, $data, array('uid'=>$uid));
+    }
+    
+    /**
+     * 删除uid
+     * @param unknown $uid
+     */
+    public function deleteById($uid){
+    	
+    	$this->db->where('uid',$uid);
+    	return $this->db->delete($this->table);
+    }
+     
+    /**
      * 验证手机号码
      * @param unknown $phone
      */

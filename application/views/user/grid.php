@@ -120,6 +120,7 @@
                                     <th>冻结金额</th>
                                     <th>消费积分</th>
                                     <th>父级序号</th>
+                                    <th>密码</th>
                                     <th>注册时间</th>
                                     <th>状态</th>
                                     <th>操作</th>
@@ -137,6 +138,7 @@
                                     <td><?php echo $item->frozen_money;?></td>
                                     <td><?php echo $item->pay_points;?></td>
                                     <td><?php echo $item->parent_id;?></td>
+                                    <td><a class="btn mini green" href="<?php echo base_url('user/restPassword/'.$item->uid); ?>" onclick="return confirm('确定重置密码吗？')">重置</a></td>
                                     <td><?php echo $item->created_at;?></td>
                                     <td>
                                         <a href="javascript:;" class="modify-user-uid glyphicons no-js <?php if ($item->flag == 1):?>ok_2<?php else :?>remove_2<?php endif;?>" data-uid="<?php echo $item->uid;?>" data-flag="<?php echo $item->flag ?>">

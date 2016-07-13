@@ -26,11 +26,13 @@
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><em>* </em>菜单栏展示</label>
+                            <label class="control-label"><em>* </em>栏目</label>
                             <div class="controls">
-                                <select name="flag" class="medium m-wrap valid">
-                                        <option value="1">是</option>
-                                        <option value="2">否</option>
+                                <select name="flag" class="medium m-wrap required">
+                                     <option value="">请选择栏目</option>
+                                     <?php foreach ($menuArray as $key=>$value) : ?>
+                                     <option value="<?php echo $key;?>"><?php echo $value;?></option>
+                                     <?php endforeach;?>
                                 </select>
                             </div>
                         </div>

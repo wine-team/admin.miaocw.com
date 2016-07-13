@@ -41,7 +41,7 @@
     </div>
 </div>
 <?php $this->load->view('layout/footer');?>
-<?php $this->load->view('user/addSupplierUid/ajaxGetUser'); ?>
+<?php $this->load->view('supplier/ajaxSupplier/ajaxGet');?>
 <?php $this->load->view('mall_goods_base/addGoodBase/ajaxGetGoods');?>
 <script type="text/javascript">
 $(document).ready(function(){

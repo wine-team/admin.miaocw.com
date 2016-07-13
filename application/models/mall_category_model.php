@@ -23,6 +23,7 @@ class Mall_category_model extends CI_Model
 		if (!empty($params['is_show'])) {
 			$this->db->where('is_show', $params['is_show']);
 		}
+		$this->db->order_by('parent_id', 'ASC');
 		return $this->db->get($this->table);
 	}
 	

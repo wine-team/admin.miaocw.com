@@ -63,7 +63,7 @@ class Mall_brand extends MJ_Controller {
 	
 	public function edit($brand_id)
 	{
-	    $res = $this->mall_brand->findById($brand_id);
+	    $res = $this->mall_brand->findByCondition(array('brand_id'=>$brand_id));
 	    if ($res->num_rows() <= 0){
 	    	$this->error('mall_brand/grid', '', '无法找到该ID结果值');
 	    } 
