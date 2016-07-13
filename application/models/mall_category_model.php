@@ -2,7 +2,8 @@
 class Mall_category_model extends CI_Model
 {
 	private $table = 'mall_category';        
-	
+	private $categorys;
+
 	public function findById($cat_id)
 	{
 		$this->db->where('cat_id', $cat_id);
@@ -26,7 +27,57 @@ class Mall_category_model extends CI_Model
 		$this->db->order_by('parent_id', 'ASC');
 		return $this->db->get($this->table);
 	}
-	
+
+	/**
+	 * 获取所有category分类别表
+	 * @return array|null
+	 */
+	public function findByCategoryTree()
+	{
+		if (!empty($params['cat_id'])) {
+			$this->db->where('cat_id', $params['cat_id']);
+		}
+		if (!empty($params['parent_id'])) {
+			$this->db->where('parent_id', $params['parent_id']);
+		}
+		if (!empty($params['cat_name'])) {
+			$this->db->like('cat_name', $params['cat_name']);
+		}
+		if (!empty($params['is_show'])) {
+			$this->db->where('is_show', $params['is_show']);
+		}
+		$this->db->order_by('parent_id', 'ASC');
+		$result = $this->db->get($this->table);
+		$this->categorys = $result->result();
+		return $this->getBuildTree();
+	}
+
+	private function getBuildTree($cat_id=0)
+	{
+		$childs = $this->findChildCategory($this->categorys, $cat_id);
+		if (empty($childs)) {
+			return null;
+		}
+		foreach ($childs as $k => $v) {
+			$rescurTree = $this->getBuildTree($v->cat_id);
+			if ( null != $rescurTree) {
+				$childs[$k]->childs = $rescurTree;
+			}
+		}
+		return $childs;
+	}
+
+	private function findChildCategory(&$categorys, $cat_id)
+	{
+		$childs = array();
+		foreach ($categorys as $k => $v) {
+			if ($v->parent_id == $cat_id) {
+				$childs[] = $v;
+			}
+		}
+		return $childs;
+	}
+
 	public function getWherein($item,$arr) 
 	{
 	    $this->db->where_in($item, $arr);

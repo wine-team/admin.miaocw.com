@@ -123,3 +123,21 @@ function getRegionAll()
 		),
 	);
 }
+
+//获取CategoryHtml
+function getCategoryHtml($categorys, $cateId = 0, $html='')
+{
+	$html .= ($cateId == 0) ? '<ul class="tree" id="tree_1">' : '<ul class="branch">';
+	if (is_array($categorys)) {
+		foreach ($categorys as $childs) {
+			$html .= '<li>';
+			$html .= '<a href="#" class="tree-toggle closed" data-toggle="branch"><i class="icon-folder-close"></i>'.$childs->cat_name.'</a>';
+			if (isset($childs->childs) && is_array($childs->childs)) {
+				$html .= getCategoryHtml($childs->childs, $childs->cat_id);
+			}
+			$html .= '</li>';
+		}
+	}
+	$html .= '</ul>';
+	return $html;
+}
