@@ -30,26 +30,11 @@ class Mall_address extends MJ_Controller {
 	        $this->error('mall_address/add', $this->input->post('uid'), $error);
 	    }
 	    $postData = $this->input->post();
-		$data['uid'] = $postData['uid'];
-		$region = $this->region->getByRegionIds(array($postData['province_id'], $postData['city_id'], $postData['district_id']))->result();
-	    $data['province_id'] = $postData['province_id'];
-        $data['province_name'] = $region[0]->region_name;
-        $data['city_id'] = $postData['city_id'];
-        $data['city_name'] = $region[1]->region_name;
-        $data['district_id'] = $postData['district_id'];
-        $data['district_name'] = $region[2]->region_name;
-        $data['detailed'] = $postData['detailed'];
-        $data['code'] = $postData['code'];
-        $data['receiver_name'] = $postData['receiver_name'];
-        $data['tel'] = $postData['tel'];
-        $data['code'] = $postData['code'];
-        $data['is_default'] = $postData['is_default'];
-
 		$this->db->trans_start();
         if ($postData['is_default'] == 2) { //如果改为默认，需将此用户其他默认地址改为非默认
-            $this->mall_address->update(array('uid'=>$postData['uid']), array('is_default'=>1));
+            $this->mall_address->setNoDefault($this->input->post('uid'));
         }
-        $res = $this->mall_address->insert($data);
+        $res = $this->mall_address->insertMallAddress($postData);
         $this->db->trans_complete(); 
 	    
 	    if ($res) {
@@ -65,6 +50,9 @@ class Mall_address extends MJ_Controller {
 	    if ($res->num_rows() > 0)
 	    {
 	        $data['res'] = $res->row();
+	        $data['province_id'] = $res->row()->province_id;
+	        $data['city_id'] = $res->row()->city_id;
+	        $data['district_id'] = $res->row()->district_id;
 	        $data['uid'] = $this->input->get('uid');
 	        $this->load->view('mall_address/edit',$data);
 	    } else {
@@ -80,25 +68,12 @@ class Mall_address extends MJ_Controller {
             $this->error('mall_address/edit', $this->input->post('address_id'), $error);
         }
         $postData = $this->input->post();
-        $region = $this->region->getByRegionIds(array($postData['province_id'], $postData['city_id'], $postData['district_id']))->result();
-	    $data['province_id'] = $postData['province_id'];
-        $data['province_name'] = $region[0]->region_name;
-        $data['city_id'] = $postData['city_id'];
-        $data['city_name'] = $region[1]->region_name;
-        $data['district_id'] = $postData['district_id'];
-        $data['district_name'] = $region[2]->region_name;
-        $data['detailed'] = $postData['detailed'];
-        $data['code'] = $postData['code'];
-        $data['receiver_name'] = $postData['receiver_name'];
-        $data['tel'] = $postData['tel'];
-        $data['code'] = $postData['code'];
-        $data['is_default'] = $postData['is_default']; 
         $this->db->trans_start();
         if($postData['is_default'] == 2)  //如果改为默认，需将此用户其他默认地址改为非默认
         {
-            $this->mall_address->update(array('uid'=>$postData['uid']), array('is_default'=>1));
+            $this->mall_address->setNoDefault($this->input->post('uid'));
         }
-        $res = $this->mall_address->update(array('address_id'=>$postData['address_id']), $data);
+        $res = $this->mall_address->updateMallAddress($postData['address_id'], $postData);
         $this->db->trans_complete(); 
         if ($this->db->trans_status() === TRUE) {
             $this->success('mall_address/grid', $this->input->post('uid'), '修改成功！');
