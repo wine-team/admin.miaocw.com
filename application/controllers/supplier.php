@@ -38,12 +38,7 @@ class Supplier extends MJ_Controller
 	        $this->jsonMessage($error);
 	    }
 	    $postData = $this->input->post();
-        $data['supplier_name'] = $postData['supplier_name'];
-        $data['supplier_desc'] = $postData['supplier_desc'];
-        $data['uid'] = $postData['uid'];
-        $data['is_check'] = $postData['is_check'];
-        $data['created_at'] = date('Y-m-d H:i:s');
-        $res = $this->supplier->insert($data);
+        $res = $this->supplier->insertSupplier($postData);
 	    if ($res) {
             $this->session->set_flashdata('success', '添加成功！');
             $this->jsonMessage('', base_url('supplier/grid'));
@@ -71,12 +66,7 @@ class Supplier extends MJ_Controller
 	        $this->jsonMessage($error);
 	    }
 	    $postData = $this->input->post();
-        $data['supplier_name'] = $postData['supplier_name'];
-        $data['supplier_desc'] = $postData['supplier_desc'];
-        $data['uid'] = $postData['uid'];
-        $data['is_check'] = $postData['is_check'];
-        $data['created_at'] = date('Y-m-d H:i:s');
-        $res = $this->supplier->update(array('supplier_id'=>$postData['supplier_id']), $data);
+        $res = $this->supplier->updateSupplier($postData);
 	   if ($res) {
             $this->session->set_flashdata('success', '修改成功！');
             $this->jsonMessage('', base_url('supplier/grid'));
@@ -99,7 +89,7 @@ class Supplier extends MJ_Controller
 	public function validateUser()
 	{
 	    if ($this->input->post('supplier_id')) {
-	        $supplier = $this->supplier->findByParams(array('uid'=>$this->input->post('uid')));
+	        $supplier = $this->supplier->findByUid($this->input->post('uid'));
 	        if ($supplier->num_rows() > 0) {
 	            if ($supplier->row()->supplier_id == $this->input->post('supplier_id')) {
 	                echo 'true';
@@ -110,7 +100,7 @@ class Supplier extends MJ_Controller
 	            echo 'true';
 	        }
 	    } else {
-	        $user_num = $this->supplier->findByParams(array('uid'=>$this->input->post('uid')))->num_rows();
+	        $user_num = $this->supplier->findByUid($this->input->post('uid'))->num_rows();
 	        if ($user_num > 0) {
 	            echo 'false';
 	        } else {

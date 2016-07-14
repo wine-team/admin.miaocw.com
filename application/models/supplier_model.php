@@ -39,20 +39,33 @@ class Supplier_model extends CI_Model
 	    return $this->db->get($this->table);
 	}
 
-	public function findByParams($where)
+	public function findByUid($uid)
 	{
-	    return $this->db->get_where($this->table, $where);
+	    return $this->db->get_where($this->table, array('uid'=>$uid));
 	}
 	
-	public function insert($data) 
+	public function insertSupplier($postData) 
 	{
+	    $data = array(
+	        'supplier_name' => $postData['supplier_name'],
+	        'supplier_desc' => $postData['supplier_desc'],
+	        'uid'           => $postData['uid'],
+	        'is_check'      => $postData['is_check'],
+	        'created_at'    => date('Y-m-d H:i:s'),
+	    );
 	    $this->db->insert($this->table, $data);
 	    return $this->db->insert_id();
 	} 
 	
-	public function update($where, $data)  
+	public function updateSupplier($postData)  
 	{
-	    $this->db->update($this->table, $data, $where);
+	    $data = array(
+	        'supplier_name' => $postData['supplier_name'],
+	        'supplier_desc' => $postData['supplier_desc'],
+	        'uid'           => $postData['uid'],
+	        'is_check'      => $postData['is_check'],
+	    );
+	    $this->db->update($this->table, $data, array('supplier_id'=>$postData['supplier_id']));
 	    return $this->db->affected_rows();
 	}
 	
