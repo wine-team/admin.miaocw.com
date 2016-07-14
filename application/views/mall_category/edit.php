@@ -23,7 +23,7 @@
                         <div class="control-group">
                             <label class="control-label"><em>* </em>分类名称</label>
                             <div class="controls">
-                                <input type="text" class="m-wrap large required" name="cat_name" maxlength=20 value="<?php echo $res->cat_name;?>"/> 
+                                <input type="text" class="m-wrap large required" name="cat_name" maxlength=20 value="<?php echo $res->cat_name;?>"/>
                             </div>
                         </div>
                         <div class="control-group">
@@ -40,7 +40,7 @@
                         <div class="control-group">
                             <label class="control-label"><em>* </em>排序</label>
                             <div class="controls">
-                                <input type="number" class="m-wrap required" name="sort_order" maxlength=2 value="<?php echo $res->sort_order;?>"/>  
+                                <input type="number" class="m-wrap required" name="sort_order" maxlength=2 value="<?php echo $res->sort_order;?>"/>
                             </div>
                         </div>
                         <div class="control-group">
@@ -52,14 +52,14 @@
                         <div class="control-group">
                             <label class="control-label">类名全名</label>
                             <div class="controls">
-                                <input type="text" class="m-wrap" readonly value="<?php echo $res->full_name;?>"/>  
+                                <input type="text" class="m-wrap" readonly value="<?php echo $res->full_name;?>"/>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">商品属性id</label>
                             <div class="controls">
                                 <input type="text" class="m-wrap large" name="filter_attr" value="<?php echo $res->filter_attr;?>"/>
-                                <span class="help-block">请用英文逗号隔开</span> 
+                                <span class="help-block">请用英文逗号隔开</span>
                             </div>
                         </div>
                         <div class="form-actions">

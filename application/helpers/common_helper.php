@@ -130,13 +130,13 @@ function getCategoryHtml($categorys, $cateId = 0, $html='')
 	if (empty($categorys)) {
 		return;
 	}
-
 	$html .= ($cateId == 0) ? '<ul class="tree" id="tree_1">' : '<ul class="branch">';
 	if (is_array($categorys)) {
 		foreach ($categorys as $childs) {
 			$html .= '<li>';
 			$isClosed = isset($childs->childs) ? 'closed' : '';
-			$html .= '<a href="#" class="tree-toggle '.$isClosed.'" data-toggle="branch">'.$childs->cat_name.'</a>';
+			$html .= '<a href="javacript:;" class="tree-toggle '.$isClosed.'" data-toggle="branch" data-cat-id="'.$childs->cat_id.'"></a>';
+			$html .= '<a href="'.base_url('mall_category/grid').'?cat_id='.$childs->cat_id.'"> '.$childs->cat_name.'</a>';
 			if (isset($childs->childs) && is_array($childs->childs)) {
 				$html .= getCategoryHtml($childs->childs, $childs->cat_id);
 			}
