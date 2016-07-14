@@ -3,7 +3,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
     //弹框操作
-    $('.add-goods-related-html').on('dblclick', '.related_goods_id', function(e){
+    $('.add-pop-up-html').on('dblclick', '.goodsBaseId', function(e){
         goodsBaseId = $(this);
         $('#goods-responsive').modal();
         e.preventDefault();
@@ -13,13 +13,11 @@ $(document).ready(function(){
     $('#goods-responsive').on('show', function(e){
         ajaxGetGoodsBase();
     });
-
     //搜索
     $('#goods-responsive').on('click', 'button[type="submit"]', function(e){
    	    ajaxGetGoodsBase();
         e.preventDefault();
     });
-
     //搜索
     $('#goods-responsive').on('click', 'button[type="button"]', function(e){
     	var goodsId = new Array;
@@ -32,14 +30,12 @@ $(document).ready(function(){
         $('#goods-responsive').modal('hide');
         e.preventDefault();
     });
-
     //翻页
     $('#goods-responsive').on('click', '.dataTables_paginate a', function(e){
         var url = $(this).attr('href');
         ajaxGetGoodsBase(url)
         e.preventDefault();
     });
-
     //获取数据
     function ajaxGetGoodsBase(url) {
         $.ajax({
