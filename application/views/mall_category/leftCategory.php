@@ -1,44 +1,22 @@
-<p><a href="#" class="btn red mini">添加主目录</a></p>
-<p><a href="#" class="btn blue mini">添加子目录</a></p>
-<?php if (!empty($categorys)) : ?>
-    <div class="margin-bottom-10">
-        <button type="button" class="btn mini" id="tree_1_collapse">Expand All</button>
-        <button type="button" class="btn mini" id="tree_1_expand">Collapse All</button>
-    </div>
-    <?php echo getCategoryHtml($categorys); ?>
-<?php endif;?>
+<p><a href="<?php echo base_url('mall_category/grid');?>" class="btn red mini">添加主目录</a></p>
+<p><a href="<?php echo base_url('mall_category/grid').'?cat_id='.$this->input->get('cat_id');?>" class="btn blue mini">添加子目录</a></p>
+<?php echo getCategoryHtml($categorys); ?>
 <script type="text/javascript">
     jQuery(document).ready(function($) {
         $("#tree_1").on('click', '[data-toggle=branch]', function (event) {
             $this = $(this);
             if ($this.hasClass('closed')) {
-                $.ajax({
-                    type: 'get',
-                    async: false,
-                    dataType : 'json',
-                    url: hostUrl()+'/mall_attribute_set/ajaxAttributeSet',
-                    data: $('.ajaxSearch').serialize(),
-                    success: function(json) {
-                        if (json.status) {
-                            $('#attribute-responsive').html(json.html);
-                        }
-                        $this.removeClass('closed').children('i').removeClass('icon-folder-close').addClass('icon-folder-open').parent('a.tree-toggle').next('ul .branch').addClass('in');
-                    }
-                });
+                $this.removeClass('closed').nextAll('ul .branch').addClass('in');
             } else {
-                $this.addClass('closed').children('i').removeClass('icon-folder-open').addClass('icon-folder-close').parent('a.tree-toggle').next('ul .branch').removeClass('in');
+                if ($this.nextAll('ul .branch').size() > 0) {
+                    $this.addClass('closed').nextAll('ul .branch').removeClass('in');
+                }
             }
             event.preventDefault();
         });
 
-        $('#tree_1_collapse').click(function () {
-            $('.tree-toggle', $('#tree_1 > li > ul')).addClass("closed");
-            $('.branch', $('#tree_1 > li > ul')).removeClass("in");
-        });
-
-        $('#tree_1_expand').click(function () {
-            $('.tree-toggle', $('#tree_1 > li > ul')).removeClass("closed");
-            $('.branch', $('#tree_1 > li > ul')).addClass("in");
-        });
+        if ($('[data-cat-id='+<?php echo (int)$this->input->get('cat_id') ?>+']').parents('ul .branch').size() > 0) {
+            $('[data-cat-id='+<?php echo (int)$this->input->get('cat_id') ?>+']').removeClass('closed').parents('ul .branch').addClass('in').nextAll('[data-toggle=branch]').removeClass('closed');
+        }
     });
 </script>

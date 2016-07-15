@@ -37,14 +37,14 @@
                                 </select>
                             </div>
                         </div>
-                        
+
                         <div class="control-group">
                             <label class="control-label"><em>* </em>分类名称</label>
                             <div class="controls">
-                                <input type="text" class="m-wrap large required" name="cat_name" maxlength=20  placeholder="分类名称"/> 
+                                <input type="text" class="m-wrap large required" name="cat_name" maxlength=20  placeholder="分类名称"/>
                             </div>
                         </div>
-                        
+
                         <div class="control-group">
                             <label class="control-label"><em>* </em>是否显示</label>
                             <div class="controls">
@@ -53,14 +53,14 @@
                                 </label>
                                 <label class="radio">
                                 	<input type="radio" class="m-wrap required" name="is_show" value="2"/> 不显示
-                                </label>	
+                                </label>
                             </div>
                         </div>
-                        
+
                         <div class="control-group">
                             <label class="control-label"><em>* </em>排序</label>
                             <div class="controls">
-                                <input type="number" class="m-wrap required" name="sort_order" maxlength=2 value="50" placeholder="排序"/>  
+                                <input type="number" class="m-wrap required" name="sort_order" maxlength=2 value="50" placeholder="排序"/>
                             </div>
                         </div>
                         <div class="control-group">
@@ -94,5 +94,5 @@ $('select[name="one_p_id"]').change(function(){
       if(one_p_id == $(this).data('p_id')) $(this).show();
    });
 });
-</script>   
+</script>
 <?php $this->load->view('layout/footer');?>

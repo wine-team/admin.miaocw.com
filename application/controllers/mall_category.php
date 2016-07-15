@@ -11,16 +11,10 @@ class Mall_category extends CS_Controller
 	public function grid()
 	{
 		$data['categorys'] = $this->mall_category->findByCategoryTree();
-	    $this->load->view('mall_category/grid', $data);
-	}
-
-	public function add()
-	{
-	    $data['res'] = $this->mall_category->findByParams()->result();
-	    $this->load->view('mall_category/add', $data);
+		$this->load->view('mall_category/grid',$data);
 	}
 	
-	public function addPost()
+	public function savePost()
 	{
 	    $error = $this->validate(); 
 	    if (!empty($error)) {
@@ -50,16 +44,6 @@ class Mall_category extends CS_Controller
 	    } else {
 	        $this->error('mall_category/add', '', '新增失败！');
 	    }
-	}
-	
-	public function edit($cat_id)
-	{
-	    $res = $this->mall_category->findByParams(array('cat_id'=>$cat_id));
-	    if ($res->num_rows() <= 0) {
-	    	$this->error('mall_category/grid', '', '没找到对应分类值');
-	    }
-        $data['res'] = $res->row();
-        $this->load->view('mall_category/edit',$data);
 	}
 	
 	public function editPost()
