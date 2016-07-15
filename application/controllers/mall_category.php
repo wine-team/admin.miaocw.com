@@ -6,11 +6,20 @@ class Mall_category extends CS_Controller
 		$this->load->helper(array('dictionary', 'common'));
 	    $this->load->library('pagination');
 	    $this->load->model('mall_category_model','mall_category');
+		$this->load->model('cms_block_model','cms_block');
 	}
 
 	public function grid()
 	{
+		$cat_id = $this->input->get('cat_id');
 		$data['categorys'] = $this->mall_category->findByCategoryTree();
+		if ($cat_id) {
+			$result = $this->mall_category->findById($cat_id);
+			if ($result->num_rows() > 0) {
+				$data['mallCategory'] = $result->row(0);
+			}
+		}
+		$data['cmsBlock'] = $this->cms_block->findByParams();
 		$this->load->view('mall_category/grid',$data);
 	}
 	
