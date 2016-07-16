@@ -2,7 +2,12 @@
 class Cms_block_model extends CI_Model
 {
     private $table = 'cms_block';
-    
+
+    public function findByParams($params=array())
+    {
+        return $this->db->get($this->table);
+    }
+
     public function total($params=array())
     {
         if (!empty($params['blockname'])) {

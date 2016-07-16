@@ -54,6 +54,7 @@ a.tree-toggle {
   display: inline-block;
   background: url("../images/bstree-halflings.png") no-repeat;
   background-position: 0 -22px;
+  float: left;
 }
 a.tree-toggle.closed, a.tree-toggle-icon-only.closed {
   background-position: 0 1px;
