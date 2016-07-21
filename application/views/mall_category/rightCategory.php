@@ -81,7 +81,7 @@
                 </div>
             </div>
             <div class="tab-pane row-fluid" id="tab_1_2">
-                
+                <?php $this->load->view('mall_category/catProduct');?>
             </div>
         </div>
     </div>

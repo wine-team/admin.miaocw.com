@@ -7,6 +7,7 @@ class Mall_category extends CS_Controller
 	    $this->load->library('pagination');
 	    $this->load->model('mall_category_model','mall_category');
 		$this->load->model('cms_block_model','cms_block');
+		$this->load->model('mall_category_product_model','mall_category_product');
 	}
 
 	public function grid()
@@ -20,6 +21,7 @@ class Mall_category extends CS_Controller
 			}
 		}
 		$data['cmsBlock'] = $this->cms_block->findByParams();
+		$data['catProduct'] = $this->mall_category_product->findCategoryProduct($cat_id);
 		$this->load->view('mall_category/grid',$data);
 	}
 	
