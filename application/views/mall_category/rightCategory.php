@@ -20,6 +20,7 @@
                 <div class="control-group">
                     <label class="control-label"><em>* </em>分类名称</label>
                     <div class="controls">
+                        <input type="hidden" name="cat_id" value="<?php echo isset($mallCategory->cat_id) ? $mallCategory->cat_id : $this->input->get('cat_id');?>">
                         <input type="text" name="cat_name" class="m-wrap span8 required">
                     </div>
                 </div>
@@ -86,3 +87,8 @@
         </div>
     </div>
 </form>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    });
+</script>

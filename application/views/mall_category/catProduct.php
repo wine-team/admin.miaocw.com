@@ -3,29 +3,23 @@
         <thead class="flip-content">
         <tr>
             <th><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"></th>
-            <th>编号</th>
-            <th>品牌名称</th>
-            <th>品牌logo</th>
-            <th>站点</th>
+            <th>商品编号</th>
+            <th>商品名称</th>
+            <th>商品SKU</th>
+            <th>库存</th>
             <th>排序</th>
-            <th>显示</th>
             <th>操作</th>
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($res_list->result() as $item) : ?>
+        <?php foreach ($catProduct->result() as $item) : ?>
             <tr>
                 <td width="15"><input type="checkbox" class="checkboxes" value="1" ></td>
-                <td><?php echo $item->brand_id;?></td>
-                <td><?php echo $item->brand_name;?></td>
-                <td>
-                    <?php if ($item->brand_logo) :?>
-                        <img width="80" src="<?php echo $this->config->show_image_url('brand', $item->brand_logo);?>">
-                    <?php endif;?>
-                </td>
-                <td><?php echo $item->site_url;?></td>
-                <td><?php echo $item->sort_order;?></td>
-                <td><?php if($item->is_show==1) echo '是';?></td>
+                <td><?php echo $item->goods_id;?></td>
+                <td><?php echo $item->goods_name;?></td>
+                <td><?php echo $item->goods_sku;?></td>
+                <td><?php echo $item->in_stock;?></td>
+                <td><?php echo $item->position;?></td>
                 <td width="145">
                     <a class="btn mini green" href="<?php echo base_url('mall_brand/edit/'.$item->brand_id); ?>"><i class="icon-edit"></i> 编辑</a>
                     <a class="btn mini green" href="<?php echo base_url('mall_brand/delete/'.$item->brand_id); ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
