@@ -1,5 +1,5 @@
 <?php 
-class Link extends MJ_Controller
+class Link extends CS_Controller
 {
     public function _init()
     {

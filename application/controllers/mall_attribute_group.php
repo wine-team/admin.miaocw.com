@@ -1,5 +1,5 @@
 <?php
-class Mall_attribute_group extends MJ_Controller
+class Mall_attribute_group extends CS_Controller
 {
     public function _init()
     {

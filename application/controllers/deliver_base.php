@@ -1,5 +1,5 @@
 <?php
-class Deliver_base extends MJ_Controller
+class Deliver_base extends CS_Controller
 {
     public function _init()
     {

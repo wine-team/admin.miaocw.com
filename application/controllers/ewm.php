@@ -1,5 +1,5 @@
 <?php 
-class Ewm extends MJ_Controller
+class Ewm extends CS_Controller
 {   
     public function _init()
     {

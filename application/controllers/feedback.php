@@ -1,5 +1,5 @@
 <?php
-class Feedback extends MJ_Controller
+class Feedback extends CS_Controller
 {
     public function _init()
     {

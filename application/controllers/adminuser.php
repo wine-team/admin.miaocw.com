@@ -1,5 +1,5 @@
 <?php 
-class Adminuser extends MJ_Controller
+class Adminuser extends CS_Controller
 {
     public function _init()
     {

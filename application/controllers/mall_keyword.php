@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Mall_keyword extends MJ_Controller
+class Mall_keyword extends CS_Controller
 {
 	public function _init()
 	{

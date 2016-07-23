@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Supply_sales_join extends MJ_Controller {
+class Supply_sales_join extends CS_Controller {
 
 	public function _init()
 	{

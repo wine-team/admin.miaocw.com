@@ -1,5 +1,5 @@
 <?php 
-class Region extends MJ_Controller
+class Region extends CS_Controller
 {
     private $reginType = array('0'=>'国家', '1'=>'省份', '2'=>'城市', '3'=>'县/区');
     public function _init()

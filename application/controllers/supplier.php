@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Supplier extends MJ_Controller
+class Supplier extends CS_Controller
 {
 	public function _init()
 	{

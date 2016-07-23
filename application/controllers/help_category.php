@@ -1,6 +1,6 @@
 <?php 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Help_category extends MJ_Controller {
+class Help_category extends CS_Controller {
 
 	private $menuArray;
 	public function _init()

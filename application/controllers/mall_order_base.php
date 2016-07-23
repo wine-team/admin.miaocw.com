@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Mall_order_base extends MJ_Controller {
+class Mall_order_base extends CS_Controller {
 
 	public function _init()
 	{

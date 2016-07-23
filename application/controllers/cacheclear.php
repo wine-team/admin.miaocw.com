@@ -1,5 +1,5 @@
 <?php
-class Cacheclear extends MJ_Controller
+class Cacheclear extends CS_Controller
 {
     public function _init()
     {

@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Mall_attribute_value extends MJ_Controller {
+class Mall_attribute_value extends CS_Controller {
 
 	public function _init()
 	{
