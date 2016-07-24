@@ -45,10 +45,10 @@ class Mall_order_barter_model extends CI_Model
             $this->db->where("(`mall_order_product`.`goods_name` LIKE '%{$search_param['goods_name']}%') OR (`mall_order_barter`.`goods_attr_id`='{$search_param['goods_name']}')");
         }
         if (!empty($search_param['seller_name'])) {
-            $this->db->where("(`user`.`user_name` LIKE '%{$search_param['seller_name']}%') OR (`user`.`email` LIKE '%{$search_param['seller_name']}%')");
+            $this->db->where("(`user`.`phone` LIKE '%{$search_param['seller_name']}%') OR (`user`.`email` LIKE '%{$search_param['seller_name']}%')");
         }
         if (!empty($search_param['user_name'])) {
-            $this->db->where("(`mall_order_barter`.`phone` LIKE '%{$search_param['user_name']}%') OR (`mall_order_barter`.`uid`='{$search_param['user_name']}') OR (`mall_order_barter`.`cellphone`='{$search_param['user_name']}')");
+            $this->db->where("(`mall_order_barter`.`cellphone` LIKE '%{$search_param['user_name']}%') OR (`mall_order_barter`.`uid`='{$search_param['user_name']}')");
         }
         if (!empty($search_param['status'])) {
             $this->db->where('mall_order_barter.status', $search_param['status']);
