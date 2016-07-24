@@ -27,8 +27,19 @@ class Account_log_model extends CI_Model
      * 插入用户账户日志
      * @param unknown $accoutLogArray
      */
-    public function insertAccountLogRecord($accoutLogArray){
+    public function insertAccountLogRecord($uid,$order_id,$account_type,$flow,$trade_type,$amount,$note){
     	
+    	//记录现金流
+    	$accoutLogArray = array(
+    			'uid'		=> $uid,
+    			'order_id'  => $order_id,
+    			'account_type' => $account_type, //账户
+    			'flow'		   => $flow, // 退款
+    			'trade_type'   => $trade_type, // 退款
+    			'amount'       => $amount,
+    			'note'         => $note,
+    			'created_at'   => date('Y-m-d H:i:s')
+    	);
     	return $this->db->insert($this->table,$accoutLogArray);
     }
     

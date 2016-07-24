@@ -123,21 +123,11 @@ class Mall_order_refund extends CS_Controller {
 	
 		//退款到提现账户
 		$account = $this->user->updateUserAcount($mallRefund->uid, array('amount_carry' => $res_arr['actual_return']));
-		//记录现金流
-		$accoutLogArray = array(
-					'uid'		=> $mallRefund->uid,
-				    'order_id'  => $orderProduct->order_id,
-			   		'account_type' => 1, //账户
-				    'flow'		   => 3, // 退款
-				    'trade_type'   => 6, // 退款
-				    'amount'       => $res_arr['actual_return'],
-				    'note'         => '退货',
-				    'created_at'   => date('Y-m-d H:i:s')
-		);
-		$account_log = $this->account_log->insertAccountLogRecord($accoutLogArray);
+		$account_log = $this->account_log->insertAccountLogRecord($mallRefund->uid,$orderProduct->order_id,$account_type=1,$flow=3,$trade_type=6,$res_arr['actual_return'],$note='退款-本经');
 		if ($res_arr['isTransport']) { //退运费
 			//返还运费 生成记录
 			$this->user->updateUserAcount($mallRefund->uid, array('amount_carry' => $res_arr['transport_cost']));
+			$account_log = $this->account_log->insertAccountLogRecord($mallRefund->uid,$orderProduct->order_id,$account_type=1,$flow=3,$trade_type=6,$res_arr['transport_cost'],$note='退款-运费');
 		}
 		$refundFlag = $this->mall_order_refund->updateRefundFlag(array('flag'=>2, 'refund_id'=>$refund_id));
 		$this->db->trans_complete();
