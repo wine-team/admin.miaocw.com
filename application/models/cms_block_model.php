@@ -37,8 +37,8 @@ class Cms_block_model extends CI_Model
     public function insertCmsBlock($postData)
     {
         $data = array(
-            'name'        => $postData['name'],
-            'block_id'    => $postData['block_id'],
+            'name'        => trim($postData['name']),
+            'block_id'    => trim($postData['block_id']),
             'description' => $postData['description']
         );
     
@@ -49,9 +49,9 @@ class Cms_block_model extends CI_Model
     public function updateCmsBlock($postData)
     {
         $data = array(
-            'name'        => $postData['name'],
+            'name'        => trim($postData['name']),
             'description' => $postData['description'],
-            'updated_at'   => date('Y-m-d H:i:s', time())
+            'updated_at'  => date('Y-m-d H:i:s', time())
         );
     
         $this->db->where('id', $postData['id']);
