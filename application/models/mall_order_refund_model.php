@@ -99,7 +99,7 @@ class Mall_order_refund_model extends CI_Model{
 		$o_num = $mallRefund->number;//退货数
 		$isTransport = 0;
 		//如果$num=0 商品全退
-		if (($order_res->order_status == 3) && $num <= 0) {
+		if (($order_res->status == 3) && $num <= 0) {
 			$transport_cost = $order_res->deliver_price;
 			$isTransport = 1;
 		}
@@ -108,7 +108,7 @@ class Mall_order_refund_model extends CI_Model{
 	
 		if ($actual_return < $poundage) {
 			$err_code = 1;
-			$err_msg = "别逗了，手续费（.$poundage.）比退款金额（.$actual_return.）还多,还能玩耍不！";
+			$err_msg = "别逗了，手续费（".$poundage."）比退款金额（".$actual_return."）还多,还能玩耍不！";
 			return array('err_code' => $err_code, 'err_message' => $err_msg);
 		}
 	

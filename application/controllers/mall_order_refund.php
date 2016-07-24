@@ -9,6 +9,7 @@ class Mall_order_refund extends CS_Controller {
 	    $this->load->model('mall_order_product_model','mall_order_product');
 	    $this->load->model('deliver_order_model','deliver_order');
 	    $this->load->model('account_log_model','account_log');
+	    $this->load->model('user_model','user');
 	}
 
     public function grid($pg = 1)
@@ -114,6 +115,7 @@ class Mall_order_refund extends CS_Controller {
 		}
 		//获取用户账户信息
 		$resultUser = $this->user->findById($mallRefund->uid);
+		
 		if ($resultUser->num_rows() <= 0) {
 			$this->error('mall_order_refund/grid', $pg_now, '退款用户不存在。');
 		}
