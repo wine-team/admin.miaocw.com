@@ -71,7 +71,7 @@
                                     <td><?php echo $item->order_id;?></td>
                                     <td><?php echo $item->account_type == 'pay' ? '支出' : '充值';?></td>
                                     <td><?php echo $item->amount;?></td>
-                                    <td><?php echo $item->creat_at;?></td>
+                                    <td><?php echo $item->created_at;?></td>
                                 </tr>
                                 <?php endforeach;?>
                             </tbody>
