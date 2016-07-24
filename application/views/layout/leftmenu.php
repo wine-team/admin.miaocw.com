@@ -104,7 +104,7 @@
                         <li><a href="<?php echo base_url('mall_order_base/grid');?>">订单管理</a></li>
                         <li><a href="<?php echo base_url('mall_order_reviews/grid');?>">评价管理</a></li>
                         <li><a href="<?php echo base_url('mall_order_refund/grid');?>">退款审核</a></li>
-                        <li><a href="javascript:;">换货审核</a></li>
+                        <li><a href="<?php echo base_url('mall_order_barter/grid');?>">换货审核</a></li>
                     </ul>
                 </li>
                 <li>

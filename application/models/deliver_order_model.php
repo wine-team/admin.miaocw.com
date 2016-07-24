@@ -8,6 +8,16 @@ class Deliver_order_model extends CI_Model
         $this->db->where('deliver_order_id', $deliver_order_id);
         return $this->db->get($this->table);
     }
+    
+    /**
+     * 通过物流单号
+     * @param unknown $deliver_number
+     */
+    public function findByNu($deliver_number)
+    {
+    	$this->db->where('deliver_number',$deliver_number);
+    	return $this->db->get($this->table);
+    }
 
     public function total($params=array()) 
     {
