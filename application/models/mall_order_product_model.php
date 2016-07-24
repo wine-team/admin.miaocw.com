@@ -26,6 +26,18 @@ class Mall_order_product_model extends CI_Model{
 	    return $this->db->affected_rows();
 	}
 	
+	/**
+	 * 获取全部商品数量
+	**/
+	public function getAllProduct($order_id)
+	{
+		$this->db->select_sum('p.number');
+		$this->db->where('p.order_id', $order_id);
+		$result = $this->db->get($this->table . ' as p');
+		$row = $result->row();
+		return isset($row->number) ? $row->number : 0;
+	}
+	
 }
 
 /* End of file Mall_order_product_model.php */

@@ -22,5 +22,15 @@ class Account_log_model extends CI_Model
         $this->db->limit($page_num, $num);
         return $this->db->get();
     }
+    
+     /**
+     * 插入用户账户日志
+     * @param unknown $accoutLogArray
+     */
+    public function insertAccountLogRecord($accoutLogArray){
+    	
+    	return $this->db->insert($this->table,$accoutLogArray);
+    }
+    
    
 }

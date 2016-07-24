@@ -134,7 +134,22 @@ class User_model extends CI_Model
         }
         return $this->db->update($this->table, $data, array('uid'=>$postData['uid']));
     }
-
+    
+     /**
+     * 更新用户表  退钱到账户
+     * @param unknown $uid
+     * @param unknown $account
+     */
+    public function updateUserAcount($uid, $account=array())
+    {
+    	$data = array();
+    	if (!empty($account['amount_carry'])) {
+    		$this->db->set('user_money', 'user_money+'.$account['amount_carry'], FALSE);
+    	}
+    	$this->db->where('uid', $uid);
+    	return $this->db->update($this->table, $data);
+    }
+    
     /**
      * 更新密码
      * @param unknown $uid
