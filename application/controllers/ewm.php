@@ -15,7 +15,7 @@ class Ewm extends CS_Controller
 		$matrixPointSize = $this->input->get('matrixPointSize');
 		$state = $this->input->get('state');   //0显示   1不显示
 		$errorCorrectionLevel = $this->input->get('errorCorrectionLevel');
-		$value = $url ? $url : 'http://baidu.com'; //二维码内容
+		$value = $url ? $url : 'http://www.miaocw.com'; //二维码内容
 		$errorCorrectionLevel = $errorCorrectionLevel ? $errorCorrectionLevel : 'H';//// 纠错级别：L、M、Q、H  
 		$matrixPointSize = $matrixPointSize ? $matrixPointSize :4;//生成图片大小 默认4
 		$QR = $this->config->upload_image_path('common/ewm','qrcode.png');//no logo
