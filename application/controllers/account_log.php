@@ -21,6 +21,9 @@ class Account_log extends CS_Controller
         $data['account_log'] = $this->account_log->page_list($page_num, $num, $this->input->get());
         $data['all_rows'] = $config['total_rows'];
         $data['pg_now'] = $pg;
+        $data['accountTypeArray'] = array('1'=>'账户','2'=>'积分');
+        $data['flowArray'] = array('1'=>'收入','2'=>'支出','3'=>'退款');
+        $data['tradeTypeArray'] = array('1'=>'购物','2'=>'充值','3'=>'提现','4'=>'转账','5'=>'还款','6'=>'退款');
         $this->load->view('accountlog/grid', $data);
     }
 }

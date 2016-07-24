@@ -57,7 +57,10 @@
                                     <th>电话/邮箱</th>
                                     <th>订单ID</th>
                                     <th>账户类型</th>
+                                    <th>资金用途</th>
+                                    <th>资金类别</th>
                                     <th>金额</th>
+                                    <th>说明</th>
                                     <th>操作时间</th>
                                 </tr>
                             </thead>
@@ -69,8 +72,11 @@
                                     <td><?php echo $item->uid;?></td>
                                     <td><?php echo ($item->phone?$item->phone:'无'). '/' .($item->email?$item->email:'无');?></td>
                                     <td><?php echo $item->order_id;?></td>
-                                    <td><?php echo $item->account_type == 'pay' ? '支出' : '充值';?></td>
+                                    <td><?php echo $accountTypeArray[$item->account_type];?></td>
+                                    <td><?php echo $flowArray[$item->flow];?></td>
+                                    <td><?php echo $tradeTypeArray[$item->trade_type];?></td>
                                     <td><?php echo $item->amount;?></td>
+                                   	<td><?php echo $item->note;?></td> 
                                     <td><?php echo $item->created_at;?></td>
                                 </tr>
                                 <?php endforeach;?>
