@@ -1,7 +1,7 @@
 <?php
 class Mall_category_model extends CI_Model
 {
-	private $table = 'mall_category';        
+	private $table = 'mall_category';
 	private $categorys;
 
 	public function findById($cat_id)

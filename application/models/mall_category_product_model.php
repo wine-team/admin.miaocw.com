@@ -4,7 +4,30 @@ class Mall_category_product_model extends CI_Model
     private $table = 'mall_category_product';
 	private $table1 = 'mall_goods_base';
 
-     /**
+	public function total($params=array(), $join = 'INNER')
+	{
+		$this->db->from($this->table);
+		$this->db->join($this->table1, 'mall_goods_base.goods_id = mall_category_product.goods_id', $join);
+		if (!empty($params['category_id'])) {
+			$this->db->where('mall_category_product.category_id', $params['category_id']);
+		}
+		return $this->db->count_all_results();
+	}
+
+	public function page_list($page_num, $num, $params=array(), $join = 'INNER')
+	{
+		$this->db->select('cate_goods_id,mall_goods_base.goods_id,goods_name,goods_sku,in_stock,position');
+		$this->db->from($this->table);
+		$this->db->join($this->table1, 'mall_goods_base.goods_id = mall_category_product.goods_id', $join);
+		if (!empty($params['category_id'])) {
+			$this->db->where('mall_category_product.category_id', $params['category_id']);
+		}
+		$this->db->order_by('position', 'ASC');
+		$this->db->limit($page_num, $num);
+		return $this->db->get();
+	}
+
+	/**
      * 
      * @param unknown $param
      */
@@ -42,12 +65,4 @@ class Mall_category_product_model extends CI_Model
     	}
     	return $this->db->insert_batch($this->table,$insertArray);
     }
-
-	public function findCategoryProduct($category_id)
-	{
-		$this->db->from($this->table);
-		$this->db->join($this->table1, 'mall_goods_base.goods_id = mall_category_product.goods_id');
-		$this->db->where('mall_category_product.category_id', $category_id);
-		return $this->db->get();
-	}
 }

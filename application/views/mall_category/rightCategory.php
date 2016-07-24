@@ -82,13 +82,8 @@
                 </div>
             </div>
             <div class="tab-pane row-fluid" id="tab_1_2">
-                <?php $this->load->view('mall_category/catProduct');?>
+                <?php $this->load->view('mall_category_product/ajaxCategoryProduct/ajaxGet');?>
             </div>
         </div>
     </div>
 </form>
-<script type="text/javascript">
-    $(document).ready(function () {
-
-    });
-</script>

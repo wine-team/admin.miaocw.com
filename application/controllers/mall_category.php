@@ -21,7 +21,6 @@ class Mall_category extends CS_Controller
 			}
 		}
 		$data['cmsBlock'] = $this->cms_block->findByParams();
-		$data['catProduct'] = $this->mall_category_product->findCategoryProduct($cat_id);
 		$this->load->view('mall_category/grid',$data);
 	}
 	
