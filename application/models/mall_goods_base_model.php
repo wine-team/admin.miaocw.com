@@ -1,18 +1,24 @@
 <?php
-class Mall_goods_base_model extends CI_Model{
-	
+class Mall_goods_base_model extends CI_Model
+{
 	private $table = 'mall_goods_base';        
-	
-	/**
-	 * 所有
-	 */
-	public function total($param){
-		
+
+	public function total($param)
+	{
+		if (!empty($param['goods_id'])) {
+			$this->db->where('mall_goods_base.goods_id', $param['goods_id']);
+		}
+		if (!empty($param['goods_ids'])) {
+			$this->db->where_in('mall_goods_base.goods_id', $param['goods_ids']);
+		}
+		if (!empty($param['goods_name'])) {
+			$this->db->like('mall_goods_base.goods_name', $param['goods_name']);
+		}
 		if (!empty($param['goods_search'])) {
 			$this->db->where("((`mall_goods_base`.`goods_name` LIKE '%{$param['goods_search']}%') OR (`mall_goods_base`.`goods_sku`='{$param['goods_search']}'))");
 		}
-		if (!empty($param['username'])) {
-			$this->db->where("((`user`.`phone` LIKE '%{$param['username']}%') OR (`user`.`email` LIKE '%{$param['username']}%'))");
+		if (!empty($param['supplier_id'])) {
+			$this->db->where('mall_goods_base.supplier_id', $param['supplier_id']);
 		}
 		if (!empty($param['is_on_sale'])) {
 			$this->db->where('mall_goods_base.is_on_sale', $param['is_on_sale']);
@@ -31,11 +37,20 @@ class Mall_goods_base_model extends CI_Model{
 	
 	public function page_list($page_num, $num, $param = array())
 	{
+		if (!empty($param['goods_id'])) {
+			$this->db->where('mall_goods_base.goods_id', $param['goods_id']);
+		}
+		if (!empty($param['goods_ids'])) {
+			$this->db->where_in('mall_goods_base.goods_id', $param['goods_ids']);
+		}
+		if (!empty($param['goods_name'])) {
+			$this->db->like('mall_goods_base.goods_name', $param['goods_name']);
+		}
 		if (!empty($param['goods_search'])) {
 			$this->db->where("((`mall_goods_base`.`goods_name` LIKE '%{$param['goods_search']}%') OR (`mall_goods_base`.`goods_sku`='{$param['goods_search']}'))");
 		}
-		if (!empty($param['username'])) {
-			$this->db->where("((`user`.`phone` LIKE '%{$param['username']}%') OR (`user`.`email` LIKE '%{$param['username']}%'))");
+		if (!empty($param['supplier_id'])) {
+			$this->db->where('mall_goods_base.supplier_id', $param['supplier_id']);
 		}
 		if (!empty($param['is_on_sale'])) {
 			$this->db->where('mall_goods_base.is_on_sale', $param['is_on_sale']);

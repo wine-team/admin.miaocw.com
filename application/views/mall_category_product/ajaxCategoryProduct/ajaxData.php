@@ -13,12 +13,12 @@
         <tbody>
         <?php foreach ($page_list->result() as $item) : ?>
             <tr>
-                <td width="15"><input type="checkbox" class="checkboxes" value="1" ></td>
+                <td width="15"><input type="checkbox" name="goods_id" value="<?php echo $item->goods_id;?>" class="checkboxes" <?php if (array_key_exists($item->goods_id, $goodsInfo)):?>checked="checked"<?php endif;?>></td>
                 <td><?php echo $item->goods_id;?></td>
                 <td><?php echo $item->goods_name;?></td>
                 <td><?php echo $item->goods_sku;?></td>
                 <td><?php echo $item->in_stock;?></td>
-                <td><?php echo $item->position;?></td>
+                <td><input type="text" name="position" value="<?php echo isset($goodsInfo[$item->goods_id]) ? $goodsInfo[$item->goods_id] : '';?>" class="m-wrap small"></td>
             </tr>
         <?php endforeach;?>
         </tbody>

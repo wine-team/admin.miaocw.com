@@ -10,12 +10,14 @@
             <input type="text" name="goods_name" value="<?php echo $this->input->get('goods_name');?>" class="m-wrap small">
         </div>
         <div class="span3 control-group">
-            <span class="help-inline">商品SKU </span>
-            <input type="text" name="goods_sku" value="<?php echo $this->input->get('goods_sku');?>" class="m-wrap small">
+            <span class="help-inline">产品刷选 </span>
+            <select name="join" class="m-wrap small">
+                <option value="inner" selected="selected">已设置</option>
+                <option value="">产品设置</option>
+            </select>
         </div>
         <div class="span3 control-group">
-            <button class="btn green submit-search">搜索</button>
-            <button class="btn reset-search" type="button">重置设置</button>
+            <a href="javascript:;" class="btn green submit-search" data-join="inner">搜索</a>
         </div>
     </div>
 </div>
@@ -27,8 +29,8 @@ $(document).ready(function(){
     ajaxGetCategoryProduct();
 
     //搜索
-    $('#goods-responsive').on('click', 'button[type="submit"]', function(e){
-   	    ajaxGetGoodsBase();
+    $('.ajaxSearch').on('click', '.submit-search', function(e){
+        ajaxGetCategoryProduct();
         e.preventDefault();
     });
     //搜索
@@ -54,13 +56,13 @@ $(document).ready(function(){
         var category_id = $('.ajaxSearch input[name=category_id]').val();
         var goods_id = $('.ajaxSearch input[name=goods_id]').val();
         var goods_name = $('.ajaxSearch input[name=goods_name]').val();
-        var goods_sku = $('.ajaxSearch input[name=goods_sku]').val();
+        var join = $('.ajaxSearch select[name=join]').val();
         $.ajax({
             type: 'get',
             async: true,
             dataType : 'json',
             url: url ? url : hostUrl()+'/mall_category_product/ajaxGet',
-            data: url ? {} : {'category_id':category_id, 'goods_id':goods_id, 'goods_name':goods_name, 'goods_sku':goods_sku},
+            data: url ? {} : {'category_id':category_id, 'goods_id':goods_id, 'goods_name':goods_name, 'join':join},
             success: function(json) {
                 if (json.status) {
                     $('#category-product-responsive').html(json.html);

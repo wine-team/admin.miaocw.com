@@ -4,27 +4,18 @@ class Mall_category_product_model extends CI_Model
     private $table = 'mall_category_product';
 	private $table1 = 'mall_goods_base';
 
-	public function total($params=array(), $join = 'INNER')
+	public function findByCategoryId($category_id, $isArray=false)
 	{
-		$this->db->from($this->table);
-		$this->db->join($this->table1, 'mall_goods_base.goods_id = mall_category_product.goods_id', $join);
-		if (!empty($params['category_id'])) {
-			$this->db->where('mall_category_product.category_id', $params['category_id']);
+		$this->db->where('category_id', (int)$category_id);
+		$result = $this->db->get($this->table);
+		if ($isArray) {
+			$rows = array();
+			foreach ($result->result() as $item) {
+				$rows[$item->goods_id] = $item->position;
+			}
+			return $rows;
 		}
-		return $this->db->count_all_results();
-	}
-
-	public function page_list($page_num, $num, $params=array(), $join = 'INNER')
-	{
-		$this->db->select('cate_goods_id,mall_goods_base.goods_id,goods_name,goods_sku,in_stock,position');
-		$this->db->from($this->table);
-		$this->db->join($this->table1, 'mall_goods_base.goods_id = mall_category_product.goods_id', $join);
-		if (!empty($params['category_id'])) {
-			$this->db->where('mall_category_product.category_id', $params['category_id']);
-		}
-		$this->db->order_by('position', 'ASC');
-		$this->db->limit($page_num, $num);
-		return $this->db->get();
+		return $result;
 	}
 
 	/**
