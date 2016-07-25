@@ -60,8 +60,4 @@ class Mall_order_reviews extends CS_Controller {
 	        $this->error('mall_order_reviews/grid', '', '删除失败！');
 	    }
 	}
-	
-	
 }
-/** End of file mall_order_reviews.php */
-/** Location: ./application/controllers/mall_order_reviews.php */
