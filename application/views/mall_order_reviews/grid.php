@@ -35,7 +35,7 @@
                                         <select name="status" class="m-wrap medium">
                                             <option value="">请选择</option>
                                             <?php foreach($status_arr as $k1=>$status) :?>
-                                            <option <?php if($this->input->get('status')==$k1):?>selected="selected"<?php endif;?>> value="<?php echo $k1;?>"><?php echo $status;?></option>
+                                            <option <?php if($this->input->get('status')==$k1):?>selected="selected"<?php endif;?> value="<?php echo $k1;?>"><?php echo $status;?></option>
                                             <?php endforeach;?>
                                         </select>
                                     </div>
@@ -48,7 +48,7 @@
                                         <select name="score" class="m-wrap medium">
                                             <option value="">请选择</option>
                                             <?php for($i=1;$i<6;$i++) :?>
-                                            <option <?php if($this->input->get('score')==$i):?>selected="selected"<?php endif;?>> value="<?php echo $i;?>"><?php echo $i;?>分</option>
+                                            <option <?php if($this->input->get('score')==$i):?>selected="selected"<?php endif;?> value="<?php echo $i;?>"><?php echo $i;?>分</option>
                                             <?php endfor;?>
                                         </select>
                                     </div>
