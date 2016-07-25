@@ -24,7 +24,7 @@
                                 <div class="control-group">
                                     <label class="control-label">用户名搜索</label>
                                     <div class="controls">
-                                        <input type="text" name="item" value="<?php echo $this->input->get('item');?>" class="m-wrap medium" placeholder="请输入用户名称、产品名、评价内容">
+                                        <input type="text" name="item" value="<?php echo $this->input->get('item');?>" class="m-wrap medium" placeholder="请输入用户名称、产品名、评价内容" />
                                     </div>
                                 </div>
                             </div>
@@ -35,7 +35,7 @@
                                         <select name="status" class="m-wrap medium">
                                             <option value="">请选择</option>
                                             <?php foreach($status_arr as $k1=>$status) :?>
-                                            <option <?php if($this->input->get('status')==$k1)echo 'selected="selected"';?> value="<?php echo $k1;?>"><?php echo $status;?></option>
+                                            <option <?php if($this->input->get('status')==$k1):?>selected="selected"<?php endif;?>> value="<?php echo $k1;?>"><?php echo $status;?></option>
                                             <?php endforeach;?>
                                         </select>
                                     </div>
@@ -48,7 +48,7 @@
                                         <select name="score" class="m-wrap medium">
                                             <option value="">请选择</option>
                                             <?php for($i=1;$i<6;$i++) :?>
-                                            <option <?php if($this->input->get('score')==$i)echo 'selected="selected"';?> value="<?php echo $i;?>"><?php echo $i;?>分</option>
+                                            <option <?php if($this->input->get('score')==$i):?>selected="selected"<?php endif;?>> value="<?php echo $i;?>"><?php echo $i;?>分</option>
                                             <?php endfor;?>
                                         </select>
                                     </div>
@@ -95,7 +95,6 @@
                     </form>
                 </div>
             </div>
-            
             <div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption"><i class="icon-reorder"></i>列表</div>
@@ -123,7 +122,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($res_list as $r) : ?>
+                                <?php foreach ($res_list->result() as $r) : ?>
                                 <tr>
                                     <td width="15"><input type="checkbox" class="checkboxes" value="1" ></td>
                                     <td><?php echo $r->reviews_id;?></td>
@@ -144,8 +143,8 @@
                                     <?php endif;?>
                                     </td>
                                     <td width="145">
-                                        <a class="btn mini green" href="<?php echo base_url('mall_order_reviews/edit/'.$r->reviews_id); ?>"><i class="icon-edit"></i>修改</a>
-                                        <a class="btn mini green" href="<?php echo base_url('mall_order_reviews/delete/'.$r->reviews_id); ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_order_reviews/edit/'.$r->reviews_id); ?>">详情</a>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_order_reviews/delete/'.$r->reviews_id); ?>" onclick="return confirm('确定要删除？')">删除</a>
                                     </td>
                                 </tr>
                                 <?php endforeach;?>

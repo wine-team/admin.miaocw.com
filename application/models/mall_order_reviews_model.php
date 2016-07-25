@@ -1,6 +1,6 @@
 <?php
-
 class Mall_order_reviews_model extends CI_Model{
+	
 	private $table = 'mall_order_reviews';
 	
 	public function total($search)
@@ -20,7 +20,6 @@ class Mall_order_reviews_model extends CI_Model{
 	    if (!empty($search['status'])) {
 	        $this->db->where('status', $search['status']);
 	    }
-	    
 	    if (!empty($search['sta_time'])) {
 	        $sta_time = $search['sta_time'] ? ($search['sta_time']<date('Y-m-d') ? $search['sta_time'].' 00:00:00' : date('Y-m-d H:i:s')) : '';
 	        $this->db->where('created_at >', $sta_time);
@@ -32,7 +31,7 @@ class Mall_order_reviews_model extends CI_Model{
 	    return $this->db->count_all_results($this->table);
 	}
 	
-	public function mall_order_reviews_list($page, $perpage, $search, $order='order_id DESC')
+	public function mall_order_reviews_list($num, $page_num, $search, $order='order_id DESC')
 	{
 	    if(!empty($search['item'])) {
 	        $this->db->where("((`goods_name` LIKE '%{$search['item']}%') OR (`user_name`='{$search['item']}') OR (`content`='{$search['item']}'))");
@@ -46,7 +45,6 @@ class Mall_order_reviews_model extends CI_Model{
 	    if (!empty($search['status'])) {
 	        $this->db->where('status', $search['status']);
 	    }
-	    
 	    if (!empty($search['sta_time'])) {
 	        $sta_time = $search['sta_time'] ? ($search['sta_time']<date('Y-m-d') ? $search['sta_time'].' 00:00:00' : date('Y-m-d H:i:s')) : '';
 	        $this->db->where('created_at >', $sta_time);
@@ -56,7 +54,7 @@ class Mall_order_reviews_model extends CI_Model{
 	        $this->db->where('created_at <', $end_time);
 	    }
 	    $this->db->order_by($order);
-	    if($perpage) $this->db->limit($perpage, $perpage*$page);
+	    $this->db->limit($page_num,$num);
 	    return $this->db->get($this->table);
 	}
 	
