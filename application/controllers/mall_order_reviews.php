@@ -46,9 +46,9 @@ class Mall_order_reviews extends CS_Controller {
 	    $res = $this->mall_order_reviews->update(array('reviews_id'=>$getData['reviews_id']), $data);
 	    if ($res) {
 	        $this->success('mall_order_reviews/grid', '', '修改成功！');
-	    } else {
-	        $this->error('mall_order_reviews/edit', $this->input->post('reviews_id'), '修改失败！');
-	    }
+	    } 
+	    $this->error('mall_order_reviews/edit', $this->input->post('reviews_id'), '修改失败！');
+	    
 	}
 	
 	public function delete($reviews_id)
@@ -56,8 +56,8 @@ class Mall_order_reviews extends CS_Controller {
 	    $is_delete = $this->mall_order_reviews->delete(array('reviews_id'=>$reviews_id));
 	    if ($is_delete) {
 	        $this->success('mall_order_reviews/grid', '', '删除成功！');
-	    } else {
-	        $this->error('mall_order_reviews/grid', '', '删除失败！');
 	    }
+	    $this->error('mall_order_reviews/grid', '', '删除失败！');
+	    
 	}
 }
