@@ -115,7 +115,7 @@
             </div>
             <div class="portlet box green">
                 <div class="portlet-title">
-                    <div class="caption"><i class="icon-reorder"></i>产品列表</div>
+                    <div class="caption"><i class="icon-reorder"></i>订单产品列表</div>
                     <div class="tools">
                         <a class="collapse" href="javascript:;"></a>
                         <a class="remove" href="javascript:;"></a>

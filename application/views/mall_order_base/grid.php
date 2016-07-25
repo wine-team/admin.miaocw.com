@@ -35,7 +35,7 @@
                                         <select name="state" class="m-wrap medium">
                                             <option value="">请选择</option>
                                             <?php foreach($state_arr as $k1=>$state) :?>
-                                            <option <?php if($this->input->get('state')==$k1)echo 'selected="selected"';?> value="<?php echo $k1;?>"><?php echo $state;?></option>
+                                            <option <?php if($this->input->get('state')==$k1):?>selected="selected"<?php endif;?> value="<?php echo $k1;?>"><?php echo $state;?></option>
                                             <?php endforeach;?>
                                         </select>
                                     </div>
@@ -48,7 +48,7 @@
                                         <select name="status" class="m-wrap medium">
                                             <option value="">请选择</option>
                                             <?php foreach($status_arr as $k2=>$status) :?>
-                                            <option <?php if($this->input->get('status')==$k2)echo 'selected="selected"';?> value="<?php echo $k2;?>"><?php echo $status;?></option>
+                                            <option <?php if($this->input->get('status')==$k2):?>selected="selected"<?php endif;?> value="<?php echo $k2;?>"><?php echo $status;?></option>
                                             <?php endforeach;?>
                                         </select>
                                     </div>
@@ -71,7 +71,7 @@
                                         <select name="is_form" class="m-wrap medium">
                                             <option  value="">请选择</option>
                                             <?php foreach($is_form_arr as $k3=>$is_form) :?>
-                                            <option <?php if($this->input->get('is_form')==$k3)echo 'selected="selected"';?> value="<?php echo $k3;?>"><?php echo $is_form;?></option>
+                                            <option <?php if($this->input->get('is_form')==$k3):?>selected="selected"<?php endif;?> value="<?php echo $k3;?>"><?php echo $is_form;?></option>
                                             <?php endforeach;?>
                                         </select>
                                     </div>
@@ -100,7 +100,6 @@
                     </form>
                 </div>
             </div>
-            
             <div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption"><i class="icon-reorder"></i>列表</div>
@@ -111,7 +110,6 @@
                 </div>
                 <div class="portlet-body flip-scroll">
                     <div class="dataTables_wrapper form-inline">
-                        
                         <?php if ($all_rows > 0) :?>
                         <table class="table table-striped table-bordered table-hover" id="sample_1">
                             <thead class="flip-content">
@@ -129,7 +127,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($res_list as $r) : ?>
+                                <?php foreach ($res_list->result() as $r) : ?>
                                 <tr>
                                     <td width="15"><input type="checkbox" class="checkboxes" value="1" ></td>
                                     <td><?php echo $r->order_id;?></td>
@@ -146,9 +144,7 @@
                                     <td><?php echo $r->order_note;?></td>
                                     <td><?php echo $is_form_arr[$r->is_form].'</br>'.$r->pay_time;;?></td>
                                     <td width="100">
-                                        <a class="btn mini green" href="<?php echo base_url('mall_order_base/edit/'.$r->order_id); ?>">查看</a>
-                                        <a class="btn mini green" href="<?php echo base_url('mall_order_base/delete/'.$r->order_id); ?>" onclick="return confirm('确定要删除？')">删除</a>
-                                        <p></p>
+                                        <a class="btn mini green" href="<?php echo base_url('mall_order_base/infor/'.$r->order_id); ?>">查看</a>
                                         <a class="btn mini green" href="<?php echo base_url('mall_order_reviews/grid?order_id='.$r->order_id); ?>">评价</a>
                                     </td>
                                 </tr>

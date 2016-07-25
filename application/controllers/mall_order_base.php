@@ -13,8 +13,9 @@ class Mall_order_base extends CS_Controller {
 
     public function grid($pg = 1)
 	{   
+		$page_num = 20;
+		$num = ($pg-1)*$page_num;
 	    $getData = $this->input->get();
-	    $perpage = 20;
 	    $config['first_url']   = base_url('mall_order_base/grid').$this->pageGetParam($this->input->get());
 	    $config['suffix']      = $this->pageGetParam($getData);
 	    $config['base_url']    = base_url('mall_order_base/grid');
@@ -22,17 +23,17 @@ class Mall_order_base extends CS_Controller {
 	    $config['uri_segment'] = 3; 
 	    $this->pagination->initialize($config);
 	    $data['pg_link']   = $this->pagination->create_links();
-	    $data['res_list'] = $this->mall_order_base->mall_order_base_list($pg-1, $perpage, $getData)->result();
+	    $data['res_list'] = $this->mall_order_base->mall_order_base_list($num, $page_num, $getData);
 	    $data['all_rows']  = $config['total_rows'];
 	    $data['pg_now']    = $pg; 
-	    $data['page_num']    = $perpage;
+	    $data['page_num']    = $page_num;
 	    $data['state_arr'] = array('1'=>'未付款', '2'=>'已付款', '3'=>'已完成', '4'=>'评价', '5'=>'退款');
 	    $data['status_arr'] = array('1'=>'取消订单', '2'=>'未付款', '3'=>'已付款', '4'=>'已发货', '5'=>'已收货', '6'=>'已评价');
 	    $data['is_form_arr'] = array('1'=>'电脑端', '2'=>'手机端', '3'=>'其他');
 	    $this->load->view('mall_order_base/grid', $data);
 	}
 	
-	public function edit($order_id)
+	public function infor($order_id)
 	{
 	    $res = $this->mall_order_base->findById(array('order_id'=>$order_id));
 	    if ($res->num_rows() <= 0){

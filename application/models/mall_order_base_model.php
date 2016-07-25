@@ -34,7 +34,7 @@ class Mall_order_base_model extends CI_Model{
 	    return $this->db->count_all_results($this->table);
 	}
 	
-	public function mall_order_base_list($page, $perpage, $search, $order='order_id DESC')
+	public function mall_order_base_list($num, $page_num, $search, $order='order_id DESC')
 	{
 	    if(!empty($search['item'])) {
 	        $this->db->where("((`user_name` LIKE '%{$search['item']}%') OR (`order_note`='{$search['item']}'))");
@@ -61,7 +61,7 @@ class Mall_order_base_model extends CI_Model{
 	        $this->db->where('created_at <', $end_time);
 	    }
 	    $this->db->order_by($order);
-	    if($perpage) $this->db->limit($perpage, $perpage*$page);
+	    $this->db->limit($page_num, $num);
 	    return $this->db->get($this->table);
 	}
 	
