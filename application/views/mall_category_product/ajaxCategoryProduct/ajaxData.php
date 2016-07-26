@@ -18,7 +18,7 @@
                 <td><?php echo $item->goods_name;?></td>
                 <td><?php echo $item->goods_sku;?></td>
                 <td><?php echo $item->in_stock;?></td>
-                <td><input type="text" name="position" value="<?php echo isset($goodsInfo[$item->goods_id]) ? $goodsInfo[$item->goods_id] : '';?>" class="m-wrap small"></td>
+                <td><input type="text" name="position" data-goods-id="<?php echo $item->goods_id;?>" value="<?php echo isset($goodsInfo[$item->goods_id]) ? $goodsInfo[$item->goods_id] : '';?>" class="m-wrap small"></td>
             </tr>
         <?php endforeach;?>
         </tbody>

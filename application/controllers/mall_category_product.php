@@ -36,8 +36,9 @@ class Mall_category_product extends CS_Controller
         $data['goodsInfo'] = $goodsInfo;
 
         echo json_encode(array(
-            'status'=>true,
-            'html'  =>$this->load->view('mall_category_product/ajaxCategoryProduct/ajaxData', $data, true)
+            'status' => true,
+            'html'   => $this->load->view('mall_category_product/ajaxCategoryProduct/ajaxData', $data, true),
+            'json'   => json_encode($goodsInfo),
         ));exit;
     }
 }
