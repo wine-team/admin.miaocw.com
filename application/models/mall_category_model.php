@@ -126,7 +126,7 @@ class Mall_category_model extends CI_Model
 		$category = $this->db->get($this->table);
 		$firstCat = array();
 		foreach ($category->result() as $key=>$val) {
-			if (($val->cat_type==1) && ($val->parent_id==0) ) {
+			if ( $val->parent_id==0 ) {
 				$firstCat[$key]['cat_id'] = $val->cat_id;
 				$firstCat[$key]['cat_name'] = $val->cat_name;
 				$firstCat[$key]['childCat'][0]['cat_id'] = $val->cat_id;
