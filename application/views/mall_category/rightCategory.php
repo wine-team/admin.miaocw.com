@@ -1,9 +1,9 @@
 <form class="form-horizontal line-form" action="<?php echo base_url('mall_category/savePost'); ?>" method="post" enctype="multipart/form-data">
     <div class="add-portfolio clearfix">
         <?php if (isset($mallCategory)) :?>
-            <div class="pull-left"><?php echo $mallCategory->cat_name.'(ID：'.$mallCategory->cat_id.'）'; ?></div>
+            <div class="pull-left"><?php echo $mallCategory['cat_name'].'(ID：'.$mallCategory['cat_id'].'）'; ?></div>
             <div class="pull-right">
-                <a href="<?php echo base_url('mall_category/delete/'.$mallCategory->cat_id); ?>" class="btn green mini" onclick="return confirm('删除分类将会删除分类下的所有产品，确定要删除？')">删除分类</a>
+                <a href="<?php echo base_url('mall_category/delete/'.$mallCategory['cat_id']); ?>" class="btn green mini" onclick="return confirm('删除分类将会删除分类下的所有产品，确定要删除？')">删除分类</a>
                 <button type="submit" class="btn green mini">保存</button>
             </div>
         <?php else : ?>
@@ -21,7 +21,7 @@
                     <label class="control-label"><em>* </em>分类名称</label>
                     <div class="controls">
                         <input type="hidden" name="cat_id" value="<?php echo isset($mallCategory['cat_id']) ? $mallCategory['cat_id'] : $this->input->get('cat_id');?>">
-                        <input type="text" name="cat_name" class="m-wrap span8 required">
+                        <input type="text" name="cat_name" value="<?php echo isset($mallCategory['cat_name']) ? $mallCategory['cat_name'] : '' ?>" class="m-wrap span8 required">
                     </div>
                 </div>
                 <div class="control-group">
