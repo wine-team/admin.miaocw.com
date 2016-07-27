@@ -17,11 +17,11 @@ class Mall_category extends CS_Controller
 		if ($cat_id) {
 			$result = $this->mall_category->findById($cat_id);
 			if ($result->num_rows() > 0) {
-				$data['mallCategory'] = $result->row(0);
+				$data['mallCategory'] = $result->row_array();
 			}
 		}
 		$data['cmsBlock'] = $this->cms_block->findByParams();
-		$this->load->view('mall_category/grid',$data);
+		$this->load->view('mall_category/grid', $data);
 	}
 	
 	public function savePost()
@@ -54,40 +54,6 @@ class Mall_category extends CS_Controller
 	    } else {
 	        $this->error('mall_category/add', '', '新增失败！');
 	    }
-	}
-	
-	public function editPost()
-	{
-	    $error = $this->validate();
-        if (!empty($error)) {
-            $this->error('mall_category/edit', $this->input->post('cat_id'), $error);
-        }
-        $postData = $this->input->post();
-        $data['cat_name'] = $postData['cat_name'];
-	    $data['is_show'] = $postData['is_show'];
-	    $data['sort_order'] = $postData['sort_order'];
-	    $data['filter_attr'] = toNumStr($postData['filter_attr']);
-	    if ( !empty($postData['keyword']) ) {
-	    	$data['keyword'] = $postData['keyword'];
-	    }
-        $res = $this->mall_category->update(array('cat_id'=>$postData['cat_id']), $data); 
-        if ($res) {
-            $this->success('mall_category/grid', '', '修改成功！');
-        } else {
-            $this->error('mall_category/edit', $this->input->post('cat_id'), '修改失败！');
-        }
-	}
-	
-	/**
-	 * 根据ajax反馈的父id，返回所有子集 （json格式）
-	 */
-	public function select_children($parent_id=0)
-	{
-		$childrenData = array();
-		if ($parent_id) {
-			$childrenData = $this->mall_category->getCategoryLevel($parent_id);
-		}
-		echo json_encode($childrenData);exit;
 	}
 	
 	public function delete($cat_id)

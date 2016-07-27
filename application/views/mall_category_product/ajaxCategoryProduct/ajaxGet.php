@@ -2,7 +2,7 @@
     <div class="row-fluid">
         <div class="span3 control-group">
             <span class="help-inline">商品编号 </span>
-            <input type="hidden" name="goods_json" value="0">
+            <input type="hidden" name="goods_json" value="{}">
             <input type="hidden" name="category_id" value="<?php echo isset($mallCategory->cat_id) ? $mallCategory->cat_id : $this->input->get('cat_id');?>">
             <input type="text" name="goods_id" value="<?php echo trim($this->input->get('goods_id'));?>" class="m-wrap small">
         </div>
@@ -44,21 +44,34 @@ $(document).ready(function(){
 
     //选择checkbox
     $('#category-product-responsive').on('click', 'input.group-checkable', function(e){
-        var goods_json = $('input.group-checkable').val();
+        var goods_json = JSON.parse($('input[name=goods_json]').val());
         if ($(this).is(':checked')) {
-            $('input[name=goods_id]').each(function() {
+            $('input[name=goods_id].checkboxes').each(function() {
                 var goods_id = $(this).val();
                 var position = $('input[data-goods-id='+goods_id+']').val();
-                goods_json.goods_id = position;
+                goods_json[goods_id] = position;
             });
         } else {
-            $('input[name=goods_id]').each(function() {
+            $('input[name=goods_id].checkboxes').each(function() {
                 var goods_id = $(this).val();
                 var position = $('input[data-goods-id='+goods_id+']').val();
-                goods_json.goods_id = undefined;
+                goods_json[goods_id] = undefined;
             });
         }
-        $('input.group-checkable').val(goods_json);
+        $('input[name=goods_json]').val(JSON.stringify(goods_json));
+    });
+
+    //单选
+    $('#category-product-responsive').on('click', 'input[name=goods_id].checkboxes', function(e){
+        var goods_json = JSON.parse($('input[name=goods_json]').val());
+        var goods_id = $(this).val();
+        var position = $('input[data-goods-id='+goods_id+']').val();
+        if ($(this).is(':checked')) {
+            goods_json[goods_id] = position;
+        } else {
+            goods_json[goods_id] = undefined;
+        }
+        $('input[name=goods_json]').val(JSON.stringify(goods_json));
     });
 
     //获取数据
