@@ -1,5 +1,5 @@
 <p><a href="<?php echo base_url('mall_category/grid');?>" class="btn red mini">添加主目录</a></p>
-<p><a href="<?php echo base_url('mall_category/grid').'?cat_id='.$this->input->get('cat_id');?>" class="btn blue mini">添加子目录</a></p>
+<p><a href="<?php echo base_url('mall_category/grid').'?parent_id='.$this->input->get('cat_id');?>" class="btn blue mini">添加子目录</a></p>
 <?php echo getCategoryHtml($categorys); ?>
 <script type="text/javascript">
     jQuery(document).ready(function($) {

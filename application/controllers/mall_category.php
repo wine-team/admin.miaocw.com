@@ -17,7 +17,7 @@ class Mall_category extends CS_Controller
 		if ($cat_id) {
 			$result = $this->mall_category->findById($cat_id);
 			if ($result->num_rows() > 0) {
-				$data['mallCategory'] = $result->row_array();
+				$data['mallCategory'] = $result->row(0);
 			}
 		}
 		$data['cmsBlock'] = $this->cms_block->findByParams();
@@ -26,33 +26,27 @@ class Mall_category extends CS_Controller
 	
 	public function savePost()
 	{
-	    $error = $this->validate(); 
-	    if (!empty($error)) {
-	        $this->error('mall_category/add','', $error);
-	    }
-	    $postData = $this->input->post();
-	    $data['cat_name'] = $postData['cat_name'];
-	    $data['parent_id'] = $postData['parent_id'];
-	    $data['cat_type'] = $postData['parent_id'] ? 2 : 1;
-	    if ($postData['parent_id']) {
-	        $data['cat_type'] = 2;
-	        $first_cat = $this->mall_category->findByParams(array('cat_id'=>$postData['parent_id']))->row();
-	        $data['full_name'] = $first_cat->cat_name.'>'.$postData['cat_name'];
+		$cat_id = $this->input->post('cat_id');
+		$postData = $this->input->post();
+		if ($this->validateParam($postData['cat_name'])) {
+			$this->error('mall_category/grid', $cat_id, '分类名称不能为空');
+		}
+		if ($this->validateParam($postData['full_name'])) {
+			$this->error('mall_category/grid', $cat_id, '类名全名不能为空');
+		}
+		$this->db->trans_start();
+		if ($cat_id) { //编辑
+			$new_cat_id = $this->mall_category->insert($postData);
+		} else {
+			$update = $this->mall_category->update($postData);
+		}
+
+		$this->db->trans_complete();
+
+		if ($this->db->trans_status() === FALSE) {
+	        $this->success('mall_category/grid', $new_cat_id, '新增成功！');
 	    } else {
-	        $data['cat_type'] = 1;
-	        $data['full_name'] = $postData['cat_name'];
-	    }
-	    $data['is_show'] = $postData['is_show'];
-	    $data['sort_order'] = $postData['sort_order'];
-	    $data['filter_attr'] = toNumStr($postData['filter_attr']);
-	    if( !empty($postData['keyword']) ){
-	       $data['keyword'] = $postData['keyword'];
-	    }
-	    $res = $this->mall_category->insert($data);
-	    if ($res) {
-	        $this->success('mall_category/grid', '', '新增成功！');
-	    } else {
-	        $this->error('mall_category/add', '', '新增失败！');
+	        $this->error('mall_category/grid', $cat_id, '新增失败！');
 	    }
 	}
 	

@@ -74,6 +74,19 @@ $(document).ready(function(){
         $('input[name=goods_json]').val(JSON.stringify(goods_json));
     });
 
+    //修改排序
+    $('#category-product-responsive').on('change', 'input[name=position]', function(e){
+        var goods_json = JSON.parse($('input[name=goods_json]').val());
+        var goods_id = $(this).attr('data-goods-id');
+        var position = $(this).val();
+        if ($('input[value='+goods_id+'].checkboxes').is(':checked')) {
+            goods_json[goods_id] = position;
+        } else {
+            goods_json[goods_id] = undefined;
+        }
+        $('input[name=goods_json]').val(JSON.stringify(goods_json));
+    });
+
     //获取数据
     function ajaxGetCategoryProduct(url) {
         var category_id = $('.ajaxSearch input[name=category_id]').val();

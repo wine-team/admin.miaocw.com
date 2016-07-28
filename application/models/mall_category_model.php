@@ -83,17 +83,43 @@ class Mall_category_model extends CI_Model
 	    $this->db->where_in($item, $arr);
 		return $this->db->get($this->table);
 	}
-	
-	public function insert($data) 
+	public function insert($postData=array())
 	{
-	    $this->db->insert($this->table, $data);
-	    return $this->db->insert_id();
-	} 
+		$data = array(
+			'cat_name'          => $postData['cat_name'],
+			'parent_id'         => !empty($postData['parent_id']) ? $postData['parent_id'] : 0,
+			'is_show'           => $postData['is_show'],
+			'block_id'          => !empty($postData['block_id']) ? $postData['block_id'] : '',
+			'cat_img'           => !empty($postData['cat_img']) ? $postData['cat_img'] : '',
+			'special_name'     => !empty($postData['special_name']) ? $postData['special_name'] : '',
+			'full_name'         => $postData['full_name'],
+			'page_title'        => !empty($postData['page_title']) ? $postData['page_title'] : '',
+			'meta_keywords'     => !empty($postData['meta_keywords']) ? $postData['meta_keywords'] : '',
+			'meta_description' => !empty($postData['meta_description']) ? $postData['meta_description'] : '',
+			'sort_order'        => !empty($postData['sort_order']) ? $postData['sort_order'] : 50,
+			'created_at'        => date('Y-m-d H:i:s'),
+		);
+		$this->db->insert($this->table, $data);
+		return $this->db->insert_id();
+	}
 	
-	public function update($where, $data)  
+	public function update($postData=array())
 	{
-	    $this->db->update($this->table, $data, $where);
-	    return $this->db->affected_rows();
+		$data = array(
+			'cat_name'          => $postData['cat_name'],
+			'parent_id'         => !empty($postData['parent_id']) ? $postData['parent_id'] : 0,
+			'is_show'           => $postData['is_show'],
+			'block_id'          => !empty($postData['block_id']) ? $postData['block_id'] : '',
+			'cat_img'           => !empty($postData['cat_img']) ? $postData['cat_img'] : '',
+			'special_name'     => !empty($postData['special_name']) ? $postData['special_name'] : '',
+			'full_name'         => $postData['full_name'],
+			'page_title'        => !empty($postData['page_title']) ? $postData['page_title'] : '',
+			'meta_keywords'     => !empty($postData['meta_keywords']) ? $postData['meta_keywords'] : '',
+			'meta_description' => !empty($postData['meta_description']) ? $postData['meta_description'] : '',
+			'sort_order'        => !empty($postData['sort_order']) ? $postData['sort_order'] : 50,
+		);
+		$this->db->where('cat_id', $postData['cat_id']);
+		$this->db->update($this->table, $data);
 	}
 	
 	public function delete($where)  
@@ -101,7 +127,7 @@ class Mall_category_model extends CI_Model
 	    $this->db->delete($this->table, $where);
 	    return $this->db->affected_rows();
 	}
-	
+
      /**
      *  分类的添加
      * @param number $parent_id
@@ -164,6 +190,3 @@ class Mall_category_model extends CI_Model
 		return $cat_name;
 	}
 }
-
-/* End of file Mall_category_model.php */
-/* Location: ./application/models/Mall_category_model.php */
