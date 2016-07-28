@@ -4,9 +4,7 @@
     <title>后台管理系统</title>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <base href="<?php echo base_url()?>"/>
-    <!-- 
-     <link type="image/x-icon"  rel="shortcut icon" href="" />
-    -->
+    <link type="image/x-icon"  rel="shortcut icon" href="skins/common/images/star/logo.png" />
     <!-- stylesheets -->
     <?php css('admin', 'bootstrap.min');?>
     <?php css('admin', 'bootstrap-responsive.min');?>

@@ -43,9 +43,9 @@
                                         </div>
                                     </a>
                                     <?php if( $i!=1 ):?>
-                                    <div class="details">
-                                        <a href="<?php echo base_url('mall_goods_base/deleteImage?goods_id='.$goods_id.'&image_name='.$val) ?>" class="icon" onclick="return confirm('确定要删除？')">删除</a>
-                                        <a href="<?php echo base_url('mall_goods_base/mainImage?goods_id='.$goods_id . '&image_name='.$val) ?>" class="icon" onclick="return confirm('确定要将此图片设置为默认图片？')">设成默认</a>
+                                    <div class="details" >
+                                        <a href="<?php echo base_url('mall_goods_base/deleteImage?goods_id='.$goods_id.'&image_name='.$val) ?>" class="icon" style="color:#fff;" onclick="return confirm('确定要删除？')">删除</a>
+                                        <a href="<?php echo base_url('mall_goods_base/mainImage?goods_id='.$goods_id . '&image_name='.$val) ?>" class="icon" style="color:#fff;" onclick="return confirm('确定要将此图片设置为默认图片？')">设成默认</a>
                                     </div>
                                     <?php endif;?>
                                 </div>
