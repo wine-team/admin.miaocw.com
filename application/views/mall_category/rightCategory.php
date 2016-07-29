@@ -8,8 +8,14 @@
             </div>
         <?php elseif ($this->input->get('parent_id')) : ?>
             <div class="pull-left">添加子分类</div>
+            <div class="pull-right">
+                <button type="submit" class="btn green mini">保存</button>
+            </div>
         <?php else :?>
             <div class="pull-left">添加新分类</div>
+            <div class="pull-right">
+                <button type="submit" class="btn green mini">保存</button>
+            </div>
         <?php endif; ?>
     </div>
     <div class="tabbable tabbable-custom tabbable-full-width">
@@ -37,7 +43,7 @@
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label"><em>* </em>类名全名</label>
+                    <label class="control-label"><em>* </em>分类导航</label>
                     <div class="controls">
                         <input type="text" name="full_name" value="<?php echo isset($mallCategory->full_name) ? $mallCategory->full_name : '' ?>" class="m-wrap span8 required" placeholder="分类页面的位置导航">
                     </div>

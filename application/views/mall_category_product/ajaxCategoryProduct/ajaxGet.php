@@ -62,7 +62,7 @@ $(document).ready(function(){
     });
 
     //单选
-    $('#category-product-responsive').on('click', 'input[name=goods_id].checkboxes', function(e){
+    $('#category-product-responsive').on('click', 'input.checkboxes-goods', function(e){
         var goods_json = JSON.parse($('input[name=goods_json]').val());
         var goods_id = $(this).val();
         var position = $('input[data-goods-id='+goods_id+']').val();
@@ -79,7 +79,7 @@ $(document).ready(function(){
         var goods_json = JSON.parse($('input[name=goods_json]').val());
         var goods_id = $(this).attr('data-goods-id');
         var position = $(this).val();
-        if ($('input[value='+goods_id+'].checkboxes').is(':checked')) {
+        if ($('input[value='+goods_id+'].checkboxes-goods').is(':checked')) {
             goods_json[goods_id] = position;
         } else {
             goods_json[goods_id] = undefined;

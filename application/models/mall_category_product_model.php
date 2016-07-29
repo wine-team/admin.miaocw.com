@@ -40,6 +40,34 @@ class Mall_category_product_model extends CI_Model
     	$this->db->where('goods_id',$goods_id);
     	return $this->db->delete($this->table);
     }
+
+	/**
+	 * delete
+	 * @param $category_id
+	 * @return mixed
+	 */
+	public function deleteByCategoryId($category_id)
+	{
+		$this->db->where('category_id', $category_id);
+		return $this->db->delete($this->table);
+	}
+
+	/**
+	 * 分类页面批量插入操作
+	 * @param       $category_id
+	 * @param array $goodsArr
+	 * @return mixed
+	 */
+	public function insertBatchByCategory($category_id, $goodsArr=array())
+	{
+		$data= array();
+		foreach ($goodsArr as $goods_id=>$position) {
+			$data[$goods_id]['category_id'] = $category_id;
+			$data[$goods_id]['goods_id']    = $goods_id;
+			$data[$goods_id]['position']    = $position;
+		}
+		return $this->db->insert_batch($this->table, $data);
+	}
     
     /**
      * 数组插入
