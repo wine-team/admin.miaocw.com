@@ -104,7 +104,7 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane row-fluid" id="tab_1_2">
+            <div class="tab-pane row-fluid data-ajax-url" id="tab_1_2" data-ajax-url="<?php echo base_url('mall_category_product/ajaxGet');?>">
                 <?php $this->load->view('mall_category_product/ajaxCategoryProduct/ajaxGet');?>
             </div>
         </div>
