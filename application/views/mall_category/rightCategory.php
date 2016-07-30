@@ -62,14 +62,14 @@
                 <div class="control-group">
                     <label class="control-label">分类图片</label>
                     <div class="controls">
-                        <?php if (isset($mallCategory->cat_img) && is_file($this->config->upload_image_thumb_path('mall', $mallCategory->cat_img))) :?>
-                            <a href="<?php echo $this->config->show_image_thumb_url('mall', $mallCategory->cat_img)?>" target="_blank">
-                                <img src="<?php echo $this->config->show_image_thumb_url('mall', $mallCategory->cat_img)?>" width=100 height="100">
+                        <?php if (isset($mallCategory->cat_img) && is_file($this->config->upload_image_path('mall', $mallCategory->cat_img))) :?>
+                            <a href="<?php echo $this->config->show_image_url('mall', $mallCategory->cat_img)?>" target="_blank">
+                                <img src="<?php echo $this->config->show_image_url('mall', $mallCategory->cat_img)?>" width=60 height="60">
                             </a>
                             <input type="hidden" name="oldfilename" value="<?php echo $mallCategory->cat_img ?>">
-                            <input type="file" name="cat_img">
+                            <input type="file" name="cat_img" class="checkPicture">
                         <?php else : ?>
-                            <input type="file" name="cat_img">
+                            <input type="file" name="cat_img" class="checkPicture">
                         <?php endif; ?>
                     </div>
                 </div>
