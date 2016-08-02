@@ -2,7 +2,7 @@
     <div class="navbar-inner">
         <div class="container-fluid">
             <a href="javascript:;" class="brand">
-                <!--  <img alt="美酒系统" src="">  -->
+                <img src="skins/admin/images/mcw-logo.png" style="width:110px;height: 36px;" alt="小医仙网络科技有限公司">
             </a>
             <ul class="nav pull-right">
                 <li id="header_notification_bar" class="dropdown" style="-moz-outline-radius: 0px; outline: 0px none; box-shadow: 0px 0px 13px rgba(102, 188, 230, 0);">

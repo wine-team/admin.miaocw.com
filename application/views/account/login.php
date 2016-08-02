@@ -4,9 +4,8 @@
         <title>后台登录管理系统</title>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
         <base href="<?php echo base_url()?>"/>
-        <!-- 
-         <link type="image/x-icon"  rel="shortcut icon" href=""/>
-        -->
+        <link type="image/x-icon"  rel="shortcut icon" href="skins/common/images/star/logo.png" />
+
         <!-- stylesheets -->
         <?php css('admin', 'bootstrap.min');?>
         <?php css('admin', 'font-awesome.min');?>
@@ -29,9 +28,7 @@
     </head>
     <body class="login">
         <div class="logo">
-          <!-- 
-            <img src="skins/admin/images/logo02.png" />
-           -->
+            <img src="skins/admin/images/mcw-logo.png" alt="小医仙网络科技有限公司">
          </div>
         <div class="content">
             <form class="form-vertical login-form" action="<?php echo site_url('account/loginPost');?>" method="post">
