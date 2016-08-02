@@ -29,7 +29,7 @@
     <body class="login">
         <div class="logo">
             <img src="skins/admin/images/mcw-logo.png" alt="小医仙网络科技有限公司">
-         </div>
+        </div>
         <div class="content">
             <form class="form-vertical login-form" action="<?php echo site_url('account/loginPost');?>" method="post">
                 <h3 class="form-title">登录</h3>
