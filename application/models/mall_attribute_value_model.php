@@ -1,7 +1,7 @@
 <?php
 class Mall_attribute_value_model extends CI_Model{
 
-	private $table = 'mall_attribute_value';        
+	private $table = 'mall_attribute_value';    
 	
 	public function mall_attribute_list($page, $perpage, $search, $order='attr_value_id DESC')
 	{
@@ -28,6 +28,12 @@ class Mall_attribute_value_model extends CI_Model{
 	
 	public function insertAttrVal($postData) 
 	{
+	    /**@如果规格属性数量不能多于3个*/
+	    if ($postData['attr_spec'] == 2) {
+	        $this->db->where(array('attr_set_id'=>$postData['attr_set_id'], 'attr_spec'=>$postData['attr_spec']));
+	        $spec = $this->db->count_all_results($this->table);
+	        if ($spec >= 3) return 0;
+	    }
 	    $data = array(
 	        'group_id'     => $postData['group_id'],
 	        'attr_set_id'  => $postData['attr_set_id'],

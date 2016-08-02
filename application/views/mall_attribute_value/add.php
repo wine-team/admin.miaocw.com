@@ -25,6 +25,7 @@
                             <div class="controls">
                                 <input type="text" class="m-wrap large required" readonly  value="<?php echo $attr_set->attr_set_name;?>"/> 
                                 <input type="hidden" name="attr_set_id" value="<?php echo $attr_set->attr_set_id;?>">
+                                <span class="help-block">同一商品类型的规格属性数量<b style="color: red;">不能超过3个</b></span>
                             </div>
                         </div>
                         <div class="control-group">
