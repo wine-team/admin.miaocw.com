@@ -1,6 +1,8 @@
 <?php 
 class Mall_goods_base extends CS_Controller
 {
+	private $extension = array();
+
     public function _init()
     {
         $this->load->library('pagination');
@@ -16,6 +18,14 @@ class Mall_goods_base extends CS_Controller
         $this->load->model('mall_goods_attr_value_model','mall_goods_attr_value');
         $this->load->model('mall_goods_attr_spec_model','mall_goods_attr_spec');
         $this->load->model('mall_goods_related_model','mall_goods_related');
+		$this->extension = array(
+			'simple'=>'简单产品',
+			'grouped'=>'组合产品',
+			'configurable'=>'可配置产品',
+			'virtual'=>'虚拟产品',
+			'bundle'=>'捆绑产品',
+			'giftcard'=>'礼品卡'
+		);
     }
     
     public function grid($pg = 1)
@@ -36,7 +46,7 @@ class Mall_goods_base extends CS_Controller
 		$data['attribute_set'] = $this->mall_attribute_set->find(true);
 		$data['is_on_sale'] = array('1' => '上架', '2' => '下架');
         $data['is_check'] = array('1' => '待审核', '2' => '审核通过', '3' => '审核拒绝');
-		$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
+		$data['extension'] = $this->extension;
         $this->load->view('mall_goods_base/grid', $data);
     }
     
@@ -45,7 +55,7 @@ class Mall_goods_base extends CS_Controller
      */
     public function addstep1()
     {
-		$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
+		$data['extension'] = $this->extension;
     	$data['attribute'] = $this->mall_attribute_set->find();
     	$this->load->view('mall_goods_base/addstep1', $data);
     }
@@ -61,7 +71,7 @@ class Mall_goods_base extends CS_Controller
     	$data['brand'] = $this->mall_brand->findByCondition(array('is_show'=>1));//品牌信息
     	$data['attribute_group'] = $this->mall_attribute_group->findByAttrSetId($attr_set_id);
     	$data['category'] = $this->mall_category->getAllCategory();
-		$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
+		$data['extension'] = $this->extension;
     	$this->load->view('mall_goods_base/addstep2', $data);
     }
     

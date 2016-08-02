@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="portlet-body form">
-                    <form class="form-horizontal form-search" action="<?php echo base_url('mall_goods/grid') ?>" method="get">
+                    <form class="form-horizontal form-search" action="<?php echo base_url('mall_goods_base/grid') ?>" method="get">
                         <div class="row-fluid">
                             <div class="span4">
                                 <div class="control-group">
@@ -59,7 +59,7 @@
                                 <div class="control-group">
                                     <label class="control-label">供应商</label>
                                     <div class="controls">
-                                        <input type="text" name="username" value="<?php echo $this->input->get('username');?>" class="m-wrap medium" placeholder="请输入供应商帐号或别名">
+                                        <input type="text" name="supplier_id" value="<?php echo $this->input->get('supplier_id');?>" class="m-wrap medium" placeholder="请输入供应商编号">
                                     </div>
                                 </div>
                             </div>
