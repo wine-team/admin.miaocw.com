@@ -47,7 +47,6 @@
 
 $active_group  = 'default';
 $active_record = TRUE;
-
 $db['default']['hostname'] = 'mysql.sql71.cdncenter.net';
 $db['default']['username'] = 'sq_zhangkunch';
 $db['default']['password'] = '123456';

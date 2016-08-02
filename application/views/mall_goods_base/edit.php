@@ -42,7 +42,7 @@
 </div>
 <?php $this->load->view('layout/footer');?>
 <?php $this->load->view('supplier/ajaxSupplier/ajaxGet');?>
-<?php $this->load->view('mall_goods_base/addGoodBase/ajaxGetGoods');?>
+<?php $this->load->view('mall_goods_base/ajaxGoodsBase/ajaxGet');?>
 <script type="text/javascript">
 $(document).ready(function(){
 

@@ -29,7 +29,7 @@ class MJ_Controller extends CI_Controller
         
         // 开发模式下开启性能分析
         if (ENVIRONMENT === 'development') {
-             $this->output->enable_profiler(TRUE);
+//              $this->output->enable_profiler(TRUE);
         }
     }
     

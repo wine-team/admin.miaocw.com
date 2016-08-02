@@ -57,16 +57,32 @@
                                 <?php if($item->attr_type=='select') :?>
                                     <?php if(!empty($item->attr_values)):?>
                                         <?php $selectValue = explode(',',$item->attr_values)?>
-                                        <?php foreach($attr_value as $goods_attr_value) :?>
-                                            <?php if($goods_attr_value->attr_value_id ==$item->attr_value_id) :?>
-                                                <select class="m-wrap span8 <?php if($item->values_required==1):?>required<?php endif;?>" name="attr[1][<?php echo $goods_attr_val->goods_attr_id?>]">
-                                                    <option value="">请选择</option>
-                                                    <?php foreach ($selectValue as $attr_values) :?>
-                                                        <option <?php if($goods_attr_value->attr_value==$attr_values)echo 'selected="selected"'?> value="<?php echo $attr_values;?>"><?php echo $attr_values;?></option>
-                                                    <?php endforeach;?>
-                                                </select>
-                                            <?php endif;?>
-                                        <?php endforeach;?>
+                                        <?php if($item->attr_spec==2):?>
+                                            <?php foreach($attr_price as $goods_attr_price) :?>
+                                                <?php if($goods_attr_price->attr_value_id ==$item->attr_value_id) :?>
+                                                    <select class="m-wrap span2 <?php if($item->values_required==1):?>required<?php endif;?>" name="attr[2][<?php echo $goods_attr_price->attr_price_id?>]" >
+                                                        <option value="">请选择</option>
+                                                        <?php foreach ($selectValue as $attr_values) :?>
+                                                            <option <?php if($goods_attr_price->attr_value==$attr_values)echo 'selected="selected"'?> value="<?php echo $attr_values;?>"><?php echo $attr_values;?></option>
+                                                        <?php endforeach;?>
+                                                    </select>
+                                                    <input type="text" name="price[2][<?php echo $goods_attr_price->attr_price_id?>]" class="m-wrap span2 number <?php if($item->values_required==1):?>required<?php endif;?>" placeholder="价格" title="请输入价格" value="<?php echo $goods_attr_price->attr_price;?>" attr_value_id="<?php echo $item->attr_value_id;?>">
+                                                    <input type="text" name="attrNum[2][<?php echo $goods_attr_price->attr_price_id?>]" class="m-wrap span2 number <?php if($item->values_required==1):?>required<?php endif;?>" placeholder="属性数量" value="<?php echo $goods_attr_price->attr_num;?>" title="请输入属性数量" attr_value_id="<?php echo $item->attr_value_id;?>">
+                                                    <input type="text" name="attrStock[2][<?php echo $goods_attr_price->attr_price_id?>]" class="m-wrap span2 number <?php if($item->values_required==1):?>required<?php endif;?>" placeholder="库存数量" value="<?php echo $goods_attr_price->attr_stock;?>" title="请输入库存数量" attr_value_id="<?php echo $item->attr_value_id;?>">
+                                                <?php endif;?>
+                                            <?php endforeach;?>
+                                        <?php else :?>
+                                            <?php foreach($attr_value as $goods_attr_value) :?>
+                                                <?php if($goods_attr_value->attr_value_id ==$item->attr_value_id) :?>
+                                                    <select class="m-wrap span8 <?php if($item->values_required==1):?>required<?php endif;?>" name="attr[1][<?php echo $goods_attr_val->goods_attr_id?>]">
+                                                        <option value="">请选择</option>
+                                                        <?php foreach ($selectValue as $attr_values) :?>
+                                                            <option <?php if($goods_attr_value->attr_value==$attr_values)echo 'selected="selected"'?> value="<?php echo $attr_values;?>"><?php echo $attr_values;?></option>
+                                                        <?php endforeach;?>
+                                                    </select>
+                                                <?php endif;?>
+                                            <?php endforeach;?>
+                                        <?php endif;?>
                                     <?php endif;?>
                                 <?php endif;?>
 

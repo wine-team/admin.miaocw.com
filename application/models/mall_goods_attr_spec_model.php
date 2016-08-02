@@ -5,10 +5,10 @@ class Mall_goods_attr_spec_model extends CI_Model{
 	private $table1 = 'mall_goods_attr_price';
 	
 	/**
-	 * 数组插入数据
+	 * 数组插入数据（spec.bak.php）
 	 * @param unknown $goods_id
 	 * @param unknown $attrValue
-	 */
+	 
 	public function insertBatch($goods_id, $attrSpec, $attrPrice, $attrNum, $attrStock){
 	    foreach ($attrSpec as $key=>$item){
 	        foreach ($item as $jj=>$val){ 
@@ -42,6 +42,37 @@ class Mall_goods_attr_spec_model extends CI_Model{
 	            }
 	        }
 	    } 
+	}
+	*/
+	
+	/**
+	 * @param unknown $goods_id
+	 * @param unknown $attrPrice，$attrNum，$attrStock
+	 * */
+	public function insertBatch($goods_id, $attr, $attrPrice, $attrNum, $attrStock)
+	{
+	    $attr_set_id = 0;
+	    foreach ($attr as $k=>$v) {
+	        foreach ($v as $k1=>$v1)
+	        {
+	            $attr_value_id[] = $k1;
+	        }
+	    }
+	    $attr_value_id = array_pad($attr_value_id, 3, 0);
+	    $i = 0;
+	    foreach ($attrPrice as $key0=>$item0) {
+	        foreach ($item0 as $key1=>$item1) {
+	            foreach ($item1 as $key2=>$item2) {
+                    $price[$i]['attr_value_id'] = implode(',', $attr_value_id);
+                    $price[$i]['attr_value'] = $key0.','.$key1.','.$key2;
+                    $price[$i]['attr_price'] = $attrPrice[$key0][$key1][$key2];
+                    $price[$i]['attr_num'] = $attrNum[$key0][$key1][$key2];
+                    $price[$i]['attr_stock'] = $attrStock[$key0][$key1][$key2];
+                    $i ++; 
+	            }
+	        }
+	    }
+	    $this->db->insert_batch($this->table1,$price);
 	}
 	
 	public function findById($where)

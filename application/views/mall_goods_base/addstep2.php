@@ -44,13 +44,31 @@
 <?php $this->load->view('mall_goods_base/ajaxGoodsBase/ajaxGet');?>
 <script type="text/javascript">
 $(document).ready(function(){
-	$('.mall-goods-form .table input[type="checkbox"]').click(function(){
-		if($(this).is(':checked')==false){
-			$(this).parents('tr').find('input[type="text"]').each(function(){
-				$(this).val('');
-			});
+
+	if($('.attrSpec2').size() > 0){
+		var getAttrSpec2 = function(values){
+			var attr_set_id = $('input[name="attribute_set_id"]').val();
+			$.post(hostUrl()+'/mall_goods_base/getAttrSpec2',{attr_set_id:attr_set_id, values:values},function(json){
+				$('.addAttrSpec2').remove();
+				$('.attrSpec2:last').after(json);	
+			},'json');
 		}
-	});
+		getAttrSpec2();
+		$('.attrSpec2 input').click(function(){
+			if($(this).parents('.attrSpec2').find('input:checked').size() == 0) 
+			{
+				alert('规格属性必须选择');
+				return false;
+			}
+			var values = new Array();
+			$('.attrSpec2').each(function(){
+				$(this).find('input').each(function(){
+					if($(this).is(':checked')) values.push($(this).val());
+				});
+			});
+			getAttrSpec2(values);
+		});
+	}
 
     $('.mall-goods-form').on("click", "input[name='transport_type']", function () {
 

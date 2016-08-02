@@ -50,7 +50,6 @@ class Mall_goods_base extends CS_Controller
     	$this->load->view('mall_goods_base/addstep1', $data);
     }
     
-    
     public function addstep2()
     {
     	$extension_code = $this->input->get('extension_code');
@@ -64,6 +63,74 @@ class Mall_goods_base extends CS_Controller
     	$data['category'] = $this->mall_category->getAllCategory();
 		$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
     	$this->load->view('mall_goods_base/addstep2', $data);
+    }
+    
+    /**
+     * @获取规格属性，并组成table
+     * */
+    public function getAttrSpec2()
+    {
+        $attr_set_id = $this->input->post('attr_set_id');
+//         $names = $this->input->post('names');
+        $values = $this->input->post('values') ? $this->input->post('values') : array();
+        $attrSpec = $this->mall_attribute_value->getWhere(array('attr_set_id'=>$attr_set_id, 'attr_spec'=>2))->result();
+        $spec = '';
+        $spec .= '<div class="control-group addAttrSpec2">';
+        $spec .= '<label class="control-label"></label>';
+        $spec .= '<div class="controls">';
+        $spec .= '<table class="table span8 table-striped table-bordered table-hover">';
+        $spec .= '<tr>';
+        $i = 0;
+        $num = array('0'=>1, '1'=>1, '2'=>1);
+        foreach ($attrSpec as $a) {
+            $spec .= '<td width="15%">'.$a->attr_name.'</td>';
+            if (empty($values)) {
+                $attr_val[$i] = explode(',', $a->attr_values);
+            } else {
+                $attr_val[$i] = array_intersect(explode(',', $a->attr_values), $values);
+            }
+            $num[$i] = count($attr_val[$i]);
+            $i ++;
+        } 
+        $spec .= '<td width="20%">价格</td>';
+        $spec .= '<td width="20%">属性数量</td>';
+        $spec .= '<td>库存数量</td>';
+        $spec .= '</tr>';
+        
+        $x0 = $x1 = $x2 = 0;
+        $val0 = $val1 =$val2 = 0;
+        for ($j=0;$j<$num[0]*$num[1]*$num[2];$j++) {
+            $spec .= '<tr>';
+            if (isset($attr_val[0]) && is_int($j/($num[1]*$num[2]))) {
+                $new_val0 = array_values($attr_val[0]);
+                if(!isset($new_val0[$x0])) $x0 = 0;
+                $val0 = $new_val0[$x0];
+                $spec .= '<td rowspan="'.$num[1]*$num[2].'">'.$val0.'</td>';
+                $x0++;
+            }
+            if (isset($attr_val[1]) && is_int($j/$num[2])) {
+                $new_val1 = array_values($attr_val[1]);
+                if(!isset($new_val1[$x1])) $x1 = 0;
+                $val1 = $new_val1[$x1];
+                $spec .= '<td rowspan="'.$num[2].'">'.$val1.'</td>';
+                $x1++;
+            }
+            if (isset($attr_val[2])) {
+                $new_val2 = array_values($attr_val[2]);
+                if(!isset($new_val2[$x2])) $x2 = 0;
+                $val2 = $new_val2[$x2];
+                $spec .= '<td >'.$val2.'</td>';
+                $x2++;
+            }
+            $spec .= '<td><input type="text" name="price[2][' . $val0 . '][' . $val1 . '][' . $val2 . ']" class="m-wrap span10 number" placeholder="价格" value="0" title="请输入价格" attr_value_id="" maxlength=10 >元</td>';
+            $spec .= '<td><input type="text" name="attrNum[2][' . $val0 . '][' . $val1 . '][' . $val2 . ']" class="m-wrap span10 number" placeholder="属性数量" value="1000" title="请输入属性数量" attr_value_id="" maxlength=10>件</td>';
+            $spec .= '<td><input type="text" name="attrStock[2][' . $val0 . '][' . $val1 . '][' . $val2 . ']" class="m-wrap span10 number" placeholder="库存数量" value="1000" title="请输入库存数量" attr_value_id="" maxlength=10>件</td>';
+            $spec .= '</tr>';
+        }   
+        $spec .= '</table>';
+        $spec .= '</div>';
+        $spec .= '</div>'; 
+        echo json_encode($spec);
     }
     
     /**
@@ -158,7 +225,7 @@ class Mall_goods_base extends CS_Controller
     	    $goodsAttrResult = $this->mall_goods_attr_value->insertBatch($goods_id,$param['attr'][1]);
     	}
     	if (isset($param['attr'][2]) && isset($param['price'][2]) && isset($param['attrNum'][2]) && isset($param['attrStock'][2])) {
-    	    $this->mall_goods_attr_spec->insertBatch($goods_id,$param['attr'][2], $param['price'][2], $param['attrNum'][2], $param['attrStock'][2]);
+    	    $this->mall_goods_attr_spec->insertBatch($goods_id, $param['attr'][2], $param['price'][2], $param['attrNum'][2], $param['attrStock'][2]);
     	}
     	if (!$goods_id && !$result && !$relatedResult && $this->db->trans_status() === FALSE) {
     		$this->db->trans_rollback();
@@ -231,7 +298,7 @@ class Mall_goods_base extends CS_Controller
     	}
     	
     	if (isset($param['attr'][2]) && isset($param['price'][2]) && isset($param['attrNum'][2]) && isset($param['attrStock'][2])) {
-    	    $this->mall_goods_attr_spec->updatePriceBatch($param['price'][2], $param['attrNum'][2], $param['attrStock'][2]);
+    	    $this->mall_goods_attr_spec->updatePriceBatch($param['attr'][2], $param['price'][2], $param['attrNum'][2], $param['attrStock'][2]);
     	}
 
     	if ( !$updateGoods && !$updateCategory && $this->db->trans_status() === FALSE) {
@@ -456,7 +523,7 @@ class Mall_goods_base extends CS_Controller
     	                $require_ids[] = $k3;
     	            }
     	        }
-    	    }
+    	    } 
     	    foreach ($attr_value as $a) {
     	        if (!in_array($a->attr_value_id,$require_ids)) {
     	            $error[] = '请选择属性：'.$a->attr_name;
