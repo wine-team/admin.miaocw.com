@@ -237,7 +237,7 @@ class MJ_Controller extends CI_Controller
      * @param string $dirName 图片保存在uploads下的目录。
      * @return boolean|array
      */
-    protected function dealWithImagesResize($imageData, $width='75', $height='50')
+    protected function dealWithImagesResize($imageData, $width='60', $height='60')
     {
         $config['image_library']  = 'GD2'; //设置图像库GD, GD2, ImageMagick, NetPBM	
         $config['source_image']   = $imageData['full_path']; //设置原始图像的名字/路径。 这个路径必须是相对或绝对的服务器路径，不能是URL
@@ -247,7 +247,7 @@ class MJ_Controller extends CI_Controller
         }
         $config['create_thumb']   = TRUE; //让图像处理函数产生一个预览图像
         $config['maintain_ratio'] = TRUE; //指定是否在缩放或使用硬值的时候使图像保持原始的纵横比例。
-        $config['thumb_marker']   = ''; //例如，mypic.jpg 将会变成 mypic_thumb.jpg
+        $config['thumb_marker']   = $width.'x'.$height; //例如，mypic.jpg 将会变成 mypic_thumb.jpg
         $config['quality']        = 90; //设置图像的品质。1 - 100
         $config['width']          = $width;
         $config['height']         = $height;

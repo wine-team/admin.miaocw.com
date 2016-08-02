@@ -8,8 +8,14 @@
             </div>
         <?php elseif ($this->input->get('parent_id')) : ?>
             <div class="pull-left">添加子分类</div>
+            <div class="pull-right">
+                <button type="submit" class="btn green mini">保存</button>
+            </div>
         <?php else :?>
             <div class="pull-left">添加新分类</div>
+            <div class="pull-right">
+                <button type="submit" class="btn green mini">保存</button>
+            </div>
         <?php endif; ?>
     </div>
     <div class="tabbable tabbable-custom tabbable-full-width">
@@ -37,7 +43,7 @@
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label"><em>* </em>类名全名</label>
+                    <label class="control-label"><em>* </em>分类导航</label>
                     <div class="controls">
                         <input type="text" name="full_name" value="<?php echo isset($mallCategory->full_name) ? $mallCategory->full_name : '' ?>" class="m-wrap span8 required" placeholder="分类页面的位置导航">
                     </div>
@@ -56,14 +62,14 @@
                 <div class="control-group">
                     <label class="control-label">分类图片</label>
                     <div class="controls">
-                        <?php if (isset($mallCategory->cat_img) && is_file($this->config->upload_image_thumb_path('mall', $mallCategory->cat_img))) :?>
-                            <a href="<?php echo $this->config->show_image_thumb_url('mall', $mallCategory->cat_img)?>" target="_blank">
-                                <img src="<?php echo $this->config->show_image_thumb_url('mall', $mallCategory->cat_img)?>" width=100 height="100">
+                        <?php if (isset($mallCategory->cat_img) && is_file($this->config->upload_image_path('mall', $mallCategory->cat_img))) :?>
+                            <a href="<?php echo $this->config->show_image_url('mall', $mallCategory->cat_img)?>" target="_blank">
+                                <img src="<?php echo $this->config->show_image_url('mall', $mallCategory->cat_img)?>" width=60 height="60">
                             </a>
                             <input type="hidden" name="oldfilename" value="<?php echo $mallCategory->cat_img ?>">
-                            <input type="file" name="cat_img">
+                            <input type="file" name="cat_img" class="checkPicture">
                         <?php else : ?>
-                            <input type="file" name="cat_img">
+                            <input type="file" name="cat_img" class="checkPicture">
                         <?php endif; ?>
                     </div>
                 </div>
@@ -98,7 +104,7 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane row-fluid" id="tab_1_2">
+            <div class="tab-pane row-fluid data-ajax-url" id="tab_1_2" data-ajax-url="<?php echo base_url('mall_category_product/ajaxGet');?>">
                 <?php $this->load->view('mall_category_product/ajaxCategoryProduct/ajaxGet');?>
             </div>
         </div>

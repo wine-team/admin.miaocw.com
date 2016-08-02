@@ -107,7 +107,6 @@ class Mall_category_model extends CI_Model
 	{
 		$data = array(
 			'cat_name'          => $postData['cat_name'],
-			'parent_id'         => !empty($postData['parent_id']) ? $postData['parent_id'] : 0,
 			'is_show'           => $postData['is_show'],
 			'block_id'          => !empty($postData['block_id']) ? $postData['block_id'] : '',
 			'cat_img'           => !empty($postData['cat_img']) ? $postData['cat_img'] : '',
