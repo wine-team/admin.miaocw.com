@@ -50,7 +50,7 @@ jQuery(document).ready(function($) {
     //CKedit 编辑器 js
     if ($('textarea.textarea-multipart-edit').size() > 0) {
         KindEditor.create('textarea.textarea-multipart-edit', {
-            width : '73%',
+            width : '99.5%',
             height : '250px',
             filterMode: false
         });
