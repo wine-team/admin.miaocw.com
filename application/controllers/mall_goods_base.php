@@ -70,7 +70,6 @@ class Mall_goods_base extends CS_Controller
     	$data['attr_set_id'] = $attr_set_id;
     	$data['brand'] = $this->mall_brand->findByCondition(array('is_show'=>1));//品牌信息
     	$data['attribute_group'] = $this->mall_attribute_group->findByAttrSetId($attr_set_id);
-    	$data['category'] = $this->mall_category->getAllCategory();
 		$data['extension'] = $this->extension;
     	$this->load->view('mall_goods_base/addstep2', $data);
     }
