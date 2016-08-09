@@ -1,7 +1,27 @@
 <?php
 class Mall_brand_model extends CI_Model
 {
-	private $table = 'mall_brand';        
+	private $table = 'mall_brand';
+
+	public function find($isArray=false)
+	{
+		$this->db->where('is_show', 1);
+		$result = $this->db->get($this->table);
+		if ($isArray) {
+			$rows = array();
+			foreach ($result->result_array() as $row) {
+				$rows[$row['brand_id']] = $row;
+			}
+			return $rows;
+		}
+		return $result;
+	}
+
+	public function findById($brand_id)
+	{
+		$this->db->where('brand_id', $brand_id);
+		return $this->db->get_where($this->table);
+	}
 
 	public function total($params=array())
 	{

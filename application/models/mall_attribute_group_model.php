@@ -1,5 +1,6 @@
 <?php
-class Mall_attribute_group_model extends CI_Model{
+class Mall_attribute_group_model extends CI_Model
+{
 
 	private $table = 'mall_attribute_group';     
 	
@@ -40,5 +41,4 @@ class Mall_attribute_group_model extends CI_Model{
 	    $this->db->delete($this->table, $where);
 	    return $this->db->affected_rows();
 	}
-	
 }

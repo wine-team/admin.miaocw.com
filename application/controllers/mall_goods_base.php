@@ -56,7 +56,7 @@ class Mall_goods_base extends CS_Controller
     public function addstep1()
     {
 		$data['extension'] = $this->extension;
-    	$data['attribute'] = $this->mall_attribute_set->find();
+    	$data['attributeSet'] = $this->mall_attribute_set->find();
     	$this->load->view('mall_goods_base/addstep1', $data);
     }
     
@@ -68,8 +68,9 @@ class Mall_goods_base extends CS_Controller
     		$this->error('mall_goods_base/addstep1', '', '请选择完整商品的类别和类型');
     	}
     	$data['attr_set_id'] = $attr_set_id;
-    	$data['brand'] = $this->mall_brand->findByCondition(array('is_show'=>1));//品牌信息
-    	$data['attribute_group'] = $this->mall_attribute_group->findByAttrSetId($attr_set_id);
+    	$data['brand'] = $this->mall_brand->find();//品牌信息
+    	$data['attributeGroup'] = $this->mall_attribute_group->findByAttrSetId($attr_set_id);
+		$data['attributeSet'] = $this->mall_attribute_set->find();
 		$data['extension'] = $this->extension;
     	$this->load->view('mall_goods_base/addstep2', $data);
     }
@@ -285,7 +286,6 @@ class Mall_goods_base extends CS_Controller
     	    $attr_price = $this->mall_goods_attr_spec->getPriceWhereIn('attr_spec_id', $attr_spec_ids)->result();
     	}
     	$data['attr_price'] = $attr_price;
-    	$data['category'] = $this->mall_category->getAllCategory();
     	$this->load->view('mall_goods_base/edit',$data);
     }
     

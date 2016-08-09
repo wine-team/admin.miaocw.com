@@ -3,7 +3,7 @@
     <div class="row-fluid">
         <div class="span12">
             <h3 class="page-title">趣网商城 <small> 商品编辑</small></h3>
-            <?php echo breadcrumb(array('mall_goods_base/grid' => '趣网产品', "mall_goods_base/edit/".$mallgoods->goods_id.'?attr_set_id='.$mallgoods->attribute_set_id => '商品编辑')); ?>
+            <?php echo breadcrumb(array('mall_goods_base/grid' => '趣网产品', "mall_goods_base/edit/".$mallgoods->goods_id.'?attr_set_id='.$mallgoods->attr_set_id => '商品编辑')); ?>
         </div>
     </div>
     <div class="alert alert-error" style="display:none;">
@@ -45,29 +45,6 @@
 <?php $this->load->view('mall_goods_base/ajaxGoodsBase/ajaxGet');?>
 <script type="text/javascript">
 $(document).ready(function(){
-
-    $('.show-category-name').delegate('.modify-category','click',function(e){
-        
-        if (confirm('确定修改吗')) {
-            
-        	$('.show-category-name').hide();
-        	$('.category-edit').find('.category-edit-select').addClass('required');
-        	$('.category-edit').find('.chzn-container-multi,.chzn-drop').css('width','75%');
-            $('.category-edit').show();
-        }
-    }) 
-    
-    $('.category-edit').delegate('.cancel-modify-category','click',function(e){
-
-        $('.show-category-name').show();
-        $('.category-edit .search-choice').remove();
-        $('.category-edit').find('.category-edit-select').removeClass('required');
-        $('.category-edit').find('.category-edit-select').val('');
-        $('.category-edit .chzn-results .group-result').css({'display':'list-item'});
-        $('.category-edit .group-option').removeClass('result-selected').addClass('active-result');
-        $('.category-edit').hide();
-    })
-	
 	$('.mall-goods-add-step2 .table input[type="checkbox"]').click(function(){
 		if($(this).is(':checked')==false){
 			$(this).parents('tr').find('input[type="text"]').each(function(){

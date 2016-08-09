@@ -95,9 +95,3 @@
         <input type="text" name="sort_order" class="m-wrap span12 required number" placeholder="排序">
     </div>
 </div>
-<div class="control-group add-goods-related-html">
-    <label class="control-label">关联产品</label>
-    <div class="controls">
-        <input type="text" name="related_goods_id" class="m-wrap span12 tooltips related_goods_id" placeholder="关联产品Id" data-original-title="双击可弹框选择关联产品" data-trigger="hover"  autocomplete="off" />
-    </div>
-</div>

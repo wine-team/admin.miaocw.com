@@ -34,7 +34,7 @@
                             <div class="controls">
                                 <select name="attr_set_id" class="medium m-wrap chosen required" data-placeholder="请选择商品属性">
                                     <option value=""></option>
-                                    <?php foreach ($attribute->result() as $key=>$value) : ?>
+                                    <?php foreach ($attributeSet->result() as $key=>$value) : ?>
                                         <option value="<?php echo $value->attr_set_id;?>"><?php echo $value->attr_set_name;?></option>
                                     <?php endforeach;?>
                                 </select>

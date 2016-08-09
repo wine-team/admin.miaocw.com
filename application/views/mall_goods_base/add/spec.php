@@ -1,5 +1,5 @@
-<?php if($attribute_group->num_rows()>0):?>
-    <?php foreach ($attribute_group->result() as $val):?>
+<?php if($attributeGroup->num_rows()>0):?>
+    <?php foreach ($attributeGroup->result() as $val):?>
         <?php $attribute_value = $this->mall_attribute_value->getAttrbuteValue($val->group_id,$val->attr_set_id);?>
         <?php if($attribute_value->num_rows()>0):?>
             <div class="alert alert-success"><?php echo $val->group_name;?></div>
