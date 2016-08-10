@@ -1,10 +1,24 @@
 <?php
-class Mall_goods_related_model extends CI_Model{
+class Mall_goods_related_model extends CI_Model
+{
+	private $table = 'mall_goods_related';
 
-	private $table = 'mall_goods_related';        
-	
-	public function total($param){
-		
+	public function findByGoodsId($goods_id, $isArray=false)
+	{
+		$this->db->where('goods_id', (int)$goods_id);
+		$result = $this->db->get($this->table);
+		if ($isArray) {
+			$rows = array();
+			foreach ($result->result() as $item) {
+				$rows[$item->related_goods_id] = $item->position;
+			}
+			return $rows;
+		}
+		return $result;
+	}
+
+	public function total($param)
+	{
 		if (!empty($param['goods_id'])) {
 		   $this->db->where('goods_id',$param['goods_id']);
 		}
@@ -14,8 +28,8 @@ class Mall_goods_related_model extends CI_Model{
 		return $this->db->count_all_results($this->table);
 	}
 	
-	public function page_list($page_num, $num, $param){
-		
+	public function page_list($page_num, $num, $param)
+	{
 		if (!empty($param['goods_id'])) {
 			$this->db->where('goods_id',$param['goods_id']);
 		}
@@ -64,8 +78,8 @@ class Mall_goods_related_model extends CI_Model{
 	 * @param unknown $relatedGoodsArray
 	 * @param unknown $goods_id
 	 */
-	public function insertBatch($relatedGoodsArray,$is_double,$goods_id){
-		
+	public function insertBatch($relatedGoodsArray,$is_double,$goods_id)
+	{
 		$i = 0;
 		$relatedGoods = array();
 		foreach ($relatedGoodsArray as $item){
@@ -77,8 +91,8 @@ class Mall_goods_related_model extends CI_Model{
 		return $this->db->insert_batch($this->table,$relatedGoods);
 	}
 	
-	public function findRealtedByGoodsId($goods_id){
-		
+	public function findRealtedByGoodsId($goods_id)
+	{
 		$this->db->where('goods_id',$goods_id);
 		$result = $this->db->get($this->table);
 		$returnArray = array();
@@ -89,9 +103,5 @@ class Mall_goods_related_model extends CI_Model{
 		}
 		return $returnArray;
 	}
-	
-	
 }
-/* End of file Mall_goods_related_model.php */
-/* Location: ./application/models/Mall_goods_related_model.php */
 

@@ -35,7 +35,7 @@
 <div class="control-group add-pop-up-html">
     <label class="control-label"><em>* </em>供应商UID</label>
     <div class="controls">
-        <input type="text" name="supplier_id" class="m-wrap span12 supplieruid required tooltips" placeholder="默认0为自营商品" data-original-title="双击可弹框选择供应商" data-trigger="hover" autocomplete="off">
+        <input type="text" name="supplier_id" value="0" class="m-wrap span12 supplieruid required tooltips" placeholder="默认0为自营商品" data-original-title="双击可弹框选择供应商" data-trigger="hover" autocomplete="off">
     </div>
 </div>
 <?php if ($brand->num_rows() > 0) : ?>

@@ -6,6 +6,7 @@ class Mall_goods_related extends CS_Controller {
 	{
 	    $this->load->library('pagination');
 	    $this->load->model('mall_goods_related_model','mall_goods_related');
+		$this->load->model('mall_goods_base_model','mall_goods_base');
 	}
 	
 	
@@ -100,5 +101,38 @@ class Mall_goods_related extends CS_Controller {
 		}
 		return $error;
 	}
-	
+
+
+	/**
+	 * ajax 翻页函数部分。
+	 * @param number $pg
+	 */
+	public function ajaxGet($pg = 1)
+	{
+		$getData = $this->input->get();
+		$page_num = 20;
+		$num = ($pg-1)*$page_num;
+		$config['first_url'] = base_url('mall_goods_related/ajaxGet').$this->pageGetParam($this->input->get());
+		$config['suffix'] = $this->pageGetParam($this->input->get());
+		$config['base_url'] = base_url('mall_goods_related/ajaxGet');
+		$goodsInfo = $this->mall_goods_related->findByGoodsId($this->input->get('current_goods_id'), true);
+		if (!empty($goodsInfo) && $this->input->get('join') != '') {
+			$getData['goods_ids'] = array_keys($goodsInfo);
+		}
+		$config['total_rows'] = $this->mall_goods_base->total($getData);
+		$config['uri_segment'] = 3;
+		$this->pagination->initialize($config);
+		$data['pg_link']   = $this->pagination->create_links();
+		$data['page_list'] = $this->mall_goods_base->page_list($page_num, $num, $getData);
+		$data['all_rows']  = $config['total_rows'];
+		$data['pg_now']    = $pg;
+		$data['page_num']  = $page_num;
+		$data['goodsInfo'] = $goodsInfo;
+
+		echo json_encode(array(
+			'status' => true,
+			'html'   => $this->load->view('mall_goods_related/ajaxGoodsRelated/ajaxData', $data, true),
+			'json'   => json_encode($goodsInfo),
+		));exit;
+	}
 }

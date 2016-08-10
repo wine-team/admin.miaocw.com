@@ -11,17 +11,6 @@
     </div>
 </div>
 <div class="control-group">
-    <label class="control-label"><em>* </em>支付方式</label>
-    <div class="controls">
-        <label class="checkbox">
-            <input type="checkbox" class="required" value="1" name="payments[]" checked="checked"/>在线支付
-        </label>
-        <label class="checkbox">
-            <input type="checkbox" class="required" value="2" name='payments[]'/>货到付款
-        </label>
-    </div>
-</div>
-<div class="control-group">
     <label class="control-label">运费</label>
     <div class="controls transport">
         <label class="checkbox">
