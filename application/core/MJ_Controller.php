@@ -247,8 +247,8 @@ class MJ_Controller extends CI_Controller
         }
         $config['create_thumb']   = TRUE; //让图像处理函数产生一个预览图像
         $config['maintain_ratio'] = TRUE; //指定是否在缩放或使用硬值的时候使图像保持原始的纵横比例。
-        $config['thumb_marker']   = $width.'x'.$height; //例如，mypic.jpg 将会变成 mypic_thumb.jpg
-        $config['quality']        = 90; //设置图像的品质。1 - 100
+        $config['thumb_marker']   = '_'.$width.'x'.$height; //例如，mypic.jpg 将会变成 mypic_thumb.jpg
+        $config['quality']        = 95; //设置图像的品质。1 - 100
         $config['width']          = $width;
         $config['height']         = $height;
         
