@@ -69,7 +69,18 @@ class Mall_goods_base extends CS_Controller
     	}
     	$data['attr_set_id'] = $attr_set_id;
     	$data['brand'] = $this->mall_brand->find();//品牌信息
-    	$data['attributeGroup'] = $this->mall_attribute_group->findByAttrSetId($attr_set_id);
+
+		$result = $this->mall_attribute_group->getAttrValuesByAttrSetId($attr_set_id, true);
+
+		$attrValues = array();
+		if ($result->num_rows() > 0) {
+			foreach ($result->result() as $item) {
+				$attrValues[$item->group_id]['attr_set_id'] = $item->attr_set_id;
+				$attrValues[$item->group_id]['group_name'] = $item->group_name;
+				$attrValues[$item->group_id]['attr_value'][] = $item;
+			}
+		}
+		$data['attrValues'] = $attrValues;
 		$data['attributeSet'] = $this->mall_attribute_set->find();
 		$data['extension'] = $this->extension;
     	$this->load->view('mall_goods_base/addstep2', $data);

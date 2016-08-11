@@ -20,7 +20,7 @@
                        <li><a href="#tab_3" data-toggle="tab">促销信息</a></li>
                        <li><a href="#tab_4" data-toggle="tab">属性信息</a></li>
                        <li><a href="#tab_5" data-toggle="tab">运费信息</a></li>
-                       <li><a href="#tab_6" data-toggle="tab">关联产品</a></li>
+                       <li><a href="#tab_6" data-toggle="tab">商品关联</a></li>
                     </ul>
 				    <div class="tab-content">
                         <div class="tab-pane active" id="tab_1">
@@ -55,34 +55,7 @@
 <?php $this->load->view('supplier/ajaxSupplier/ajaxGet');?>
 <script type="text/javascript">
 $(document).ready(function(){
-
-	if($('.attrSpec2').size() > 0){
-		var getAttrSpec2 = function(values){
-			var attr_set_id = $('input[name="attribute_set_id"]').val();
-			$.post(hostUrl()+'/mall_goods_base/getAttrSpec2',{attr_set_id:attr_set_id, values:values},function(json){
-				$('.addAttrSpec2').remove();
-				$('.attrSpec2:last').after(json);	
-			},'json');
-		}
-		getAttrSpec2();
-		$('.attrSpec2 input').click(function(){
-			if($(this).parents('.attrSpec2').find('input:checked').size() == 0) 
-			{
-				alert('规格属性必须选择');
-				return false;
-			}
-			var values = new Array();
-			$('.attrSpec2').each(function(){
-				$(this).find('input').each(function(){
-					if($(this).is(':checked')) values.push($(this).val());
-				});
-			});
-			getAttrSpec2(values);
-		});
-	}
-
     $('.mall-goods-form').on("click", "input[name='transport_type']", function () {
-
         var obj = $(this).parents('label').next();
         var uid = $('input[name=supplier_id]').val();
         var key = $(this).attr('data-key');
