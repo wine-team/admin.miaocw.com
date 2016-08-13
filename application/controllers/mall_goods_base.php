@@ -70,9 +70,8 @@ class Mall_goods_base extends CS_Controller
     	$data['attr_set_id'] = $attr_set_id;
     	$data['brand'] = $this->mall_brand->find();//品牌信息
 
-		$result = $this->mall_attribute_group->getAttrValuesByAttrSetId($attr_set_id, true);
-
 		$attrValues = array();
+		$result = $this->mall_attribute_group->getAttrValuesByAttrSetId($attr_set_id);
 		if ($result->num_rows() > 0) {
 			foreach ($result->result() as $item) {
 				$attrValues[$item->group_id]['attr_set_id'] = $item->attr_set_id;
