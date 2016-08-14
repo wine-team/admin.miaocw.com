@@ -29,9 +29,30 @@
                     </div>
                 </div>
             <?php elseif ($attrValue->attr_type == 'multiselect') : ?>
-
+                <div class="control-group">
+                    <label class="control-label">Default Dropdown(Multiple)</label>
+                    <div class="controls">
+                        <select class="span6 m-wrap" multiple="multiple" data-placeholder="Choose a Category" tabindex="1">
+                            <option value="Category 1">Category 1</option>
+                            <option value="Category 2">Category 2</option>
+                            <option value="Category 3">Category 5</option>
+                            <option value="Category 4">Category 4</option>
+                            <option value="Category 3">Category 6</option>
+                            <option value="Category 4">Category 7</option>
+                            <option value="Category 3">Category 8</option>
+                            <option value="Category 4">Category 9</option>
+                        </select>
+                    </div>
+                </div>
             <?php elseif ($attrValue->attr_type == 'date') : ?>
-
+                <div class="control-group">
+                    <label class="control-label"><?php echo $attrValue->attr_name ?></label>
+                    <div class="controls">
+                        <div class="input-append date date-picker" data-date-format="yyyy-mm-dd">
+                            <input type="text" size="16" value="" class="m-wrap date-picker"><span class="add-on"><i class="icon-calendar"></i></span>
+                        </div>
+                    </div>
+                </div>
             <?php endif;?>
         <?php endforeach;?>
     <?php endforeach; ?>
