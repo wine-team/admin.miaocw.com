@@ -49,10 +49,7 @@ class Mall_goods_base extends CS_Controller
 		$data['extension'] = $this->extension;
         $this->load->view('mall_goods_base/grid', $data);
     }
-    
-     /**
-     *添加的第一步
-     */
+
     public function addstep1()
     {
 		$data['extension'] = $this->extension;
@@ -83,74 +80,6 @@ class Mall_goods_base extends CS_Controller
 		$data['attributeSet'] = $this->mall_attribute_set->find();
 		$data['extension'] = $this->extension;
     	$this->load->view('mall_goods_base/addstep2', $data);
-    }
-    
-    /**
-     * @获取规格属性，并组成table
-     * */
-    public function getAttrSpec2()
-    {
-        $attr_set_id = $this->input->post('attr_set_id');
-//         $names = $this->input->post('names');
-        $values = $this->input->post('values') ? $this->input->post('values') : array();
-        $attrSpec = $this->mall_attribute_value->getWhere(array('attr_set_id'=>$attr_set_id, 'attr_spec'=>2))->result();
-        $spec = '';
-        $spec .= '<div class="control-group addAttrSpec2">';
-        $spec .= '<label class="control-label"></label>';
-        $spec .= '<div class="controls">';
-        $spec .= '<table class="table span8 table-striped table-bordered table-hover">';
-        $spec .= '<tr>';
-        $i = 0;
-        $num = array('0'=>1, '1'=>1, '2'=>1);
-        foreach ($attrSpec as $a) {
-            $spec .= '<td width="15%">'.$a->attr_name.'</td>';
-            if (empty($values)) {
-                $attr_val[$i] = explode(',', $a->attr_values);
-            } else {
-                $attr_val[$i] = array_intersect(explode(',', $a->attr_values), $values);
-            }
-            $num[$i] = count($attr_val[$i]);
-            $i ++;
-        } 
-        $spec .= '<td width="20%">价格</td>';
-        $spec .= '<td width="20%">属性数量</td>';
-        $spec .= '<td>库存数量</td>';
-        $spec .= '</tr>';
-        
-        $x0 = $x1 = $x2 = 0;
-        $val0 = $val1 =$val2 = 0;
-        for ($j=0;$j<$num[0]*$num[1]*$num[2];$j++) {
-            $spec .= '<tr>';
-            if (isset($attr_val[0]) && is_int($j/($num[1]*$num[2]))) {
-                $new_val0 = array_values($attr_val[0]);
-                if(!isset($new_val0[$x0])) $x0 = 0;
-                $val0 = $new_val0[$x0];
-                $spec .= '<td rowspan="'.$num[1]*$num[2].'">'.$val0.'</td>';
-                $x0++;
-            }
-            if (isset($attr_val[1]) && is_int($j/$num[2])) {
-                $new_val1 = array_values($attr_val[1]);
-                if(!isset($new_val1[$x1])) $x1 = 0;
-                $val1 = $new_val1[$x1];
-                $spec .= '<td rowspan="'.$num[2].'">'.$val1.'</td>';
-                $x1++;
-            }
-            if (isset($attr_val[2])) {
-                $new_val2 = array_values($attr_val[2]);
-                if(!isset($new_val2[$x2])) $x2 = 0;
-                $val2 = $new_val2[$x2];
-                $spec .= '<td >'.$val2.'</td>';
-                $x2++;
-            }
-            $spec .= '<td><input type="text" name="price[2][' . $val0 . '][' . $val1 . '][' . $val2 . ']" class="m-wrap span10 number" placeholder="价格" value="0" title="请输入价格" attr_value_id="" maxlength=10 >元</td>';
-            $spec .= '<td><input type="text" name="attrNum[2][' . $val0 . '][' . $val1 . '][' . $val2 . ']" class="m-wrap span10 number" placeholder="属性数量" value="1000" title="请输入属性数量" attr_value_id="" maxlength=10>件</td>';
-            $spec .= '<td><input type="text" name="attrStock[2][' . $val0 . '][' . $val1 . '][' . $val2 . ']" class="m-wrap span10 number" placeholder="库存数量" value="1000" title="请输入库存数量" attr_value_id="" maxlength=10>件</td>';
-            $spec .= '</tr>';
-        }   
-        $spec .= '</table>';
-        $spec .= '</div>';
-        $spec .= '</div>'; 
-        echo json_encode($spec);
     }
     
     /**
@@ -227,6 +156,7 @@ class Mall_goods_base extends CS_Controller
     		$this->addPost();
     	}
     }
+
     /**
      * 添加
      */
@@ -274,7 +204,7 @@ class Mall_goods_base extends CS_Controller
     	$data['district_id'] = $data['mallgoods']->district_id;
     	$data['brand'] = $this->mall_brand->findByCondition(array('is_show'=>1));//品牌信息
 		
-    	$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
+    	$data['extension'] = $this->extension;
     	
     	$data['category_name'] = $this->mall_category->getCategoryByCatId(array('category_id'=>$data['mallgoods']->category_id));
 		
@@ -436,66 +366,7 @@ class Mall_goods_base extends CS_Controller
     	}
     	$this->success('mall_goods_base/images', $goods_id, '删除成功！');
     }
-    
-    /**
-     * 
-     * @param unknown $goods_id
-     */
-    public function copy($goods_id)
-	{
-		$result = $this->mall_goods_base->getInfoByGoodsId($goods_id);
-		if ($result->num_rows() <= 0) {
-			$this->error('mall_goods_base/grid', '', '找不到产品相关信息！');
-		}
-		$attr_set_id = $this->input->get('attr_set_id');
-		$data['mallgoods'] = $result->row();
-		$data['province_id'] = $data['mallgoods']->province_id;
-		$data['city_id'] = $data['mallgoods']->city_id;
-		$data['district_id'] = $data['mallgoods']->district_id;
-		$data['brand'] = $this->mall_brand->findByCondition(array('is_show'=>1));//品牌信息
-		$data['extension'] = array('simple'=>'简单产品', 'grouped'=>'组合产品', 'configurable'=>'可配置产品', 'virtual'=>'虚拟产品', 'bundle'=>'捆绑产品', 'giftcard'=>'礼品卡');
-		 
-		$data['category_name'] = $this->mall_category->getCategoryByCatId(array('category_id'=>$data['mallgoods']->category_id));
-		
-		$data['related_goods'] = $this->mall_goods_related->findRealtedByGoodsId($goods_id);
-		
-		$data['attribute'] = $this->mall_attribute_set->findByReason(array('enabled'=>1));
-		$data['freight'] = $this->mall_freight_tpl->getTransport($data['mallgoods']->supplier_id);
-		$data['attribute_group'] = $this->mall_attribute_group->findByAttrSetId($attr_set_id);
-		 
-		$data['attr_value'] = $this->mall_goods_attr_value->findById(array('goods_id'=>$goods_id))->result();
-		$data['attr_spec'] = $this->mall_goods_attr_spec->findById(array('goods_id'=>$goods_id))->result();
-		 
-		$attr_spec_ids = array();
-		foreach ($data['attr_spec'] as $spec) {
-			$attr_spec_ids[] = $spec->attr_spec_id;
-		}
-		$attr_price = array();
-		if (!empty($attr_spec_ids)) {
-			$attr_price = $this->mall_goods_attr_spec->getPriceWhereIn('attr_spec_id', $attr_spec_ids)->result();
-		}
-		$data['attr_price'] = $attr_price;
-		$data['category'] = $this->mall_category->getAllCategory();
-    	$this->load->view('mall_goods_base/copy',$data);
-    }
-    
-    public function delete($goods_id)
-	{
-    	$this->db->trans_begin();
-    	$status = $this->mall_goods_base->deleteById($goods_id);
-    	$result = $this->mall_category_product->deleteByGoodsId($goods_id);
-    	$deletePrice = $this->mall_goods_attr_spec->deletePrice($goods_id); 
-    	$deleteAttr = $this->mall_goods_attr_value->deleteAttr($goods_id);
-    	$deleteRelated = $this->mall_goods_related->deleteByGoodsId($goods_id);
-    	if ($status && $result && ($this->db->trans_status() === TRUE)) {
-    		$this->db->trans_complete();
-    		$this->success('mall_goods_base/grid', '', '删除成功');
-    	} else {
-    		$this->db->trans_rollback();
-    		$this->error('mall_goods_base/grid', '', '删除失败');
-    	}
-    }
-    
+
      /**
      * 
      * @return multitype:string
@@ -506,9 +377,24 @@ class Mall_goods_base extends CS_Controller
     	if ($this->validateParam($this->input->post('goods_name'))) {
     		$error[] = '商品名称不可为空！';
     	}
-    	if ($this->validateParam($this->input->post('goods_sku'))) {
-    		$error[] = '商品编号不可为空！';
-    	}
+		if (!$this->input->post('goods_id')) {//验证商品sku
+			$mallGoodsBase = $this->user->findByGoodsSku($this->input->post('goods_sku'));
+			if ($mallGoodsBase->num_rows() > 0){
+				$error[] = '商品sku已存在。';
+			}
+		} else {
+			$result = $this->mall_goods_base->findByGoodsId($this->input->post('goods_id'));
+			if ($result->num_rows() <= 0) {
+				$error[] = '修改错误，请重新进入重试';
+			}
+			$mallGoodsBase = $result->row(0);
+			if ($mallGoodsBase->goods_sku != $this->input->post('goods_sku')) {
+				$result = $this->mall_goods_base->findByGoodsSku($this->input->post('goods_sku'));
+				if ($result->num_rows() > 0) {
+					$error[] = '商品sku已存在。';
+				}
+			}
+		}
     	if ($this->validateParam($this->input->post('goods_brief'))) {
     		$error[] = '商品简介不可为空！';
     	}
@@ -524,37 +410,18 @@ class Mall_goods_base extends CS_Controller
     	if ($this->input->post('goods_weight') < 0) {
     		$error[] = '商品重量必须大于等于0';
     	}
-    	if ($this->input->post('market_price') < 0) {
-    		$error[] = '市场价格必须大于等于0。';
-    	}
     	if ($this->input->post('shop_price') < 0) {
-    		$error[] = '供应价格必须大于等于0.';
+    		$error[] = '销售价格必须大于等于0.';
     	}
-    	if ($this->input->post('promote_price') < 0) {
-    		$error[] = '促销价必须大于等于0。';
-    	}
+		if ($this->input->post('provide_price') < 0) {
+			$error[] = '供应价格必须大于等于0.';
+		}
+		if ($this->validateParam($this->input->post('payments'))) {
+			$error[] = '至少选择一个支付方式';
+		}
     	if ($this->input->post('in_stock') <= 0) {
     		$error[] = '库存必须大于0.';
     	}
-    	//验证属性
-    	if (!$this->input->post('goods_id')) {
-    	    $attr_value = $this->mall_attribute_value->getWhere(array('attr_set_id'=>$this->input->post('attribute_set_id'), 'values_required'=>1))->result();
-    	    $post_attr = $this->input->post('attr');
-    	    $require_ids = array();
-    	    foreach ($post_attr as $k1=>$v1) {
-    	        foreach ($v1 as $k2=>$v2) {
-    	            foreach ($v2 as $k3=>$v3) {
-    	                $require_ids[] = $k3;
-    	            }
-    	        }
-    	    } 
-    	    foreach ($attr_value as $a) {
-    	        if (!in_array($a->attr_value_id,$require_ids)) {
-    	            $error[] = '请选择属性：'.$a->attr_name;
-    	        }
-    	    }
-    	} 
-    	
     	//验证运费模版
     	if ($this->input->post('transport_type') == 1) {
     		if (!$this->input->post('freight_id')) {
@@ -577,7 +444,7 @@ class Mall_goods_base extends CS_Controller
     	foreach ($region->result() as $item) {
     		$regionNames[] = $item->region_name;
     	}
-    	$_POST['address'] = $regionNames[0] .' '.$regionNames[1].' '.$regionNames[2].' '.($this->input->post('address') ? $this->input->post('address') : '　');
+    	$_POST['address'] = $regionNames[0] .' '.$regionNames[1].' '.$regionNames[2].' '.($this->input->post('address') ? $this->input->post('address') : ' ');
     	return $error;
     }
     

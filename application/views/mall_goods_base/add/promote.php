@@ -6,14 +6,20 @@
 </div>
 <div class="control-group ">
     <label class="control-label">促销开始时间</label>
-    <div class="controls">
-        <input type="text" name="promote_start_date" class="m-wrap span12 date-picker date">
+    <div class="controls form-search-time">
+        <div class="input-append date form_datetime">
+            <input type="text" name="promote_start_date" size="16" class="m-wrap m-ctrl-medium">
+            <span class="add-on"><i class="icon-calendar"></i></span>
+        </div>
     </div>
 </div>
 <div class="control-group ">
     <label class="control-label">促销结束时间</label>
-    <div class="controls">
-        <input type="text" name="promote_end_date" class="m-wrap span12 date-picker date">
+    <div class="controls form-search-time">
+        <div class="input-append date form_datetime">
+            <input type="text" name="promote_end_date" size="16" class="m-wrap m-ctrl-medium">
+            <span class="add-on"><i class="icon-calendar"></i></span>
+        </div>
     </div>
 </div>
 <div class="control-group">

@@ -2,7 +2,7 @@
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
-            <h3 class="page-title">趣网商城 <small> 商品添加</small></h3>
+            <h3 class="page-title">妙网商城 <small> 商品添加</small></h3>
             <?php echo breadcrumb(array('mall_goods_base/grid' => '趣网产品', "mall_goods_base/addstep1" => '商品添加第2步')); ?>
         </div>
     </div>
