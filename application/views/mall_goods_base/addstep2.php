@@ -20,25 +20,29 @@
                        <li><a href="#tab_3" data-toggle="tab">促销信息</a></li>
                        <li><a href="#tab_4" data-toggle="tab">属性信息</a></li>
                        <li><a href="#tab_5" data-toggle="tab">运费信息</a></li>
-                       <li><a href="#tab_6" data-toggle="tab">商品关联</a></li>
+                       <li><a href="#tab_6" data-toggle="tab">所属分类</a></li>
+                       <li><a href="#tab_7" data-toggle="tab">商品关联</a></li>
                     </ul>
 				    <div class="tab-content">
                         <div class="tab-pane active" id="tab_1">
-                            <?php $this->load->view('mall_goods_base/add/basic') ;?>
+                            <?php $this->load->view('mall_goods_base/add/basic'); ?>
                         </div>
                         <div class="tab-pane" id="tab_2">
-                            <?php $this->load->view('mall_goods_base/add/sales') ;?>
+                            <?php $this->load->view('mall_goods_base/add/sales'); ?>
                         </div>
                         <div class="tab-pane" id="tab_3">
-                            <?php $this->load->view('mall_goods_base/add/promote') ;?>
+                            <?php $this->load->view('mall_goods_base/add/promote'); ?>
                         </div>
                         <div class="tab-pane" id="tab_4">
-                            <?php $this->load->view('mall_goods_base/add/spec') ;?>
+                            <?php $this->load->view('mall_goods_base/add/spec'); ?>
                         </div>
                         <div class="tab-pane" id="tab_5">
                             <?php $this->load->view('mall_goods_base/add/freight') ;?>
                         </div>
-                        <div class="tab-pane data-ajax-url" id="tab_6" data-ajax-url="<?php echo base_url('mall_goods_related/ajaxGet');?>">
+                        <div class="tab-pane" id="tab_6">
+                            <?php echo getCategoryCheckbox($categorys); ?>
+                        </div>
+                        <div class="tab-pane data-ajax-url" id="tab_7" data-ajax-url="<?php echo base_url('mall_goods_related/ajaxGet');?>">
                             <?php $this->load->view('mall_goods_related/ajaxGoodsRelated/ajaxGet');?>
                         </div>
 				    </div>

@@ -146,3 +146,28 @@ function getCategoryHtml($categorys, $cateId = 0, $html='')
 	$html .= '</ul>';
 	return $html;
 }
+
+//获取CategoryCheckbox
+function getCategoryCheckbox($categorys, $cateId = 0, $checkArray = array(), $html='')
+{
+	if (empty($categorys)) {
+		return;
+	}
+	$html .= ($cateId == 0) ? '<ul class="tree" id="tree_1">' : '<ul class="branch in">';
+	if (is_array($categorys)) {
+		foreach ($categorys as $childs) {
+			$html .= '<li>';
+			$html .= '<label class="checkbox">';
+			$isChecked = in_array($childs->cat_id, $checkArray) ? ' checked="checked"' : '';
+			$html .= '<input type="checkbox" name="cate_ids_array[]" value="'.$childs->cat_id.'"'.$isChecked.' class="checkboxes">';
+			$html .= '<span> '.$childs->cat_name.'</span>';
+			$html .= '</label>';
+			if (isset($childs->childs) && is_array($childs->childs)) {
+				$html .= getCategoryCheckbox($childs->childs, $childs->cat_id, $checkArray);
+			}
+			$html .= '</li>';
+		}
+	}
+	$html .= '</ul>';
+	return $html;
+}

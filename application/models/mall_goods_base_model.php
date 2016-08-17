@@ -98,51 +98,48 @@ class Mall_goods_base_model extends CI_Model
 		$this->db->limit($page_num, $num);
 		return $this->db->get($this->table);
 	}
-	
-	 /**
-	 * 插入 
-	 * @param unknown $param
-	 */
-	 public function insertMallGoods($param){
-	 	
-	 	$data = array(
-	 		'category_id'  => implode(',',array_filter($param['category_id'])),
-	 	    'goods_name'   => $param['goods_name'],
-	 	    'goods_sku'    => $param['goods_sku'],
-	 	    'brand_id'     => $param['brand_id'],
-	 		'goods_weight' => $param['goods_weight'],
-	 		'goods_brief'  => $param['goods_brief'],
-	 		'supplier_id'  => $param['supplier_id'],
-	 		'is_check'     => $param['is_check'],
-	 		'is_on_sale'   => $param['is_on_sale'],
-	 		'goods_desc'   => $param['goods_desc'],
-	 		'wap_goods_desc'=> $param['wap_goods_desc'],
-	 		'market_price'  => $param['market_price'],
-	 		'shop_price'    => $param['shop_price'],
-	 		'promote_price' => $param['promote_price'],
-	 		'promote_start_date' => $param['promote_start_date'],
-	 		'promote_end_date'   => $param['promote_end_date'],
-	 		'attribute_set_id'   => $param['attribute_set_id'],
-	 	    'extension_code'     => $param['extension_code'],
-	 		'tour_count'         => $param['tour_count'],
-	 		'sale_count'         => $param['sale_count'],
-	 		'in_stock'           => $param['in_stock'],
-	 	    'limit_num'          => $param['limit_num'],
-	 	    'minus_stock'        => $param['minus_stock'],
-	 		'province_id'        => $param['province_id'],
-	 		'city_id'            => $param['city_id'],
-	 		'district_id'        => $param['district_id'],
-	 		'address'            => $param['address'],
+
+	public function insert($params=array())
+	{
+		$data = array(
+	 		'category_id'        => implode(',', array_filter($params['category_id'])),
+	 	    'goods_name'         => $params['goods_name'],
+	 	    'goods_sku'          => $params['goods_sku'],
+	 	    'brand_id'           => $params['brand_id'],
+	 		'goods_weight'       => $params['goods_weight'],
+	 		'goods_brief'        => $params['goods_brief'],
+	 		'supplier_id'        => $params['supplier_id'],
+	 		'is_check'           => $params['is_check'],
+	 		'is_on_sale'         => $params['is_on_sale'],
+	 		'goods_desc'         => $params['goods_desc'],
+	 		'wap_goods_desc'     => $params['wap_goods_desc'],
+	 		'market_price'       => $params['market_price'],
+	 		'shop_price'         => $params['shop_price'],
+	 		'promote_price'      => $params['promote_price'],
+	 		'promote_start_date' => $params['promote_start_date'],
+	 		'promote_end_date'   => $params['promote_end_date'],
+	 		'attribute_set_id'   => $params['attribute_set_id'],
+	 	    'extension_code'     => $params['extension_code'],
+	 		'tour_count'         => $params['tour_count'],
+	 		'sale_count'         => $params['sale_count'],
+	 		'in_stock'           => $params['in_stock'],
+	 	    'limit_num'          => $params['limit_num'],
+	 	    'minus_stock'        => $params['minus_stock'],
+	 		'province_id'        => $params['province_id'],
+	 		'city_id'            => $params['city_id'],
+	 		'district_id'        => $params['district_id'],
+	 		'address'            => $params['address'],
 	 		'goods_img'          => '',
-	 		'integral'      => empty($param['integral']) ? '0' : $param['integral'],
-	 		'sort_order'    => empty($param['sort_order']) ? '1' : $param['sort_order'],
-	 		'created_at'    => date('Y-m-d H:i:s'),
+	 		'integral'           => !empty($params['integral']) ?  $params['integral'] : '0',
+	 		'sort_order'         => !empty($params['sort_order']) ? $params['sort_order'] : '1',
+			'update_at'          => date('Y-m-d H:i:s'),
+			'created_at'         => date('Y-m-d H:i:s'),
 	 	);
 	 	//运费模版
-	 	if ($param['transport_type'] == 1) {
-	 		$data['freight_id'] = $param['freight_id'];
+	 	if ($params['transport_type'] == 1) {
+	 		$data['freight_id'] = $params['freight_id'];
 	 	} else {
-	 		$data['freight_cost'] = $param['freight_cost'];
+	 		$data['freight_cost'] = $params['freight_cost'];
 	 	}
 	 	$this->db->insert($this->table,$data);
 	 	return $this->db->insert_id();
@@ -153,53 +150,57 @@ class Mall_goods_base_model extends CI_Model
 	  * @param unknown $param
 	  * @param unknown $goods_id
 	  */
-	 public function updateMallGoodsBase($param,$goods_id){
+	 public function update($params=array())
+	 {
+		 $data = array(
+			 'category_id'        => implode(',', array_filter($params['category_id'])),
+			 'goods_name'         => $params['goods_name'],
+			 'goods_sku'          => $params['goods_sku'],
+			 'brand_id'           => $params['brand_id'],
+			 'goods_weight'       => $params['goods_weight'],
+			 'goods_brief'        => $params['goods_brief'],
+			 'supplier_id'        => $params['supplier_id'],
+			 'is_check'           => $params['is_check'],
+			 'is_on_sale'         => $params['is_on_sale'],
+			 'goods_desc'         => $params['goods_desc'],
+			 'wap_goods_desc'     => $params['wap_goods_desc'],
+			 'market_price'       => $params['market_price'],
+			 'shop_price'         => $params['shop_price'],
+			 'promote_price'      => $params['promote_price'],
+			 'promote_start_date' => $params['promote_start_date'],
+			 'promote_end_date'   => $params['promote_end_date'],
+			 'attribute_set_id'   => $params['attribute_set_id'],
+			 'extension_code'     => $params['extension_code'],
+			 'tour_count'         => $params['tour_count'],
+			 'sale_count'         => $params['sale_count'],
+			 'in_stock'           => $params['in_stock'],
+			 'limit_num'          => $params['limit_num'],
+			 'minus_stock'        => $params['minus_stock'],
+			 'province_id'        => $params['province_id'],
+			 'city_id'            => $params['city_id'],
+			 'district_id'        => $params['district_id'],
+			 'address'            => $params['address'],
+			 'goods_img'          => '',
+			 'integral'           => !empty($params['integral']) ?  $params['integral'] : '0',
+			 'sort_order'         => !empty($params['sort_order']) ? $params['sort_order'] : '1',
+			 'update_at'          => date('Y-m-d H:i:s'),
+			 'created_at'         => date('Y-m-d H:i:s'),
+		 );
 	 	
-	 	$data = array(
-	 			'goods_name'   => $param['goods_name'],
-	 			'goods_sku'    => $param['goods_sku'],
-	 			'brand_id'     => $param['brand_id'],
-	 			'goods_weight' => $param['goods_weight'],
-	 			'goods_brief'  => $param['goods_brief'],
-	 			'supplier_id'  => $param['supplier_id'],
-	 			'is_check'     => $param['is_check'],
-	 			'is_on_sale'   => $param['is_on_sale'],
-	 			'goods_desc'   => $param['goods_desc'],
-	 			'wap_goods_desc'=> $param['wap_goods_desc'],
-	 			'market_price'  => $param['market_price'],
-	 			'shop_price'    => $param['shop_price'],
-	 			'promote_price' => $param['promote_price'],
-	 			'promote_start_date' => $param['promote_start_date'],
-	 			'promote_end_date'   => $param['promote_end_date'],
-	 			'tour_count'         => $param['tour_count'],
-	 			'sale_count'         => $param['sale_count'],
-	 			'province_id'        => $param['province_id'],
-	 			'city_id'            => $param['city_id'],
-	 			'district_id'        => $param['district_id'],
-	 			'address'            => $param['address'],
-	 			'in_stock'           => $param['in_stock'],
-	 			'extension_code'     => $param['extension_code'],
-	 			'limit_num'          => $param['limit_num'],
-	 			'minus_stock'        => $param['minus_stock'],
-	 			'integral'      => empty($param['integral']) ? '0' : $param['integral'],
-	 			'sort_order'    => empty($param['sort_order']) ? '1' : $param['sort_order'],
-	 			'update_at'     => date('Y-m-d H:i:s'),
-	 	);
-	 	
-	 	if (!empty($param['category_id'])){
-	 		$data['category_id'] = implode(',',array_filter($param['category_id']));
+	 	if (!empty($params['category_id'])){
+	 		$data['category_id'] = implode(',',array_filter($params['category_id']));
 	 	}
 
-	 	if ($param['transport_type'] == 1) {//运费模版
-	 		$data['freight_id'] = $param['freight_id'];
+	 	if ($params['transport_type'] == 1) {//运费模版
+	 		$data['freight_id'] = $params['freight_id'];
 	 		$data['freight_cost'] = 0;
 	 	} else {
 	 		$data['freight_id'] = 0;
-	 		$data['freight_cost'] = $param['freight_cost'];
+	 		$data['freight_cost'] = $params['freight_cost'];
 	 	}
 	 	
-	 	$this->db->where('goods_id',$goods_id);
-	 	return $this->db->update($this->table,$data);
+	 	$this->db->where('goods_id', $params['goods_id']);
+	 	return $this->db->update($this->table, $data);
 	 }
 	 
 	 /**

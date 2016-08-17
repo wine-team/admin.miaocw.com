@@ -5,6 +5,7 @@ class Mall_goods_base extends CS_Controller
 
     public function _init()
     {
+		$this->load->helper(array('common'));
         $this->load->library('pagination');
         $this->load->model('mall_goods_base_model', 'mall_goods_base');
         $this->load->model('mall_attribute_set_model','mall_attribute_set');
@@ -76,6 +77,7 @@ class Mall_goods_base extends CS_Controller
 				$attrValues[$item->group_id]['attr_value'][] = $item;
 			}
 		}
+		$data['categorys'] = $this->mall_category->findByCategoryTree();
 		$data['attrValues'] = $attrValues;
 		$data['attributeSet'] = $this->mall_attribute_set->find();
 		$data['extension'] = $this->extension;
@@ -162,22 +164,24 @@ class Mall_goods_base extends CS_Controller
      */
     public function addPost()
     {
-    	$param = $this->input->post();
+    	$postData = $this->input->post();
     	$this->db->trans_begin();
-    	$goods_id = $this->mall_goods_base->insertMallGoods($param);
-    	$result = $this->mall_category_product->insertBatch($goods_id,$param['category_id']);
+    	$goods_id = $this->mall_goods_base->insert($postData);
+		if (!empty($postData['cate_ids_array'])) {
+			$isInsert = $this->mall_category_product->insertBatch($goods_id, $postData['cate_ids_array']);
+		}
     	$relatedResult = true;
     	if (!empty($param['related_goods_id'])) {
-    		$relatedGoodsArray = array_filter(explode(',', str_replace('，',',',$param['related_goods_id'])));
+    		$relatedGoodsArray = array_filter(explode(',', str_replace('，',',', $postData['related_goods_id'])));
     		$relatedResult = $this->mall_goods_related->insertBatch($relatedGoodsArray,$is_double=1,$goods_id);
     	}
     	if (isset($param['attr'][1])) {
-    	    $goodsAttrResult = $this->mall_goods_attr_value->insertBatch($goods_id,$param['attr'][1]);
+    	    $goodsAttrResult = $this->mall_goods_attr_value->insertBatch($goods_id,$postData['attr'][1]);
     	}
-    	if (isset($param['attr'][2]) && isset($param['price'][2]) && isset($param['attrNum'][2]) && isset($param['attrStock'][2])) {
-    	    $this->mall_goods_attr_spec->insertBatch($goods_id, $param['attr'][2], $param['price'][2], $param['attrNum'][2], $param['attrStock'][2]);
+    	if (isset($param['attr'][2]) && isset($postData['price'][2]) && isset($postData['attrNum'][2]) && isset($param['attrStock'][2])) {
+    	    $this->mall_goods_attr_spec->insertBatch($goods_id, $postData['attr'][2], $postData['price'][2], $postData['attrNum'][2], $postData['attrStock'][2]);
     	}
-    	if (!$goods_id && !$result && !$relatedResult && $this->db->trans_status() === FALSE) {
+    	if (!$goods_id && !$isInsert && !$relatedResult && $this->db->trans_status() === FALSE) {
     		$this->db->trans_rollback();
     		$this->jsonMessage('保存失败！');
     	} else { 
