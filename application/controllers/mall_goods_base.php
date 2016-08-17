@@ -301,9 +301,9 @@ class Mall_goods_base extends CS_Controller
     	if ($imageData == false) {
     		$this->error('mall_goods_base/images', $goods_id, '图片上传失败！');
     	}
-    	$ifResize = $this->dealWithImagesResize($imageData, '360', '360');
+    	$ifResize = $this->dealWithImagesResize($imageData, '400', '400');
     	if ($ifResize == false) {
-    		$this->error('mall_goods_base/images', $goods_id, '360*360缩略图生成失败！');
+    		$this->error('mall_goods_base/images', $goods_id, '400*400缩略图生成失败！');
     	}
     	$ifResize = $this->dealWithImagesResize($imageData, '60', '60');
     	if ($ifResize == false) {

@@ -42,9 +42,9 @@ class Mall_category extends CS_Controller
 				$this->error('mall_category/grid', array('cat_id'=>$cat_id), '图片上传失败！');
 			}
 
-			$ifResize = $this->dealWithImagesResize($imageData, 360, 360);
+			$ifResize = $this->dealWithImagesResize($imageData, 400, 400);
 			if ($ifResize == false) {
-				$this->error('mall_category/grid', array('cat_id'=>$cat_id), '360x360的缩略图生成失败！');
+				$this->error('mall_category/grid', array('cat_id'=>$cat_id), '400x400的缩略图生成失败！');
 			}
 
 			$ifResize = $this->dealWithImagesResize($imageData, 60, 60);
