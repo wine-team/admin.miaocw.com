@@ -164,30 +164,30 @@ class Mall_goods_base extends CS_Controller
      */
     public function addPost()
     {
+		$goods_json = $this->input->post('goods_json');//商品关联对象
     	$postData = $this->input->post();
-    	$this->db->trans_begin();
+		$this->db->trans_start();
     	$goods_id = $this->mall_goods_base->insert($postData);
 		if (!empty($postData['cate_ids_array'])) {
-			$isInsert = $this->mall_category_product->insertBatch($goods_id, $postData['cate_ids_array']);
+			$isInsert = $this->mall_category_product->insertBatchByGoodsId($goods_id, $postData['cate_ids_array']);
 		}
-    	$relatedResult = true;
-    	if (!empty($param['related_goods_id'])) {
-    		$relatedGoodsArray = array_filter(explode(',', str_replace('，',',', $postData['related_goods_id'])));
-    		$relatedResult = $this->mall_goods_related->insertBatch($relatedGoodsArray,$is_double=1,$goods_id);
-    	}
-    	if (isset($param['attr'][1])) {
-    	    $goodsAttrResult = $this->mall_goods_attr_value->insertBatch($goods_id,$postData['attr'][1]);
-    	}
-    	if (isset($param['attr'][2]) && isset($postData['price'][2]) && isset($postData['attrNum'][2]) && isset($param['attrStock'][2])) {
-    	    $this->mall_goods_attr_spec->insertBatch($goods_id, $postData['attr'][2], $postData['price'][2], $postData['attrNum'][2], $postData['attrStock'][2]);
-    	}
-    	if (!$goods_id && !$isInsert && !$relatedResult && $this->db->trans_status() === FALSE) {
-    		$this->db->trans_rollback();
-    		$this->jsonMessage('保存失败！');
-    	} else { 
-    		$this->db->trans_commit();
-    		$this->session->set_flashdata('success', '保存成功!');
-    		$this->jsonMessage('', base_url('mall_goods_base/grid'));
+		$goodsArr = json_decode($goods_json, TRUE); //商品关联
+		foreach ($goodsArr as $key=>$value) {
+			if ($value === NULL) {
+				unset($goodsArr[$key]);
+			}
+		}
+		if (!empty($goodsArr)) {
+			$insert = $this->mall_goods_related->insertBatchByGoodsId($goods_id, $goodsArr);
+		}
+		$this->db->trans_complete();
+
+		if ($this->db->trans_status() === TRUE) {
+			$this->session->set_flashdata('success', '保存成功!');
+			$this->jsonMessage('', base_url('mall_goods_base/grid'));
+    	} else {
+			$this->db->trans_rollback();
+			$this->jsonMessage('保存失败！');
     	}
     }
     

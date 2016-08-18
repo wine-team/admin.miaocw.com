@@ -37,7 +37,7 @@ class Mall_category_product_model extends CI_Model
      */
     public function deleteByGoodsId($goods_id)
 	{
-    	$this->db->where('goods_id',$goods_id);
+    	$this->db->where('goods_id', $goods_id);
     	return $this->db->delete($this->table);
     }
 
@@ -70,18 +70,18 @@ class Mall_category_product_model extends CI_Model
 	}
     
     /**
-     * 数组插入
+     * 添加产品时批量操作
      * @param unknown $goods_id
      * @param unknown $category_id
      */
-    public function insertBatch($goods_id,$category_id=array())
+    public function insertBatchByGoodsId($goods_id, $categoryArr=array())
 	{
-    	$insertArray= array();
-    	foreach ($category_id as $key=>$item){
-    		$insertArray[$key]['category_id'] = $item;
-    		$insertArray[$key]['goods_id'] = $goods_id;
-    		$insertArray[$key]['position'] = 50;
+		$data= array();
+    	foreach ($categoryArr as $key=>$category_id){
+			$data[$key]['category_id'] = $category_id;
+			$data[$key]['goods_id']    = $goods_id;
+			$data[$key]['position']    = 50;
     	}
-    	return $this->db->insert_batch($this->table,$insertArray);
+    	return $this->db->insert_batch($this->table, $data);
     }
 }
