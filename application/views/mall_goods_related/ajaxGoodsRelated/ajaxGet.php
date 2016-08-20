@@ -4,11 +4,11 @@
             <span class="help-inline">商品编号 </span>
             <input type="hidden" name="goods_json" value="{}">
             <input type="hidden" name="current_goods_id" value="<?php echo isset($mallGoodsBase->goods_id) ? $mallGoodsBase->goods_id : $this->input->get('goods_id');?>">
-            <input type="text" name="goods_id" value="<?php echo trim($this->input->get('goods_id'));?>" class="m-wrap small">
+            <input type="text" name="related_goods_id" value="<?php echo trim($this->input->get('goods_id'));?>" class="m-wrap small">
         </div>
         <div class="span3 control-group">
             <span class="help-inline">商品名称 </span>
-            <input type="text" name="goods_name" value="<?php echo $this->input->get('goods_name');?>" class="m-wrap small">
+            <input type="text" name="related_goods_name" value="<?php echo $this->input->get('goods_name');?>" class="m-wrap small">
         </div>
         <div class="span3 control-group">
             <span class="help-inline">产品刷选 </span>
@@ -90,8 +90,8 @@ $(document).ready(function(){
     //获取数据
     function ajaxGetCategoryProduct(url) {
         var current_goods_id = $('.ajaxSearch input[name=current_goods_id]').val();
-        var goods_id = $('.ajaxSearch input[name=goods_id]').val();
-        var goods_name = $('.ajaxSearch input[name=goods_name]').val();
+        var goods_id = $('.ajaxSearch input[name=related_goods_id]').val();
+        var goods_name = $('.ajaxSearch input[name=related_goods_name]').val();
         var join = $('.ajaxSearch select[name=join]').val();
         $.ajax({
             type: 'get',

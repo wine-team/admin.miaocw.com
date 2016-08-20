@@ -3,6 +3,18 @@ class Mall_goods_base_model extends CI_Model
 {
 	private $table = 'mall_goods_base';        
 
+	public function findByGoodsId($goods_id)
+	{
+		$this->db->where('goods_id', $goods_id);
+		return $this->db->get($this->table);
+	}
+
+	public function findByGoodsSku($goods_sku)
+	{
+		$this->db->where('goods_sku', $goods_sku);
+		return $this->db->get($this->table);
+	}
+
 	public function total($param)
 	{
 		if (!empty($param['goods_id'])) {
@@ -218,8 +230,8 @@ class Mall_goods_base_model extends CI_Model
 	 * 删除
 	 * @param unknown $goods_id
 	 */
-	public function deleteById($goods_id){
-		
+	public function deleteById($goods_id)
+	{
 		$this->db->where('goods_id', $goods_id);
 		return $this->db->delete($this->table);
 	}
@@ -228,8 +240,8 @@ class Mall_goods_base_model extends CI_Model
 	 * 
 	 * @param unknown $goods_id
 	 */
-	public function getInfoByGoodsId($goods_id){
-		
+	public function getInfoByGoodsId($goods_id)
+	{
 		$this->db->select('mall_goods_base.*,mall_category.full_name');
 		$this->db->from($this->table);
 		$this->db->join('mall_category','mall_category.cat_id=mall_goods_base.category_id');
@@ -241,8 +253,8 @@ class Mall_goods_base_model extends CI_Model
 	 * 
 	 * @param unknown $params
 	 */
-	public function insertImage($params){
-		
+	public function insertImage($params)
+	{
 		$data['goods_img'] = $params['goods_img'];
 		$this->db->where('goods_id',$params['goods_id']);
 		return $this->db->update($this->table,$data);

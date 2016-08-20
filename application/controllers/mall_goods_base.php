@@ -72,8 +72,9 @@ class Mall_goods_base extends CS_Controller
 		$result = $this->mall_attribute_group->getAttrValuesByAttrSetId($attr_set_id);
 		if ($result->num_rows() > 0) {
 			foreach ($result->result() as $item) {
-				$attrValues[$item->group_id]['attr_set_id'] = $item->attr_set_id;
-				$attrValues[$item->group_id]['group_name'] = $item->group_name;
+				$attrValues[$item->group_id]['attr_set_id']  = $item->attr_set_id;
+				$attrValues[$item->group_id]['group_id']     = $item->group_id;
+				$attrValues[$item->group_id]['group_name']   = $item->group_name;
 				$attrValues[$item->group_id]['attr_value'][] = $item;
 			}
 		}
@@ -152,7 +153,7 @@ class Mall_goods_base extends CS_Controller
     	if (!empty($error)) {
     		$this->jsonMessage($error);
     	}
-    	if ($this->input->post('goods_id')) {
+    	if ($this->input->post('current_goods_id')) {
     		$this->editPost();
     	} else {
     		$this->addPost();
@@ -164,13 +165,15 @@ class Mall_goods_base extends CS_Controller
      */
     public function addPost()
     {
-		$goods_json = $this->input->post('goods_json');//商品关联对象
     	$postData = $this->input->post();
+		pr($postData);exit;
 		$this->db->trans_start();
     	$goods_id = $this->mall_goods_base->insert($postData);
 		if (!empty($postData['cate_ids_array'])) {
 			$isInsert = $this->mall_category_product->insertBatchByGoodsId($goods_id, $postData['cate_ids_array']);
 		}
+
+		$goods_json = $this->input->post('goods_json');//商品关联对象
 		$goodsArr = json_decode($goods_json, TRUE); //商品关联
 		foreach ($goodsArr as $key=>$value) {
 			if ($value === NULL) {
@@ -180,6 +183,9 @@ class Mall_goods_base extends CS_Controller
 		if (!empty($goodsArr)) {
 			$insert = $this->mall_goods_related->insertBatchByGoodsId($goods_id, $goodsArr);
 		}
+		//商品规格属性
+		
+
 		$this->db->trans_complete();
 
 		if ($this->db->trans_status() === TRUE) {
@@ -381,8 +387,8 @@ class Mall_goods_base extends CS_Controller
     	if ($this->validateParam($this->input->post('goods_name'))) {
     		$error[] = '商品名称不可为空！';
     	}
-		if (!$this->input->post('goods_id')) {//验证商品sku
-			$mallGoodsBase = $this->user->findByGoodsSku($this->input->post('goods_sku'));
+		if (!$this->input->post('current_goods_id')) {//验证商品sku
+			$mallGoodsBase = $this->mall_goods_base->findByGoodsSku($this->input->post('goods_sku'));
 			if ($mallGoodsBase->num_rows() > 0){
 				$error[] = '商品sku已存在。';
 			}
@@ -399,6 +405,13 @@ class Mall_goods_base extends CS_Controller
 				}
 			}
 		}
+		$supplier_id = $this->input->post('supplier_id');
+		if (!empty($supplier_id)) {//为零时不判断，默认自营产品
+			$userQuery = $this->user->findBySupplierId($supplier_id);
+			if ($userQuery->num_rows() <= 0) {
+				$error[] = '供应商必须填写';
+			}
+		}
     	if ($this->validateParam($this->input->post('goods_brief'))) {
     		$error[] = '商品简介不可为空！';
     	}
@@ -407,9 +420,6 @@ class Mall_goods_base extends CS_Controller
     	}
     	if ($this->validateParam($this->input->post('wap_goods_desc'))) {
     		$error[] = 'wap商品详情不可为空！';
-    	}
-    	if ($this->validateParam($this->input->post('supplier_id'))) {
-    		$error[] = '供应商必须填写';
     	}
     	if ($this->input->post('goods_weight') < 0) {
     		$error[] = '商品重量必须大于等于0';
@@ -434,7 +444,7 @@ class Mall_goods_base extends CS_Controller
     	}
     	//验证运费模版
     	if ($this->input->post('transport_type') == 2) {
-    		if (!$this->input->post('freight_cost') || $this->input->post('freight_cost')<0) {
+    		if ($this->input->post('freight_cost') < 0) {
     			$error[] = '自定义运费不能小于0';
     		}
     	}
