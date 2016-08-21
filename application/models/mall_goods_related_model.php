@@ -62,7 +62,23 @@ class Mall_goods_related_model extends CI_Model
 	    $this->db->delete($this->table, $where);
 	    return $this->db->affected_rows();
 	}
-	
+
+	/**
+	 * 添加产品时批量操作
+	 * @param unknown $goods_id
+	 * @param unknown $category_id
+	 */
+	public function insertBatchByGoodsId($goods_id, $goodsArr=array())
+	{
+		$data= array();
+		foreach ($goodsArr as $related_goods_id=>$position) {
+			$data[$related_goods_id]['goods_id']         = $goods_id;
+			$data[$related_goods_id]['related_goods_id'] = $related_goods_id;
+			$data[$related_goods_id]['position']         = $position;
+		}
+		return $this->db->insert_batch($this->table, $data);
+	}
+
 	/**
 	 * delete
 	 * @param unknown $goods_id

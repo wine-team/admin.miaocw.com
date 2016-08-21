@@ -1,5 +1,5 @@
  <div class="control-group">
-    <label class="control-label">市场价格</label>
+    <label class="control-label"><em>* </em>市场价格</label>
     <div class="controls">
         <input type="text" name="market_price" class="m-wrap span12 required number">
     </div>
@@ -20,17 +20,6 @@
      <label class="control-label">赠送积分</label>
      <div class="controls">
          <input type="text" name="integral" value="0" class="m-wrap span12 required number" placeholder="100积分抵1块钱，0代表不抵，不使用">
-     </div>
- </div>
- <div class="control-group">
-     <label class="control-label"><em>* </em>支付方式</label>
-     <div class="controls">
-         <label class="checkbox">
-             <input type="checkbox" class="required" value="1" name="payments[]" checked="checked"/>在线支付
-         </label>
-         <label class="checkbox">
-             <input type="checkbox" class="required" value="2" name='payments[]'/>货到付款
-         </label>
      </div>
  </div>
 <div class="control-group ">

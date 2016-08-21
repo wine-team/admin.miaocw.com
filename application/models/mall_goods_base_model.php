@@ -114,7 +114,6 @@ class Mall_goods_base_model extends CI_Model
 	public function insert($params=array())
 	{
 		$data = array(
-	 		'category_id'        => implode(',', array_filter($params['category_id'])),
 	 	    'goods_name'         => $params['goods_name'],
 	 	    'goods_sku'          => $params['goods_sku'],
 	 	    'brand_id'           => $params['brand_id'],
@@ -125,12 +124,14 @@ class Mall_goods_base_model extends CI_Model
 	 		'is_on_sale'         => $params['is_on_sale'],
 	 		'goods_desc'         => $params['goods_desc'],
 	 		'wap_goods_desc'     => $params['wap_goods_desc'],
+			'attr_spec'          => !empty($params['attr_spec']) ? json_encode($params['attr_spec']) : '',
+			'attr_value'         => !empty($params['attr_value']) ? json_encode($params['attr_value']) : '',
 	 		'market_price'       => $params['market_price'],
 	 		'shop_price'         => $params['shop_price'],
 	 		'promote_price'      => $params['promote_price'],
 	 		'promote_start_date' => $params['promote_start_date'],
 	 		'promote_end_date'   => $params['promote_end_date'],
-	 		'attribute_set_id'   => $params['attribute_set_id'],
+	 		'attr_set_id'        => $params['attr_set_id'],
 	 	    'extension_code'     => $params['extension_code'],
 	 		'tour_count'         => $params['tour_count'],
 	 		'sale_count'         => $params['sale_count'],
@@ -144,7 +145,7 @@ class Mall_goods_base_model extends CI_Model
 	 		'goods_img'          => '',
 	 		'integral'           => !empty($params['integral']) ?  $params['integral'] : '0',
 	 		'sort_order'         => !empty($params['sort_order']) ? $params['sort_order'] : '1',
-			'update_at'          => date('Y-m-d H:i:s'),
+			'updated_at'         => date('Y-m-d H:i:s'),
 			'created_at'         => date('Y-m-d H:i:s'),
 	 	);
 	 	//运费模版
@@ -165,7 +166,6 @@ class Mall_goods_base_model extends CI_Model
 	 public function update($params=array())
 	 {
 		 $data = array(
-			 'category_id'        => implode(',', array_filter($params['category_id'])),
 			 'goods_name'         => $params['goods_name'],
 			 'goods_sku'          => $params['goods_sku'],
 			 'brand_id'           => $params['brand_id'],
@@ -176,12 +176,14 @@ class Mall_goods_base_model extends CI_Model
 			 'is_on_sale'         => $params['is_on_sale'],
 			 'goods_desc'         => $params['goods_desc'],
 			 'wap_goods_desc'     => $params['wap_goods_desc'],
+			 'attr_spec'          => !empty($params['attr_spec']) ? json_encode($params['attr_spec']) : '',
+			 'attr_value'         => !empty($params['attr_value']) ? json_encode($params['attr_value']) : '',
 			 'market_price'       => $params['market_price'],
 			 'shop_price'         => $params['shop_price'],
 			 'promote_price'      => $params['promote_price'],
 			 'promote_start_date' => $params['promote_start_date'],
 			 'promote_end_date'   => $params['promote_end_date'],
-			 'attribute_set_id'   => $params['attribute_set_id'],
+			 'attr_set_id'        => $params['attr_set_id'],
 			 'extension_code'     => $params['extension_code'],
 			 'tour_count'         => $params['tour_count'],
 			 'sale_count'         => $params['sale_count'],
@@ -192,16 +194,11 @@ class Mall_goods_base_model extends CI_Model
 			 'city_id'            => $params['city_id'],
 			 'district_id'        => $params['district_id'],
 			 'address'            => $params['address'],
-			 'goods_img'          => '',
 			 'integral'           => !empty($params['integral']) ?  $params['integral'] : '0',
 			 'sort_order'         => !empty($params['sort_order']) ? $params['sort_order'] : '1',
-			 'update_at'          => date('Y-m-d H:i:s'),
+			 'updated_at'         => date('Y-m-d H:i:s'),
 			 'created_at'         => date('Y-m-d H:i:s'),
 		 );
-	 	
-	 	if (!empty($params['category_id'])){
-	 		$data['category_id'] = implode(',',array_filter($params['category_id']));
-	 	}
 
 	 	if ($params['transport_type'] == 1) {//运费模版
 	 		$data['freight_id'] = $params['freight_id'];

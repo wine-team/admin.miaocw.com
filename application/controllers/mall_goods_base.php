@@ -16,8 +16,6 @@ class Mall_goods_base extends CS_Controller
         $this->load->model('mall_freight_tpl_model','mall_freight_tpl');
         $this->load->model('mall_attribute_group_model','mall_attribute_group');
         $this->load->model('mall_attribute_value_model','mall_attribute_value');
-        $this->load->model('mall_goods_attr_value_model','mall_goods_attr_value');
-        $this->load->model('mall_goods_attr_spec_model','mall_goods_attr_spec');
         $this->load->model('mall_goods_related_model','mall_goods_related');
 		$this->extension = array(
 			'simple'=>'简单产品',
@@ -166,15 +164,15 @@ class Mall_goods_base extends CS_Controller
     public function addPost()
     {
     	$postData = $this->input->post();
-		pr($postData);exit;
 		$this->db->trans_start();
     	$goods_id = $this->mall_goods_base->insert($postData);
 		if (!empty($postData['cate_ids_array'])) {
 			$isInsert = $this->mall_category_product->insertBatchByGoodsId($goods_id, $postData['cate_ids_array']);
 		}
 
-		$goods_json = $this->input->post('goods_json');//商品关联对象
-		$goodsArr = json_decode($goods_json, TRUE); //商品关联
+		//商品关联
+		$goods_json = $this->input->post('goods_json');
+		$goodsArr = json_decode($goods_json, TRUE);
 		foreach ($goodsArr as $key=>$value) {
 			if ($value === NULL) {
 				unset($goodsArr[$key]);
@@ -183,16 +181,12 @@ class Mall_goods_base extends CS_Controller
 		if (!empty($goodsArr)) {
 			$insert = $this->mall_goods_related->insertBatchByGoodsId($goods_id, $goodsArr);
 		}
-		//商品规格属性
-		
-
 		$this->db->trans_complete();
 
 		if ($this->db->trans_status() === TRUE) {
 			$this->session->set_flashdata('success', '保存成功!');
 			$this->jsonMessage('', base_url('mall_goods_base/grid'));
     	} else {
-			$this->db->trans_rollback();
 			$this->jsonMessage('保存失败！');
     	}
     }
@@ -429,9 +423,6 @@ class Mall_goods_base extends CS_Controller
     	}
 		if ($this->input->post('provide_price') < 0) {
 			$error[] = '供应价格必须大于等于0.';
-		}
-		if ($this->validateParam($this->input->post('payments'))) {
-			$error[] = '至少选择一个支付方式';
 		}
     	if ($this->input->post('in_stock') <= 0) {
     		$error[] = '库存必须大于0.';
