@@ -197,40 +197,32 @@ class Mall_goods_base extends CS_Controller
      */
     public function edit($goods_id)
 	{
-    	$result = $this->mall_goods_base->getInfoByGoodsId($goods_id);
-    	if ($result->num_rows() <= 0) {
-    		$this->error('mall_goods_base/grid', '', '找不到产品相关信息！');
-    	}
-    	$attr_set_id = $this->input->get('attr_set_id');
-    	$data['mallgoods'] = $result->row();
-    	$data['province_id'] = $data['mallgoods']->province_id;
-    	$data['city_id'] = $data['mallgoods']->city_id;
-    	$data['district_id'] = $data['mallgoods']->district_id;
-    	$data['brand'] = $this->mall_brand->findByCondition(array('is_show'=>1));//品牌信息
-		
-    	$data['extension'] = $this->extension;
-    	
-    	$data['category_name'] = $this->mall_category->getCategoryByCatId(array('category_id'=>$data['mallgoods']->category_id));
-		
-    	$data['related_goods'] = $this->mall_goods_related->findRealtedByGoodsId($goods_id);
-		
-    	$data['attribute'] = $this->mall_attribute_set->findByReason(array('enabled'=>1));
-    	$data['freight'] = $this->mall_freight_tpl->getTransport($data['mallgoods']->supplier_id);
-    	$data['attribute_group'] = $this->mall_attribute_group->findByAttrSetId($attr_set_id);
-    	
-    	$data['attr_value'] = $this->mall_goods_attr_value->findById(array('goods_id'=>$goods_id))->result();
-    	$data['attr_spec'] = $this->mall_goods_attr_spec->findById(array('goods_id'=>$goods_id))->result();
+		$result = $this->mall_goods_base->findByGoodsId($goods_id);
+		if ($result->num_rows() <= 0) {
+			$this->error('mall_goods_base/grid', '', '找不到产品相关信息！');
+		}
+		$mallGoodsBase = $result->row(0);
 
-    	$attr_spec_ids = array();
-    	foreach ($data['attr_spec'] as $spec) {
-    	    $attr_spec_ids[] = $spec->attr_spec_id;
-    	}
-    	$attr_price = array();
-    	if (!empty($attr_spec_ids)) {
-    	    $attr_price = $this->mall_goods_attr_spec->getPriceWhereIn('attr_spec_id', $attr_spec_ids)->result();
-    	}
-    	$data['attr_price'] = $attr_price;
-    	$this->load->view('mall_goods_base/edit',$data);
+		$attrValues = array();
+		$result = $this->mall_attribute_group->getAttrValuesByAttrSetId($mallGoodsBase->attr_set_id);
+		if ($result->num_rows() > 0) {
+			foreach ($result->result() as $item) {
+				$attrValues[$item->group_id]['attr_set_id']  = $item->attr_set_id;
+				$attrValues[$item->group_id]['group_id']     = $item->group_id;
+				$attrValues[$item->group_id]['group_name']   = $item->group_name;
+				$attrValues[$item->group_id]['attr_value'][] = $item;
+			}
+		}
+		$data['mallGoodsBase'] = $mallGoodsBase;
+		$data['attrValues']    = $attrValues;
+		$data['categorys']     = $this->mall_category->findByCategoryTree();
+		$data['attributeSet']  = $this->mall_attribute_set->find();
+		$data['brand']         = $this->mall_brand->find();//品牌信息
+		$data['extension']     = $this->extension;
+		$data['province_id']   = $mallGoodsBase->province_id;
+		$data['city_id']       = $mallGoodsBase->city_id;
+		$data['district_id']   = $mallGoodsBase->district_id;
+		$this->load->view('mall_goods_base/edit', $data);
     }
     
     public function editPost()

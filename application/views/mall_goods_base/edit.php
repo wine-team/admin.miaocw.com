@@ -2,8 +2,8 @@
 <div class="container-fluid mall-goods-add-step2">
     <div class="row-fluid">
         <div class="span12">
-            <h3 class="page-title">趣网商城 <small> 商品编辑</small></h3>
-            <?php echo breadcrumb(array('mall_goods_base/grid' => '趣网产品', "mall_goods_base/edit/".$mallgoods->goods_id.'?attr_set_id='.$mallgoods->attr_set_id => '商品编辑')); ?>
+            <h3 class="page-title">妙网商城 <small> 商品编辑</small></h3>
+            <?php echo breadcrumb(array('mall_goods_base/grid'=>'妙网产品', 'mall_goods_base/edit/'.$mallGoodsBase->goods_id =>'商品编辑')); ?>
         </div>
     </div>
     <div class="alert alert-error" style="display:none;">
@@ -12,14 +12,17 @@
     </div>
     <div class="row-fluid">
         <div class="span12">
-           <div class="tabbable tabbable-custom boxless">
-               <form class="form-horizontal form-row-seperated mall-goods-form" enctype="multipart/form-data">
-				   <input type="hidden" name="goods_id" value="<?php echo $mallgoods->goods_id;?>" />
-				   <ul class="nav nav-tabs">
-						<li class="active"><a href="#tab_1" data-toggle="tab">基本信息</a></li>
-						<li><a href="#tab_2" data-toggle="tab">销售信息</a></li>
-						<li><a href="#tab_3" data-toggle="tab">属性信息</a></li>
-						<li><a href="#tab_4" data-toggle="tab">运费信息</a></li>
+            <div class="tabbable tabbable-custom tabbable-full-width">
+                <form class="form-horizontal mall-goods-form" enctype="multipart/form-data">
+				    <input type="hidden" name="goods_id" value="<?php echo $mallGoodsBase->goods_id;?>" />
+				    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab_1" data-toggle="tab">基本信息</a></li>
+                        <li><a href="#tab_2" data-toggle="tab">销售信息</a></li>
+                        <li><a href="#tab_3" data-toggle="tab">促销信息</a></li>
+                        <li><a href="#tab_4" data-toggle="tab">属性信息</a></li>
+                        <li><a href="#tab_5" data-toggle="tab">运费信息</a></li>
+                        <li><a href="#tab_6" data-toggle="tab">所属分类</a></li>
+                        <li><a href="#tab_7" data-toggle="tab">商品关联</a></li>
 					</ul>
 					<div class="tab-content">
 						<div class="tab-pane active" id="tab_1">
@@ -28,33 +31,36 @@
 						<div class="tab-pane" id="tab_2">
 							<?php $this->load->view('mall_goods_base/edit/sales') ?>;
 						 </div>
-						 <div class="tab-pane" id="tab_3">
-							 <?php $this->load->view('mall_goods_base/edit/spec') ?>;
-						 </div>
-						 <div class="tab-pane" id="tab_4">
-							 <?php $this->load->view('mall_goods_base/edit/freight') ?>;
-						 </div>
-					 </div>
-			  </form>
-           </div>
+                        <div class="tab-pane" id="tab_3">
+                            <?php $this->load->view('mall_goods_base/edit/promote'); ?>
+                        </div>
+                        <div class="tab-pane" id="tab_4">
+                            <?php $this->load->view('mall_goods_base/edit/spec'); ?>
+                        </div>
+                        <div class="tab-pane" id="tab_5">
+                            <?php $this->load->view('mall_goods_base/edit/freight') ;?>
+                        </div>
+                        <div class="tab-pane" id="tab_6">
+                            <?php echo getCategoryCheckbox($categorys); ?>
+                        </div>
+                        <div class="tab-pane data-ajax-url" id="tab_7" data-ajax-url="<?php echo base_url('mall_goods_related/ajaxGet');?>">
+                            <?php $this->load->view('mall_goods_related/ajaxGoodsRelated/ajaxGet');?>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn green step4" type="submit"><i class="icon-ok"></i> 保存</button>
+                        <a class="btn step3" href="<?php echo base_url('mall_goods_base/grid')?>">返回</a>
+                    </div>
+			    </form>
+            </div>
         </div>
     </div>
 </div>
 <?php $this->load->view('layout/footer');?>
 <?php $this->load->view('supplier/ajaxSupplier/ajaxGet');?>
-<?php $this->load->view('mall_goods_base/ajaxGoodsBase/ajaxGet');?>
 <script type="text/javascript">
 $(document).ready(function(){
-	$('.mall-goods-add-step2 .table input[type="checkbox"]').click(function(){
-		if($(this).is(':checked')==false){
-			$(this).parents('tr').find('input[type="text"]').each(function(){
-				$(this).val('');
-			});
-		}
-	});
-
     $('.mall-goods-add-step2').on("click", "input[name='transport_type']", function () {
-
         var obj = $(this).parents('label').next();
         var uid = $('input[name=supplier_id]').val();
         var key = $(this).attr('data-key');
