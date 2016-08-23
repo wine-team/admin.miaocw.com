@@ -243,7 +243,7 @@ class Mall_goods_base extends CS_Controller
 		$goods_json = $this->input->post('goods_json');
 		$goodsArr = json_decode($goods_json, TRUE);
 		foreach ($goodsArr as $key=>$value) {
-			if ($value === NULL) {
+			if ($value === NULL || $goods_id == $key) {//自己产品不可以关联自己产品
 				unset($goodsArr[$key]);
 			}
 		}
