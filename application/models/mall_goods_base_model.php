@@ -128,13 +128,14 @@ class Mall_goods_base_model extends CI_Model
 			'attr_value'         => !empty($params['attr_value']) ? json_encode($params['attr_value']) : '',
 	 		'market_price'       => $params['market_price'],
 	 		'shop_price'         => $params['shop_price'],
-	 		'promote_price'      => $params['promote_price'],
-	 		'promote_start_date' => $params['promote_start_date'],
-	 		'promote_end_date'   => $params['promote_end_date'],
+	 		'provide_price'      => $params['provide_price'],
+			'promote_price'      => !empty($params['promote_price']) ? $params['promote_price'] : 0,
+			'promote_start_date' => !empty($params['promote_start_date']) ? $params['promote_start_date'] : '',
+			'promote_end_date'   => !empty($params['promote_end_date']) ? $params['promote_end_date'] : '',
 	 		'attr_set_id'        => $params['attr_set_id'],
 	 	    'extension_code'     => $params['extension_code'],
-	 		'tour_count'         => $params['tour_count'],
-	 		'sale_count'         => $params['sale_count'],
+			'tour_count'         => !empty($params['tour_count']) ? $params['tour_count'] : 0,
+			'sale_count'         => !empty($params['sale_count']) ? $params['sale_count'] : 0,
 	 		'in_stock'           => $params['in_stock'],
 	 	    'limit_num'          => $params['limit_num'],
 	 	    'minus_stock'        => $params['minus_stock'],
@@ -149,7 +150,7 @@ class Mall_goods_base_model extends CI_Model
 			'created_at'         => date('Y-m-d H:i:s'),
 	 	);
 	 	//运费模版
-	 	if ($params['transport_type'] == 1) {
+	 	if ($params['freight_type'] == 1) {
 	 		$data['freight_id'] = $params['freight_id'];
 	 	} else {
 	 		$data['freight_cost'] = $params['freight_cost'];
@@ -180,13 +181,14 @@ class Mall_goods_base_model extends CI_Model
 			 'attr_value'         => !empty($params['attr_value']) ? json_encode($params['attr_value']) : '',
 			 'market_price'       => $params['market_price'],
 			 'shop_price'         => $params['shop_price'],
-			 'promote_price'      => $params['promote_price'],
-			 'promote_start_date' => $params['promote_start_date'],
-			 'promote_end_date'   => $params['promote_end_date'],
+			 'provide_price'      => $params['provide_price'],
+			 'promote_price'      => !empty($params['promote_price']) ? $params['promote_price'] : 0,
+			 'promote_start_date' => !empty($params['promote_start_date']) ? $params['promote_start_date'] : '',
+			 'promote_end_date'   => !empty($params['promote_end_date']) ? $params['promote_end_date'] : '',
 			 'attr_set_id'        => $params['attr_set_id'],
 			 'extension_code'     => $params['extension_code'],
-			 'tour_count'         => $params['tour_count'],
-			 'sale_count'         => $params['sale_count'],
+			 'tour_count'         => !empty($params['tour_count']) ? $params['tour_count'] : 0,
+			 'sale_count'         => !empty($params['sale_count']) ? $params['sale_count'] : 0,
 			 'in_stock'           => $params['in_stock'],
 			 'limit_num'          => $params['limit_num'],
 			 'minus_stock'        => $params['minus_stock'],
@@ -194,13 +196,13 @@ class Mall_goods_base_model extends CI_Model
 			 'city_id'            => $params['city_id'],
 			 'district_id'        => $params['district_id'],
 			 'address'            => $params['address'],
-			 'integral'           => !empty($params['integral']) ?  $params['integral'] : '0',
-			 'sort_order'         => !empty($params['sort_order']) ? $params['sort_order'] : '1',
+			 'integral'           => !empty($params['integral']) ?  $params['integral'] : 0,
+			 'sort_order'         => !empty($params['sort_order']) ? $params['sort_order'] : 50,
 			 'updated_at'         => date('Y-m-d H:i:s'),
 			 'created_at'         => date('Y-m-d H:i:s'),
 		 );
 
-	 	if ($params['transport_type'] == 1) {//运费模版
+	 	if ($params['freight_type'] == 1) {//运费模版
 	 		$data['freight_id'] = $params['freight_id'];
 	 		$data['freight_cost'] = 0;
 	 	} else {
@@ -208,7 +210,7 @@ class Mall_goods_base_model extends CI_Model
 	 		$data['freight_cost'] = $params['freight_cost'];
 	 	}
 	 	
-	 	$this->db->where('goods_id', $params['goods_id']);
+	 	$this->db->where('goods_id', $params['current_goods_id']);
 	 	return $this->db->update($this->table, $data);
 	 }
 	 

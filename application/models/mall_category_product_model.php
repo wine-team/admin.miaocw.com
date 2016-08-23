@@ -18,6 +18,20 @@ class Mall_category_product_model extends CI_Model
 		return $result;
 	}
 
+	public function findByGoodsId($goods_id, $isArray=false)
+	{
+		$this->db->where('goods_id', (int)$goods_id);
+		$result = $this->db->get($this->table);
+		if ($isArray) {
+			$rows = array();
+			foreach ($result->result() as $item) {
+				$rows[$item->category_id] = $item->position;
+			}
+			return $rows;
+		}
+		return $result;
+	}
+
 	/**
      * 
      * @param unknown $param
@@ -32,7 +46,7 @@ class Mall_category_product_model extends CI_Model
     }
     
     /**
-     * delete
+     * 通过产品ID进行删除
      * @param unknown $goods_id
      */
     public function deleteByGoodsId($goods_id)
@@ -42,7 +56,7 @@ class Mall_category_product_model extends CI_Model
     }
 
 	/**
-	 * delete
+	 * 通过分类ID进行删除
 	 * @param $category_id
 	 * @return mixed
 	 */

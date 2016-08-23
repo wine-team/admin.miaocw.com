@@ -59,7 +59,7 @@
 <?php $this->load->view('supplier/ajaxSupplier/ajaxGet');?>
 <script type="text/javascript">
 $(document).ready(function(){
-    $('.mall-goods-form').on("click", "input[name='transport_type']", function () {
+    $('.mall-goods-form').on("click", "input[name='freight_type']", function () {
         var obj = $(this).parents('label').next();
         var uid = $('input[name=supplier_id]').val();
         var key = $(this).attr('data-key');

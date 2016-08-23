@@ -41,7 +41,7 @@
                             <?php $this->load->view('mall_goods_base/edit/freight') ;?>
                         </div>
                         <div class="tab-pane" id="tab_6">
-                            <?php echo getCategoryCheckbox($categorys); ?>
+                            <?php echo getCategoryCheckbox($categorys, 0, array_keys($categoryinfo)); ?>
                         </div>
                         <div class="tab-pane data-ajax-url" id="tab_7" data-ajax-url="<?php echo base_url('mall_goods_related/ajaxGet');?>">
                             <?php $this->load->view('mall_goods_related/ajaxGoodsRelated/ajaxGet');?>
@@ -60,7 +60,7 @@
 <?php $this->load->view('supplier/ajaxSupplier/ajaxGet');?>
 <script type="text/javascript">
 $(document).ready(function(){
-    $('.mall-goods-add-step2').on("click", "input[name='transport_type']", function () {
+    $('.mall-goods-add-step2').on("click", "input[name='freight_type']", function () {
         var obj = $(this).parents('label').next();
         var uid = $('input[name=supplier_id]').val();
         var key = $(this).attr('data-key');

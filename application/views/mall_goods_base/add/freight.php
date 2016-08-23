@@ -14,7 +14,7 @@
     <label class="control-label">运费</label>
     <div class="controls transport">
         <label class="checkbox">
-            <input type="radio" value="1" name="transport_type"/>
+            <input type="radio" value="1" name="freight_type"/>
         </label>
         <select name="freight_id" id="freight_id" class="medium" style="display:none;">
         </select>
@@ -25,7 +25,7 @@
     <label class="control-label"></label>
     <div class="controls transport">
         <label class="checkbox">
-            <input type="radio" value="2" name="transport_type"  checked="checked"/>
+            <input type="radio" value="2" name="freight_type"  checked="checked"/>
         </label>
         <input type="text" name="freight_cost" id="freight_cost" class="required" />
         <label class="checkbox">自定义运费价格</label>

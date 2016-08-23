@@ -204,15 +204,17 @@ class Mall_goods_base extends CS_Controller
 		$mallGoodsBase = $result->row(0);
 
 		$attrValues = array();
-		$result = $this->mall_attribute_group->getAttrValuesByAttrSetId($mallGoodsBase->attr_set_id);
-		if ($result->num_rows() > 0) {
-			foreach ($result->result() as $item) {
+		$result1 = $this->mall_attribute_group->getAttrValuesByAttrSetId($mallGoodsBase->attr_set_id);
+		if ($result1->num_rows() > 0) {
+			foreach ($result1->result() as $item) {
 				$attrValues[$item->group_id]['attr_set_id']  = $item->attr_set_id;
 				$attrValues[$item->group_id]['group_id']     = $item->group_id;
 				$attrValues[$item->group_id]['group_name']   = $item->group_name;
 				$attrValues[$item->group_id]['attr_value'][] = $item;
 			}
 		}
+		$data['categoryinfo']  = $this->mall_category_product->findByGoodsId($goods_id, true);
+		$data['freightTpl']    = $this->mall_freight_tpl->getTransport($mallGoodsBase->supplier_id);
 		$data['mallGoodsBase'] = $mallGoodsBase;
 		$data['attrValues']    = $attrValues;
 		$data['categorys']     = $this->mall_category->findByCategoryTree();
@@ -227,34 +229,36 @@ class Mall_goods_base extends CS_Controller
     
     public function editPost()
     {
-    	$goods_id = $this->input->post('goods_id');
-    	$param = $this->input->post();
-    	$this->db->trans_begin();
-    	
-    	$updateGoods = $this->mall_goods_base->updateMallGoodsBase($this->input->post(),$goods_id);
+    	$goods_id = $this->input->post('current_goods_id');
+    	$postData = $this->input->post();
 
-    	if (!empty($param['category_id'])) {
-    		$this->mall_category_product->deleteByGoodsId($goods_id);
-    		$updateCategory = $this->mall_category_product->insertBatch($goods_id,$param['category_id']);
-    	}
-    	
-    	if (isset($param['attr'][1])) {
-    	    $goodsAttrResult = $this->mall_goods_attr_value->updateAttrBatch($param['attr'][1]); 
-    	}
-    	
-    	if (isset($param['attr'][2]) && isset($param['price'][2]) && isset($param['attrNum'][2]) && isset($param['attrStock'][2])) {
-    	    $this->mall_goods_attr_spec->updatePriceBatch($param['attr'][2], $param['price'][2], $param['attrNum'][2], $param['attrStock'][2]);
-    	}
+		$this->db->trans_start();
+    	$updateGoods = $this->mall_goods_base->update($postData);
+		if (!empty($postData['cate_ids_array'])) {
+			$isdelete = $this->mall_category_product->deleteByGoodsId($goods_id);
+			$isInsert = $this->mall_category_product->insertBatchByGoodsId($goods_id, $postData['cate_ids_array']);
+		}
 
-    	if ( !$updateGoods && !$updateCategory && $this->db->trans_status() === FALSE) {
-    		$this->db->trans_rollback();
-    		$this->jsonMessage('编辑失败！');
+		//商品关联
+		$goods_json = $this->input->post('goods_json');
+		$goodsArr = json_decode($goods_json, TRUE);
+		foreach ($goodsArr as $key=>$value) {
+			if ($value === NULL) {
+				unset($goodsArr[$key]);
+			}
+		}
+		if (!empty($goodsArr)) {
+			$delete = $this->mall_goods_related->deleteByGoodsId($goods_id);
+			$insert = $this->mall_goods_related->insertBatchByGoodsId($goods_id, $goodsArr);
+		}
+		$this->db->trans_complete();
+
+    	if ($this->db->trans_status() === TRUE) {
+			$this->session->set_flashdata('success', '编辑成功!');
+			$this->jsonMessage('', base_url('mall_goods_base/grid'));
     	} else {
-    		$this->db->trans_complete();
-    		$this->session->set_flashdata('success', '编辑成功!');
-    		$this->jsonMessage('', base_url('mall_goods_base/grid'));
+			$this->jsonMessage('编辑失败！');
     	}
-    	exit;
     }
     
      /**
@@ -379,7 +383,7 @@ class Mall_goods_base extends CS_Controller
 				$error[] = '商品sku已存在。';
 			}
 		} else {
-			$result = $this->mall_goods_base->findByGoodsId($this->input->post('goods_id'));
+			$result = $this->mall_goods_base->findByGoodsId($this->input->post('current_goods_id'));
 			if ($result->num_rows() <= 0) {
 				$error[] = '修改错误，请重新进入重试';
 			}

@@ -83,28 +83,10 @@ class Mall_goods_related_model extends CI_Model
 	 * delete
 	 * @param unknown $goods_id
 	 */
-	public function deleteByGoodsId($goods_id){
-		
-		$this->db->where('goods_id',$goods_id);
-		return $this->db->delete($this->table);
-	}
-	
-	/**
-	 * 
-	 * @param unknown $relatedGoodsArray
-	 * @param unknown $goods_id
-	 */
-	public function insertBatch($relatedGoodsArray,$is_double,$goods_id)
+	public function deleteByGoodsId($goods_id)
 	{
-		$i = 0;
-		$relatedGoods = array();
-		foreach ($relatedGoodsArray as $item){
-			$relatedGoods[$i]['goods_id'] = $goods_id;
-			$relatedGoods[$i]['related_goods_id'] = $item;
-			$relatedGoods[$i]['is_double'] = $is_double;
-			$i++;
-		}
-		return $this->db->insert_batch($this->table,$relatedGoods);
+		$this->db->where('goods_id', $goods_id);
+		return $this->db->delete($this->table);
 	}
 	
 	public function findRealtedByGoodsId($goods_id)
