@@ -116,7 +116,7 @@ class Mall_goods_base_model extends CI_Model
 		$data = array(
 	 	    'goods_name'         => $params['goods_name'],
 	 	    'goods_sku'          => $params['goods_sku'],
-	 	    'brand_id'           => $params['brand_id'],
+	 	    'brand_id'           => !empty($params['brand_id']) ? $params['brand_id'] : 0,
 	 		'goods_weight'       => $params['goods_weight'],
 	 		'goods_brief'        => $params['goods_brief'],
 	 		'supplier_id'        => $params['supplier_id'],
@@ -169,7 +169,7 @@ class Mall_goods_base_model extends CI_Model
 		 $data = array(
 			 'goods_name'         => $params['goods_name'],
 			 'goods_sku'          => $params['goods_sku'],
-			 'brand_id'           => $params['brand_id'],
+			 'brand_id'           => !empty($params['brand_id']) ? $params['brand_id'] : 0,
 			 'goods_weight'       => $params['goods_weight'],
 			 'goods_brief'        => $params['goods_brief'],
 			 'supplier_id'        => $params['supplier_id'],

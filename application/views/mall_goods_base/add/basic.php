@@ -42,8 +42,8 @@
     <div class="control-group">
         <label class="control-label">商品品牌</label>
         <div class="controls">
-            <select name="brand_id" class="m-wrap span12 chosen" data-placeholder="请选择商品品牌">
-                <option value="0"></option>
+            <select name="brand_id" class="m-wrap span12 chosen">
+                <option value=" ">请选择</option>
                 <?php foreach ($brand->result() as $item) : ?>
                     <option value="<?php echo $item->brand_id ?>"><?php echo $item->brand_name ?></option>
                 <?php endforeach; ?>
@@ -52,7 +52,7 @@
     </div>
 <?php endif; ?>
 <div class="control-group">
-    <label class="control-label"><em>* </em>净重（kg）</label>
+    <label class="control-label"><em>* </em>净重（g）</label>
     <div class="controls">
         <input type="text" name="goods_weight" class="m-wrap span12 required number">
     </div>
