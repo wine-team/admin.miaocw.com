@@ -43,7 +43,7 @@
         <label class="control-label">商品品牌</label>
         <div class="controls">
             <select name="brand_id" class="m-wrap span12 chosen">
-                <option value=" ">请选择</option>
+                <option value=" ">无</option>
                 <?php foreach ($brand->result() as $item) : ?>
                     <option value="<?php echo $item->brand_id ?>"><?php echo $item->brand_name ?></option>
                 <?php endforeach; ?>
