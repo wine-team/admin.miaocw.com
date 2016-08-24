@@ -2,6 +2,7 @@
 class Supplier_model extends CI_Model
 {
 	private $table = 'supplier';
+	private $table1 = 'user';
 
 	public function findById($supplier_id)
 	{
@@ -11,32 +12,49 @@ class Supplier_model extends CI_Model
 
 	public function total($params=array())
 	{
+		$this->db->from($this->table1);
+		$this->db->join($this->table, 'user.uid=supplier.uid', 'INNER');
 		if (!empty($params['supplier_id'])) {
 			$this->db->where('supplier_id', $params['supplier_id']);
 		}
+		if (!empty($params['phone'])) {
+			$this->db->where('user.phone', $params['phone']);
+		}
 		if (!empty($params['uid'])) {
-			$this->db->where('uid', $params['uid']);
+			$this->db->where('user.uid', $params['uid']);
 		}
 		if (!empty($params['supplier_name'])) {
-			$this->db->like('supplier_name', $params['supplier_name']);
+			$this->db->like('supplier.supplier_name', $params['supplier_name']);
 		}
-		return $this->db->count_all_results($this->table);
+		if (!empty($params['is_check'])) {
+			$this->db->like('supplier.is_check', $params['is_check']);
+		}
+		return $this->db->count_all_results();
 	}
 
 	public function page_list($page_num, $num, $params=array())
 	{
+		$this->db->select('user.*, supplier.supplier_id, supplier.supplier_name, supplier.is_check, supplier.apply_time');
+		$this->db->from($this->table1);
+		$this->db->join($this->table, 'user.uid=supplier.uid', 'INNER');
 		if (!empty($params['supplier_id'])) {
 			$this->db->where('supplier_id', $params['supplier_id']);
 		}
+		if (!empty($params['phone'])) {
+			$this->db->where('user.phone', $params['phone']);
+		}
 		if (!empty($params['uid'])) {
-			$this->db->where('uid', $params['uid']);
+			$this->db->where('user.uid', $params['uid']);
 		}
 	    if (!empty($params['supplier_name'])) {
-	        $this->db->like('supplier_name', $params['supplier_name']);
+	        $this->db->like('supplier.supplier_name', $params['supplier_name']);
 	    }
-	    $this->db->order_by('supplier_id', 'DESC');
+		if (!empty($params['is_check'])) {
+			$this->db->like('supplier.is_check', $params['is_check']);
+		}
+	    $this->db->order_by('user.uid', 'DESC');
 	    $this->db->limit($page_num, $num);
-	    return $this->db->get($this->table);
+	    return $this->db->get();
 	}
 
 	public function findByUid($uid)
