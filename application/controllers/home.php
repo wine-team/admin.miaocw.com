@@ -17,8 +17,7 @@ class Home extends CS_Controller
 
     public function edit()
     {
-        $data['adminuser'] = $this->session->userdata('adminUser');
-        $this->load->view('home/edit', $data);
+        $this->load->view('home/edit');
     }
 
     public function editPost()

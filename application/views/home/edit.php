@@ -22,20 +22,20 @@
                         <div class="control-group">
                             <label class="control-label"><em>* </em>用户名</label>
                             <div class="controls">
-                                <input type="hidden" name="id" value="<?php echo $adminuser->id ?>">
-                                <input type="text" name="name" readonly="readonly" class="m-wrap large" value="<?php echo $adminuser->name ?>">
+                                <input type="hidden" name="id" value="<?php echo $this->uid ?>">
+                                <input type="text" name="name" readonly="readonly" class="m-wrap large" value="<?php echo $this->admin_name ?>">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">真实姓名</label>
                             <div class="controls">
-                                <input type="text" name="realname" class="m-wrap large" value="<?php echo $adminuser->realname ?>">
+                                <input type="text" name="realname" class="m-wrap large" value="<?php echo $this->realname ?>">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label"><em>* </em>邮箱地址</label>
                             <div class="controls">
-                                <input type="text" class="m-wrap large required email" name="email" value="<?php echo $adminuser->email ?>"/> 
+                                <input type="text" class="m-wrap large required email" name="email" value="<?php echo $this->admin_email ?>"/>
                             </div>
                         </div>
                         <div class="control-group">
