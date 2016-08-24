@@ -171,9 +171,9 @@
                                         </td>
                                         <td>
                                             <a class="btn mini green" href="<?php echo base_url('mall_goods_base/images/'.$item->goods_id) ?>">图片管理</a>
-                                            <a class="btn mini green" href="<?php echo base_url('mall_goods_base/edit/'.$item->goods_id.'?attr_set_id='.$item->attr_set_id);?>">编辑</a><p></p>
-                                            <a class="btn mini green" href="<?php echo base_url('mall_goods_base/copy/'.$item->goods_id.'?attr_set_id='.$item->attr_set_id);?>">复制</a>
-                                            <a class="btn mini green" href="<?php echo base_url('mall_goods_base/copy/'.$item->goods_id.'?attr_set_id='.$item->attr_set_id);?>">预览</a>
+                                            <a class="btn mini green" href="<?php echo base_url('mall_goods_base/edit/'.$item->goods_id);?>">编辑</a><p></p>
+                                            <a class="btn mini green" href="<?php echo base_url('mall_goods_base/copy/'.$item->goods_id);?>">复制</a>
+                                            <a class="btn mini green" href="<?php echo base_url('mall_goods_base/copy/'.$item->goods_id);?>">预览</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

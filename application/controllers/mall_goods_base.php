@@ -17,6 +17,7 @@ class Mall_goods_base extends CS_Controller
         $this->load->model('mall_attribute_group_model','mall_attribute_group');
         $this->load->model('mall_attribute_value_model','mall_attribute_value');
         $this->load->model('mall_goods_related_model','mall_goods_related');
+		$this->load->model('supplier_model','supplier');
 		$this->extension = array(
 			'simple'=>'简单产品',
 			'grouped'=>'组合产品',
@@ -151,7 +152,7 @@ class Mall_goods_base extends CS_Controller
     	if (!empty($error)) {
     		$this->jsonMessage($error);
     	}
-    	if ($this->input->post('current_goods_id')) {
+    	if ($this->input->post('edit_goods_id')) {
     		$this->editPost();
     	} else {
     		$this->addPost();
@@ -229,7 +230,7 @@ class Mall_goods_base extends CS_Controller
     
     public function editPost()
     {
-    	$goods_id = $this->input->post('current_goods_id');
+    	$goods_id = $this->input->post('edit_goods_id');
     	$postData = $this->input->post();
 
 		$this->db->trans_start();
@@ -260,7 +261,43 @@ class Mall_goods_base extends CS_Controller
 			$this->jsonMessage('编辑失败！');
     	}
     }
-    
+
+	/**
+	 * 编辑
+	 * @param unknown $goods_id
+	 */
+	public function copy($goods_id)
+	{
+		$result = $this->mall_goods_base->findByGoodsId($goods_id);
+		if ($result->num_rows() <= 0) {
+			$this->error('mall_goods_base/grid', '', '找不到产品相关信息！');
+		}
+		$mallGoodsBase = $result->row(0);
+
+		$attrValues = array();
+		$result1 = $this->mall_attribute_group->getAttrValuesByAttrSetId($mallGoodsBase->attr_set_id);
+		if ($result1->num_rows() > 0) {
+			foreach ($result1->result() as $item) {
+				$attrValues[$item->group_id]['attr_set_id']  = $item->attr_set_id;
+				$attrValues[$item->group_id]['group_id']     = $item->group_id;
+				$attrValues[$item->group_id]['group_name']   = $item->group_name;
+				$attrValues[$item->group_id]['attr_value'][] = $item;
+			}
+		}
+		$data['categoryinfo']  = $this->mall_category_product->findByGoodsId($goods_id, true);
+		$data['freightTpl']    = $this->mall_freight_tpl->getTransport($mallGoodsBase->supplier_id);
+		$data['mallGoodsBase'] = $mallGoodsBase;
+		$data['attrValues']    = $attrValues;
+		$data['categorys']     = $this->mall_category->findByCategoryTree();
+		$data['attributeSet']  = $this->mall_attribute_set->find();
+		$data['brand']         = $this->mall_brand->find();//品牌信息
+		$data['extension']     = $this->extension;
+		$data['province_id']   = $mallGoodsBase->province_id;
+		$data['city_id']       = $mallGoodsBase->city_id;
+		$data['district_id']   = $mallGoodsBase->district_id;
+		$this->load->view('mall_goods_base/copy', $data);
+	}
+
      /**
      * 商品多图显示
      * author laona
@@ -377,13 +414,13 @@ class Mall_goods_base extends CS_Controller
     	if ($this->validateParam($this->input->post('goods_name'))) {
     		$error[] = '商品名称不可为空！';
     	}
-		if (!$this->input->post('current_goods_id')) {//验证商品sku
+		if (!$this->input->post('edit_goods_id')) {//验证商品sku
 			$mallGoodsBase = $this->mall_goods_base->findByGoodsSku($this->input->post('goods_sku'));
 			if ($mallGoodsBase->num_rows() > 0){
 				$error[] = '商品sku已存在。';
 			}
 		} else {
-			$result = $this->mall_goods_base->findByGoodsId($this->input->post('current_goods_id'));
+			$result = $this->mall_goods_base->findByGoodsId($this->input->post('edit_goods_id'));
 			if ($result->num_rows() <= 0) {
 				$error[] = '修改错误，请重新进入重试';
 			}
@@ -397,7 +434,7 @@ class Mall_goods_base extends CS_Controller
 		}
 		$supplier_id = $this->input->post('supplier_id');
 		if (!empty($supplier_id)) {//为零时不判断，默认自营产品
-			$userQuery = $this->user->findBySupplierId($supplier_id);
+			$userQuery = $this->supplier->findByUid($supplier_id);
 			if ($userQuery->num_rows() <= 0) {
 				$error[] = '供应商必须填写';
 			}

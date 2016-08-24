@@ -14,7 +14,7 @@
         <div class="span12">
             <div class="tabbable tabbable-custom tabbable-full-width">
                 <form class="form-horizontal mall-goods-form" enctype="multipart/form-data">
-				    <input type="hidden" name="goods_id" value="<?php echo $mallGoodsBase->goods_id;?>" />
+                    <input type="hidden" name="edit_goods_id" value="<?php echo $mallGoodsBase->goods_id;?>" />
 				    <ul class="nav nav-tabs">
                         <li class="active"><a href="#tab_1" data-toggle="tab">基本信息</a></li>
                         <li><a href="#tab_2" data-toggle="tab">销售信息</a></li>

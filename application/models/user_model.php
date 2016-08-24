@@ -10,15 +10,6 @@ class User_model extends CI_Model
         return $this->db->get($this->table);
     }
 
-    public function findBySupplierId($uid)
-    {
-        $this->db->select('user.*, supplier.supplier_id, supplier.supplier_name, supplier.supplier_desc, supplier.supplier_desc, supplier.is_check');
-        $this->db->from($this->table);
-        $this->db->join($this->table1, 'user.uid=supplier.uid', 'INNER');
-        $this->db->where('user.uid', $uid);
-        return $this->db->get();
-    }
-
     /**
      * 根据条件搜索
      * @param unknown $param

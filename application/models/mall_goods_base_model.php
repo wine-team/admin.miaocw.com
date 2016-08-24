@@ -210,7 +210,7 @@ class Mall_goods_base_model extends CI_Model
 	 		$data['freight_cost'] = $params['freight_cost'];
 	 	}
 	 	
-	 	$this->db->where('goods_id', $params['current_goods_id']);
+	 	$this->db->where('goods_id', $params['edit_goods_id']);
 	 	return $this->db->update($this->table, $data);
 	 }
 	 
