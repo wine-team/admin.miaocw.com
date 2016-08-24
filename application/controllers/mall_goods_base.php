@@ -436,7 +436,7 @@ class Mall_goods_base extends CS_Controller
 		if (!empty($supplier_id)) {//为零时不判断，默认自营产品
 			$userQuery = $this->supplier->findByUid($supplier_id);
 			if ($userQuery->num_rows() <= 0) {
-				$error[] = '供应商必须填写';
+				$error[] = '请填写正确的供应商UID';
 			}
 		}
     	if ($this->validateParam($this->input->post('goods_brief'))) {
