@@ -2,7 +2,6 @@
 class User_model extends CI_Model
 {
     private $table = 'user';
-    private $table1 = 'supplier';
 
     public function findById($uid)
     {
@@ -38,7 +37,7 @@ class User_model extends CI_Model
             $this->db->where('parent_id', $params['parent_id']);
         }
         if (!empty($params['flag'])) {
-        	$this->db->where('flag', $params['flag']);
+            $this->db->where('flag', $params['flag']);
         }
         if (!empty($params['start_time'])) {
             $this->db->where('created_at >=',$params['start_time']);
@@ -65,13 +64,13 @@ class User_model extends CI_Model
             $this->db->where('parent_id', $params['parent_id']);
         }
         if (!empty($params['flag'])) {
-        	$this->db->where('flag',$params['flag']);
+            $this->db->where('flag',$params['flag']);
         }
         if (!empty($params['start_time'])) {
-        	$this->db->where('created_at >=',$params['start_time']);
+            $this->db->where('created_at >=',$params['start_time']);
         }
         if (!empty($params['end_time'])) {
-        	$this->db->where('created_at <=',$params['end_time']);
+            $this->db->where('created_at <=',$params['end_time']);
         }
         $this->db->order_by('user.uid', 'DESC');
         $this->db->limit($page_num, $num);
@@ -143,32 +142,12 @@ class User_model extends CI_Model
      */
     public function updateUserAcount($uid, $account=array())
     {
-    	$data = array();
-    	if (!empty($account['amount_carry'])) {
-    		$this->db->set('user_money', 'user_money+'.$account['amount_carry'], FALSE);
-    	}
-    	$this->db->where('uid', $uid);
-    	return $this->db->update($this->table, $data);
-    }
-    
-    /**
-     * 更新密码
-     * @param unknown $uid
-     */
-    public function updatePasswordByUid($uid){
-    	
-    	$data['password'] = sha1(base64_encode('123456'));
-    	return $this->db->update($this->table, $data, array('uid'=>$uid));
-    }
-    
-    /**
-     * 删除uid
-     * @param unknown $uid
-     */
-    public function deleteById($uid){
-    	
-    	$this->db->where('uid',$uid);
-    	return $this->db->delete($this->table);
+        $data = array();
+        if (!empty($account['amount_carry'])) {
+            $this->db->set('user_money', 'user_money+'.$account['amount_carry'], FALSE);
+        }
+        $this->db->where('uid', $uid);
+        return $this->db->update($this->table, $data);
     }
      
     /**

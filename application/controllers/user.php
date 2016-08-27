@@ -179,19 +179,6 @@ class User extends CS_Controller
         $this->success('user/grid', '', '删除成功！');
     }
     
-     /**
-     * 重置密码
-     * @param unknown $uid
-     */
-    public function restPassword($uid){
-    	
-    	$result = $this->user->updatePasswordByUid($uid);
-    	if (!$result) {
-    		$this->error('user/grid',array('username'=>$uid), '重置失败！');
-    	}
-    	$this->success('user/grid', '', '重置成功！');
-    }
-    
     public function validate()
     {
         $error = array();
