@@ -46,15 +46,15 @@
                         <div class="control-group">
                             <label class="control-label"><em>* </em>属性类型</label>
                             <div class="controls">
-                            	<select class="m-wrap large required" name="attr_type">
-                            	     <option value="">请选择</option>
-                            	     <option <?php if($res->attr_type=='text') echo 'selected="selected"';?> value="text">text:输入框</option>
-                            	     <option <?php if($res->attr_type=='textarea') echo 'selected="selected"';?> value="textarea">textarea：文本框</option>
-                            	     <option <?php if($res->attr_type=='boolean') echo 'selected="selected"';?> value="boolean">boolean：yes/no</option>
-                            	     <option <?php if($res->attr_type=='select') echo 'selected="selected"';?> value="select"> select：下拉框</option>
-                            	     <option <?php if($res->attr_type=='multiselect') echo 'selected="selected"';?> value="multiselect">multiselect：多选select框</option>
-                            	     <option <?php if($res->attr_type=='date') echo 'selected="selected"';?> value="date">date:日历框</option>
-                            	</select>
+                                <select class="m-wrap large required" name="attr_type">
+                                     <option value="">请选择</option>
+                                     <option <?php if($res->attr_type=='text') echo 'selected="selected"';?> value="text">text:输入框</option>
+                                     <option <?php if($res->attr_type=='textarea') echo 'selected="selected"';?> value="textarea">textarea：文本框</option>
+                                     <option <?php if($res->attr_type=='boolean') echo 'selected="selected"';?> value="boolean">boolean：yes/no</option>
+                                     <option <?php if($res->attr_type=='select') echo 'selected="selected"';?> value="select"> select：下拉框</option>
+                                     <option <?php if($res->attr_type=='multiselect') echo 'selected="selected"';?> value="multiselect">multiselect：多选select框</option>
+                                     <option <?php if($res->attr_type=='date') echo 'selected="selected"';?> value="date">date:日历框</option>
+                                </select>
                             </div>
                         </div>
                         
@@ -69,51 +69,14 @@
                         <div class="control-group">
                             <label class="control-label"><em>* </em>添加产品时是否必填</label>
                             <div class="controls">
-                            	<label class="radio">
-                                	<input type="radio" class="required" name="values_required" value="1" <?php if($res->values_required==1) echo 'checked="checked"';?> />必填
+                                <label class="radio">
+                                    <input type="radio" class="required" name="values_required" value="1" <?php if($res->values_required==1) echo 'checked="checked"';?> />必填
                                 </label>
                                 <label class="radio">
-                                	<input type="radio" class="required" name="values_required" value="2" <?php if($res->values_required==2) echo 'checked="checked"';?> />不必填
+                                    <input type="radio" class="required" name="values_required" value="2" <?php if($res->values_required==2) echo 'checked="checked"';?> />不必填
                                 </label>
                             </div>
                         </div>
-                        
-                        <div class="control-group">
-                            <label class="control-label"><em>* </em>检索</label>
-                            <div class="controls">
-                            	<label class="radio">
-                                	<input type="radio" class="required" name="attr_index" value="1" <?php if($res->attr_index==1) echo 'checked="checked"';?> />不需要检索
-                                </label>
-                                <label class="radio">
-                                	<input type="radio" class="required" name="attr_index" value="2" <?php if($res->attr_index==2) echo 'checked="checked"';?> />关键字检索
-                                </label>
-                            </div>
-                        </div>
-                        
-                        <div class="control-group">
-                            <label class="control-label"><em>* </em>属性类别</label>
-                            <div class="controls">
-                            	<label class="radio">
-                                	<input type="radio" class="required" name="attr_spec" value="1" <?php if($res->attr_spec==1) echo 'checked="checked"';?>/>常规属性
-                                </label>
-                                <label class="radio">
-                                	<input type="radio" class="required" name="attr_spec" value="2" <?php if($res->attr_spec==2) echo 'checked="checked"';?>/>规格属性（与价格相关）
-                            	</label>
-                            </div>
-                        </div>
-                        
-                        <div class="control-group">
-                            <label class="control-label"><em>* </em>是否关联相同属性值的商品</label>
-                            <div class="controls">
-                            	<label class="radio">
-                                	<input type="radio" class="required" name="is_linked" value="1" <?php if($res->is_linked==1) echo 'checked="checked"';?> />关联
-                                </label>
-                                <label class="radio">
-                                	<input type="radio" class="required" name="is_linked" value="2" <?php if($res->is_linked==2) echo 'checked="checked"';?>/>不关联
-                                </label>
-                            </div>
-                        </div>
-                        
                         <div class="control-group">
                             <label class="control-label"><em>* </em>排序</label>
                             <div class="controls">
