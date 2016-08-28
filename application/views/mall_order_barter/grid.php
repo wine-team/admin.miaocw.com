@@ -22,47 +22,45 @@
                 <div class="portlet-body form">
                     <form class="form-horizontal form-search" action="<?php echo base_url('mall_order_barter/grid') ?>" method="get">
                         <div class="row-fluid">
-                            <div class="span6">
+                            <div class="span4">
                                 <div class="control-group">
                                     <label class="control-label">订单ID</label>
                                     <div class="controls">
-                                        <input type="text" name="order_id" value="<?php echo $this->input->get('order_id'); ?>" placeholder="请输入订单ID" class="m-wrap medium">
+                                        <input type="text" name="order_id" value="<?php echo $this->input->get('order_id'); ?>" class="m-wrap span12" placeholder="请输入订单ID">
                                     </div>
                                 </div>
                             </div>
-                            <div class="span6">
+                            <div class="span4">
                                 <div class="control-group">
                                     <label class="control-label">商品搜索</label>
                                     <div class="controls">
-                                        <input type="text" name="goods_name" value="<?php echo $this->input->get('goods_name'); ?>" placeholder="请输入产品名称或产品编号" class="m-wrap medium">
+                                        <input type="text" name="goods_name" value="<?php echo $this->input->get('goods_name'); ?>" class="m-wrap span12" placeholder="请输入产品名称或产品编号">
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row-fluid">
-                            <div class="span6">
+                            <div class="span4">
                                 <div class="control-group">
                                     <label class="control-label">供应商</label>
                                     <div class="controls">
-                                        <input type="text" name="seller_name" value="<?php echo $this->input->get('seller_name'); ?>" placeholder="请输供应商账户名或别名" class="m-wrap medium">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="span6">
-                                <div class="control-group">
-                                    <label class="control-label">申请人</label>
-                                    <div class="controls">
-                                        <input type="text" name="user_name" value="<?php echo $this->input->get('user_name'); ?>" placeholder="请输入申请人或uid或手机号码" class="m-wrap medium">
+                                        <input type="text" name="seller_name" value="<?php echo $this->input->get('seller_name'); ?>" class="m-wrap span12" placeholder="请输供应商账户名或别名">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row-fluid">
-                            <div class="span6">
+                            <div class="span4">
+                                <div class="control-group">
+                                    <label class="control-label">申请人</label>
+                                    <div class="controls">
+                                        <input type="text" name="user_name" value="<?php echo $this->input->get('user_name'); ?>" class="m-wrap span12" placeholder="请输入申请人或uid或手机号码">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span4">
                                 <div class="control-group">
                                     <label class="control-label">换货状态</label>
                                     <div class="controls">
-                                        <select name="status" class="m-wrap medium">
+                                        <select name="status" class="m-wrap span12">
                                             <option value="">请选择</option>
                                             <?php foreach ($barterStatus as $key => $value) : ?>
                                                 <option value="<?php echo $key; ?>" <?php if ($key == $this->input->get('status')): ?> selected="selected"<?php endif; ?>><?php echo $value; ?></option>
@@ -71,11 +69,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="span6">
+                            <div class="span4">
                                 <div class="control-group">
                                     <label class="control-label">进度</label>
                                     <div class="controls">
-                                        <select name="flag" class="m-wrap medium">
+                                        <select name="flag" class="m-wrap span12">
                                             <option value="">请选择</option>
                                             <?php foreach ($barterFlag as $key => $value) : ?>
                                                 <option value="<?php echo $key; ?>" <?php if ($key == $this->input->get('flag')): ?> selected="selected"<?php endif; ?>><?php echo $value; ?></option>
@@ -150,14 +148,7 @@
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
-                        <div class="row-fluid">
-                            <div class="dataTables_info">
-                                <span>当前第</span><span style="color: red"><?php echo $pg_now ?></span>页
-                                <span>共</span><span style="color: red"><?php echo $all_rows ?></span>条数据
-                                <span>每页显示20条 </span>
-                                <?php echo $pg_list ?>
-                            </div>
-                        </div>
+                        <?php $this->load->view('layout/pagination');?>
                     <?php else: ?>
                         <div class="alert"><p>未找到数据。<p></div>
                     <?php endif ?>

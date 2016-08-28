@@ -24,6 +24,7 @@ class Mall_order_barter extends CS_Controller
         $data['page_list'] = $this->mall_order_barter->page_list($page_num, $num, $this->input->get());
         $data['all_rows'] = $config['total_rows'];
         $data['pg_now'] = $pg;
+        $data['page_num'] = $page_num;
         $data['barterStatus'] = array('1' => '申请换货', '2' => '同意换货', '3' => '否决换货');
         $data['barterFlag'] = array('1' => '未更换', '2' => '已更换');
         $this->load->view('mall_order_barter/grid', $data);
