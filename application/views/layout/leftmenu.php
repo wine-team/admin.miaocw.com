@@ -53,6 +53,7 @@
                     </a>
                     <ul class="sub-menu">
                         <li><a href="<?php echo base_url('user/grid');?>">账号列表</a></li>
+                        <li><a href="<?php echo base_url('account_log/grid');?>">账号收支</a></li>
                         <li><a href="<?php echo base_url('supplier/grid');?>">供应商管理</a></li>
                         <li><a href="<?php echo base_url('user_coupon_set/grid');?>">优惠劵设置</a></li>
                     </ul>
