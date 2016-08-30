@@ -237,19 +237,6 @@ class Mall_goods_base_model extends CI_Model
     
      /**
      * 
-     * @param unknown $goods_id
-     */
-    public function getInfoByGoodsId($goods_id)
-    {
-        $this->db->select('mall_goods_base.*,mall_category.full_name');
-        $this->db->from($this->table);
-        $this->db->join('mall_category','mall_category.cat_id=mall_goods_base.category_id');
-        $this->db->where('mall_goods_base.goods_id', $goods_id);
-        return $this->db->get();
-    }
-    
-     /**
-     * 
      * @param unknown $params
      */
     public function insertImage($params)
