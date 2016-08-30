@@ -3,6 +3,18 @@ class Cms_block_model extends CI_Model
 {
     private $table = 'cms_block';
 
+    public function findById($id)
+    {
+        $this->db->where('id', $id);
+        return $this->db->get($this->table);
+    }
+
+    public function findByBlockId($blockId)
+    {
+        $this->db->where('block_id', $blockId);
+        return $this->db->get($this->table);
+    }
+
     public function findByParams($params=array())
     {
         return $this->db->get($this->table);
@@ -28,13 +40,7 @@ class Cms_block_model extends CI_Model
         return $this->db->get($this->table);
     }
     
-    public function findById($id)
-    {
-        $this->db->where('id', $id);
-        return $this->db->get($this->table);
-    }
-    
-    public function insertCmsBlock($postData)
+    public function insert($postData = array())
     {
         $data = array(
             'name'        => trim($postData['name']),
@@ -46,7 +52,7 @@ class Cms_block_model extends CI_Model
         return $this->db->insert_id();
     }
     
-    public function updateCmsBlock($postData)
+    public function update($postData = array())
     {
         $data = array(
             'name'        => trim($postData['name']),
@@ -58,28 +64,9 @@ class Cms_block_model extends CI_Model
         return $this->db->update($this->table, $data);
     }
     
-    public function validateBlockId($blockId)
-    {
-        $this->db->where('block_id', $blockId);
-        if ($this->db->count_all_results($this->table) > 0) {
-            return true;
-        }
-        return false;
-    }
-    
     public function deleteById($id)
     {
         $this->db->where('id', $id);
         return $this->db->delete($this->table);
-    }
-    
-    public function findByBlockId($blockId)
-    {
-        $this->db->where('block_id', $blockId);
-        $result = $this->db->get($this->table);
-        if($result->num_rows() > 0) {
-            return $result;
-        }
-        return false;
     }
 }

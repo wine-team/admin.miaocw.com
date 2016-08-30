@@ -1,5 +1,5 @@
 <?php 
-class Cmsblock extends CS_Controller
+class Cms_block extends CS_Controller
 {
     public function _init()
     {
@@ -11,9 +11,9 @@ class Cmsblock extends CS_Controller
     {
         $page_num = 20;
         $num = ($pg-1)*$page_num;
-        $config['first_url'] = base_url('cmsblock/grid').$this->pageGetParam($this->input->get());
+        $config['first_url'] = base_url('cms_block/grid').$this->pageGetParam($this->input->get());
         $config['suffix'] = $this->pageGetParam($this->input->get());
-        $config['base_url'] = base_url('cmsblock/grid');
+        $config['base_url'] = base_url('cms_block/grid');
         $config['total_rows'] = $this->cms_block->total($this->input->get());
         $config['uri_segment'] = 3;
         $this->pagination->initialize($config);
@@ -21,33 +21,35 @@ class Cmsblock extends CS_Controller
         $data['page_list'] = $this->cms_block->page_list($page_num, $num, $this->input->get());
         $data['all_rows'] = $config['total_rows'];
         $data['pg_now'] = $pg;
-        $this->load->view('cmsblock/grid', $data);
+        $data['page_num'] = $page_num;
+        $this->load->view('cms_block/grid', $data);
     }
     
     public function add()
     {
-        $this->load->view('cmsblock/add');
+        $this->load->view('cms_block/add');
     }
     
     public function addPost()
     {
         $error = $this->validate();
         $blockId = $this->input->post('block_id');
-        if ($this->cms_block->validateBlockId($blockId)) {
-            $error[] = '区块Id必须唯一。';
+        $result = $this->cms_block->findByBlockId($blockId);
+        if ($result->num_rows() > 0) {
+            $error[] = $blockId.'区块已经存在';
         }
         if (!empty($error)) {
-            $this->error('cmsblock/add', '', $error);
+            $this->error('cms_block/add', '', $error);
         }
         
         $this->db->trans_start();
-        $resultId = $this->cms_block->insertCmsBlock($this->input->post());
+        $resultId = $this->cms_block->insert($this->input->post());
         $this->db->trans_complete();
         
         if ($resultId) {
-            $this->success('cmsblock/grid', '', '保存成功！');
+            $this->success('cms_block/grid', '', '保存成功！');
         } else {
-            $this->error('cmsblock/add', '', '保存失败！');
+            $this->error('cms_block/add', '', '保存失败！');
         }
     }
     
@@ -55,10 +57,10 @@ class Cmsblock extends CS_Controller
     {
         $result = $this->cms_block->findById($id);
         if($result->num_rows() <= 0) {
-            $this->redirect('cmsblock/grid');
+            $this->redirect('cms_block/grid');
         }
-        $data['cmsblock'] = $result->row();
-        $this->load->view('cmsblock/edit', $data);
+        $data['cmsBlock'] = $result->row();
+        $this->load->view('cms_block/edit', $data);
     }
     
     public function editPost()
@@ -66,18 +68,18 @@ class Cmsblock extends CS_Controller
         $id = $this->input->post('id');
         $error = $this->validate();
         if (!empty($error)) {
-            $this->error('cmsblock/edit', $id, $error);
+            $this->error('cms_block/edit', $id, $error);
             return ;
         }
         
         $this->db->trans_start();
-        $resultId = $this->cms_block->updateCmsBlock($this->input->post());
+        $resultId = $this->cms_block->update($this->input->post());
         $this->db->trans_complete();
     
         if ($resultId) {
-            $this->success('cmsblock/grid', '', '保存成功！');
+            $this->success('cms_block/grid', '', '保存成功！');
         } else {
-            $this->error('cmsblock/edit', $id, '保存失败！');
+            $this->error('cms_block/edit', $id, '保存失败！');
         }
     }
 
@@ -86,9 +88,9 @@ class Cmsblock extends CS_Controller
         $is_delete = $this->cms_block->deleteById($id);
 
         if ($is_delete) {
-            $this->success('cmsblock/grid', '', '删除成功！');
+            $this->success('cms_block/grid', '', '删除成功！');
         } else {
-            $this->error('cmsblock/grid', '', '删除失败！');
+            $this->error('cms_block/grid', '', '删除失败！');
         }
     }
     
