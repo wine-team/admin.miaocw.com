@@ -69,7 +69,7 @@ class Supplier_model extends CI_Model
 	        'supplier_desc' => $postData['supplier_desc'],
 	        'uid'           => $postData['uid'],
 	        'is_check'      => $postData['is_check'],
-	        'created_at'    => date('Y-m-d H:i:s'),
+	        'apply_time'    => date('Y-m-d H:i:s'),
 	    );
 	    $this->db->insert($this->table, $data);
 	    return $this->db->insert_id();
