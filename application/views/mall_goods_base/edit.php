@@ -15,7 +15,7 @@
             <div class="tabbable tabbable-custom tabbable-full-width">
                 <form class="form-horizontal mall-goods-form" enctype="multipart/form-data">
                     <input type="hidden" name="edit_goods_id" value="<?php echo $mallGoodsBase->goods_id;?>" />
-				    <ul class="nav nav-tabs">
+                    <ul class="nav nav-tabs">
                         <li class="active"><a href="#tab_1" data-toggle="tab">基本信息</a></li>
                         <li><a href="#tab_2" data-toggle="tab">销售信息</a></li>
                         <li><a href="#tab_3" data-toggle="tab">促销信息</a></li>
@@ -23,14 +23,14 @@
                         <li><a href="#tab_5" data-toggle="tab">运费信息</a></li>
                         <li><a href="#tab_6" data-toggle="tab">所属分类</a></li>
                         <li><a href="#tab_7" data-toggle="tab">商品关联</a></li>
-					</ul>
-					<div class="tab-content">
-						<div class="tab-pane active" id="tab_1">
-							<?php $this->load->view('mall_goods_base/edit/basic') ?>;
-						</div>
-						<div class="tab-pane" id="tab_2">
-							<?php $this->load->view('mall_goods_base/edit/sales') ?>;
-						 </div>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab_1">
+                            <?php $this->load->view('mall_goods_base/edit/basic') ?>;
+                        </div>
+                        <div class="tab-pane" id="tab_2">
+                            <?php $this->load->view('mall_goods_base/edit/sales') ?>;
+                         </div>
                         <div class="tab-pane" id="tab_3">
                             <?php $this->load->view('mall_goods_base/edit/promote'); ?>
                         </div>
@@ -51,7 +51,7 @@
                         <button class="btn green step4" type="submit"><i class="icon-ok"></i> 保存</button>
                         <a class="btn step3" href="<?php echo base_url('mall_goods_base/grid')?>">返回</a>
                     </div>
-			    </form>
+                </form>
             </div>
         </div>
     </div>
@@ -102,7 +102,7 @@ $(document).ready(function(){
     $('form.mall-goods-form').submit(function () {
         return false;
     }).validate({
-    	ignore: "",
+        ignore: "",
         submitHandler: function (f) {
             $.ajax({
                 type: 'post',
@@ -110,6 +110,9 @@ $(document).ready(function(){
                 dataType: 'json',
                 url: hostUrl() + '/mall_goods_base/ajaxValidate',
                 data: $('form.mall-goods-form').serialize(),
+                beforeSend: function () {
+                    $('.form-actions [type=submit]').text('加载中');
+                },
                 success: function (data) {
                     if (data.status) {
                         $('.alert-error').hide();

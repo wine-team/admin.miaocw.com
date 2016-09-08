@@ -1,10 +1,10 @@
 <?php $this->load->view('layout/header'); ?>
 <div class="container-fluid">
     <div class="row-fluid">
-	    <div class="span12">
-	        <h3 class="page-title">妙网商城 <small>图片的添加</small></h3>
-	        <?php echo breadcrumb(array('mall_goods_base/grid' => '妙网商城', "mall_goods_base/images/".$goods_id => '图片管理')); ?>
-	    </div>
+        <div class="span12">
+            <h3 class="page-title">妙网商城 <small>图片的添加</small></h3>
+            <?php echo breadcrumb(array('mall_goods_base/grid' => '妙网商城', "mall_goods_base/images/".$goods_id => '图片管理')); ?>
+        </div>
     </div>
     <?php echo execute_alert_message() ?>
     <div class="row-fluid">

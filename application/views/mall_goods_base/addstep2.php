@@ -23,7 +23,7 @@
                        <li><a href="#tab_6" data-toggle="tab">所属分类</a></li>
                        <li><a href="#tab_7" data-toggle="tab">商品关联</a></li>
                     </ul>
-				    <div class="tab-content">
+                    <div class="tab-content">
                         <div class="tab-pane active" id="tab_1">
                             <?php $this->load->view('mall_goods_base/add/basic'); ?>
                         </div>
@@ -45,12 +45,12 @@
                         <div class="tab-pane data-ajax-url" id="tab_7" data-ajax-url="<?php echo base_url('mall_goods_related/ajaxGet');?>">
                             <?php $this->load->view('mall_goods_related/ajaxGoodsRelated/ajaxGet');?>
                         </div>
-				    </div>
+                    </div>
                     <div class="form-actions">
                        <button class="btn green step4" type="submit"><i class="icon-ok"></i> 保存</button>
                        <a class="btn step3" href="<?php echo base_url('mall_goods_base/addstep1')?>">返回上一步</a>
                     </div>
-			    </form>
+                </form>
             </div>
         </div>
     </div>
@@ -101,7 +101,7 @@ $(document).ready(function(){
     $('form.mall-goods-form').submit(function () {
         return false;
     }).validate({
-    	ignore: "",
+        ignore: "",
         submitHandler: function (f) {
             $.ajax({
                 type: 'post',
@@ -109,6 +109,9 @@ $(document).ready(function(){
                 dataType: 'json',
                 url: hostUrl() + '/mall_goods_base/ajaxValidate',
                 data: $('form.mall-goods-form').serialize(),
+                beforeSend: function () {
+                    $('.form-actions [type=submit]').text('加载中');
+                },
                 success: function (data) {
                     if (data.status) {
                         $('.alert-error').hide();
