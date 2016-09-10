@@ -222,7 +222,7 @@ class Mall_goods_base_model extends CI_Model
         switch ($attrType) {
             case '1' : {//attr_spec，规格属性值
                 foreach ($attrArrayValue as $key=>$item) {
-                    if (!isset($item['group_value'])) {
+                    if (empty($item['spec_value'])) {
                         unset($attrArrayValue[$key]);
                     }
                 }
@@ -230,7 +230,7 @@ class Mall_goods_base_model extends CI_Model
             }
             case '2' : {
                 foreach ($attrArrayValue as $key=>$item) {
-                    if (!isset($item['spec_value'])) {
+                    if (empty($item['group_value'])) {
                         unset($attrArrayValue[$key]);
                     }
                 }
