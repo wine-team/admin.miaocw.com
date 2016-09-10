@@ -17,9 +17,9 @@
             <label class="checkbox">
                 <input type="radio" value="1" name="freight_type" <?php if ($mallGoodsBase->freight_id != 0): ?>checked="checked"<?php endif; ?> data-key="<?php echo $mallGoodsBase->freight_id ?>"/>
             </label>
-            <select name="freight_id" class="required">
-                <?php foreach ($template->result() as $item): ?>
-                    <option value="<?php echo $item->id ?>" <?php if ($item->id == $mallGoodsBase->freight_id): ?>selected="selected"<?php endif; ?> ><?php echo $item->name ?></option>
+            <select name="freight_id" id="freight_id" class="required" <?php if ($mallGoodsBase->freight_id == 0): ?>style="display: none"<?php endif; ?>>
+                <?php foreach ($freightTpl->result() as $item): ?>
+                    <option value="<?php echo $item->freight_id ?>" <?php if ($item->freight_id == $mallGoodsBase->freight_id): ?>selected="selected"<?php endif; ?> ><?php echo $item->name ?></option>
                 <?php endforeach; ?>
             </select>
             <label class="checkbox">使用运费模板</label>
@@ -32,7 +32,7 @@
         <label class="checkbox">
             <input type="radio" value="2" name="freight_type" <?php if ($mallGoodsBase->freight_id == 0): ?>checked="checked"<?php endif; ?>/>
         </label>
-        <input type="text" name="freight_cost" value="<?php echo $mallGoodsBase->freight_cost ?>" id="transport_cost" class="required" <?php if ($mallGoodsBase->freight_id != 0): ?>style="display: none"<?php endif; ?>/>
+        <input type="text" name="freight_cost" value="<?php echo $mallGoodsBase->freight_cost ?>" id="freight_cost" class="required" <?php if ($mallGoodsBase->freight_id != 0): ?>style="display: none"<?php endif; ?>/>
         <label class="checkbox">自定义运费价格</label>
     </div>
 </div>

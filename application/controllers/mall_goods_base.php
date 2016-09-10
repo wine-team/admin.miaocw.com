@@ -232,7 +232,7 @@ class Mall_goods_base extends CS_Controller
     {
         $goods_id = $this->input->post('edit_goods_id');
         $postData = $this->input->post();
-
+        
         $this->db->trans_start();
         $updateGoods = $this->mall_goods_base->update($postData);
         if (!empty($postData['cate_ids_array'])) {

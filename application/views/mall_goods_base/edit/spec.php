@@ -43,7 +43,7 @@
                     <div class="controls">
                         <div class="input-append date date-picker" data-date-format="yyyy-mm-dd">
                             <input type="text" name="attr_value[<?php echo $group['group_id'];?>][group_value][<?php echo $attrValue->attr_value_id ?>]" value="<?php echo isset($oldAttrValue[$group['group_id']]['group_value'][$attrValue->attr_value_id]) ? $oldAttrValue[$group['group_id']]['group_value'][$attrValue->attr_value_id] : '' ?>" size="16" class="m-wrap date-picker"><span class="add-on"><i class="icon-calendar"></i></span>
-                        </div><?php echo $v;?>
+                        </div>
                     </div>
                 </div>
             <?php elseif ($attrValue->attr_type == 'select') : ?>

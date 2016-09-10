@@ -114,106 +114,140 @@ class Mall_goods_base_model extends CI_Model
     public function insert($params=array())
     {
         $data = array(
-             'goods_name'         => $params['goods_name'],
-             'goods_sku'          => $params['goods_sku'],
-             'brand_id'           => !empty($params['brand_id']) ? $params['brand_id'] : 0,
-             'goods_weight'       => $params['goods_weight'],
-             'goods_brief'        => $params['goods_brief'],
-             'supplier_id'        => $params['supplier_id'],
-             'is_check'           => $params['is_check'],
-             'is_on_sale'         => $params['is_on_sale'],
-             'goods_desc'         => $params['goods_desc'],
-             'wap_goods_desc'     => $params['wap_goods_desc'],
-            'attr_spec'          => !empty($params['attr_spec']) ? json_encode($params['attr_spec']) : '',
-            'attr_value'         => !empty($params['attr_value']) ? json_encode($params['attr_value']) : '',
-             'market_price'       => $params['market_price'],
-             'shop_price'         => $params['shop_price'],
-             'provide_price'      => $params['provide_price'],
+            'goods_name'         => $params['goods_name'],
+            'goods_sku'          => $params['goods_sku'],
+            'brand_id'           => !empty($params['brand_id']) ? $params['brand_id'] : 0,
+            'goods_weight'       => $params['goods_weight'],
+            'goods_brief'        => $params['goods_brief'],
+            'supplier_id'        => $params['supplier_id'],
+            'is_check'           => $params['is_check'],
+            'is_on_sale'         => $params['is_on_sale'],
+            'goods_desc'         => $params['goods_desc'],
+            'wap_goods_desc'     => $params['wap_goods_desc'],
+            'attr_spec'          => $this->deleteEmptyValue(1, $params['attr_spec']),
+            'attr_value'         => $this->deleteEmptyValue(2, $params['attr_value']),
+            'market_price'       => $params['market_price'],
+            'shop_price'         => $params['shop_price'],
+            'provide_price'      => $params['provide_price'],
             'promote_price'      => !empty($params['promote_price']) ? $params['promote_price'] : 0,
             'promote_start_date' => !empty($params['promote_start_date']) ? $params['promote_start_date'] : '',
             'promote_end_date'   => !empty($params['promote_end_date']) ? $params['promote_end_date'] : '',
-             'attr_set_id'        => $params['attr_set_id'],
-             'extension_code'     => $params['extension_code'],
+            'attr_set_id'        => $params['attr_set_id'],
+            'extension_code'     => $params['extension_code'],
             'tour_count'         => !empty($params['tour_count']) ? $params['tour_count'] : 0,
             'sale_count'         => !empty($params['sale_count']) ? $params['sale_count'] : 0,
-             'in_stock'           => $params['in_stock'],
-             'limit_num'          => $params['limit_num'],
-             'minus_stock'        => $params['minus_stock'],
-             'province_id'        => $params['province_id'],
-             'city_id'            => $params['city_id'],
-             'district_id'        => $params['district_id'],
-             'address'            => $params['address'],
-             'goods_img'          => '',
-             'integral'           => !empty($params['integral']) ?  $params['integral'] : '0',
-             'sort_order'         => !empty($params['sort_order']) ? $params['sort_order'] : '1',
+            'in_stock'           => $params['in_stock'],
+            'limit_num'          => $params['limit_num'],
+            'minus_stock'        => $params['minus_stock'],
+            'province_id'        => $params['province_id'],
+            'city_id'            => $params['city_id'],
+            'district_id'        => $params['district_id'],
+            'address'            => $params['address'],
+            'goods_img'          => '',
+            'integral'           => !empty($params['integral']) ?  $params['integral'] : '0',
+            'sort_order'         => !empty($params['sort_order']) ? $params['sort_order'] : '1',
             'updated_at'         => date('Y-m-d H:i:s'),
             'created_at'         => date('Y-m-d H:i:s'),
-         );
+        );
          //运费模版
-         if ($params['freight_type'] == 1) {
-             $data['freight_id'] = $params['freight_id'];
-         } else {
-             $data['freight_cost'] = $params['freight_cost'];
-         }
-         $this->db->insert($this->table,$data);
-         return $this->db->insert_id();
-     }
+        if ($params['freight_type'] == 1) {
+            $data['freight_id'] = $params['freight_id'];
+        } else {
+            $data['freight_cost'] = $params['freight_cost'];
+        }
+        $this->db->insert($this->table,$data);
+        return $this->db->insert_id();
+    }
      
-     /**
+    /**
       * 
       * @param unknown $param
       * @param unknown $goods_id
-      */
-     public function update($params=array())
-     {
-         $data = array(
-             'goods_name'         => $params['goods_name'],
-             'goods_sku'          => $params['goods_sku'],
-             'brand_id'           => !empty($params['brand_id']) ? $params['brand_id'] : 0,
-             'goods_weight'       => $params['goods_weight'],
-             'goods_brief'        => $params['goods_brief'],
-             'supplier_id'        => $params['supplier_id'],
-             'is_check'           => $params['is_check'],
-             'is_on_sale'         => $params['is_on_sale'],
-             'goods_desc'         => $params['goods_desc'],
-             'wap_goods_desc'     => $params['wap_goods_desc'],
-             'attr_spec'          => !empty($params['attr_spec']) ? json_encode($params['attr_spec']) : '',
-             'attr_value'         => !empty($params['attr_value']) ? json_encode($params['attr_value']) : '',
-             'market_price'       => $params['market_price'],
-             'shop_price'         => $params['shop_price'],
-             'provide_price'      => $params['provide_price'],
-             'promote_price'      => !empty($params['promote_price']) ? $params['promote_price'] : 0,
-             'promote_start_date' => !empty($params['promote_start_date']) ? $params['promote_start_date'] : '',
-             'promote_end_date'   => !empty($params['promote_end_date']) ? $params['promote_end_date'] : '',
-             'attr_set_id'        => $params['attr_set_id'],
-             'extension_code'     => $params['extension_code'],
-             'tour_count'         => !empty($params['tour_count']) ? $params['tour_count'] : 0,
-             'sale_count'         => !empty($params['sale_count']) ? $params['sale_count'] : 0,
-             'in_stock'           => $params['in_stock'],
-             'limit_num'          => $params['limit_num'],
-             'minus_stock'        => $params['minus_stock'],
-             'province_id'        => $params['province_id'],
-             'city_id'            => $params['city_id'],
-             'district_id'        => $params['district_id'],
-             'address'            => $params['address'],
-             'integral'           => !empty($params['integral']) ?  $params['integral'] : 0,
-             'sort_order'         => !empty($params['sort_order']) ? $params['sort_order'] : 50,
-             'updated_at'         => date('Y-m-d H:i:s'),
-             'created_at'         => date('Y-m-d H:i:s'),
-         );
+    */
+    public function update($params=array())
+    {
+        $data = array(
+            'goods_name'         => $params['goods_name'],
+            'goods_sku'          => $params['goods_sku'],
+            'brand_id'           => !empty($params['brand_id']) ? $params['brand_id'] : 0,
+            'goods_weight'       => $params['goods_weight'],
+            'goods_brief'        => $params['goods_brief'],
+            'supplier_id'        => $params['supplier_id'],
+            'is_check'           => $params['is_check'],
+            'is_on_sale'         => $params['is_on_sale'],
+            'goods_desc'         => $params['goods_desc'],
+            'wap_goods_desc'     => $params['wap_goods_desc'],
+            'attr_spec'          => $this->deleteEmptyValue(1, $params['attr_spec']),
+            'attr_value'         => $this->deleteEmptyValue(2, $params['attr_value']),
+            'market_price'       => $params['market_price'],
+            'shop_price'         => $params['shop_price'],
+            'provide_price'      => $params['provide_price'],
+            'promote_price'      => !empty($params['promote_price']) ? $params['promote_price'] : 0,
+            'promote_start_date' => !empty($params['promote_start_date']) ? $params['promote_start_date'] : '',
+            'promote_end_date'   => !empty($params['promote_end_date']) ? $params['promote_end_date'] : '',
+            'attr_set_id'        => $params['attr_set_id'],
+            'extension_code'     => $params['extension_code'],
+            'tour_count'         => !empty($params['tour_count']) ? $params['tour_count'] : 0,
+            'sale_count'         => !empty($params['sale_count']) ? $params['sale_count'] : 0,
+            'in_stock'           => $params['in_stock'],
+            'limit_num'          => $params['limit_num'],
+            'minus_stock'        => $params['minus_stock'],
+            'province_id'        => $params['province_id'],
+            'city_id'            => $params['city_id'],
+            'district_id'        => $params['district_id'],
+            'address'            => $params['address'],
+            'integral'           => !empty($params['integral']) ?  $params['integral'] : 0,
+            'sort_order'         => !empty($params['sort_order']) ? $params['sort_order'] : 50,
+            'updated_at'         => date('Y-m-d H:i:s'),
+            'created_at'         => date('Y-m-d H:i:s'),
+        );
 
-         if ($params['freight_type'] == 1) {//运费模版
-             $data['freight_id'] = $params['freight_id'];
-             $data['freight_cost'] = 0;
-         } else {
-             $data['freight_id'] = 0;
-             $data['freight_cost'] = $params['freight_cost'];
-         }
+        if ($params['freight_type'] == 1) {//运费模版
+            $data['freight_id'] = $params['freight_id'];
+            $data['freight_cost'] = 0;
+        } else {
+            $data['freight_id'] = 0;
+            $data['freight_cost'] = $params['freight_cost'];
+        }
          
-         $this->db->where('goods_id', $params['edit_goods_id']);
-         return $this->db->update($this->table, $data);
-     }
-     
+        $this->db->where('goods_id', $params['edit_goods_id']);
+        return $this->db->update($this->table, $data);
+    }
+
+    private function deleteEmptyValue($attrType, $attrArrayValue)
+    {
+        if (empty($attrArrayValue)) {
+            return '';
+        }
+        switch ($attrType) {
+            case '1' : {//attr_spec，规格属性值
+                foreach ($attrArrayValue as $key=>$item) {
+                    if (!isset($item['group_value'])) {
+                        unset($attrArrayValue[$key]);
+                    }
+                }
+                break;
+            }
+            case '2' : {
+                foreach ($attrArrayValue as $key=>$item) {
+                    if (!isset($item['spec_value'])) {
+                        unset($attrArrayValue[$key]);
+                    }
+                }
+                break;
+            }
+            default : {
+                $attrArrayValue = array();
+                break;
+            }
+        }
+
+        if (empty($attrArrayValue)) {
+            return '';
+        }
+        return json_encode($attrArrayValue);
+    }
+
      /**
      * 更新
      * @param unknown $goods_id
