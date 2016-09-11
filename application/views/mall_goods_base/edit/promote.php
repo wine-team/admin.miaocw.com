@@ -59,3 +59,9 @@
         </label>
     </div>
 </div>
+<div class="control-group">
+    <label class="control-label">自动取消订单（分钟）</label>
+    <div class="controls">
+        <input type="text" name="auto_cancel" value="<?php echo $mallGoodsBase->auto_cancel ?>" class="m-wrap span12" placeholder="未付款自动取消订单（分钟）默认720分钟（12小时）">
+    </div>
+</div>
