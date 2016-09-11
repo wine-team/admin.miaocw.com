@@ -6,7 +6,7 @@
             <?php echo breadcrumb(array('商品订单 ', 'mall_order_base/grid'=>'订单管理')); ?>
         </div>
     </div>
-    <?php echo execute_alert_message() ?>
+    <?php  echo execute_alert_message() ?>
     <div class="row-fluid">
         <div class="span12">
             <div class="span6">
