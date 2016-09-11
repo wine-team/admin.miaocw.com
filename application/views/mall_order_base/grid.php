@@ -128,6 +128,7 @@
                             </thead>
                             <tbody>
                                 <?php foreach ($res_list->result() as $r) : ?>
+                                <?php //var_dump($r);exit;?>
                                 <tr>
                                     <td width="15"><input type="checkbox" class="checkboxes" value="1" ></td>
                                     <td><?php echo $r->order_id;?></td>
@@ -135,7 +136,8 @@
                                     <td><?php echo $state_arr[$r->state];?></td>
                                     <td><?php echo $status_arr[$r->status];?></td>
                                     <td>
-                                        <?php echo '运费：￥'.$r->deliver_price.'</br>地址：'.json_decode($r->delivery_address).'</br>';?>
+                                        <?php $delivery = json_decode($r->delivery_address);?>
+                                        <?php echo '运费：￥'.$r->deliver_price.'</br>地址：'.$delivery->detailed.'</br>';?>
                                         <?php if ($r->deliver_order_id) :?>快递ID（<?php echo $r->deliver_order_id;?>）<?php else :?>未发货<?php endif;?>
                                     </td>
                                     <td>
