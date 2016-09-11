@@ -23,7 +23,7 @@
                             <li>编号：<?php echo $order->order_id;?></li>
                             <li>订单状态：<?php echo $state_arr[$order->state];?></li>
                             <li>当前状态：<?php echo $status_arr[$order->status];?></li>
-                            <li>供应商编号：<?php if ($order->seller_uid) :?><a class="btn mini green" href="<?php echo base_url('/'.$order->seller_uid);?>">查看供应商 (<?php echo $order->seller_uid;?>)</a><?php else :?>自营<?php endif;?></li>
+                            <li>供应商编号：<?php if ($order->seller_uid) :?><a class="btn mini green" href="<?php echo base_url('user/edit/'.$order->seller_uid);?>">查看供应商 (<?php echo $order->seller_uid;?>)</a><?php else :?>自营<?php endif;?></li>
                             <li>用户名称：<?php echo $order->user_name;?></li>
                             <li>支付方式：<?php echo $order->pay_method==1 ? '在线支付': '到付';?></li>
                             <li>支付银行：<?php echo $order->pay_bank;?></li>
