@@ -15,15 +15,14 @@ class Mall_order_base extends CS_Controller {
 	{   
 		$page_num = 20;
 		$num = ($pg-1)*$page_num;
-	    $getData = $this->input->get();
 	    $config['first_url']   = base_url('mall_order_base/grid').$this->pageGetParam($this->input->get());
-	    $config['suffix']      = $this->pageGetParam($getData);
+	    $config['suffix']      = $this->pageGetParam($this->input->get());
 	    $config['base_url']    = base_url('mall_order_base/grid');
-	    $config['total_rows']  = $this->mall_order_base->total($getData);
+	    $config['total_rows']  = $this->mall_order_base->total($this->input->get());
 	    $config['uri_segment'] = 3; 
 	    $this->pagination->initialize($config);
 	    $data['pg_link']   = $this->pagination->create_links();
-	    $data['res_list'] = $this->mall_order_base->mall_order_base_list($num, $page_num, $getData);
+	    $data['res_list'] = $this->mall_order_base->mall_order_base_list($num, $page_num, $this->input->get());
 	    $data['all_rows']  = $config['total_rows'];
 	    $data['pg_now']    = $pg; 
 	    $data['page_num']    = $page_num;
@@ -35,7 +34,7 @@ class Mall_order_base extends CS_Controller {
 	
 	public function infor($order_id)
 	{
-	    $res = $this->mall_order_base->findById(array('order_id'=>$order_id));
+	    $res = $this->mall_order_base->findByOrderId($order_id);
 	    if ($res->num_rows() <= 0){
 	        $this->error('mall_order_base/grid', '', '无法找到该ID结果值');
 	    }
@@ -54,7 +53,7 @@ class Mall_order_base extends CS_Controller {
 	
 	public function delete($order_id)
 	{
-	    $order = $this->mall_order_base->findById(array('order_id'=>$order_id))->row();
+	    $order = $this->mall_order_base->findByOrderId($order_id)->row();
 	    $this->db->trans_start();
         $this->mall_order_product->delete(array('order_id'=>$order_id));
         if ($order->deliver_order_id) {

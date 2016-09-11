@@ -39,7 +39,7 @@ class Mall_order_refund extends CS_Controller
             $this->error('mall_order_refund/grid', '', '无法找到该ID结果值');
         }
         $refund = $result->row(0);
-        $order = $this->mall_order_base->findById(array('order_id'=>$refund->order_id));
+        $order = $this->mall_order_base->findByOrderId($refund->order_id);
         $data['orderInfo'] = $order->row(0);
         $data['refund'] = $refund;
         $data['status_arr'] = array('1'=>'申请退款', '2'=>'同意退款', '3'=>'拒绝退款');
@@ -86,7 +86,7 @@ class Mall_order_refund extends CS_Controller
         $orderProduct = $result->row(0);
     
         //获取订单信息
-        $order_res = $this->mall_order_base->findById(array('order_id'=>$mallRefund->order_id));
+        $order_res = $this->mall_order_base->findByOrderId($mallRefund->order_id);
         if ($order_res->num_rows() <= 0) {
             $this->error('mall_order_refund/grid', $pg_now, '当前订单有误！');
         }

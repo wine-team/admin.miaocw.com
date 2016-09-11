@@ -41,7 +41,7 @@ class Mall_order_barter extends CS_Controller
             $this->error('mall_order_barter/grid', '', '换货详情有误');
         }
         $barter = $result->row();
-        $order = $this->mall_order_base->findById(array('order_id'=>$barter->order_id));
+        $order = $this->mall_order_base->findByOrderId($barter->order_id);
         $data['orderInfo'] = $order->row(0);
         $data['barter'] = $barter;
         $data['logistics'] = $this->deliver_order->findByNu($barter->logistics);// 物流单号
@@ -100,7 +100,7 @@ class Mall_order_barter extends CS_Controller
         }
         $mallOrder = $result->row();
         //判断订单能否退款
-        $order_res = $this->mall_order_base->findById(array('order_id'=>$mallOrder->order_id));
+        $order_res = $this->mall_order_base->findByOrderId($mallOrder->order_id);
         if ($order_res->num_rows() <= 0) {
             $this->error('mall_order_barter/grid', '', '当前订单有误！');
         }
