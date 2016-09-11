@@ -111,49 +111,58 @@
                 <div class="portlet-body flip-scroll">
                     <div class="dataTables_wrapper form-inline">
                         <?php if ( $all_rows > 0) :?>
-                        <table class="table table-striped table-bordered table-hover" id="sample_1">
-                            <thead class="flip-content">
-                                <tr>
-                                    <th><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"></th>
-                                    <th>编号</th>
-                                    <th>用户名</th>
-                                    <th>订单状态</th>
-                                    <th>当前状态</th>
-                                    <th>快递</th>
-                                    <th>价格</th>
-                                    <th>备注</th>
-                                    <th>下单时间</th>
-                                    <th>操作</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($res_list->result() as $r) : ?>
-                                <?php //var_dump($r);exit;?>
-                                <tr>
-                                    <td width="15"><input type="checkbox" class="checkboxes" value="1" ></td>
-                                    <td><?php echo $r->order_id;?></td>
-                                    <td><?php echo $r->user_name;?></td>
-                                    <td><?php echo $state_arr[$r->state];?></td>
-                                    <td><?php echo $status_arr[$r->status];?></td>
-                                    <td>
-                                        <?php $delivery = json_decode($r->delivery_address);?>
-                                        <?php echo '运费：￥'.$r->deliver_price.'</br>地址：'.$delivery->detailed.'</br>';?>
-                                        <?php if ($r->deliver_order_id) :?>快递ID（<?php echo $r->deliver_order_id;?>）<?php else :?>未发货<?php endif;?>
-                                    </td>
-                                    <td>
-                                        <?php echo '供应价：￥'.$r->order_supply_price.'</br>支付价：￥'.$r->actual_price.'</br>使用积分：'.$r->integral;?>
-                                    </td>
-                                    <td><?php echo $r->order_note;?></td>
-                                    <td><?php echo $is_form_arr[$r->is_form].'</br>'.$r->pay_time;;?></td>
-                                    <td width="100">
-                                        <a class="btn mini green" href="<?php echo base_url('mall_order_base/infor/'.$r->order_id); ?>">查看</a>
-                                        <a class="btn mini green" href="<?php echo base_url('mall_order_reviews/grid?order_id='.$r->order_id); ?>">评价</a>
-                                    </td>
-                                </tr>
-                                <?php endforeach;?>
-                            </tbody>
-                        </table>
-                        <?php $this->load->view('layout/pagination');?>
+                            <table class="table table-striped table-bordered table-hover" id="sample_1">
+                                <thead class="flip-content">
+                                    <tr>
+                                        <th><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"></th>
+                                        <th>编号</th>
+                                        <th>用户名</th>
+                                        <th>订单状态</th>
+                                        <th>当前状态</th>
+                                        <th>快递</th>
+                                        <th>价格</th>
+                                        <th>备注</th>
+                                        <th>下单时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($page_list->result() as $item) : ?>
+                                    <tr>
+                                        <td width="15"><input type="checkbox" class="checkboxes" value="1" ></td>
+                                        <td><?php echo $item->order_id;?></td>
+                                        <td><?php echo $item->user_name;?></td>
+                                        <td><?php echo $state_arr[$item->state];?></td>
+                                        <td><?php echo $status_arr[$item->status];?></td>
+                                        <td>
+                                            <?php $delivery = json_decode($item->delivery_address);?>
+                                            <p>地址：<?php echo $delivery->detailed ?></p>
+                                            <?php if ($item->deliver_order_id) :?>
+                                                <p>快递ID（<?php echo $item->deliver_order_id;?>）</p>
+                                            <?php else :?>
+                                                <p>未发货</p>
+                                            <?php endif;?>
+                                        </td>
+                                        <td>
+                                            <p>供应价：<?php echo $item->order_supply_price ?></p>
+                                            <p>使用积分：<?php echo $item->integral ?></p>
+                                            <p>运费：<?php echo $item->deliver_price ?></p>
+                                            <p>支付价：<?php echo $item->actual_price ?></p>
+                                        </td>
+                                        <td><?php echo $item->order_note;?></td>
+                                        <td>
+                                            <p><?php echo $item->pay_time ?></p>
+                                            <p class="btn mini blue"><?php echo $is_form_arr[$item->is_form] ?></p>
+                                        </td>
+                                        <td width="100">
+                                            <a class="btn mini green" href="<?php echo base_url('mall_order_base/infor/'.$item->order_id); ?>">查看</a>
+                                            <a class="btn mini green" href="<?php echo base_url('mall_order_reviews/grid?order_id='.$item->order_id); ?>">评价</a>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach;?>
+                                </tbody>
+                            </table>
+                            <?php $this->load->view('layout/pagination');?>
                         <?php else: ?>
                             <div class="alert"><p>未找到数据。<p></div>
                         <?php endif ?>
