@@ -8,7 +8,7 @@
     <label class="control-label">促销开始时间</label>
     <div class="controls form-search-time">
         <div class="input-append date form_datetime">
-            <input type="text" name="promote_start_date" value="<?php echo $mallGoodsBase->promote_start_date != 0 ? $mallGoodsBase->promote_start_date : ''?>" size="16" class="m-wrap m-ctrl-medium">
+            <input type="text" name="promote_start_date" value="<?php echo $mallGoodsBase->promote_start_date != 0 ? date('Y-m-d H:i:s', $mallGoodsBase->promote_start_date) : ''?>" size="16" class="m-wrap m-ctrl-medium">
             <span class="add-on"><i class="icon-calendar"></i></span>
         </div>
     </div>
@@ -17,7 +17,7 @@
     <label class="control-label">促销结束时间</label>
     <div class="controls form-search-time">
         <div class="input-append date form_datetime">
-            <input type="text" name="promote_end_date" value="<?php echo $mallGoodsBase->promote_end_date != 0 ? $mallGoodsBase->promote_end_date : '' ?>" size="16" class="m-wrap m-ctrl-medium">
+            <input type="text" name="promote_end_date" value="<?php echo $mallGoodsBase->promote_end_date != 0 ? date('Y-m-d H:i:s', $mallGoodsBase->promote_end_date) : '' ?>" size="16" class="m-wrap m-ctrl-medium">
             <span class="add-on"><i class="icon-calendar"></i></span>
         </div>
     </div>
