@@ -94,7 +94,7 @@ class Mall_order_barter extends CS_Controller
         $mallBarter = $refund_res->row();
 
         //获取订单产品信息
-        $result = $this->mall_order_product->findById(array('order_product_id'=>$mallBarter->order_product_id));
+        $result = $this->mall_order_product->findByOrderProductId($mallBarter->order_product_id);
         if ($result->num_rows() <= 0) {
             $this->error('mall_order_barter/grid', '', '当前订单产品有误！');
         }

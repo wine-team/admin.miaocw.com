@@ -28,7 +28,7 @@ class Deliver_order extends CS_Controller
 
     public function edit($deliver_order_id)
     {
-        $result = $this->deliver_order->findById($deliver_order_id);
+        $result = $this->deliver_order->findByDeliverOrderId($deliver_order_id);
         if ($result->num_rows() <= 0) {
             $this->error('deliver_order/grid', '', '运费详情出错。');
         }

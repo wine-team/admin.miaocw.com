@@ -44,7 +44,7 @@ class Mall_order_refund extends CS_Controller
         $data['refund'] = $refund;
         $data['status_arr'] = array('1'=>'申请退款', '2'=>'同意退款', '3'=>'拒绝退款');
         $data['flag_arr'] = array('1'=>'未退款', '2'=>'已退款');
-        $data['delivery'] = $this->deliver_order->findById($refund->deliver_order_id);
+        $data['delivery'] = $this->deliver_order->findByDeliverOrderId($refund->deliver_order_id);
         $this->load->view('mall_order_refund/info', $data);
     }
     
@@ -79,7 +79,7 @@ class Mall_order_refund extends CS_Controller
         }
         $mallRefund = $refund_res->row();
     
-        $result = $this->mall_order_product->findById(array('order_id'=>$mallRefund->order_id, 'order_product_id'=>$mallRefund->order_product_id));
+        $result = $this->mall_order_product->findByParams(array('order_id'=>$mallRefund->order_id, 'order_product_id'=>$mallRefund->order_product_id));
         if ($result->num_rows() <= 0) {
             $this->error('mall_order_refund/grid', $pg_now, '当前订单产品有误！');
         }

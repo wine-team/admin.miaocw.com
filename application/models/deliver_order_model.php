@@ -3,7 +3,7 @@ class Deliver_order_model extends CI_Model
 {
     private $table = 'deliver_order';
 
-    public function findById($deliver_order_id)
+    public function findByDeliverOrderId($deliver_order_id)
     {
         $this->db->where('deliver_order_id', $deliver_order_id);
         return $this->db->get($this->table);

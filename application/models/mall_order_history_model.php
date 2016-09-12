@@ -1,11 +1,12 @@
 <?php
-class Mall_order_status_history_model extends CI_Model
+class Mall_order_history_model extends CI_Model
 {
-    private $table = 'mall_order_status_history';        
+    private $table = 'mall_order_history';
     
-    public function findById($where)
+    public function findByOrderId($order_id)
     {
-        return $this->db->get_where($this->table, $where);
+        $this->db->where('order_id', $order_id);
+        return $this->db->get($this->table);
     }
     
     public function insert($data) 
@@ -16,7 +17,7 @@ class Mall_order_status_history_model extends CI_Model
     
     public function update($where, $data)  
     {
-        $this->db->update($this->table, $data, $where);
+        return $this->db->update($this->table, $data, $where);
         return $this->db->affected_rows();
     }
     
@@ -25,8 +26,4 @@ class Mall_order_status_history_model extends CI_Model
         $this->db->delete($this->table, $where);
         return $this->db->affected_rows();
     }
-    
 }
-
-/* End of file Mall_order_status_history_model.php */
-/* Location: ./application/models/Mall_order_status_history.php */
