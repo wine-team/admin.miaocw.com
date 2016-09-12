@@ -173,14 +173,16 @@
                         <span class="sale-info">销售总价</span>
                         <span class="sale-num">￥<?php echo $orderBase->order_shop_price; ?></span>
                     </li>
-                    <li>
-                        <span class="sale-info">优惠劵编码</span>
-                        <span class="sale-num">￥<?php echo $orderBase->coupon_code; ?></span>
-                    </li>
-                    <li>
-                        <span class="sale-info">优惠劵金额</span>
-                        <span class="sale-num">￥<?php echo $orderBase->coupon_price; ?></span>
-                    </li>
+                    <?php if (!empty($orderBase->coupon_code)) : ?>
+                        <li>
+                            <span class="sale-info">优惠劵编码</span>
+                            <span class="sale-num"><?php echo $orderBase->coupon_code; ?></span>
+                        </li>
+                        <li>
+                            <span class="sale-info">优惠劵金额</span>
+                            <span class="sale-num">￥<?php echo $orderBase->coupon_price; ?></span>
+                        </li>
+                    <?php endif;?>
                     <li>
                         <span class="sale-info">运费价格</span>
                         <span class="sale-num">
