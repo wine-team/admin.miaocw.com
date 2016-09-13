@@ -32,10 +32,10 @@
                                 <div class="control-group">
                                     <label class="control-label">订单状态</label>
                                     <div class="controls">
-                                        <select name="status" class="m-wrap span12">
+                                        <select name="order_status" class="m-wrap span12">
                                             <option value="">请选择</option>
                                             <?php foreach($orderStatus as $k2=>$status) :?>
-                                                <option <?php if ($this->input->get('status')==$k2):?>selected="selected"<?php endif;?> value="<?php echo $k2;?>"><?php echo $status;?></option>
+                                                <option <?php if ($this->input->get('order_status')==$k2):?>selected="selected"<?php endif;?> value="<?php echo $k2;?>"><?php echo $status;?></option>
                                             <?php endforeach;?>
                                         </select>
                                     </div>
@@ -47,8 +47,8 @@
                                     <div class="controls">
                                         <select name="is_form" class="m-wrap medium">
                                             <option  value="">请选择</option>
-                                            <?php foreach($is_form_arr as $k3=>$is_form) :?>
-                                                <option <?php if($this->input->get('is_form')==$k3):?>selected="selected"<?php endif;?> value="<?php echo $k3;?>"><?php echo $is_form;?></option>
+                                            <?php foreach($is_form as $k3=>$form) :?>
+                                                <option <?php if($this->input->get('is_form')==$k3):?>selected="selected"<?php endif;?> value="<?php echo $k3;?>"><?php echo $form;?></option>
                                             <?php endforeach;?>
                                         </select>
                                     </div>
@@ -135,7 +135,7 @@
                                             <p><?php echo $delivery->detailed ?></p>
                                             <p><?php echo $delivery->receiver_name.'/'.$delivery->tel ?></p>
                                         </td>
-                                        <td><?php echo $orderStatus[$item->status];?></td>
+                                        <td><?php echo $orderStatus[$item->order_status];?></td>
                                         <td>
                                             <p>供应价：<?php echo $item->order_supply_price ?></p>
                                             <p>使用积分：<?php echo $item->integral ?></p>
@@ -144,7 +144,7 @@
                                         </td>
                                         <td>
                                             <p><?php echo $item->pay_time ?></p>
-                                            <p class="btn mini blue"><?php echo $is_form_arr[$item->is_form] ?></p>
+                                            <p class="btn mini blue"><?php echo $is_form[$item->is_form] ?></p>
                                         </td>
                                         <td>
                                             <a class="btn mini green" href="<?php echo base_url('mall_order_base/info/'.$item->order_id); ?>">详情</a>

@@ -11,6 +11,7 @@ class Mall_order_base extends CS_Controller
         $this->load->model('mall_order_base_model','mall_order_base');
         $this->load->model('deliver_order_model','deliver_order');
         $this->load->model('mall_order_product_model','mall_order_product');
+        $this->load->model('mall_order_product_profit_model','mall_order_product_profit');
         $this->load->model('mall_order_history_model','mall_order_history');
         $this->extension = array(
             'simple'=>'简单产品',
@@ -39,7 +40,7 @@ class Mall_order_base extends CS_Controller
         $data['all_rows'] = $config['total_rows'];
         $data['pg_now'] = $pg;
         $data['page_num'] = $page_num;
-        $data['is_form_arr'] = array('1'=>'电脑端', '2'=>'手机端', '3'=>'其他');
+        $data['is_form'] = array('1'=>'电脑端', '2'=>'手机端', '3'=>'其他');
         $data['orderState'] = $this->orderState;
         $data['orderStatus'] = $this->orderStatus;
         $this->load->view('mall_order_base/grid', $data);
@@ -53,13 +54,21 @@ class Mall_order_base extends CS_Controller
         }
         $orderBase = $result->row();
         $data['orderBase'] = $orderBase;
-        $data['orderProduct'] = $this->mall_order_product->findByOrderId($order_id);
-        $data['deliveryOrder'] = $this->deliver_order->findByDeliverOrderId($orderBase->deliver_order_id);
+        $orderProduct = $this->mall_order_product->findByOrderId($order_id);
+        $orderProductIds =array();
+        if ($orderProduct->num_rows() > 0) {
+            foreach ($orderProduct->result() as $item) {
+                $orderProductIds[$item->order_product_id] = $item;
+            }
+        }
+        $data['orderProduct'] = $orderProduct;
+        $data['orderProductProfit'] = $this->mall_order_product_profit->findByParams(array('order_product_ids'=>array_keys($orderProductIds)));
+        $data['deliverOrder'] = $this->deliver_order->findBydeliverOrderId($orderBase->deliver_order_id);
         $data['orderHistory'] = $this->mall_order_history->findByOrderId($order_id);
-        $data['is_form_arr'] = array('1'=>'电脑端', '2'=>'手机端', '3'=>'其他');
-        $data['delivery_ischeck_arr'] = array('0'=>'在途中','1'=>'揽件', '2'=>'疑难', '3'=>'签收');
-        $data['delivery_state_arr'] = array('0'=>'在途中', '1'=>'已揽收', '2'=>'疑难', '3'=>'已签收', '4'=>'退签', '5'=>'同城派送中', '6'=>'退回', '7'=>'转单');
-        $data['extension_code_arr'] = $this->extension;
+        $data['is_form'] = array('1'=>'电脑端', '2'=>'手机端', '3'=>'其他');
+        //$data['delivery_ischeck'] = array('0'=>'在途中','1'=>'揽件', '2'=>'疑难', '3'=>'签收');
+        //$data['delivery_state'] = array('0'=>'在途中', '1'=>'已揽收', '2'=>'疑难', '3'=>'已签收', '4'=>'退签', '5'=>'同城派送中', '6'=>'退回', '7'=>'转单');
+        $data['extension_code'] = $this->extension;
         $data['orderState'] = $this->orderState;
         $data['orderStatus'] = $this->orderStatus;
         $this->load->view('mall_order_base/info', $data);

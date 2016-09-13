@@ -26,12 +26,12 @@
                     </li>
                     <li>
                         <span class="sale-info">支付状态</span>
-                        <span class="sale-num"><?php echo $orderState[$orderBase->state]; ?></span>
+                        <span class="sale-num"><?php echo $orderState[$orderBase->order_state]; ?></span>
                     </li>
                     <li>
                         <span class="sale-info">订单状态</span>
                         <span
-                            class="sale-num"><?php echo $orderStatus[$orderBase->status]; ?></span>
+                            class="sale-num"><?php echo $orderStatus[$orderBase->order_status]; ?></span>
                     </li>
                     <li>
                         <span class="sale-info">购买者（用户名/UID）</span>
@@ -95,7 +95,7 @@
                         <span class="sale-info"></span>
                         <span class="sale-num"></span>
                     </li>
-                    <?php if ($orderBase->status == 2) :?>
+                    <?php if ($orderBase->order_status == 2) :?>
                         <?php $time = strtotime($orderBase->created_at) - time() + 3600 * 24?>
                         <?php if ($time > 0) :?>
                             <?php
@@ -111,7 +111,7 @@
                                 <span class="sale-num"><span><?php echo $days ?>天<?php echo $hours ?>小时<?php echo $mins ?>分</span>来支付，超时订单自动取消</span>
                             </li>
                         <?php endif;?>
-                    <?php elseif ($orderBase->status == 4) :?>
+                    <?php elseif ($orderBase->order_status == 4) :?>
                         <?php $time = strtotime($orderBase->send_time) - time() + 3600 * 24 * 7?>
                         <?php if ($time > 0) :?>
                             <?php
@@ -127,7 +127,7 @@
                                 <span class="sale-num"><span><?php echo $days ?>天<?php echo $hours ?>小时<?php echo $mins ?>分</span>来确认收货，超时订单自动确认收货</span>
                             </li>
                         <?php endif;?>
-                    <?php elseif ($orderBase->status == 5) :?>
+                    <?php elseif ($orderBase->order_status == 5) :?>
                         <?php $time = strtotime($orderBase->receive_time) - time() + 3600 * 24 * 7?>
                         <?php if ($time > 0) :?>
                             <?php
@@ -186,7 +186,7 @@
                     <li>
                         <span class="sale-info">运费价格</span>
                         <span class="sale-num">
-                            <?php if ($orderBase->status == 2) :?>
+                            <?php if ($orderBase->order_status == 2) :?>
                                 <span class="original-price">￥
                                     <span><?php echo $orderBase->deliver_price; ?></span>
                                     <a class="btn green edit-price" href="javascript:;">修改</a>
@@ -242,9 +242,7 @@
                             <td><?php echo $product->order_product_id; ?></td>
                             <td><?php echo $product->order_id; ?></td>
                             <td><?php echo $product->goods_id; ?></td>
-                            <td>
-                                <strong><?php echo $product->goods_name; ?></strong>
-                            </td>
+                            <td><?php echo $product->goods_name; ?></td>
                             <td><?php echo $product->number; ?></td>
                             <td><?php echo bcsub($product->number, $product->refund_num, 0); ?></td>
                             <td><?php echo $product->barter_num; ?></td>
@@ -272,18 +270,16 @@
                     <table class="table table-condensed table-hover">
                         <tr>
                             <th>订单产品ID</th>
-                            <th>用户类型</th>
                             <th>分钱用户</th>
                             <th>账户类型</th>
                             <th>金额（元）</th>
                             <th>资金流向</th>
                         </tr>
-                        <?php if ($profit->num_rows() > 0) : ?>
-                            <?php foreach ($profit->result() as $item) : ?>
+                        <?php if ($orderProductProfit->num_rows() > 0) : ?>
+                            <?php foreach ($orderProductProfit->result() as $item) : ?>
                                 <tr>
                                     <td><?php echo $item->order_product_id; ?></td>
-                                    <td><?php echo $item->type_name; ?></td>
-                                    <td><?php echo $item->user_name . '/' . $item->alias_name; ?></td>
+                                    <td><?php echo $item->uid ?></td>
                                     <td><?php echo ($item->account_type == 1) ? '提现' : '月结'; ?></td>
                                     <td><?php echo $item->account; ?></td>
                                     <td><?php echo ($item->as == 1) ? '入账' : '出账'; ?></td>
@@ -296,12 +292,11 @@
         </div>
         <div class="span6">
             <div class="portlet box green">
-
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="icon-picture"></i>
-                        <span>物流：<?php if($express->num_rows() > 0){echo $express->row()->name;}  ?></span>
-                        <span>快递单号：<?php echo $orderBase->logistics ?></span>
+                        <span>物流：<?php if ($deliverOrder->num_rows() > 0) echo $deliverOrder->row()->deliver_name ?></span>
+                        <span>快递单号：<?php if ($deliverOrder->num_rows() > 0) echo $deliverOrder->row()->deliver_number ?></span>
                     </div>
                     <div class="tools">
                         <a class="collapse" href="javascript:;"></a>
@@ -309,32 +304,65 @@
                     </div>
                 </div>
                 <div class="portlet-body">
-                    <?php if($orderBase->order_status > 3): ?>
                     <table class="table table-condensed table-hover">
-                    <tr>
-                        <th>时间</th>
-                        <th>地点和跟踪进度</th>
-                    </tr>
-                    <?php if($logistics->num_rows() > 0): ?>
-                    <?php $logistics = $logistics->row(); ?>
-                        <?php if($logistics->context): ?>
-                        <?php $data = json_decode($logistics->context); ?>
-                            <?php foreach($data as $value): ?>
-                                <tr>
-                                    <td><?php echo $value->time; ?></td>
-                                    <td><?php echo $value->context; ?></td>
-                                </tr>
-                            <?php endforeach ?>
+                        <tr>
+                            <th>时间</th>
+                            <th>地点和跟踪进度</th>
+                        </tr>
+                        <?php if ($deliverOrder->num_rows() > 0): ?>
+                            <?php $logistics = $deliverOrder->row(); ?>
+                            <?php if ($logistics->context): ?>
+                                <?php $data = json_decode($logistics->context); ?>
+                                <?php foreach($data as $value): ?>
+                                    <tr>
+                                        <td><?php echo $value->time; ?></td>
+                                        <td><?php echo $value->context; ?></td>
+                                    </tr>
+                                <?php endforeach ?>
+                            <?php endif ?>
+                        <?php else: ?>
+                            <tr>
+                                <td>快递未订阅成功</td>
+                                <td><a href="<?php echo base_url('tourismorder/expressRecord/'.$orderBase->order_id) ?>">从新订阅</a></td>
+                            </tr>
                         <?php endif ?>
-                    <?php else: ?>
-                    <tr>
-                        <td>快递未订阅成功</td>
-                        <td><a href="<?php echo base_url('tourismorder/expressRecord/'.$orderBase->order_id) ?>">从新订阅</a></td>
-                    </tr>
-                    <?php endif ?>
-                    <?php else: ?>
-                        未发货
-                    <?php endif ?>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="portlet box green">
+                <div class="portlet-title">
+                    <div class="caption"><i class="icon-picture"></i>订单操作记录</div>
+                    <div class="tools">
+                        <a class="collapse" href="javascript:;"></a>
+                        <a class="remove" href="javascript:;"></a>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <table class="table table-condensed table-hover">
+                        <tr>
+                            <th>自增ID</th>
+                            <th>订单ID</th>
+                            <th>操作时间</th>
+                            <th>用户UID</th>
+                            <th>操作类型</th>
+                            <th>操作说明</th>
+                        </tr>
+                        <?php if ($orderHistory->num_rows() > 0) : ?>
+                            <?php foreach ($orderHistory->result() as $item) : ?>
+                                <tr>
+                                    <td><?php echo $item->history_id ?></td>
+                                    <td><?php echo $item->order_id ?></td>
+                                    <td><?php echo $item->operate_time ?></td>
+                                    <td><?php echo $item->uid ?></td>
+                                    <td><?php echo $item->operate_type ?></td>
+                                    <td><?php echo $item->comment ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </table>
                 </div>
             </div>
