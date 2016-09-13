@@ -267,15 +267,15 @@
                     </div>
                 </div>
                 <div class="portlet-body">
-                    <table class="table table-condensed table-hover">
-                        <tr>
-                            <th>订单产品ID</th>
-                            <th>分钱用户</th>
-                            <th>账户类型</th>
-                            <th>金额（元）</th>
-                            <th>资金流向</th>
-                        </tr>
-                        <?php if ($orderProductProfit->num_rows() > 0) : ?>
+                    <?php if ($orderProductProfit->num_rows() > 0) : ?>
+                        <table class="table table-condensed table-hover">
+                            <tr>
+                                <th>订单产品ID</th>
+                                <th>分钱用户</th>
+                                <th>账户类型</th>
+                                <th>金额（元）</th>
+                                <th>资金流向</th>
+                            </tr>
                             <?php foreach ($orderProductProfit->result() as $item) : ?>
                                 <tr>
                                     <td><?php echo $item->order_product_id; ?></td>
@@ -285,8 +285,8 @@
                                     <td><?php echo ($item->as == 1) ? '入账' : '出账'; ?></td>
                                 </tr>
                             <?php endforeach; ?>
-                        <?php endif; ?>
-                    </table>
+                        </table>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -342,16 +342,16 @@
                     </div>
                 </div>
                 <div class="portlet-body">
-                    <table class="table table-condensed table-hover">
-                        <tr>
-                            <th>自增ID</th>
-                            <th>订单ID</th>
-                            <th>操作时间</th>
-                            <th>用户UID</th>
-                            <th>操作类型</th>
-                            <th>操作说明</th>
-                        </tr>
-                        <?php if ($orderHistory->num_rows() > 0) : ?>
+                    <?php if ($orderHistory->num_rows() > 0) : ?>
+                        <table class="table table-condensed table-hover">
+                            <tr>
+                                <th>自增ID</th>
+                                <th>订单ID</th>
+                                <th>操作时间</th>
+                                <th>用户UID</th>
+                                <th>操作类型</th>
+                                <th>操作说明</th>
+                            </tr>
                             <?php foreach ($orderHistory->result() as $item) : ?>
                                 <tr>
                                     <td><?php echo $item->history_id ?></td>
@@ -362,8 +362,8 @@
                                     <td><?php echo $item->comment ?></td>
                                 </tr>
                             <?php endforeach; ?>
-                        <?php endif; ?>
-                    </table>
+                        </table>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
