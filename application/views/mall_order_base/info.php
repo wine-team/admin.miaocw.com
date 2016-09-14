@@ -43,16 +43,8 @@
                     </li>
                     <?php $delivery = json_decode($orderBase->delivery_address);?>
                     <li>
-                        <span class="sale-info">收货人姓名</span>
-                        <span class="sale-num"><?php echo $delivery->receiver_name; ?></span>
-                    </li>
-                    <li>
-                        <span class="sale-info">收货人电话</span>
-                        <span class="sale-num"><?php echo $delivery->tel; ?></span>
-                    </li>
-                    <li>
-                        <span class="sale-info">收货人邮编</span>
-                        <span class="sale-num"><?php echo isset($delivery->code) ? $delivery->code : ''; ?></span>
+                        <span class="sale-info">收货人</span>
+                        <span class="sale-num"><?php echo $delivery->receiver_name; ?> | <?php echo $delivery->tel; ?> | <?php echo isset($delivery->code) ? $delivery->code : ''; ?></span>
                     </li>
                     <li>
                         <span class="sale-info">收货地址</span>
@@ -212,12 +204,12 @@
                         </span>
                     </li>
                     <li>
-                        <span class="sale-info">实际支付</span>
-                        <span class="sale-num">￥<?php echo bcadd($orderBase->actual_price, $orderBase->deliver_price, 2); ?></span>
+                        <span class="sale-info">退款金额</span>
+                        <span class="sale-num">￥<?php echo bcsub($orderBase->actual_price, $orderBase->order_pay_price, 2); ?></span>
                     </li>
                     <li>
-                        <span class="sale-info">剩余金额</span>
-                        <span class="sale-num">￥<?php echo bcadd($orderBase->order_pay_price, $orderBase->deliver_price, 2); ?></span>
+                        <span class="sale-info">实际支付</span>
+                        <span class="sale-num">￥<?php echo bcadd($orderBase->actual_price, $orderBase->deliver_price, 2); ?></span>
                     </li>
                 </ul>
             </div>
