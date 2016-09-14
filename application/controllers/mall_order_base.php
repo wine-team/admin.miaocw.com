@@ -73,4 +73,36 @@ class Mall_order_base extends CS_Controller
         $data['orderStatus'] = $this->orderStatus;
         $this->load->view('mall_order_base/info', $data);
     }
+
+    /**
+     * 修改运费价格
+     */
+    public function modifyDeliverPrice()
+    {
+        $order_id = $this->input->post('order_id');
+        $deliver_price = $this->input->post('deliver_price');
+        $result = $this->mall_order_base->findByOrderId($order_id);
+        if ($result->num_rows() <= 0) {
+            $this->jsonMessage('网络错误，订单信息不对');
+        }
+        $orderInfo = $result->row();
+        if ($deliver_price < 0) {
+            $this->jsonMessage('修改价格必须要大于等于零');
+        }
+        $this->db->trans_start();
+        $isUpdate = $this->mall_order_base->modifyDeliverPrice($order_id, $deliver_price);
+        $isinsert = $this->mall_order_history->insert(array(
+            'order_id'     => $order_id,
+            'uid'          => $this->uid,
+            'operate_type' => 8,
+            'comment'      => '修改运费从('.$orderInfo->deliver_price.')到（'.$deliver_price.')',
+        ));
+        $this->db->trans_complete();
+
+        if ($this->db->trans_status() === TRUE && $isUpdate && $isinsert) {
+            $this->jsonMessage('');
+        } else {
+            $this->jsonMessage('运费价格修改失败');
+        }
+    }
 }

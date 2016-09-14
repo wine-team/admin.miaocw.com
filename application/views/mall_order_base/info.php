@@ -196,7 +196,7 @@
                     <li>
                         <span class="sale-info">运费价格</span>
                         <span class="sale-num">
-                            <?php if ($orderBase->order_status == 2) :?>
+                            <?php if ($orderBase->order_status == 2) : //未付款时 ?>
                                 <span class="original-price">￥
                                     <span><?php echo $orderBase->deliver_price; ?></span>
                                     <a class="btn green edit-price" href="javascript:;">修改</a>
@@ -391,3 +391,29 @@
     </a>
 </div>
 <?php $this->load->view('layout/footer'); ?>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.edit-price').click(function(){
+            $('.original-price').hide();
+            $('.new-price').show().children('input[name=transport_cost]').focus();
+        });
+        $('.save-price').click(function(){
+            var deliverPrice = parseFloat($('input[name=deliver_price]').val());
+            $.ajax({
+                type: 'post',
+                async: true,
+                dataType: 'json',
+                url: hostUrl() + '/mall_order_base/modifyDeliverPrice',
+                data: {deliver_price:deliverPrice,order_id:$('input[name=order_id]').val()},
+                success: function (data) {
+                    if (data.status) {
+                        $('.original-price').show().children('span').text(transportPrice);
+                        $('.new-price').hide();
+                    } else {
+                        alert(data.messages);
+                    }
+                }
+            });
+        });
+    });
+</script>
