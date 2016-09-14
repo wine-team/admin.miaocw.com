@@ -75,4 +75,13 @@ class Mall_order_base_model extends CI_Model
     {
         return $this->db->update($this->table, $data, $where);
     }
+
+    public function modifyDeliverPrice($order_id, $deliver_price)
+    {
+        $data = array(
+            'deliver_price' => $deliver_price
+        );
+        $this->db->where('order_id', $order_id);
+        return $this->db->update($this->table, $data);
+    }
 }

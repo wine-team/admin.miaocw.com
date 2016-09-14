@@ -395,7 +395,7 @@
     $(document).ready(function(){
         $('.edit-price').click(function(){
             $('.original-price').hide();
-            $('.new-price').show().children('input[name=transport_cost]').focus();
+            $('.new-price').show().children('input[name=deliver_price]').focus();
         });
         $('.save-price').click(function(){
             var deliverPrice = parseFloat($('input[name=deliver_price]').val());
@@ -407,7 +407,7 @@
                 data: {deliver_price:deliverPrice,order_id:$('input[name=order_id]').val()},
                 success: function (data) {
                     if (data.status) {
-                        $('.original-price').show().children('span').text(transportPrice);
+                        $('.original-price').show().children('span').text(deliverPrice);
                         $('.new-price').hide();
                     } else {
                         alert(data.messages);
