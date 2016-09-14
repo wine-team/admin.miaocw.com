@@ -59,10 +59,6 @@
                         <span class="sale-num"><?php echo $delivery->detailed; ?></span>
                     </li>
                     <li>
-                        <span class="sale-info">订单备注</span>
-                        <span class="sale-num"><?php echo $orderBase->order_note; ?></span>
-                    </li>
-                    <li>
                         <span class="sale-info">发票抬头</span>
                         <span class="sale-num"><?php //echo $orderBase->vanguard;?></span>
                     </li>
@@ -88,8 +84,24 @@
                         <span class="sale-num"><?php echo $orderBase->pay_time; ?></span>
                     </li>
                     <li>
+                        <span class="sale-info">发货时间</span>
+                        <span class="sale-num"><?php echo $orderBase->send_time; ?></span>
+                    </li>
+                    <li>
+                        <span class="sale-info">收货时间</span>
+                        <span class="sale-num"><?php echo $orderBase->receive_time; ?></span>
+                    </li>
+                    <li>
+                        <span class="sale-info">评价时间</span>
+                        <span class="sale-num"><?php echo $orderBase->reviews_time; ?></span>
+                    </li>
+                    <li>
                         <span class="sale-info">修改时间</span>
                         <span class="sale-num"><?php echo $orderBase->updated_at; ?></span>
+                    </li>
+                    <li>
+                        <span class="sale-info">订单备注</span>
+                        <span class="sale-num"><?php echo $orderBase->order_note; ?></span>
                     </li>
                     <li>
                         <span class="sale-info"></span>
@@ -173,16 +185,14 @@
                         <span class="sale-info">销售总价</span>
                         <span class="sale-num">￥<?php echo $orderBase->order_shop_price; ?></span>
                     </li>
-                    <?php if (!empty($orderBase->coupon_code)) : ?>
-                        <li>
-                            <span class="sale-info">优惠劵编码</span>
-                            <span class="sale-num"><?php echo $orderBase->coupon_code; ?></span>
-                        </li>
-                        <li>
-                            <span class="sale-info">优惠劵金额</span>
-                            <span class="sale-num">￥<?php echo $orderBase->coupon_price; ?></span>
-                        </li>
-                    <?php endif;?>
+                    <li>
+                        <span class="sale-info">优惠劵编码</span>
+                        <span class="sale-num"><?php echo !empty($orderBase->coupon_code) ? $orderBase->coupon_code : '未使用'; ?></span>
+                    </li>
+                    <li>
+                        <span class="sale-info">优惠劵金额</span>
+                        <span class="sale-num">￥<?php echo $orderBase->coupon_price; ?></span>
+                    </li>
                     <li>
                         <span class="sale-info">运费价格</span>
                         <span class="sale-num">
@@ -222,21 +232,21 @@
             </div>
         </div>
         <div class="portlet-body">
-            <table class="table table-condensed table-hover">
-                <tr>
-                    <th>订单产品ID</th>
-                    <th>订单ID</th>
-                    <th>产品ID</th>
-                    <th>产品名称</th>
-                    <th>购买数量</th>
-                    <th>退货数量</th>
-                    <th>换货数量</th>
-                    <th>价格(销售价/贝竹价/供应价)</th>
-                    <th>实际应付（元）</th>
-                    <th>创建时间</th>
-                    <th>更新时间</th>
-                </tr>
-                <?php if ($orderProduct->num_rows() > 0) : ?>
+            <?php if ($orderProduct->num_rows() > 0) : ?>
+                <table class="table table-condensed table-hover">
+                    <tr>
+                        <th>订单产品ID</th>
+                        <th>订单ID</th>
+                        <th>产品ID</th>
+                        <th>产品名称</th>
+                        <th>购买数量</th>
+                        <th>退货数量</th>
+                        <th>换货数量</th>
+                        <th>价格(销售价/贝竹价/供应价)</th>
+                        <th>实际应付（元）</th>
+                        <th>创建时间</th>
+                        <th>更新时间</th>
+                    </tr>
                     <?php foreach ($orderProduct->result() as $product) : ?>
                         <tr>
                             <td><?php echo $product->order_product_id; ?></td>
@@ -252,8 +262,10 @@
                             <td><?php echo $product->updated_at; ?></td>
                         </tr>
                     <?php endforeach; ?>
-                <?php endif; ?>
-            </table>
+                </table>
+            <?php else : ?>
+                <div class="alert"><p>未找到数据。<p></div>
+            <?php endif; ?>
         </div>
     </div>
     <div class="row-fluid">
@@ -286,6 +298,8 @@
                                 </tr>
                             <?php endforeach; ?>
                         </table>
+                    <?php else : ?>
+                        <div class="alert"><p>未找到数据。<p></div>
                     <?php endif; ?>
                 </div>
             </div>
@@ -363,6 +377,8 @@
                                 </tr>
                             <?php endforeach; ?>
                         </table>
+                    <?php else : ?>
+                        <div class="alert"><p>未找到数据。<p></div>
                     <?php endif; ?>
                 </div>
             </div>
