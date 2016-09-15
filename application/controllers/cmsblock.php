@@ -1,5 +1,5 @@
 <?php 
-class Cms_block extends CS_Controller
+class Cmsblock extends CS_Controller
 {
     public function _init()
     {
