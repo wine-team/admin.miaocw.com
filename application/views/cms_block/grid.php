@@ -48,7 +48,7 @@
                 <div class="portlet-body flip-scroll">
                     <div class="dataTables_wrapper form-inline">
                         <div class="clearfix">
-                            <a href="<?php echo base_url('cms_block/add') ?>" class="add-button-link">
+                            <a href="<?php echo base_url('cmsblock/add') ?>" class="add-button-link">
                                 <div class="btn-group">
                                     <button class="btn green"><i class="icon-plus"></i> 添加</button>
                                 </div>
@@ -77,8 +77,8 @@
                                         <td><?php echo $item->created_at;?></td>
                                         <td><?php echo $item->updated_at;?></td>
                                         <td>
-                                            <a class="btn mini green" href="<?php echo base_url('cms_block/edit/'.$item->id) ?>"><i class="icon-edit"></i> 编辑</a>
-                                            <a class="btn mini green" href="<?php echo base_url('cms_block/delete/'.$item->id) ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
+                                            <a class="btn mini green" href="<?php echo base_url('cmsblock/edit/'.$item->id) ?>"><i class="icon-edit"></i> 编辑</a>
+                                            <a class="btn mini green" href="<?php echo base_url('cmsblock/delete/'.$item->id) ?>" onclick="return confirm('确定要删除？')"><i class="icon-trash"></i> 删除</a>
                                         </td>
                                     </tr>
                                     <?php endforeach;?>
