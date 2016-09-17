@@ -54,6 +54,10 @@
                         <span class="sale-info">发票抬头</span>
                         <span class="sale-num"><?php //echo $orderBase->vanguard;?></span>
                     </li>
+                    <li>
+                        <span class="sale-info">订单备注</span>
+                        <span class="sale-num"><?php echo $orderBase->order_note; ?></span>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -92,8 +96,8 @@
                         <span class="sale-num"><?php echo $orderBase->updated_at; ?></span>
                     </li>
                     <li>
-                        <span class="sale-info">订单备注</span>
-                        <span class="sale-num"><?php echo $orderBase->order_note; ?></span>
+                        <span class="sale-info">下单设备</span>
+                        <span class="sale-num"><?php echo $is_form[$orderBase->is_form] ?></span>
                     </li>
                     <li>
                         <span class="sale-info"></span>
@@ -364,7 +368,7 @@
                                     <td><?php echo $item->order_id ?></td>
                                     <td><?php echo $item->operate_time ?></td>
                                     <td><?php echo $item->uid ?></td>
-                                    <td><?php echo $item->operate_type ?></td>
+                                    <td><?php echo $operateType[$item->operate_type] ?></td>
                                     <td><?php echo $item->comment ?></td>
                                 </tr>
                             <?php endforeach; ?>
