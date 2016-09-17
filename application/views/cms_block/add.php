@@ -3,7 +3,7 @@
     <div class="row-fluid">
         <div class="span12">
             <h3 class="page-title">网站设置<small>区块广告设置</small></h3>
-            <?php echo breadcrumb(array('网站设置', 'cms_block/grid'=>'区块广告设置', 'cms_block/add'=>'添加广告')); ?>
+            <?php echo breadcrumb(array('网站设置', 'cmsblock/grid'=>'区块广告设置', 'cms_block/add'=>'添加广告')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>
@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="portlet-body form">
-                    <form class="form-horizontal line-form" action="<?php echo base_url('cms_block/addPost') ?>" method="post" enctype="multipart/form-data">
+                    <form class="form-horizontal line-form" action="<?php echo base_url('cmsblock/addPost') ?>" method="post" enctype="multipart/form-data">
                         <div class="control-group">
                             <label class="control-label"><em>* </em>名称</label>
                             <div class="controls">
@@ -39,7 +39,7 @@
                         </div>
                         <div class="form-actions">
                             <button class="btn green" type="submit"><i class="icon-ok"></i> 保存</button>
-                            <a href="<?php echo base_url('cms_block/grid') ?>">
+                            <a href="<?php echo base_url('cmsblock/grid') ?>">
                                 <button class="btn" type="button">返回</button>
                             </a>
                         </div>
