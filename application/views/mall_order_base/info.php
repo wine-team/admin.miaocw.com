@@ -97,7 +97,7 @@
                     </li>
                     <li>
                         <span class="sale-info">下单设备</span>
-                        <span class="sale-num"><?php echo $is_form[$orderBase->is_form] ?></span>
+                        <span class="sale-num"><?php echo $is_from[$orderBase->is_from] ?></span>
                     </li>
                     <li>
                         <span class="sale-info"></span>

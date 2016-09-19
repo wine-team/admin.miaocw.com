@@ -144,7 +144,7 @@
                                         </td>
                                         <td>
                                             <p><?php echo $item->pay_time ?></p>
-                                            <p class="btn mini blue"><?php echo $is_form[$item->is_form] ?></p>
+                                            <p class="btn mini blue"><?php echo $is_from[$item->is_from] ?></p>
                                         </td>
                                         <td>
                                             <a class="btn mini green" href="<?php echo base_url('mall_order_base/info/'.$item->order_id); ?>">详情</a>
