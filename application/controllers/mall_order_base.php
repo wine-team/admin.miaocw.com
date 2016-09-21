@@ -24,7 +24,7 @@ class Mall_order_base extends CS_Controller
         );
         $this->orderState = array('1'=>'未付款', '2'=>'已付款', '3'=>'已完成', '4'=>'评价', '5'=>'退款');
         $this->orderStatus = array('1'=>'取消订单', '2'=>'未付款', '3'=>'已付款', '4'=>'已发货', '5'=>'已收货', '6'=>'已评价');
-        $this->isForm = array(1=>'电脑PC', 2=>'手机Web', 3=>'手机Android', 4=>'手机IOS', 5=>'其他');
+        $this->isFrom = array(1=>'电脑PC', 2=>'手机Web', 3=>'手机Android', 4=>'手机IOS', 5=>'其他');
     }
 
     public function grid($pg = 1)
@@ -42,7 +42,7 @@ class Mall_order_base extends CS_Controller
         $data['all_rows'] = $config['total_rows'];
         $data['pg_now'] = $pg;
         $data['page_num'] = $page_num;
-        $data['is_form'] = $this->isForm;
+        $data['is_from'] = $this->isFrom;
         $data['orderState'] = $this->orderState;
         $data['orderStatus'] = $this->orderStatus;
         $this->load->view('mall_order_base/grid', $data);
@@ -73,7 +73,7 @@ class Mall_order_base extends CS_Controller
         $data['extension_code'] = $this->extension;
         $data['orderState'] = $this->orderState;
         $data['orderStatus'] = $this->orderStatus;
-        $data['is_form'] = $this->isForm;
+        $data['is_from'] = $this->isFrom;
         $this->load->view('mall_order_base/info', $data);
     }
 

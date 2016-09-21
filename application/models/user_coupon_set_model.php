@@ -50,16 +50,16 @@ class User_coupon_set_model extends CI_Model
     public function insert($postData=array())
     {
         $data = array(
-            'coupon_name'=> $postData['coupon_name'],
-            'scope'       => $postData['scope'],
-            'related_id' => $postData['related_id'],
-            'amount'      => $postData['amount'],
-            'number'      => $postData['number'],
-            'condition'   => !empty($postData['condition']) ? $postData['condition'] : 0,
+            'coupon_name'  => $postData['coupon_name'],
+            'scope'        => $postData['scope'],
+            'related_id'   => $postData['related_id'],
+            'amount'       => $postData['amount'],
+            'number'       => $postData['number'],
+            'condition'    => !empty($postData['condition']) ? $postData['condition'] : 0,
             'note'         => !empty($postData['note']) ? $postData['note'] : '',
-            'start_time'  => date('Y-m-d 00:00:00', strtotime($postData['start_time'])),
-            'end_time'    => date('Y-m-d 23:59:59', strtotime($postData['end_time'])),
-            'created_at'  => date('Y-m-d H:i:s'),
+            'start_time'   => $postData['start_time'],
+            'end_time'     => $postData['end_time'],
+            'created_at'   => date('Y-m-d H:i:s'),
         );
         $this->db->insert($this->table, $data);
         return $this->db->insert_id();
@@ -68,14 +68,14 @@ class User_coupon_set_model extends CI_Model
     public function update($postData=array())
     {
         $data = array(
-            'coupon_name'=> $postData['coupon_name'],
+            'coupon_name' => $postData['coupon_name'],
             'scope'       => $postData['scope'],
-            'related_id' => $postData['related_id'],
+            'related_id'  => $postData['related_id'],
             'amount'      => $postData['amount'],
             'number'      => $postData['number'],
             'condition'   => $postData['condition'],
-            'start_time'  => date('Y-m-d 00:00:00', strtotime($postData['start_time'])),
-            'end_time'    => date('Y-m-d 23:59:59', strtotime($postData['end_time'])),
+            'start_time'   => $postData['start_time'],
+            'end_time'     => $postData['end_time'],
         );
         $this->db->where('coupon_set_id', $postData['coupon_set_id']);
         return $this->db->update($this->table, $data);

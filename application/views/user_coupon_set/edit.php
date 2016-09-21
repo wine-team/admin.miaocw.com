@@ -44,19 +44,19 @@
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">开始使用时间</label>
+                            <label class="control-label"><em>* </em>开始使用时间</label>
                             <div class="controls">
-                                <div class="input-append date date-picker" data-date-format="yyyy-mm-dd">
-                                    <input type="text" name="start_time" value="<?php echo $userCouponSet->start_time ?>" size="16" class="m-wrap date-picker" readonly="readonly">
+                                <div class="input-append date form_datetime">
+                                    <input type="text" name="start_time" value="<?php echo $userCouponSet->start_time ?>" size="16" class="m-wrap m-ctrl-medium required">
                                     <span class="add-on"><i class="icon-calendar"></i></span>
                                 </div>
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">结束使用时间</label>
+                            <label class="control-label"><em>* </em>结束使用时间</label>
                             <div class="controls">
-                                <div class="input-append date date-picker" data-date-format="yyyy-mm-dd">
-                                    <input type="text" name="end_time" value="<?php echo $userCouponSet->end_time ?>" size="16" class="m-wrap date-picker" readonly="readonly">
+                                <div class="input-append date form_datetime">
+                                    <input type="text" name="end_time" value="<?php echo $userCouponSet->end_time ?>" size="16" class="m-wrap m-ctrl-medium required">
                                     <span class="add-on"><i class="icon-calendar"></i></span>
                                 </div>
                             </div>
