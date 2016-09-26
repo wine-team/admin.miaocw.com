@@ -40,6 +40,17 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="control-group">
+                            <label class="control-label"><em>* </em>商品来源</label>
+                            <div class="controls">
+                                <select name="from_id" class="medium m-wrap chosen required" data-placeholder="请选择商品属性">
+                                    <option value="0">妙处网自采</option>
+                                    <?php foreach ($mall_goods_from->result() as $key => $val) : ?>
+									<option value="<?php echo $val->from_id?>"><?php echo $val->from_name;?></option>
+                                    <?php endforeach;?>
+                                </select>
+                            </div>
+                        </div>
                         <div class="form-actions">
                             <button class="btn green" type="submit">下一步 <i class="m-icon-swapright m-icon-white"></i></button>
                             <a class="btn" href="<?php echo base_url('mall_goods_base/grid');?>">返回列表</a>

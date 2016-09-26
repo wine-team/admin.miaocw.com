@@ -38,6 +38,17 @@
         <input type="text" name="supplier_id" value="<?php echo $mallGoodsBase->supplier_id ?>" class="m-wrap span12 supplieruid required tooltips" placeholder="默认0为自营商品" data-original-title="双击可弹框选择供应商" data-trigger="hover" autocomplete="off">
     </div>
 </div>
+<div class="control-group">
+    <label class="control-label">商品来源</label>
+    <div class="controls">
+        <select name="from_id" class="m-wrap span12 chosen">
+            <option value="0" <?php if($mallGoodsBase->from_id==0):?>selected="selected"<?php endif;?>>妙处网自采</option>
+            <?php foreach ($mall_goods_from->result() as $key => $val) : ?>
+            <option value="<?php echo $val->from_id?>" <?php if($mallGoodsBase->from_id==$val->from_id){echo 'selected';}?> ><?php echo $val->from_name;?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+</div>
 <?php if ($brand->num_rows() > 0) : ?>
     <div class="control-group">
         <label class="control-label">商品品牌</label>

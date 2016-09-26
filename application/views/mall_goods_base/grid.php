@@ -99,6 +99,19 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="span4">
+                                <div class="control-group">
+                                    <label class="control-label">商品来源</label>
+                                    <div class="controls">
+                                        <select name="from_id" class="m-wrap medium">
+                                            <option value="0">妙处网自采</option>
+                                            <?php foreach ($mall_goods_from->result() as $key => $val) : ?>
+                                            <option value="<?php echo $val->from_id?>" <?php if($this->input->get('from_id')==$val->from_id){echo 'selected';}?> ><?php echo $val->from_name;?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-actions">
                             <button class="btn green" type="submit">搜索</button>

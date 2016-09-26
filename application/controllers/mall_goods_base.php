@@ -10,6 +10,7 @@ class Mall_goods_base extends CS_Controller
         $this->load->model('mall_goods_base_model', 'mall_goods_base');
         $this->load->model('mall_attribute_set_model','mall_attribute_set');
         $this->load->model('mall_brand_model','mall_brand');
+        $this->load->model('mall_goods_from_model','mall_goods_from');
         $this->load->model('mall_category_model', 'mall_category');
         $this->load->model('mall_category_product_model','mall_category_product');
         $this->load->model('region_model', 'region');
@@ -44,6 +45,7 @@ class Mall_goods_base extends CS_Controller
         $data['pg_now'] = $pg;
         $data['page_num'] = $page_num;
         $data['attribute_set'] = $this->mall_attribute_set->find(true);
+        $data['mall_goods_from'] = $this->mall_goods_from->findFromByRes();
         $data['is_on_sale'] = array('1' => '上架', '2' => '下架');
         $data['is_check'] = array('1' => '待审核', '2' => '审核通过', '3' => '审核拒绝');
         $data['extension'] = $this->extension;
@@ -54,6 +56,7 @@ class Mall_goods_base extends CS_Controller
     {
         $data['extension'] = $this->extension;
         $data['attributeSet'] = $this->mall_attribute_set->find();
+        $data['mall_goods_from'] = $this->mall_goods_from->findFromByRes();
         $this->load->view('mall_goods_base/addstep1', $data);
     }
     
@@ -61,6 +64,7 @@ class Mall_goods_base extends CS_Controller
     {
         $extension_code = $this->input->get('extension_code');
         $attr_set_id = $this->input->get('attr_set_id');
+        $from_id =  $this->input->get('from_id');
         if (empty($extension_code) || empty($attr_set_id)) {
             $this->error('mall_goods_base/addstep1', '', '请选择完整商品的类别和类型');
         }
@@ -221,6 +225,7 @@ class Mall_goods_base extends CS_Controller
         $data['categorys']     = $this->mall_category->findByCategoryTree();
         $data['attributeSet']  = $this->mall_attribute_set->find();
         $data['brand']         = $this->mall_brand->find();//品牌信息
+        $data['mall_goods_from'] = $this->mall_goods_from->findFromByRes();
         $data['extension']     = $this->extension;
         $data['province_id']   = $mallGoodsBase->province_id;
         $data['city_id']       = $mallGoodsBase->city_id;
