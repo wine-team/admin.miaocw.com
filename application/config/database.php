@@ -47,10 +47,10 @@
 
 $active_group  = 'default';
 $active_record = TRUE;
-$db['default']['hostname'] = 'mysql.sql71.cdncenter.net';
-$db['default']['username'] = 'sq_zhangkunch';
-$db['default']['password'] = '123456';
-$db['default']['database'] = 'sq_zhangkunch';
+$db['default']['hostname'] = '120.76.250.144';
+$db['default']['username'] = 'miaocw01';
+$db['default']['password'] = 'xiaoyixian123';
+$db['default']['database'] = 'miaocw';
 $db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = FALSE;

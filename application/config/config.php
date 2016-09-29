@@ -266,7 +266,7 @@ $config['sess_time_to_update']	= 300;
 |
 */
 $config['cookie_prefix']	= "";
-$config['cookie_domain']	= !(strpos($_SERVER['HTTP_HOST'], '.localhost') || strpos($_SERVER['HTTP_HOST'], '92.168.1.122')) ? strstr($_SERVER['HTTP_HOST'], '.') : '';
+$config['cookie_domain']	= !(strpos($_SERVER['HTTP_HOST'], '.localhost') || strpos($_SERVER['HTTP_HOST'], '20.76.250.144')) ? strstr($_SERVER['HTTP_HOST'], '.') : '';
 $config['cookie_path']	= "/";
 $config['cookie_secure']	= FALSE;
 
