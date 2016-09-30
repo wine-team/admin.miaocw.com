@@ -45,8 +45,8 @@
                             <div class="controls">
                                 <select name="from_id" class="medium m-wrap chosen required" data-placeholder="请选择商品属性">
                                     <option value="0">妙处网自采</option>
-                                    <?php foreach ($mall_goods_from->result() as $key => $val) : ?>
-									<option value="<?php echo $val->from_id?>"><?php echo $val->from_name;?></option>
+                                    <?php foreach ($mallGoodsFrom->result() as $key => $val) : ?>
+                                        <option value="<?php echo $val->from_id?>"><?php echo $val->from_name;?></option>
                                     <?php endforeach;?>
                                 </select>
                             </div>

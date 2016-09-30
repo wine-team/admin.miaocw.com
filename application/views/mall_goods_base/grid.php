@@ -105,8 +105,8 @@
                                     <div class="controls">
                                         <select name="from_id" class="m-wrap medium">
                                             <option value="0">妙处网自采</option>
-                                            <?php foreach ($mall_goods_from->result() as $key => $val) : ?>
-                                            <option value="<?php echo $val->from_id?>" <?php if($this->input->get('from_id')==$val->from_id){echo 'selected';}?> ><?php echo $val->from_name;?></option>
+                                            <?php foreach ($mallGoodsFrom->result() as $key => $val) : ?>
+                                                <option value="<?php echo $val->from_id?>" <?php if($this->input->get('from_id')==$val->from_id){echo 'selected';}?> ><?php echo $val->from_name;?></option>
                                             <?php endforeach;?>
                                         </select>
                                     </div>
