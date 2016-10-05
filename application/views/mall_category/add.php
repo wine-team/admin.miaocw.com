@@ -60,7 +60,7 @@
                         <div class="control-group">
                             <label class="control-label"><em>* </em>排序</label>
                             <div class="controls">
-                                <input type="number" class="m-wrap required" name="sort_order" maxlength=2 value="50" placeholder="排序"/>
+                                <input type="number" class="m-wrap required" name="sort_order" maxlength=2 value="50" placeholder="越大越前"/>
                             </div>
                         </div>
                         <div class="control-group">

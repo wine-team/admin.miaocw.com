@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="portlet-body form">
-                    <form class="form-horizontal form-search" action="<?php echo base_url('cms_block/grid') ?>" method="get">
+                    <form class="form-horizontal form-search" action="<?php echo base_url('cmsblock/grid') ?>" method="get">
                         <div class="row-fluid">
                             <div class="span3">
                                 <div class="control-group">
