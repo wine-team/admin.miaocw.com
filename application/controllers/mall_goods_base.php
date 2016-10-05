@@ -301,6 +301,7 @@ class Mall_goods_base extends CS_Controller
         $data['province_id']   = $mallGoodsBase->province_id;
         $data['city_id']       = $mallGoodsBase->city_id;
         $data['district_id']   = $mallGoodsBase->district_id;
+        $data['mall_goods_from'] = $this->mall_goods_from->findFromByRes();
         $this->load->view('mall_goods_base/copy', $data);
     }
 
