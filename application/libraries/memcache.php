@@ -20,15 +20,15 @@ class CI_Memcache
      * $data is_string && is_array
      * @param unknown $data
      */
-    public function setData($key, $data)
+    public function setData($key, $data, $expire=0)
     {
         if (!$this->memcache_object) {
             return false;
         }
         if (extension_loaded('memcached')) {
-            $this->memcache_object->add($key, $data);
+            $this->memcache_object->set($key, $data, $expire);
         } else {
-            $this->memcache_object->set($key, $data);
+            $this->memcache_object->set($key, $data, MEMCACHE_COMPRESSED, $expire);
         }
     }
     
@@ -43,34 +43,12 @@ class CI_Memcache
         }
         return $this->memcache_object->get($key);
     }
-    
-    /**
-     * 获取用户登录信息。
-     * 
-     */
-    public function getCustomerSession($session)
-    {
-        $frontUser = $this->getData('frontUser');
-        if ($frontUser && !$session->userdata('ACT_UID')) {
-            $session->set_userdata($frontUser);
-        } elseif (!$frontUser && $session->userdata('ACT_UID')) {
-            $session->sess_destroy();
-        }
-    }
-    
-    public function deleteCustomerMemcache()
-    {
-        if (!$this->memcache_object) {
-            return false;
-        }
-        return $this->memcache_object->delete('frontUser');
-    }
 
     /**
      * 清除所有缓存
      * @return boolean|void
      */
-    public function flushMemcache()
+    public function flush()
     {
         if (!$this->memcache_object) {
             return false;
@@ -83,7 +61,7 @@ class CI_Memcache
      * @param unknown $key
      * @return boolean
      */
-    public function deleteMemcache($key)
+    public function delete($key)
     {
         if (!$this->memcache_object) {
             return false;
