@@ -103,9 +103,6 @@ class Cmsblock extends CS_Controller
         if ($this->validateParam($this->input->post('block_id'))) {
             $error[] = '区块Id不能为空';
         }
-        if ($this->validateParam($this->input->post('description'))) {
-            $error[] = '描述不能为空';
-        }
         return $error;
     }
 }

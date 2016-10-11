@@ -74,8 +74,9 @@ class User_coupon_set_model extends CI_Model
             'amount'      => $postData['amount'],
             'number'      => $postData['number'],
             'condition'   => $postData['condition'],
-            'start_time'   => $postData['start_time'],
-            'end_time'     => $postData['end_time'],
+        	'note'        => isset($postData['note']) ? $postData['note'] : '',
+            'start_time'  => $postData['start_time'],
+            'end_time'    => $postData['end_time'],
         );
         $this->db->where('coupon_set_id', $postData['coupon_set_id']);
         return $this->db->update($this->table, $data);

@@ -100,7 +100,7 @@
                 <div class="control-group">
                     <label class="control-label">排序</label>
                     <div class="controls">
-                        <input type="text" name="sort_order" value="<?php echo isset($mallCategory->sort_order) ? $mallCategory->sort_order : '' ?>" class="m-wrap span8">
+                        <input type="text" name="sort_order" value="<?php echo isset($mallCategory->sort_order) ? $mallCategory->sort_order : '' ?>" class="m-wrap span8" placeholder="越大越前">
                     </div>
                 </div>
             </div>

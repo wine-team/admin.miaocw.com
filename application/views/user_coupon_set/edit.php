@@ -82,7 +82,7 @@
                         <div class="control-group">
                             <label class="control-label">使用说明</label>
                             <div class="controls">
-                                <textarea name="note" value="<?php echo $userCouponSet->note ?>" class="m-wrap span8"  placeholder="请输入优惠劵使用说明"></textarea>
+                                <textarea name="note" class="m-wrap span8"  placeholder="请输入优惠劵使用说明"><?php echo $userCouponSet->note ?></textarea>
                             </div>
                         </div>
                         <div class="form-actions">
