@@ -5,7 +5,6 @@ class CI_Memcache
     public $memcache_object = false;
     public $memcache_host  = '127.0.0.1';
     public $memcache_port  = '11211';
-    
 
     public function __construct($params = array())
     {
@@ -13,7 +12,7 @@ class CI_Memcache
             $this->memcache_object = new Memcache();
             $this->memcache_object->addServer($this->memcache_host, $this->memcache_port);
         } elseif (extension_loaded('memcached')) {
-            $this->memcache_object = new Memcache();
+            $this->memcache_object = new Memcached();
             $this->memcache_object->addServer($this->memcache_host, $this->memcache_port);
         }
     }
@@ -27,7 +26,11 @@ class CI_Memcache
         if (!$this->memcache_object) {
             return false;
         }
-        $this->memcache_object->set($key, $data);
+        if (extension_loaded('memcached')) {
+            $this->memcache_object->add($key, $data);
+        } else {
+            $this->memcache_object->set($key, $data);
+        }
     }
     
     /**
