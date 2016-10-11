@@ -1,7 +1,6 @@
 <?php
 class CI_Memcache 
 {
-    public $CI;
     public $memcache_object = false;
     public $memcache_host  = '127.0.0.1';
     public $memcache_port  = '11211';
