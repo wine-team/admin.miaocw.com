@@ -1,10 +1,10 @@
 <?php
 class MJ_Config extends CI_Config 
 {
-    public $main_base_url = 'http://miaocw.localhost/';
-    public $images_url    = 'http://images.localhost/'; 
-    public $skins_url     = 'http://skins.localhost/';  
-    public $passport_url  = 'http://passport.localhost/';
+    public $main_base_url = 'http://www.miaocw.com/';
+    public $images_url    = 'http://images.miaocw.com/'; 
+    public $skins_url     = 'http://skins.miaocw.com/';  
+    public $passport_url  = 'http://passport.miaocw.com/';
     
     
      /**

@@ -12,7 +12,7 @@ require_once 'JSON.php';
 //$php_path = dirname(__FILE__) . '/';
 $php_path = dirname($_SERVER['DOCUMENT_ROOT']).'/images/kindeditor/';
 //$php_url = dirname($_SERVER['PHP_SELF']) . '/';
-$php_url = 'http://images.localhost/kindeditor/';
+$php_url = 'http://images.miaocw.com/kindeditor/';
 //文件保存目录路径
 //$save_path = $php_path . '../attached/';
 $save_path = $php_path;
