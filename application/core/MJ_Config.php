@@ -1,19 +1,12 @@
 <?php
 class MJ_Config extends CI_Config 
 {
-<<<<<<< HEAD
-    public $main_base_url = 'http://www.miaocw.com/';
-    public $images_url    = 'http://images.miaocw.com/'; 
-    public $skins_url     = 'http://skins.miaocw.com/';  
-    public $passport_url  = 'http://passport.miaocw.com/';
-=======
     public $main_base_url  =  'http://www.miaocw.com/';
     public $images_url     =  'http://images.miaocw.com/';
     public $skins_url      =  'http://skins.miaocw.com/';
     public $passport_url   =  'http://passport.miaocw.com/';
     public $help_url       =  'http://help.miaocw.com/';
     public $ucenter_url    =  'http://ucenter.miaocw.com/';
->>>>>>> 909dcadccfb1c94a4f0a2837b653998e18babf18
     
     
      /**
