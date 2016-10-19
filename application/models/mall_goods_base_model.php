@@ -234,8 +234,15 @@ class Mall_goods_base_model extends CI_Model
             }
             case '2' : {
                 foreach ($attrArrayValue as $key=>$item) {
-                    if (empty($item['group_value'])) {
-                        unset($attrArrayValue[$key]);
+                    if (!empty($item['group_value'])) {
+                        foreach ($item['group_value'] as $k=>$v) {
+                            if (empty($v['attr_value'])) {
+                                unset($attrArrayValue[$key]['group_value'][$k]);
+                            }
+                        }
+                        if (empty($item['group_value'])) {
+                            unset($attrArrayValue[$key]);
+                        }
                     }
                 }
                 break;

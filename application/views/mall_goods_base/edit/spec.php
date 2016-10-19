@@ -13,15 +13,17 @@
                 <div class="control-group">
                     <label class="control-label"><?php if($attrValue->values_required==1):?><em>* </em><?php endif;?><?php echo $attrValue->attr_name ?></label>
                     <div class="controls">
-                        <input type="text" name="attr_value[<?php echo $group['group_id'];?>][group_value][<?php echo $attrValue->attr_value_id ?>]" value="<?php echo isset($oldAttrValue[$group['group_id']]['group_value'][$attrValue->attr_value_id]) ? $oldAttrValue[$group['group_id']]['group_value'][$attrValue->attr_value_id] : '' ?>" class="m-wrap span12<?php if($attrValue->values_required==1):?> required<?php endif;?>">
+                        <input type="hidden" name="attr_value[<?php echo $group['group_id'];?>][group_value][<?php echo $attrValue->attr_value_id ?>][attr_name]" value="<?php echo $attrValue->attr_name ?>">
+                        <input type="text" name="attr_value[<?php echo $group['group_id'];?>][group_value][<?php echo $attrValue->attr_value_id ?>][attr_value]" value="<?php echo isset($oldAttrValue[$group['group_id']]['group_value'][$attrValue->attr_value_id][attr_value]) ? $oldAttrValue[$group['group_id']]['group_value'][$attrValue->attr_value_id][attr_value] : '' ?>" class="m-wrap span12<?php if($attrValue->values_required==1):?> required<?php endif;?>">
                     </div>
                 </div>
             <?php elseif ($attrValue->attr_type == 'textarea') : ?>
                 <div class="control-group">
                     <label class="control-label"><?php if($attrValue->values_required==1):?><em>* </em><?php endif;?><?php echo $attrValue->attr_name ?></label>
                     <div class="controls">
-                        <textarea name="attr_value[<?php echo $group['group_id'];?>][group_value][<?php echo $attrValue->attr_value_id ?>]" rows="2" class="m-wrap span12<?php if($attrValue->values_required==1):?> required<?php endif;?>">
-                            <?php echo isset($oldAttrValue[$group['group_id']]['group_value'][$attrValue->attr_value_id]) ? $oldAttrValue[$group['group_id']]['group_value'][$attrValue->attr_value_id] : '' ?>
+                        <input type="hidden" name="attr_value[<?php echo $group['group_id'];?>][group_value][<?php echo $attrValue->attr_value_id ?>][attr_name]" value="<?php echo $attrValue->attr_name ?>">
+                        <textarea name="attr_value[<?php echo $group['group_id'];?>][group_value][<?php echo $attrValue->attr_value_id ?>][attr_value]" rows="2" class="m-wrap span12<?php if($attrValue->values_required==1):?> required<?php endif;?>">
+                            <?php echo isset($oldAttrValue[$group['group_id']]['group_value'][$attrValue->attr_value_id][attr_value]) ? $oldAttrValue[$group['group_id']]['group_value'][$attrValue->attr_value_id][attr_value] : '' ?>
                         </textarea>
                     </div>
                 </div>
@@ -29,10 +31,11 @@
                 <div class="control-group">
                     <label class="control-label"><?php if($attrValue->values_required==1):?><em>* </em><?php endif;?><?php echo $attrValue->attr_name ?></label>
                     <div class="controls">
+                        <input type="hidden" name="attr_value[<?php echo $group['group_id'];?>][group_value][<?php echo $attrValue->attr_value_id ?>][attr_name]" value="<?php echo $attrValue->attr_name ?>">
                         <?php $attrValues = explode(',', $attrValue->attr_values); ?>
                         <?php foreach ($attrValues as $k=>$v) :?>
                             <label class="radio">
-                                <input type="radio" name="attr_value[<?php echo $group['group_id'];?>][group_value][<?php echo $attrValue->attr_value_id ?>]" value="<?php echo $v;?>" <?php if($k == 0):?>checked="checked"<?php endif;?> class="m-wrap"/><?php echo $v;?>
+                                <input type="radio" name="attr_value[<?php echo $group['group_id'];?>][group_value][<?php echo $attrValue->attr_value_id ?>][attr_value]" value="<?php echo $v;?>" <?php if(isset($oldAttrValue[$group['group_id']]['group_value'][$attrValue->attr_value_id][attr_value]) && $oldAttrValue[$group['group_id']]['group_value'][$attrValue->attr_value_id][attr_value] == $v):?>checked="checked"<?php endif;?> class="m-wrap"/><?php echo $v;?>
                             </label>
                         <?php endforeach;?>
                     </div>
@@ -41,8 +44,9 @@
                 <div class="control-group">
                     <label class="control-label"><?php if($attrValue->values_required==1):?><em>* </em><?php endif;?><?php echo $attrValue->attr_name ?></label>
                     <div class="controls">
+                        <input type="hidden" name="attr_value[<?php echo $group['group_id'];?>][group_value][<?php echo $attrValue->attr_value_id ?>][attr_name]" value="<?php echo $attrValue->attr_name ?>">
                         <div class="input-append date date-picker" data-date-format="yyyy-mm-dd">
-                            <input type="text" name="attr_value[<?php echo $group['group_id'];?>][group_value][<?php echo $attrValue->attr_value_id ?>]" value="<?php echo isset($oldAttrValue[$group['group_id']]['group_value'][$attrValue->attr_value_id]) ? $oldAttrValue[$group['group_id']]['group_value'][$attrValue->attr_value_id] : '' ?>" size="16" class="m-wrap date-picker"><span class="add-on"><i class="icon-calendar"></i></span>
+                            <input type="text" name="attr_value[<?php echo $group['group_id'];?>][group_value][<?php echo $attrValue->attr_value_id ?>][attr_value]" value="<?php echo isset($oldAttrValue[$group['group_id']]['group_value'][$attrValue->attr_value_id][attr_value]) ? $oldAttrValue[$group['group_id']]['group_value'][$attrValue->attr_value_id][attr_value] : '' ?>" size="16" class="m-wrap date-picker"><span class="add-on"><i class="icon-calendar"></i></span>
                         </div>
                     </div>
                 </div>
@@ -50,11 +54,12 @@
                 <div class="control-group">
                     <label class="control-label"><?php if($attrValue->values_required==1):?><em>* </em><?php endif;?><?php echo $attrValue->attr_name ?></label>
                     <div class="controls">
+                        <input type="hidden" name="attr_value[<?php echo $group['group_id'];?>][group_value][<?php echo $attrValue->attr_value_id ?>][attr_name]" value="<?php echo $attrValue->attr_name ?>">
                         <?php $attrValues = explode(',', $attrValue->attr_values); ?>
-                        <select name="attr_value[<?php echo $group['group_id'];?>][group_value][<?php echo $attrValue->attr_value_id ?>]" class="m-wrap span12 <?php if($attrValue->values_required==1):?> required<?php endif;?>">
+                        <select name="attr_value[<?php echo $group['group_id'];?>][group_value][<?php echo $attrValue->attr_value_id ?>][attr_value]" class="m-wrap span12 <?php if($attrValue->values_required==1):?> required<?php endif;?>">
                             <option>请选择</option>
                             <?php foreach ($attrValues as $v) :?>
-                                <option value="<?php echo $v;?>" <?php if (isset($oldAttrValue[$group['group_id']]['group_value'][$attrValue->attr_value_id]) && $oldAttrValue[$group['group_id']]['group_value'][$attrValue->attr_value_id] = $v) : ?> selected="selected"<?php endif ?>><?php echo $v;?></option>
+                                <option value="<?php echo $v;?>" <?php if (isset($oldAttrValue[$group['group_id']]['group_value'][$attrValue->attr_value_id][attr_value]) && $oldAttrValue[$group['group_id']]['group_value'][$attrValue->attr_value_id][attr_value] == $v) : ?> selected="selected"<?php endif ?>><?php echo $v;?></option>
                             <?php endforeach;?>
                         </select>
                     </div>
