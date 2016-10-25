@@ -91,24 +91,24 @@
                             </div>
                         </div>
                         <div class="row-fluid">
-                            <div class="span6">
-                                <div class="control-group">
-                                    <label class="control-label">省/市/区</label>
-                                    <div class="controls">
-                                        <?php $this->load->view('commonhtml/districtSelect');?>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="span4">
                                 <div class="control-group">
                                     <label class="control-label">商品来源</label>
                                     <div class="controls">
                                         <select name="from_id" class="m-wrap medium">
-                                            <option value="0">妙处网自采</option>
-                                            <?php foreach ($mallGoodsFrom->result() as $key => $val) : ?>
-                                                <option value="<?php echo $val->from_id?>" <?php if($this->input->get('from_id')==$val->from_id){echo 'selected';}?> ><?php echo $val->from_name;?></option>
+                                            <option value="0">全部</option>
+                                            <?php foreach ($mallGoodsFrom as $from_id => $val) : ?>
+                                                <option value="<?php echo $from_id ?>" <?php if($this->input->get('from_id')==$from_id){echo 'selected';}?> ><?php echo $val->from_name;?></option>
                                             <?php endforeach;?>
                                         </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span6">
+                                <div class="control-group">
+                                    <label class="control-label">省/市/区</label>
+                                    <div class="controls">
+                                        <?php $this->load->view('commonhtml/districtSelect');?>
                                     </div>
                                 </div>
                             </div>
@@ -161,7 +161,12 @@
                                         <td><input type="checkbox" class="checkboxes" ></td>
                                         <td><?php echo $item->goods_id;?></td>
                                         <td><?php echo $item->goods_sku;?></td>
-                                        <td><?php echo $item->goods_name;?></td>
+                                        <td>
+                                            <p><?php echo $item->goods_name;?></p>
+                                            <?php if ($item->from_id > 0) : ?>
+                                                <p><span class="badge label-info">来源：<?php echo $mallGoodsFrom[$item->from_id]->from_name ?></span></p>
+                                            <?php endif; ?>
+                                        </td>
                                         <td><?php echo $extension[$item->extension_code];?></td>
                                         <td><?php echo $attribute_set[$item->attr_set_id]['attr_set_name'];?></td>
                                         <td><?php echo $item->supplier_id;?></td>

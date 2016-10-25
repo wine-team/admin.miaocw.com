@@ -2,7 +2,20 @@
 class Mall_goods_from_model extends CI_Model
 {
     private $table = 'mall_goods_from';
-   
+
+    public function find($isArray=FALSE)
+    {
+        $result = $this->db->get($this->table);
+        if ($isArray) {
+            $rows = array();
+            foreach ($result->result() as $item) {
+                $rows[$item->from_id] = $item;
+            }
+            return $rows;
+        }
+        return $result;
+    }
+
     public function total($params=array())
     {
         if (!empty($params['from_name'])) {
@@ -44,14 +57,16 @@ class Mall_goods_from_model extends CI_Model
      * @param unknown $param
      * @param unknown $f
      */
-    public function findFromByRes($param=array(),$f='*') {
-    	
-    	if(!empty($param['from_name'])) {
+    public function findFromByRes($param=array(), $f='*')
+    {
+
+        $this->db->select($f);
+    	if (!empty($param['from_name'])) {
     		$this->db->where('from_name',$param['from_name']);
     	}
-    	if(!empty($param['from_id'])) {
+    	if (!empty($param['from_id'])) {
     		$this->db->where('from_id',$param['from_id']);
     	}
-    	return $this->db->get($this->table);
+        return $this->db->get($this->table);
     }
 }
