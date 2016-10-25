@@ -47,8 +47,8 @@
                                     <div class="controls">
                                         <select name="is_form" class="m-wrap medium">
                                             <option  value="">请选择</option>
-                                            <?php foreach($is_form as $k3=>$form) :?>
-                                                <option <?php if($this->input->get('is_form')==$k3):?>selected="selected"<?php endif;?> value="<?php echo $k3;?>"><?php echo $form;?></option>
+                                            <?php foreach($is_from as $k3=>$from) :?>
+                                                <option <?php if($this->input->get('is_form')==$k3):?>selected="selected"<?php endif;?> value="<?php echo $k3;?>"><?php echo $from;?></option>
                                             <?php endforeach;?>
                                         </select>
                                     </div>
