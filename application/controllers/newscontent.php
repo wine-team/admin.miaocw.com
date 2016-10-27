@@ -163,7 +163,7 @@ class Newscontent extends CS_Controller
         if ( $result->num_rows() <= 0 ) {
             $this->error('newscontent/images', $id, '找不到产品相关信息！');
         }
-        $imageData = $this->dealWithImages('images', '', 'scenery');
+        $imageData = $this->dealWithImages('images', '', 'infor');
         if ( $imageData == false ) {
             $this->error('newscontent/images', $id, '图片上传失败！');
         }
@@ -199,7 +199,7 @@ class Newscontent extends CS_Controller
             $this->error('newscontent/images', $id, '必须存在一张');
         }
         $isupdate = $this->news_content->updateImages($params);
-        $this->deleteOldfileName($image_name, 'scenery');
+        $this->deleteOldfileName($image_name, 'infor');
         if ( $isupdate ) {
             $this->success('newscontent/images', $news_content->id, '图片删除成功');
         } else {
