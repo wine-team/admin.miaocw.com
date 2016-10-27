@@ -17,52 +17,27 @@ class Mall_goods_base_model extends CI_Model
 
     public function total($param)
     {
-        if (!empty($param['goods_id'])) {
-            $this->db->where('mall_goods_base.goods_id', $param['goods_id']);
-        }
-        if (!empty($param['goods_ids'])) {
-            $this->db->where_in('mall_goods_base.goods_id', $param['goods_ids']);
-        }
-        if (!empty($param['goods_name'])) {
-            $this->db->like('mall_goods_base.goods_name', $param['goods_name']);
-        }
-        if (!empty($param['goods_search'])) {
-            $this->db->where("((`mall_goods_base`.`goods_name` LIKE '%{$param['goods_search']}%') OR (`mall_goods_base`.`goods_sku`='{$param['goods_search']}'))");
-        }
-        if (!empty($param['supplier_id'])) {
-            $this->db->where('mall_goods_base.supplier_id', $param['supplier_id']);
-        }
-        if (!empty($param['is_on_sale'])) {
-            $this->db->where('mall_goods_base.is_on_sale', $param['is_on_sale']);
-        }
-        if (!empty($param['is_check'])) {
-            $this->db->where('mall_goods_base.is_check', $param['is_check']);
-        }
-        if (!empty($param['extension_code'])) {
-            $this->db->where('mall_goods_base.extension_code', $param['extension_code']);
-        }
-        if (!empty($param['attribute_set_id'])) {
-            $this->db->where('mall_goods_base.attribute_set_id', $param['attribute_set_id']);
-        }
-        if (!empty($param['province_id'])) {
-            $this->db->where('mall_goods_base.province_id', $param['province_id']);
-        }
-        if (!empty($param['city_id'])) {
-            $this->db->where('mall_goods_base.city_id', $param['city_id']);
-        }
-        if (!empty($param['district_id'])) {
-            $this->db->where('mall_goods_base.district_id', $param['district_id']);
-        }
-        if (!empty($param['start_date'])) {
-            $this->db->where(array('mall_goods_base.created_at >' => $param['start_date']));
-        }
-        if (!empty($param['end_date'])) {
-            $this->db->where(array('mall_goods_base.created_at <=' => $param['end_date']));
-        }
+        $this->checkWhereParam($param);
         return $this->db->count_all_results($this->table);
     }
     
     public function page_list($page_num, $num, $param = array())
+    {
+        $this->checkWhereParam($param);
+        $this->db->order_by('mall_goods_base.goods_id', 'DESC');
+        $this->db->limit($page_num, $num);
+        return $this->db->get($this->table);
+    }
+
+    public function excelExport($param = array())
+    {
+        $this->db->select('goods_id, goods_name, goods_sku, from_id, brand_id, goods_weight, market_price, shop_price, provide_price, freight_id, freight_cost, attr_set_id, extension_code, supplier_id, in_stock, address, created_at, updated_at');
+        $this->checkWhereParam($param);
+        $this->db->order_by('mall_goods_base.goods_id', 'DESC');
+        return $this->db->get($this->table);
+    }
+
+    private function checkWhereParam($param = array())
     {
         if (!empty($param['goods_id'])) {
             $this->db->where('mall_goods_base.goods_id', $param['goods_id']);
@@ -106,9 +81,6 @@ class Mall_goods_base_model extends CI_Model
         if (!empty($param['end_date'])) {
             $this->db->where(array('mall_goods_base.created_at <=' => $param['end_date']));
         }
-        $this->db->order_by('mall_goods_base.goods_id', 'DESC');
-        $this->db->limit($page_num, $num);
-        return $this->db->get($this->table);
     }
 
     public function insert($params=array())

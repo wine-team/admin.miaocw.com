@@ -116,6 +116,7 @@
                         <div class="form-actions">
                             <button class="btn green" type="submit">搜索</button>
                             <button class="btn reset_button_search" type="button">重置条件</button>
+                            <button class="btn blue" type="submit" name="excel" value="excel">导出excel</button>
                         </div>
                     </form>
                 </div>

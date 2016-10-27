@@ -56,7 +56,11 @@ class Account extends MJ_Controller
         if (get_cookie('adminUser')) {//修改成功退出登录。
             delete_cookie('adminUser');
         }
-        $this->redirect(site_url('account/login'));
+        if (get_cookie('bz_session')) {
+            delete_cookie('bz_session');
+        }
+        $this->memcache->delete('adminUser');
+        $this->redirect('account/login');
     }
     
      /**
