@@ -36,7 +36,7 @@ class Mall_goods_base extends CS_Controller
             $this->excelExport($getData);
         } else {
             $page_num = 20;
-            $num = ($pg - 1) * $page_num;
+            $num = ($pg-1)*$page_num;
             $config['first_url'] = base_url('mall_goods_base/grid').$this->pageGetParam($getData);
             $config['suffix'] = $this->pageGetParam($getData);
             $config['base_url'] = base_url('mall_goods_base/grid');
