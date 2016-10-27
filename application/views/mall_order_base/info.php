@@ -265,7 +265,7 @@
         </div>
     </div>
     <div class="row-fluid">
-        <div class="span6">
+        <div class="span12">
             <div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption"><i class="icon-picture"></i>用户分润</div>
@@ -300,6 +300,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row-fluid">
         <div class="span6">
             <div class="portlet box green">
                 <div class="portlet-title">
@@ -340,9 +342,7 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row-fluid">
-        <div class="span12">
+        <div class="span6">
             <div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption"><i class="icon-picture"></i>订单操作记录</div>

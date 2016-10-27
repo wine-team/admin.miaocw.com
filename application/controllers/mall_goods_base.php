@@ -44,8 +44,8 @@ class Mall_goods_base extends CS_Controller
         $data['all_rows'] = $config['total_rows'];
         $data['pg_now'] = $pg;
         $data['page_num'] = $page_num;
-        $data['attribute_set'] = $this->mall_attribute_set->find(true);
-        $data['mallGoodsFrom'] = $this->mall_goods_from->findFromByRes();
+        $data['attribute_set'] = $this->mall_attribute_set->find(TRUE);
+        $data['mallGoodsFrom'] = $this->mall_goods_from->find(TRUE);
         $data['is_on_sale'] = array('1' => '上架', '2' => '下架');
         $data['is_check'] = array('1' => '待审核', '2' => '审核通过', '3' => '审核拒绝');
         $data['extension'] = $this->extension;
