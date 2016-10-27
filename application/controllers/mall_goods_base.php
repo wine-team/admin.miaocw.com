@@ -31,25 +31,30 @@ class Mall_goods_base extends CS_Controller
     
     public function grid($pg = 1)
     {
-        $page_num = 20;
-        $num = ($pg-1)*$page_num;
-        $config['first_url'] = base_url('mall_goods_base/grid').$this->pageGetParam($this->input->get());
-        $config['suffix'] = $this->pageGetParam($this->input->get());
-        $config['base_url'] = base_url('mall_goods_base/grid');
-        $config['total_rows'] = $this->mall_goods_base->total($this->input->get());
-        $config['uri_segment'] = 3;
-        $this->pagination->initialize($config);
-        $data['pg_link'] = $this->pagination->create_links();
-        $data['page_list'] = $this->mall_goods_base->page_list($page_num, $num, $this->input->get());
-        $data['all_rows'] = $config['total_rows'];
-        $data['pg_now'] = $pg;
-        $data['page_num'] = $page_num;
-        $data['attribute_set'] = $this->mall_attribute_set->find(TRUE);
-        $data['mallGoodsFrom'] = $this->mall_goods_from->find(TRUE);
-        $data['is_on_sale'] = array('1' => '上架', '2' => '下架');
-        $data['is_check'] = array('1' => '待审核', '2' => '审核通过', '3' => '审核拒绝');
-        $data['extension'] = $this->extension;
-        $this->load->view('mall_goods_base/grid', $data);
+        $getData = $this->input->get();
+        if (isset($getData['excel']) && $getData['excel']== 'excel') {
+            $this->excelExport($getData);
+        } else {
+            $page_num = 20;
+            $num = ($pg - 1) * $page_num;
+            $config['first_url'] = base_url('mall_goods_base/grid').$this->pageGetParam($getData);
+            $config['suffix'] = $this->pageGetParam($getData);
+            $config['base_url'] = base_url('mall_goods_base/grid');
+            $config['total_rows'] = $this->mall_goods_base->total($getData);
+            $config['uri_segment'] = 3;
+            $this->pagination->initialize($config);
+            $data['pg_link'] = $this->pagination->create_links();
+            $data['page_list'] = $this->mall_goods_base->page_list($page_num, $num, $getData);
+            $data['all_rows'] = $config['total_rows'];
+            $data['pg_now'] = $pg;
+            $data['page_num'] = $page_num;
+            $data['attribute_set'] = $this->mall_attribute_set->find(TRUE);
+            $data['mallGoodsFrom'] = $this->mall_goods_from->find(TRUE);
+            $data['is_on_sale'] = array('1' => '上架', '2' => '下架');
+            $data['is_check'] = array('1' => '待审核', '2' => '审核通过', '3' => '审核拒绝');
+            $data['extension'] = $this->extension;
+            $this->load->view('mall_goods_base/grid', $data);
+        }
     }
 
     public function addstep1()
@@ -491,7 +496,28 @@ class Mall_goods_base extends CS_Controller
         $_POST['address'] = $regionNames[0] .' '.$regionNames[1].' '.$regionNames[2].' '.($this->input->post('address') ? $this->input->post('address') : ' ');
         return $error;
     }
-    
+
+    /**
+     * @param $getData
+     * 商品表导出
+     */
+    public function excelExport($getData)
+    {
+        $result = $this->mall_goods_base->excelExport($getData);
+        if ($result->num_rows() <= 0) {
+            $this->error('mall_goods_base/grid', null, '这个时间段没有记录');
+        }
+        if($result->num_rows() > 10000){
+            $this->error('mall_goods_base/grid', null, '由于导出的数据太多，请选择一个时间范围');
+        }
+        $arrayResult = $result->result_array();
+
+        array_unshift($arrayResult, array('自增编号', '商品名称', '商品SKU', '商品来源', '品牌编号', '商品重量（g）', '市场价', '销售价', '供应价', '运费模版ID', '自定义运费', '属性类型ID', '产品类型', '供应商ID', '库存', '地址', '创建时间', '更新时间'));
+        $this->load->library('excel');
+        $this->excel->addArray($arrayResult);
+        $this->excel->generateXML(date('Ymd').'商品列表');
+    }
+
     /**
      * 获取
      * @param number $pg
