@@ -88,6 +88,16 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row-fluid">
+                        	<div class="span4">
+                                <div class="control-group">
+                                    <label class="control-label">支付编号</label>
+                                    <div class="controls">
+                                        <input type="text" name="pay_id" value="<?php echo $this->input->get('pay_id');?>" class="m-wrap span12" placeholder="支付编号" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-actions">
                             <button class="btn green" type="submit">搜索</button>
                             <button class="btn reset_button_search" type="button">重置条件</button>
@@ -111,6 +121,7 @@
                                     <tr>
                                         <th><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"></th>
                                         <th>订单号</th>
+                                        <th>支付编号</th>
                                         <th>供应商UID</th>
                                         <th>购买者</th>
                                         <th>收货人</th>
@@ -125,6 +136,7 @@
                                     <tr>
                                         <td width="15"><input type="checkbox" class="checkboxes" value="1" ></td>
                                         <td><?php echo $item->order_id;?></td>
+                                        <td><?php echo $item->pay_id;?></td>
                                         <td><?php echo $item->seller_uid;?></td>
                                         <td>
                                             <p>账号：<?php echo $item->user_name;?></p>

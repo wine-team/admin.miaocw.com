@@ -16,6 +16,12 @@ class Mall_order_base_model extends CI_Model
         if(!empty($params['item'])) {
             $this->db->where("((`user_name` LIKE '%{$params['item']}%') OR (`order_note`='{$params['item']}'))");
         }
+        if (!empty($params['order_id'])) {
+        	$this->db->where('order_id', $params['order_id']);
+        }
+        if (!empty($params['pay_id'])) {
+        	$this->db->where('pay_id', $params['pay_id']);
+        }
         if (!empty($params['state'])) {
             $this->db->where('state', $params['state']);
         }
@@ -39,6 +45,12 @@ class Mall_order_base_model extends CI_Model
     
     public function mall_order_base_list($num, $page_num, $params=array())
     {
+    	if (!empty($params['order_id'])) {
+    		$this->db->where('order_id', $params['order_id']);
+    	}
+    	if (!empty($params['pay_id'])) {
+    		$this->db->where('pay_id', $params['pay_id']);
+    	}
         if(!empty($params['item'])) {
             $this->db->where("((`user_name` LIKE '%{$params['item']}%') OR (`order_note`='{$params['item']}'))");
         }
