@@ -171,3 +171,36 @@ function getCategoryCheckbox($categorys, $cateId = 0, $checkArray = array(), $ht
 	$html .= '</ul>';
 	return $html;
 }
+
+/**
+ * 导入文件读取函数
+ * @param 传入的文件名称 $filename
+ * @return string
+ */
+function getCSVfileContent($filename)
+{
+	$row = 1;//第一行开始
+	if (($handle = fopen($filename, 'r')) !== false) {
+		while (($dataSrc = fgetcsv($handle)) !== false) {
+			$num = count($dataSrc);
+			for ($c=0; $c < $num; $c++) {
+				if ($row === 1) {
+					$dataName[] = mb_convert_encoding($dataSrc[$c], 'UTF-8', 'GBK');//字段名称
+				} else {
+					foreach ($dataName as $k=>$v) {
+						if ($k == $c) {
+							$data[$v] = mb_convert_encoding($dataSrc[$c], 'UTF-8', 'GBK');
+						}
+					}
+				}
+			}
+			if (!empty($data)) {
+				$CSVfileContent[] = $data;
+				unset($data);
+			}
+			$row++;
+		}
+		fclose($handle);
+		return $CSVfileContent;
+	}
+}
