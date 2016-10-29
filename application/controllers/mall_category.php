@@ -38,18 +38,18 @@ class Mall_category extends CS_Controller
 
 		if (!empty($_FILES['cat_img']['name'])) {
 			$imageData = $this->dealWithImages('cat_img', $this->input->post('oldfilename'), 'mall');
-			if ($imageData == false) {
-				$this->error('mall_category/grid', array('cat_id'=>$cat_id), '图片上传失败！');
+			if (isset($imageData['status']) && $imageData['status'] == false) {
+				$this->error('mall_category/grid', array('cat_id'=>$cat_id), $imageData['messages']);
 			}
 
 			$ifResize = $this->dealWithImagesResize($imageData, 400, 400);
-			if ($ifResize == false) {
-				$this->error('mall_category/grid', array('cat_id'=>$cat_id), '400x400的缩略图生成失败！');
+			if (isset($ifResize['status']) && $ifResize['status'] == false) {
+				$this->error('mall_category/grid', array('cat_id'=>$cat_id), '400x400的缩略图生成失败！'.$ifResize['messages']);
 			}
 
 			$ifResize = $this->dealWithImagesResize($imageData, 60, 60);
-			if ($ifResize == false) {
-				$this->error('mall_category/grid', array('cat_id'=>$cat_id), '60x60的缩略图生成失败！');
+			if (isset($ifResize['status']) && $ifResize['status'] == false) {
+				$this->error('mall_category/grid', array('cat_id'=>$cat_id), '60x60的缩略图生成失败！'.$ifResize['messages']);
 			}
 
 			$postData['cat_img'] = $imageData['file_name'];

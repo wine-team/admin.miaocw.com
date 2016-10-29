@@ -164,8 +164,8 @@ class Newscontent extends CS_Controller
             $this->error('newscontent/images', $id, '找不到产品相关信息！');
         }
         $imageData = $this->dealWithImages('images', '', 'scenery');
-        if ( $imageData == false ) {
-            $this->error('newscontent/images', $id, '图片上传失败！');
+        if (isset($imageData['status']) && $imageData['status'] == false) {
+            $this->error('newscontent/images', $id, $imageData['messages']);
         }
         $params['id'] = $id;
         $params['image'] = $this->input->post('image') . $imageData['file_name'] . '|';

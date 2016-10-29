@@ -46,10 +46,16 @@ class Mall_brand extends CS_Controller {
 	    }
 	    if(!empty($_FILES['brand_logo']['name'])){
 	    	$brand_logo = $this->dealWithImages('brand_logo', '', 'brand');
+			if (isset($brand_logo['status']) && $brand_logo['status'] == false) {
+				$this->error('mall_brand/add', '', $brand_logo['messages']);
+			}
 	    	$data['brand_logo'] = $brand_logo['file_name'];
 	    }
 	    if(!empty($_FILES['brand_author']['name'])){
 	    	$brand_author = $this->dealWithImages('brand_author', '', 'brand');
+			if (isset($brand_author['status']) && $brand_author['status'] == false) {
+				$this->error('mall_brand/add', '', $brand_author['messages']);
+			}
 	    	$data['brand_author'] = $brand_author['file_name'];
 	    }
 	    $data['brand_name'] = $postData['brand_name'];
@@ -85,11 +91,17 @@ class Mall_brand extends CS_Controller {
         $postData = $this->input->post();
         $brand_logo = '';
         if (!empty($_FILES['brand_logo']['name'])) {
-        	$brand_logo = $this->dealWithImages('brand_logo', $postData['old_brand_logo'], 'brand'); 
+        	$brand_logo = $this->dealWithImages('brand_logo', $postData['old_brand_logo'], 'brand');
+			if (isset($brand_logo['status']) && $brand_logo['status'] == false) {
+				$this->error('mall_brand/edit', '', $brand_logo['messages']);
+			}
         	$data['brand_logo'] = $brand_logo['file_name'];
         }
         if (!empty($_FILES['brand_author']['name'])) {
         	$brand_author = $this->dealWithImages('brand_author', $postData['old_brand_author'], 'brand');
+			if (isset($brand_author['status']) && $brand_author['status'] == false) {
+				$this->error('mall_brand/edit', '', $brand_author['messages']);
+			}
         	$data['brand_author'] = $brand_author['file_name'];
         }
 	    $data['brand_name'] = $postData['brand_name'];

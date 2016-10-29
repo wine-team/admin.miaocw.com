@@ -198,9 +198,8 @@ class MJ_Controller extends CI_Controller
         $config['file_name'] = uniqid(); //唯一的函数
         $this->load->library('upload', $config);
         
-        if (!$this->upload->do_upload($name)) { 
-            $this->session->set_flashdata('error', $this->upload->display_errors());
-            return false;
+        if (!$this->upload->do_upload($name)) {
+            return array('status'=>false, 'messages'=>$this->upload->display_errors());
         }
         
         if (!empty($oldfilename)) {
@@ -256,8 +255,7 @@ class MJ_Controller extends CI_Controller
         $this->image_lib->initialize($config);
         $ifResize = $this->image_lib->resize();
         if (!$ifResize) {
-            $this->session->set_flashdata('error', $this->image_lib->display_errors());
-            return false;
+            return array('status'=>false, 'messages'=>$this->image_lib->display_errors());
         }
         $this->image_lib->clear();
         return $ifResize;
@@ -305,8 +303,7 @@ class MJ_Controller extends CI_Controller
         $ifWatermark = $this->image_lib->watermark();
         //var_dump($this->image_lib->display_errors());exit;
         if (!$ifWatermark) {
-            $this->session->set_flashdata('error', $this->image_lib->display_errors());
-            return false;
+            return array('status'=>false, 'messages'=>$this->image_lib->display_errors());
         }
         $this->image_lib->clear();
         return $ifWatermark;

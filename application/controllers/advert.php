@@ -75,8 +75,8 @@ class Advert extends CS_Controller
         }
         
         $imageData = $this->dealWithImages('picture', '', 'advert');
-        if ($imageData == false) {
-            $this->error('advert/add', '', '图片上传失败！');
+        if (isset($imageData['status']) && $imageData['status'] == false) {
+            $this->error('advert/add', '', $imageData['messages']);
         }
         $this->db->trans_start();
         $resultId = $this->advert->insertIntoAdvert($this->input->post(), $imageData);
@@ -111,8 +111,8 @@ class Advert extends CS_Controller
         $imageData = '';
         if (!empty($_FILES['picture']['name'])) {
             $imageData = $this->dealWithImages('picture', $this->input->post('oldfilename'), 'advert');
-            if ($imageData == false) {
-                $this->error('advert/edit', $advert_id, '图片上传失败！');
+            if (isset($imageData['status']) && $imageData['status'] == false) {
+                $this->error('advert/edit', $advert_id, $imageData['messages']);
             }
         }
     

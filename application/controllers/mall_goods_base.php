@@ -346,16 +346,16 @@ class Mall_goods_base extends CS_Controller
             $this->error('mall_goods_base/images', $goods_id, '请选择图片上传！');
         }
         $imageData = $this->dealWithImages('goods_img', '', 'mall');
-        if ($imageData == false) {
-            $this->error('mall_goods_base/images', $goods_id, '图片上传失败！');
+        if (isset($imageData['status']) && $imageData['status'] == false) {
+            $this->error('mall_goods_base/images', $goods_id, $imageData['messages']);
         }
         $ifResize = $this->dealWithImagesResize($imageData, '400', '400');
-        if ($ifResize == false) {
-            $this->error('mall_goods_base/images', $goods_id, '400*400缩略图生成失败！');
+        if (isset($ifResize['status']) && $ifResize['status'] == false) {
+            $this->error('mall_goods_base/images', $goods_id, '400*400缩略图生成失败！'.$ifResize['messages']);
         }
         $ifResize = $this->dealWithImagesResize($imageData, '60', '60');
-        if ($ifResize == false) {
-            $this->error('mall_goods_base/images', $goods_id, '60*60缩略图生成失败！');
+        if (isset($ifResize['status']) && $ifResize['status'] == false) {
+            $this->error('mall_goods_base/images', $goods_id, '60*60缩略图生成失败！'.$ifResize['messages']);
         }
         
         $params['goods_id'] = $goods_id;
