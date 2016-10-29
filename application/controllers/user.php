@@ -191,7 +191,7 @@ class User extends CS_Controller
             if ($mobileEmail->num_rows() > 0){
                 $error[] = '邮箱已经存在。';
             }
-            if ($this->validateParam($this->input->post('password'))) {
+            if ($this->validateParam($this->input->post('pw'))) {
                 $error[] = '请输入用户密码。';
             }
         } else {

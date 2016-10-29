@@ -91,19 +91,6 @@
                             </div>
                         </div>
                         <div class="row-fluid">
-                            <div class="span4">
-                                <div class="control-group">
-                                    <label class="control-label">商品来源</label>
-                                    <div class="controls">
-                                        <select name="from_id" class="m-wrap medium">
-                                            <option value="0">全部</option>
-                                            <?php foreach ($mallGoodsFrom as $from_id => $val) : ?>
-                                                <option value="<?php echo $from_id ?>" <?php if($this->input->get('from_id')==$from_id){echo 'selected';}?> ><?php echo $val->from_name;?></option>
-                                            <?php endforeach;?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="span6">
                                 <div class="control-group">
                                     <label class="control-label">省/市/区</label>
@@ -112,11 +99,23 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="span4">
+                                <div class="control-group">
+                                    <label class="control-label">商品来源</label>
+                                    <div class="controls">
+                                        <select name="from_id" class="m-wrap medium">
+                                            <option value="0">妙处网自采</option>
+                                            <?php foreach ($mallGoodsFrom->result() as $key => $val) : ?>
+                                                <option value="<?php echo $val->from_id?>" <?php if($this->input->get('from_id')==$val->from_id){echo 'selected';}?> ><?php echo $val->from_name;?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-actions">
                             <button class="btn green" type="submit">搜索</button>
                             <button class="btn reset_button_search" type="button">重置条件</button>
-                            <button class="btn blue" type="submit" name="excel" value="excel">导出excel</button>
                         </div>
                     </form>
                 </div>
@@ -162,12 +161,7 @@
                                         <td><input type="checkbox" class="checkboxes" ></td>
                                         <td><?php echo $item->goods_id;?></td>
                                         <td><?php echo $item->goods_sku;?></td>
-                                        <td>
-                                            <p><?php echo $item->goods_name;?></p>
-                                            <?php if ($item->from_id > 0) : ?>
-                                                <p><span class="badge label-info">来源：<?php echo $mallGoodsFrom[$item->from_id]->from_name ?></span></p>
-                                            <?php endif; ?>
-                                        </td>
+                                        <td><?php echo $item->goods_name;?></td>
                                         <td><?php echo $extension[$item->extension_code];?></td>
                                         <td><?php echo $attribute_set[$item->attr_set_id]['attr_set_name'];?></td>
                                         <td><?php echo $item->supplier_id;?></td>
@@ -192,7 +186,7 @@
                                             <a class="btn mini green" href="<?php echo base_url('mall_goods_base/images/'.$item->goods_id) ?>">图片管理</a>
                                             <a class="btn mini green" href="<?php echo base_url('mall_goods_base/edit/'.$item->goods_id);?>">编辑</a><p></p>
                                             <a class="btn mini green" href="<?php echo base_url('mall_goods_base/copy/'.$item->goods_id);?>">复制</a>
-                                            <a class="btn mini green" href="<?php echo base_url('mall_goods_base/copy/'.$item->goods_id);?>">预览</a>
+                                            <a class="btn mini green" href="<?php echo $this->config->main_base_url.'goods/detail/'.$item->goods_id.'.html';?>"  target="_blank">预览</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

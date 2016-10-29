@@ -8,6 +8,7 @@
         </select>
         <input type="hidden" name="attr_set_id" value="<?php echo $this->input->get('attr_set_id');?>" />
         <input type="hidden" name="extension_code" value="<?php echo $this->input->get('extension_code');?>" />
+		<input type="hidden" name="from_id" value="<?php echo $this->input->get('from_id');?>" />
     </div>
 </div>
 <div class="control-group">

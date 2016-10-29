@@ -2,11 +2,12 @@
 class MJ_Config extends CI_Config 
 {
     public $main_base_url  =  'http://www.miaocw.com/';
-    public $images_url     =  'http://images.miaocw.com/';
-    public $skins_url      =  'http://skins.miaocw.com/';
+	public $images_url     =  'http://images.miaocw.com/';
+    public $skins_url      =  'http://skins.miaocw.com/';  
     public $passport_url   =  'http://passport.miaocw.com/';
     public $help_url       =  'http://help.miaocw.com/';
     public $ucenter_url    =  'http://ucenter.miaocw.com/';
+    public $m_url          =  'http://m.miaocw.com/';
     
     
      /**
@@ -17,9 +18,9 @@ class MJ_Config extends CI_Config
     public function upload_image_path($dirname, $imageName = '')
     {
         if (!empty($imageName)) {
-            return dirname(FCPATH).'/images.miaocw.com/'.$dirname.'/'.$imageName;
+            return dirname(FCPATH).'/images/'.$dirname.'/'.$imageName;
         }
-        return dirname(FCPATH).'/images.miaocw.com/'.$dirname.'/';
+        return dirname(FCPATH).'/images/'.$dirname.'/';
     }
     
     /**
@@ -44,9 +45,9 @@ class MJ_Config extends CI_Config
     {
         if (!empty($imageName)) {
             $imageName = $this->get_thumb_image_name($imageName);
-            return dirname(FCPATH).'/images.miaocw.com/'.$dirname.'/'.$imageName;
+            return dirname(FCPATH).'/images/'.$dirname.'/'.$imageName;
         }
-        return dirname(FCPATH).'/images.miaocw.com/'.$dirname.'/';
+        return dirname(FCPATH).'/images/'.$dirname.'/';
     }
     
     /**
