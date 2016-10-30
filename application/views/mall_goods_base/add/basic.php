@@ -61,7 +61,7 @@
 <div class="control-group">
     <label class="control-label"><em>* </em>商品简介</label>
     <div class="controls">
-        <textarea name="goods_brief" rows="2" class="m-wrap span12 required"></textarea>
+        <textarea name="goods_brief" rows="2" class="m-wrap span12"></textarea>
     </div>
 </div>
 <div class="control-group">

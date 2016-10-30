@@ -77,7 +77,7 @@
 <div class="control-group">
     <label class="control-label">商品备注</label>
     <div class="controls">
-        <textarea name="goods_note" rows="2" class="m-wrap span12 required"><?php echo $mallGoodsBase->goods_note; ?></textarea>
+        <textarea name="goods_note" rows="2" class="m-wrap span12"><?php echo $mallGoodsBase->goods_note; ?></textarea>
     </div>
 </div>
 <div class="control-group">
