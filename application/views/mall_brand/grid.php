@@ -24,7 +24,20 @@
                                 <div class="control-group">
                                     <label class="control-label">品牌名称</label>
                                     <div class="controls">
-                                        <input type="text" name="brand_name" value="<?php echo $this->input->get('brand_name');?>" placeholder="请输入品牌名称" class="m-wrap medium">
+                                        <input type="text" name="brand_name" value="<?php echo $this->input->get('brand_name');?>" class="m-wrap span12" placeholder="请输入品牌名称">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span4">
+                                <div class="control-group">
+                                    <label class="control-label">品牌分类</label>
+                                    <div class="controls">
+                                        <select name="cat_id" class="m-wrap span12">
+                                            <option value="">请选择</option>
+                                            <?php foreach ($catLevel1 as $cat_id=>$cat_name) :?>
+                                                <option value="<?php echo $cat_id;?>" <?php if ($cat_id == $this->input->get('cat_id')):?> selected="selected"<?php endif;?>><?php echo $cat_name;?></option>
+                                            <?php endforeach;?>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +62,6 @@
                     </form>
                 </div>
             </div>
-            
             <div class="portlet box green">
                 <div class="portlet-title">
                     <div class="caption"><i class="icon-reorder"></i>列表</div>
@@ -74,6 +86,7 @@
                                         <th><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"></th>
                                         <th>编号</th>
                                         <th>品牌名称</th>
+                                        <th>品牌分类</th>
                                         <th>品牌logo</th>
                                         <th>站点</th>
                                         <th>排序</th>
@@ -87,6 +100,7 @@
                                         <td width="15"><input type="checkbox" class="checkboxes" value="1" ></td>
                                         <td><?php echo $item->brand_id;?></td>
                                         <td><?php echo $item->brand_name;?></td>
+                                        <td><?php echo isset($catLevel1[$item->cat_id]) ? $catLevel1[$item->cat_id] : '无' ?></td>
                                         <td>
                                             <?php if ($item->brand_logo) :?>
                                                 <img width="80" src="<?php echo $this->config->show_image_url('brand', $item->brand_logo);?>">

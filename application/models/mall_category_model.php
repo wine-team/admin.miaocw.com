@@ -78,11 +78,6 @@ class Mall_category_model extends CI_Model
         return $childs;
     }
 
-    public function getWherein($item,$arr) 
-    {
-        $this->db->where_in($item, $arr);
-        return $this->db->get($this->table);
-    }
     public function insert($postData=array())
     {
         $data = array(
@@ -91,11 +86,11 @@ class Mall_category_model extends CI_Model
             'is_show'           => $postData['is_show'],
             'block_id'          => !empty($postData['block_id']) ? $postData['block_id'] : '',
             'cat_img'           => !empty($postData['cat_img']) ? $postData['cat_img'] : '',
-            'special_name'     => !empty($postData['special_name']) ? $postData['special_name'] : '',
+            'special_name'      => !empty($postData['special_name']) ? $postData['special_name'] : '',
             'full_name'         => $postData['full_name'],
             'page_title'        => !empty($postData['page_title']) ? $postData['page_title'] : '',
             'meta_keywords'     => !empty($postData['meta_keywords']) ? $postData['meta_keywords'] : '',
-            'meta_description' => !empty($postData['meta_description']) ? $postData['meta_description'] : '',
+            'meta_description'  => !empty($postData['meta_description']) ? $postData['meta_description'] : '',
             'sort_order'        => !empty($postData['sort_order']) ? $postData['sort_order'] : 50,
             'created_at'        => date('Y-m-d H:i:s'),
         );
@@ -110,11 +105,11 @@ class Mall_category_model extends CI_Model
             'is_show'           => $postData['is_show'],
             'block_id'          => !empty($postData['block_id']) ? $postData['block_id'] : '',
             'cat_img'           => !empty($postData['cat_img']) ? $postData['cat_img'] : '',
-            'special_name'     => !empty($postData['special_name']) ? $postData['special_name'] : '',
+            'special_name'      => !empty($postData['special_name']) ? $postData['special_name'] : '',
             'full_name'         => $postData['full_name'],
             'page_title'        => !empty($postData['page_title']) ? $postData['page_title'] : '',
             'meta_keywords'     => !empty($postData['meta_keywords']) ? $postData['meta_keywords'] : '',
-            'meta_description' => !empty($postData['meta_description']) ? $postData['meta_description'] : '',
+            'meta_description'  => !empty($postData['meta_description']) ? $postData['meta_description'] : '',
             'sort_order'        => !empty($postData['sort_order']) ? $postData['sort_order'] : 50,
         );
         $this->db->where('cat_id', $postData['cat_id']);
@@ -140,25 +135,5 @@ class Mall_category_model extends CI_Model
             return $result->result_array();
         }
         return array();
-    }
-    
-    /**
-     * 根据cat_id
-     * @param unknown $param
-     */
-    public function getCategoryByCatId($param = array())
-    {
-        if (!empty($param['category_id'])){
-            $category_id = array_filter(explode(',',$param['category_id']));
-            $this->db->where_in('cat_id',$category_id);
-        }
-        $result = $this->db->get($this->table);
-        $cat_name = array();
-        if ( $result->num_rows()>0 ) {
-            foreach ($result->result() as $key=>$item){
-                $cat_name[] = $item->cat_name;
-            }
-        }
-        return $cat_name;
     }
 }

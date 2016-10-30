@@ -20,6 +20,16 @@
                 <div class="portlet-body form">
                     <form class="form-horizontal line-form" action="<?php echo base_url('mall_brand/addPost') ?>" method="post" enctype ="multipart/form-data" >
                         <div class="control-group">
+                            <label class="control-label"><em>* </em>品牌分类</label>
+                            <div class="controls">
+                                <select name="cat_id" class="m-wrap large required">
+                                    <?php foreach ($catLevel1 as $cat_id=>$cat_name) :?>
+                                        <option value="<?php echo $cat_id;?>"><?php echo $cat_name;?></option>
+                                    <?php endforeach;?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="control-group">
                             <label class="control-label"><em>* </em>品牌名称</label>
                             <div class="controls">
                                 <input type="text" name="brand_name" class="m-wrap large required"/>
