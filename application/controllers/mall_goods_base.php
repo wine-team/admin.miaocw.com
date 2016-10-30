@@ -345,25 +345,14 @@ class Mall_goods_base extends CS_Controller
         if (empty($_FILES['goods_img']['name'])) {
             $this->error('mall_goods_base/images', $goods_id, '请选择图片上传！');
         }
-        $imageData = $this->dealWithImages('goods_img', '', 'mall');
-        if (isset($imageData['status']) && $imageData['status'] == false) {
-            $this->error('mall_goods_base/images', $goods_id, $imageData['messages']);
+        $imageData = $this->dealWithMoreImages('goods_img', '', 'mall');
+        if ($imageData == false) {
+        	$this->error('mall_goods_base/images', $goods_id, '请选择图片上传！');
         }
-        $ifResize = $this->dealWithImagesResize($imageData, '400', '400');
-        if (isset($ifResize['status']) && $ifResize['status'] == false) {
-            $this->error('mall_goods_base/images', $goods_id, '400*400缩略图生成失败！'.$ifResize['messages']);
-        }
-        $ifResize = $this->dealWithImagesResize($imageData, '60', '60');
-        if (isset($ifResize['status']) && $ifResize['status'] == false) {
-            $this->error('mall_goods_base/images', $goods_id, '60*60缩略图生成失败！'.$ifResize['messages']);
-        }
-        
-        $params['goods_id'] = $goods_id;
-        $params['goods_img'] = $this->input->post('pics').$imageData['file_name'].'|';
         $this->db->trans_start();
-        $resultId = $this->mall_goods_base->insertImage($params);
+        $this->mall_goods_base->insertImageBatch($goods_id,$imageData);
         $this->db->trans_complete();
-        if (!$resultId) {
+        if ($this->db->trans_status() === FALSE) {
             $this->error('mall_goods_base/images', $goods_id, '数据保存失败！');
         }
         $this->success('mall_goods_base/images', $goods_id, '数据保存成功！');

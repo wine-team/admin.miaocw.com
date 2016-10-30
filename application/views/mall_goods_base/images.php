@@ -25,7 +25,7 @@
                                 <div class="pull-left">
                                     <input type="hidden" name="goods_id" value="<?php echo $this->uri->segment(3) ?>"/>
                                     <input type="hidden" name="pics" value="<?php echo $mallgoods->goods_img; ?>"/>
-                                    <input type="file" name="goods_img" class="checkPicture required" />
+                                    <input type="file" name="goods_img[]" class="checkPicture required" multiple="multiple"/>
                                     <button class="btn green" type="submit"><i class="icon-plus"></i> 上传</button>
                                 </div>
                             </form>

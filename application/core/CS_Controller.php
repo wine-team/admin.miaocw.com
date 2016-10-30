@@ -174,4 +174,65 @@ class CS_Controller extends MJ_Controller
         $this->image_lib->clear();
         return $ifWatermark;
     }
+    
+    
+    /**
+     * 图片上传方法(多张图片) 会生成压缩图
+     * @param $name 图片<input type="file" name="line_image"/>
+     * @param string $oldfilename replace重写上传图片，删除老图片
+     * @param string $dirName 图片保存在uploads下的目录。
+     * @return boolean|array
+     */
+    protected function dealWithMoreImages($name, $oldfilename = array(), $dirName = '')
+    {
+    	$date = date('Ymd');
+    	$config['upload_path'] = $this->config->upload_image_path($dirName.'/'.$date);
+    	if (!is_dir($config['upload_path'])) {
+    		mkdir($config['upload_path'], DIR_WRITE_MODE, true);
+    	}
+    	$config['allowed_types'] = 'gif|jpg|png';
+    	$config['file_name'] = date('YmdHis').mt_rand(10, 100);
+    	$this->load->library('upload', $config);
+    	//获取图片上传数量
+    	$count = count($_FILES["$name"]["name"]);
+    	$uploadDatas = array();
+    	$uploadDatas_new = array();
+    	$uploadDatas_old = array();
+    	for ($i=0;$i<$count;$i++) {
+    		if(!empty($_FILES[$name]['name'][$i])){
+    			$tmp_hotel_img = '_tmp_' . $name . '_' . $i;
+    			$_FILES[$tmp_hotel_img] = array(
+    					'name' => $_FILES[$name]['name'][$i],
+    					'size' => $_FILES[$name]['size'][$i],
+    					'type' => $_FILES[$name]['type'][$i],
+    					'tmp_name' => $_FILES[$name]['tmp_name'][$i],
+    					'error' => $_FILES[$name]['error'][$i]
+    			);
+    			if (!$this->upload->do_upload($tmp_hotel_img)) {
+    				$this->session->set_flashdata('error', $this->upload->display_errors());
+    				return false;
+    			}
+    			if (!empty($oldfilename)) {
+    				$this->deleteOldfileName($oldfilename[$i], $dirName);
+    			}
+    			$uploadData = $this->upload->data();
+    			/*批量上传图片 生成压缩图*/
+    			$this->dealWithImagesResize($uploadData, $width='400', $height='400');
+    			$this->dealWithImagesResize($uploadData, $width='60', $height='60');
+    			if (!empty($uploadData)) {
+    				$uploadData['file_name'] = $date.'/'.$uploadData['file_name'];
+    				$uploadDatas_new[] = $uploadData['file_name'];
+    			}
+    		} else {
+    			if (!empty($oldfilename[$i])){
+    				$uploadDatas_old[] = $oldfilename[$i];
+    			}
+    		}
+    	}
+    	$uploadDatas = array_merge($uploadDatas_new,$uploadDatas_old);
+    
+    	return $uploadDatas;
+    }
+    
+    
 }
