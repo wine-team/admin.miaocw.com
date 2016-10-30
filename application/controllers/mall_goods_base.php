@@ -366,6 +366,7 @@ class Mall_goods_base extends CS_Controller
             $this->error('mall_goods_base/grid', '', '内部错误！');
         }
         $result = $this->mall_goods_base->findByGoodsId($goods_id);
+        
         if ($result->num_rows() <= 0) {
             $this->error('mall_goods_base/grid', '', '找不到产品相关信息！');
         }

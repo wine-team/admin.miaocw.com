@@ -252,6 +252,18 @@ class Mall_goods_base_model extends CI_Model
         return $this->db->delete($this->table);
     }
     
+    /**
+     * @descripte  插入图片
+     * @Author xiumao
+     * @date 2016/6/15 0015 下午 5:34
+     */
+    public function insertImage($params)
+    {
+    	$data['goods_img'] = $params['goods_img'];
+    	$this->db->where('goods_id',$params['goods_id']);
+    	return $this->db->update($this->table,$data);
+    }
+    
     
      /**
      * @descripte   批量插入图片
