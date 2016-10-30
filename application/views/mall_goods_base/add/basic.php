@@ -65,6 +65,12 @@
     </div>
 </div>
 <div class="control-group">
+    <label class="control-label">商品备注</label>
+    <div class="controls">
+        <textarea name="goods_note" rows="2" class="m-wrap span12 required"></textarea>
+    </div>
+</div>
+<div class="control-group">
     <label class="control-label"><em>* </em>pc商品详情</label>
     <div class="controls">
         <textarea name="goods_desc" class="textarea-multipart-edit m-wrap span12 required"></textarea>
