@@ -230,7 +230,6 @@ class CS_Controller extends MJ_Controller
     		}
     	}
     	$uploadDatas = array_merge($uploadDatas_new,$uploadDatas_old);
-    
     	return $uploadDatas;
     }
     
