@@ -63,8 +63,8 @@ class Mall_goods_base_model extends CI_Model
         if (!empty($param['extension_code'])) {
             $this->db->where('mall_goods_base.extension_code', $param['extension_code']);
         }
-        if (!empty($param['attribute_set_id'])) {
-            $this->db->where('mall_goods_base.attribute_set_id', $param['attribute_set_id']);
+        if (!empty($param['attr_set_id'])) {
+            $this->db->where('mall_goods_base.attr_set_id', $param['attr_set_id']);
         }
         if (!empty($param['province_id'])) {
             $this->db->where('mall_goods_base.province_id', $param['province_id']);
@@ -97,7 +97,7 @@ class Mall_goods_base_model extends CI_Model
             'is_on_sale'         => $params['is_on_sale'],
             'goods_desc'         => $params['goods_desc'],
             'wap_goods_desc'     => $params['wap_goods_desc'],
-        	'goods_note'         => $params['goods_note'],
+            'goods_note'         => $params['goods_note'],
             'attr_spec'          => $this->deleteEmptyValue(1, $params['attr_spec']),
             'attr_value'         => $this->deleteEmptyValue(2, $params['attr_value']),
             'goods_img'          => '',
@@ -144,7 +144,7 @@ class Mall_goods_base_model extends CI_Model
         $data = array(
             'goods_name'         => $params['goods_name'],
             'goods_sku'          => $params['goods_sku'],
-        	'from_id'            => $params['from_id'],
+            'from_id'            => $params['from_id'],
             'brand_id'           => !empty($params['brand_id']) ? $params['brand_id'] : 0,
             'goods_weight'       => $params['goods_weight'],
             'goods_brief'        => $params['goods_brief'],
