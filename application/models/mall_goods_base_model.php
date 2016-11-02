@@ -272,14 +272,14 @@ class Mall_goods_base_model extends CI_Model
      * @Author xiumao
      * @date 2016/6/15 0015 下午 5:34
      */
-    public function insertImageBatch($goods_id, $imageData)
+    public function insertImageBatch($goods_id, $imageData,$pics)
     {
-    	$img = '';
+    	
     	$this->db->where('goods_id',$goods_id);
     	foreach ( $imageData as $key=>$val) {
-    		$img .= $val.'|';
+    		$pics .= $val.'|';
     	}
-    	$data['goods_img'] = $img;
+    	$data['goods_img'] = $pics;
     	$this->db->where('goods_id',$goods_id);
     	return $this->db->update($this->table,$data);
     }

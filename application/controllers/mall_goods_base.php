@@ -342,15 +342,18 @@ class Mall_goods_base extends CS_Controller
             $this->error('mall_goods_base/grid', '', '内部错误！');
         }
         $goods_id = (int)$this->input->post('goods_id');
+        $pics = $this->input->post('pics');
         if (empty($_FILES['goods_img']['name'])) {
+        	
             $this->error('mall_goods_base/images', $goods_id, '请选择图片上传！');
         }
         $imageData = $this->dealWithMoreImages('goods_img', '', 'mall');
         if ($imageData == false) {
+        	//var_dump($this->session->flashdata('error'));exit;
         	$this->error('mall_goods_base/images', $goods_id, '请选择图片上传！');
         }
         $this->db->trans_start();
-        $this->mall_goods_base->insertImageBatch($goods_id,$imageData);
+        $this->mall_goods_base->insertImageBatch($goods_id,$imageData,$pics);
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) {
             $this->error('mall_goods_base/images', $goods_id, '数据保存失败！');
