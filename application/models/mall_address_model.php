@@ -4,11 +4,6 @@ class Mall_address_model extends CI_Model{
     
 	private $table = 'mall_address';
 	
-	public function _init()
-	{
-	    $this->load->model('region_model', 'region');
-	}
-	
 	public function findById($address_id)
 	{
 	    return $this->db->get_where($this->table, array('address_id'=>$address_id));
@@ -53,6 +48,7 @@ class Mall_address_model extends CI_Model{
 	
 	public function updateMallAddress($postData)  
 	{
+		$this->load->model('region_model', 'region');
 	    $region = $this->region->getByRegionIds(array($postData['province_id'], $postData['city_id'], $postData['district_id']))->result();
 	    $data = array(
 	        'province_id'      => $postData['province_id'],

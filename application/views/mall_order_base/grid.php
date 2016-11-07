@@ -155,7 +155,7 @@
                                             <p>支付价：<?php echo $item->actual_price ?></p>
                                         </td>
                                         <td>
-                                            <p><?php echo $item->pay_time ?></p>
+                                            <p><?php echo $item->created_at ?></p>
                                             <p class="btn mini blue"><?php echo $is_from[$item->is_from] ?></p>
                                         </td>
                                         <td>

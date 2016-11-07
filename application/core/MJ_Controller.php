@@ -10,6 +10,7 @@ class MJ_Controller extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->driver('cache');
         $adminUser = unserialize(base64_decode(get_cookie('adminUser')));
         if ($adminUser) {
             $this->uid = $adminUser->id;

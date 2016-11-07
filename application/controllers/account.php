@@ -39,7 +39,7 @@ class Account extends MJ_Controller
             $this->error('account/login', '', '此帐号已被冻结，请与管理员联系');
         }
         set_cookie('adminUser', base64_encode(serialize($adminUser)), 86400);
-        $this->memcache->setData('adminUser', base64_encode(serialize($adminUser)));
+        $this->cache->memcached->save('adminUser', base64_encode(serialize($adminUser)));
         if ($this->input->post('backurl')) {
             $directUrl = $this->input->post('backurl');
         } else {
@@ -59,7 +59,7 @@ class Account extends MJ_Controller
         if (get_cookie('bz_session')) {
             delete_cookie('bz_session');
         }
-        $this->memcache->delete('adminUser');
+        $this->cache->memcached->delete('adminUser');
         $this->redirect('account/login');
     }
     

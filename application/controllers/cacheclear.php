@@ -60,8 +60,8 @@ class Cacheclear extends CS_Controller
     {
         $result = $this->cache_clear->findById($id);
         if ($result->num_rows() > 0) {
-            if ($this->memcache->getData($result->row()->cache_id)) {
-                $is_secuss = $this->memcache->delete($result->row()->cache_id);
+            if ($this->cache->memcached->save($result->row()->cache_id)) {
+                $is_secuss = $this->cache->memcached->delete($result->row()->cache_id);
             } else {
                 $this->success('cacheclear/grid', '', '已经清理了。');
             }
@@ -77,7 +77,7 @@ class Cacheclear extends CS_Controller
     
     public function clearAll()
     {
-        $is_secuss = $this->memcache->flush();
+        $is_secuss = $this->cache->memcached->clean();
         if ($is_secuss) {
             $this->success('cacheclear/grid', '', '清理所有缓存成功！');
         } else {
