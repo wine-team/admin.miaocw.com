@@ -6,7 +6,7 @@ class Mall_brand_model extends CI_Model
     public function find($params=array(), $isArray=false)
     {
         if (!empty($params['attr_set_id'])) {
-            $this->db->where('cat_id', $params['attr_set_id']);
+            $this->db->where('attr_set_id', $params['attr_set_id']);
         }
         $this->db->where('is_show', 1);
         $result = $this->db->get($this->table);

@@ -227,8 +227,8 @@ class Mall_goods_base extends CS_Controller
         $data['mallGoodsBase'] = $mallGoodsBase;
         $data['attrValues']    = $attrValues;
         $data['categorys']     = $this->mall_category->findByCategoryTree();
-        $data['attributeSet']  = $this->mall_attribute_set->find(array('attr_set_id'=>$mallGoodsBase->attr_set_id));
-        $data['brand']         = $this->mall_brand->find();//品牌信息
+        $data['attributeSet']  = $this->mall_attribute_set->find();
+        $data['brand']         = $this->mall_brand->find(array('attr_set_id'=>$mallGoodsBase->attr_set_id));//品牌信息
         $data['mallGoodsFrom'] = $this->mall_goods_from->findFromByRes();
         $data['extension']     = $this->extension;
         $data['province_id']   = $mallGoodsBase->province_id;
