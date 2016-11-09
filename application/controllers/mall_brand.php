@@ -42,7 +42,7 @@ class Mall_brand extends CS_Controller
             $this->error('mall_brand/add', '', $error);
         }
         $postData = $this->input->post();
-        $res = $this->mall_brand->findByCondition(array('brand_name'=>trim($postData['brand_name'])));
+        $res = $this->mall_brand->findByCondition(array('cat_id'=>$postData['cat_id'], 'brand_name'=>trim($postData['brand_name'])));
         if ($res->num_rows()>0) {
             $this->error('mall_brand/add', '', '该类别已经存在');
         }

@@ -3,8 +3,11 @@ class Mall_brand_model extends CI_Model
 {
     private $table = 'mall_brand';
 
-    public function find($isArray=false)
+    public function find($params=array(), $isArray=false)
     {
+        if (!empty($params['attr_set_id'])) {
+            $this->db->where('cat_id', $params['attr_set_id']);
+        }
         $this->db->where('is_show', 1);
         $result = $this->db->get($this->table);
         if ($isArray) {
