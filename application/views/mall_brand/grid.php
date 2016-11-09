@@ -60,7 +60,7 @@
                                 <div class="control-group">
                                     <label class="control-label"><em>* </em>商品类型</label>
                                     <div class="controls">
-                                        <select name="attr_set_id" class="m-wrap large required">
+                                        <select name="attr_set_id" class="m-wrap span12">
                                             <?php foreach ($attributeSet as $attr_set_id=>$value) :?>
                                                 <option value="<?php echo $attr_set_id;?>" <?php if ($attr_set_id == $this->input->get('attr_set_id')):?> selected="selected"<?php endif;?>><?php echo $value['attr_set_name'];?></option>
                                             <?php endforeach;?>
@@ -100,7 +100,8 @@
                                         <th><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"></th>
                                         <th>编号</th>
                                         <th>品牌名称</th>
-                                        <th>品牌分类</th>
+                                        <th>商品类别</th>
+                                        <th>商品类型</th>
                                         <th>品牌logo</th>
                                         <th>站点</th>
                                         <th>排序</th>
@@ -115,6 +116,7 @@
                                         <td><?php echo $item->brand_id;?></td>
                                         <td><?php echo $item->brand_name;?></td>
                                         <td><?php echo isset($catLevel1[$item->cat_id]) ? $catLevel1[$item->cat_id] : '无' ?></td>
+                                        <td><?php echo isset($attributeSet[$item->attr_set_id]['attr_set_name']) ? $attributeSet[$item->attr_set_id]['attr_set_name'] : '无' ?></td>
                                         <td>
                                             <?php if ($item->brand_logo) :?>
                                                 <img width="80" src="<?php echo $this->config->show_image_url('brand', $item->brand_logo);?>">

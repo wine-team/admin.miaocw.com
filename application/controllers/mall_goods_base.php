@@ -1,7 +1,14 @@
 <?php 
 class Mall_goods_base extends CS_Controller
 {
-    private $extension = array();
+    private $extension = array(
+        'simple'=>'简单产品',
+        'grouped'=>'组合产品',
+        'configurable'=>'可配置产品',
+        'virtual'=>'虚拟产品',
+        'bundle'=>'捆绑产品',
+        'giftcard'=>'礼品卡'
+    );
 
     public function _init()
     {
@@ -19,14 +26,6 @@ class Mall_goods_base extends CS_Controller
         $this->load->model('mall_attribute_value_model','mall_attribute_value');
         $this->load->model('mall_goods_related_model','mall_goods_related');
         $this->load->model('supplier_model','supplier');
-        $this->extension = array(
-            'simple'=>'简单产品',
-            'grouped'=>'组合产品',
-            'configurable'=>'可配置产品',
-            'virtual'=>'虚拟产品',
-            'bundle'=>'捆绑产品',
-            'giftcard'=>'礼品卡'
-        );
     }
     
     public function grid($pg = 1)
@@ -74,7 +73,7 @@ class Mall_goods_base extends CS_Controller
             $this->error('mall_goods_base/addstep1', '', '请选择完整商品的类别和类型');
         }
         $data['attr_set_id'] = $attr_set_id;
-        $data['brand'] = $this->mall_brand->find();//品牌信息
+        $data['brand'] = $this->mall_brand->find(array('attr_set_id'=>$attr_set_id));//品牌信息
 
         $attrValues = array();
         $result = $this->mall_attribute_group->getAttrValuesByAttrSetId($attr_set_id);
@@ -228,7 +227,7 @@ class Mall_goods_base extends CS_Controller
         $data['mallGoodsBase'] = $mallGoodsBase;
         $data['attrValues']    = $attrValues;
         $data['categorys']     = $this->mall_category->findByCategoryTree();
-        $data['attributeSet']  = $this->mall_attribute_set->find();
+        $data['attributeSet']  = $this->mall_attribute_set->find(array('attr_set_id'=>$mallGoodsBase->attr_set_id));
         $data['brand']         = $this->mall_brand->find();//品牌信息
         $data['mallGoodsFrom'] = $this->mall_goods_from->findFromByRes();
         $data['extension']     = $this->extension;
@@ -299,7 +298,7 @@ class Mall_goods_base extends CS_Controller
         $data['attrValues']    = $attrValues;
         $data['categorys']     = $this->mall_category->findByCategoryTree();
         $data['attributeSet']  = $this->mall_attribute_set->find();
-        $data['brand']         = $this->mall_brand->find();//品牌信息
+        $data['brand']         = $this->mall_brand->find(array('attr_set_id'=>$mallGoodsBase->attr_set_id));//品牌信息
         $data['mallGoodsFrom'] = $this->mall_goods_from->findFromByRes();
         $data['extension']     = $this->extension;
         $data['province_id']   = $mallGoodsBase->province_id;
