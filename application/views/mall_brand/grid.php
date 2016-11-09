@@ -61,6 +61,7 @@
                                     <label class="control-label"><em>* </em>商品类型</label>
                                     <div class="controls">
                                         <select name="attr_set_id" class="m-wrap span12">
+                                            <option value="">请选择</option>
                                             <?php foreach ($attributeSet as $attr_set_id=>$value) :?>
                                                 <option value="<?php echo $attr_set_id;?>" <?php if ($attr_set_id == $this->input->get('attr_set_id')):?> selected="selected"<?php endif;?>><?php echo $value['attr_set_name'];?></option>
                                             <?php endforeach;?>
