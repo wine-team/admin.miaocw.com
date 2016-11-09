@@ -6,6 +6,7 @@ class Mall_brand extends CS_Controller
         $this->load->library('pagination');
         $this->load->model('mall_brand_model','mall_brand');
         $this->load->model('mall_category_model','mall_category');
+        $this->load->model('mall_attribute_set_model','mall_attribute_set');
     }
 
     public function grid($pg = 1)
@@ -25,6 +26,7 @@ class Mall_brand extends CS_Controller
         $data['page_num'] = $page_num;
         $catLevel1 = $this->mall_category->getCategoryLevel();
         $data['catLevel1'] = array_column($catLevel1, 'cat_name', 'cat_id');
+        $data['attributeSet'] = $this->mall_attribute_set->find(TRUE);
         $this->load->view('mall_brand/grid', $data);
     }
     
@@ -32,6 +34,7 @@ class Mall_brand extends CS_Controller
     {
         $catLevel1 = $this->mall_category->getCategoryLevel();
         $data['catLevel1'] = array_column($catLevel1, 'cat_name', 'cat_id');
+        $data['attributeSet'] = $this->mall_attribute_set->find(TRUE);
         $this->load->view('mall_brand/add', $data);
     }
     
@@ -62,6 +65,7 @@ class Mall_brand extends CS_Controller
         }
         $data['brand_name'] = $postData['brand_name'];
         $data['cat_id'] = $postData['cat_id'];
+        $data['attr_set_id'] = $postData['attr_set_id'];
         $data['brand_desc'] = $postData['brand_desc'];
         $data['site_url'] = $postData['site_url'];
         $data['is_show'] = $postData['is_show'];
@@ -80,9 +84,10 @@ class Mall_brand extends CS_Controller
         if ($res->num_rows() <= 0) {
             $this->error('mall_brand/grid', '', '无法找到该ID结果值');
         } 
-        $data['res'] = $res->row();
+        $data['res'] = $res->row(0);
         $catLevel1 = $this->mall_category->getCategoryLevel();
         $data['catLevel1'] = array_column($catLevel1, 'cat_name', 'cat_id');
+        $data['attributeSet'] = $this->mall_attribute_set->find(TRUE);
         $this->load->view('mall_brand/edit',$data);
     }
     
@@ -110,6 +115,7 @@ class Mall_brand extends CS_Controller
         }
         $data['brand_name'] = $postData['brand_name'];
         $data['cat_id'] = $postData['cat_id'];
+        $data['attr_set_id'] = $postData['attr_set_id'];
         $data['brand_desc'] = $postData['brand_desc'];
         $data['site_url'] = $postData['site_url'];
         $data['is_show'] = $postData['is_show'];

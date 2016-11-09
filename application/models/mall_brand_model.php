@@ -34,6 +34,9 @@ class Mall_brand_model extends CI_Model
         if (!empty($params['cat_id'])) {
             $this->db->where('cat_id', $params['cat_id']);
         }
+        if (!empty($params['attr_set_id'])) {
+            $this->db->where('attr_set_id', $params['attr_set_id']);
+        }
         if (!empty($params['is_show'])) {
             $this->db->where('is_show', $params['is_show']);
         }
@@ -47,6 +50,9 @@ class Mall_brand_model extends CI_Model
         }
         if (!empty($params['cat_id'])) {
             $this->db->where('cat_id', $params['cat_id']);
+        }
+        if (!empty($params['attr_set_id'])) {
+            $this->db->where('attr_set_id', $params['attr_set_id']);
         }
         if (!empty($params['is_show'])) {
             $this->db->where('is_show', $params['is_show']);

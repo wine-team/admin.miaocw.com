@@ -30,7 +30,7 @@
                             </div>
                             <div class="span4">
                                 <div class="control-group">
-                                    <label class="control-label">品牌分类</label>
+                                    <label class="control-label">商品类别</label>
                                     <div class="controls">
                                         <select name="cat_id" class="m-wrap span12">
                                             <option value="">请选择</option>
@@ -49,6 +49,20 @@
                                             <option value="">请选择</option>
                                             <?php foreach (array('1'=>'是', '2'=>'否') as $key=>$value) :?>
                                                 <option value="<?php echo $key;?>" <?php if ($key == $this->input->get('is_show')):?> selected="selected"<?php endif;?>><?php echo $value;?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span4">
+                                <div class="control-group">
+                                    <label class="control-label"><em>* </em>商品类型</label>
+                                    <div class="controls">
+                                        <select name="attr_set_id" class="m-wrap large required">
+                                            <?php foreach ($attributeSet as $attr_set_id=>$value) :?>
+                                                <option value="<?php echo $attr_set_id;?>" <?php if ($attr_set_id == $this->input->get('attr_set_id')):?> selected="selected"<?php endif;?>><?php echo $value['attr_set_name'];?></option>
                                             <?php endforeach;?>
                                         </select>
                                     </div>
