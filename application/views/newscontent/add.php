@@ -3,7 +3,7 @@
     <div class="row-fluid">
         <div class="span12">
             <h3 class="page-title">新闻管理 <small>新闻管理 </small></h3>
-            <?php echo breadcrumb(array('新闻管理', 'news/grid'=>'新闻列表', '添加贝竹公告')); ?>
+            <?php echo breadcrumb(array('新闻管理', 'news/grid'=>'新闻列表', '添加妙处网公告')); ?>
         </div>
     </div>
     <?php echo execute_alert_message() ?>

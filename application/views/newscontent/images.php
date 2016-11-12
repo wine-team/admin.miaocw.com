@@ -5,7 +5,7 @@
                 <h3 class="page-title">新闻管理
                     <small> 新闻管理</small>
                 </h3>
-                <?php echo breadcrumb(array('新闻管理', 'newscontent/grid' => '贝竹公告列表')); ?>
+                <?php echo breadcrumb(array('新闻管理', 'newscontent/grid' => '妙处网公告列表')); ?>
             </div>
         </div>
         <?php echo execute_alert_message() ?>
