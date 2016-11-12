@@ -34,6 +34,7 @@
                                     <th width="50">编号</th>
                                     <th>新闻分类</th>
                                     <th>是否上架</th>
+                                    <th>子目录</th>
                                     <th>排序</th>
                                     <th>操作</th>
                                 </tr>
@@ -45,6 +46,7 @@
                                     <td width="50"><?php echo $item->class_id;?></td>
                                     <td><?php echo $item->class_name;?></td>
                                     <td><?php echo $item->status == 1 ? '是' : '否';?></td>
+                                    <td> <a class="btn mini red" href="<?php echo base_url('newscontent/search?class_id='.$item->class_id) ?>"><i class="icon-edit"></i>查看</a></td>
                                     <td><?php echo $item->sort;?></td>
                                     <td>
                                         <a class="btn mini green" href="<?php echo base_url('newscategory/edit/'.$item->class_id) ?>"><i class="icon-edit"></i> 编辑</a>
