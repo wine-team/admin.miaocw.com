@@ -19,6 +19,7 @@ class Newscategory extends CS_Controller
         $data['page_list'] = $this->news_class->page_list($num);
         $data['all_rows'] = $config['total_rows'];
         $data['pg_now'] = $pg;
+        $data['page_num'] = 20;
         $this->load->view('newscategory/grid', $data);
     }
     

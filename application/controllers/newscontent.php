@@ -21,6 +21,7 @@ class Newscontent extends CS_Controller
         $data['page_list'] = $this->news_content->page_list($num);
         $data['all_rows'] = $config['total_rows'];
         $data['pg_now'] = $pg;
+        $data['page_num'] = 20;
         $data['newsclass'] = $this->news_class->find();
         $this->load->view('newscontent/grid', $data);
     }
