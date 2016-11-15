@@ -44,7 +44,7 @@
                         <div class="control-group">
                             <label class="control-label"><em>* </em>来源</label>
                             <div class="controls">
-                                <input type="text" name="author" placeholder="本站原创" class="m-wrap large required" value="">
+                                <input type="text" name="author" placeholder="本站原创" class="m-wrap large required" value="妙处网">
                             </div>
                         </div>
                         <div class="control-group">
