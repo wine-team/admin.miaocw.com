@@ -54,15 +54,17 @@
                        <div class="control-group">
                             <label class="control-label"><em>* </em>退款手续费</label>
                             <div class="controls">
-                                <input type="text" name='counter_fee' value="<?php echo $refund->counter_fee ?>" class="m-wrap span8 required">
+                                <input type="text" name="counter_fee" value="<?php echo $refund->counter_fee ?>" class="m-wrap span8 required">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">附件：</label>
                             <div class="controls">
+                                <?php if(!empty($refund->images)):?>
                                 <a target="_blank" href="<?php echo $this->config->show_image_url('mall', $refund->images) ?>">
                                     <img src="<?php echo $this->config->show_image_url('mall', $refund->images) ?>" width="150" height="150">
                                 </a>
+                                <?php endif;;?>
                             </div>
                         </div>
                         <div class="control-group">

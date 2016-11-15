@@ -93,10 +93,10 @@ class Mall_order_refund extends CS_Controller
         $orderInfo = $order_res->row();
     
         //订单是否退还运费 未发货时 并且无可退商品
-        if (($orderInfo->state < 2) || ($orderInfo->status < 3)) {
+        if (($orderInfo->order_state < 2) || ($orderInfo->order_status < 3)) {
             $this->error('mall_order_refund/grid', $pg_now, '当前订单未付，不可退款！');
         }
-        if (($orderInfo->state >= 4) || ($orderInfo->status >= 6)) {
+        if (($orderInfo->order_state >= 4) || ($orderInfo->order_status >= 6)) {
             $this->error('mall_order_refund/grid', $pg_now, '当前订单已评价或已退，不可退款！');
         }
         //验证退货数量是否大于0

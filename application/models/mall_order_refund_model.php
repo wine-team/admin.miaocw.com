@@ -98,7 +98,7 @@ class Mall_order_refund_model extends CI_Model
         $o_num = $mallRefund->number;//退货数
         $isTransport = 0;
         //如果$num=0 商品全退
-        if (($order_res->status == 3) && $num <= 0) {
+        if (($order_res->order_status == 3) && $num <= 0) {
             $transport_cost = $order_res->deliver_price;
             $isTransport = 1;
         }
@@ -112,7 +112,7 @@ class Mall_order_refund_model extends CI_Model
         }
     
         if ($num <= 0) {
-            $this->db->set('status', '1');
+            $this->db->set('order_status', '1');
         }
         $this->db->set('order_pay_price', "actual_price - $amount_return", FALSE);  // 订单余额
         if (isset($transport_cost)) {
