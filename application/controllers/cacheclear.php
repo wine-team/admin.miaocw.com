@@ -60,7 +60,7 @@ class Cacheclear extends CS_Controller
     {
         $result = $this->cache_clear->findById($id);
         if ($result->num_rows() > 0) {
-            if ($this->cache->memcached->save($result->row()->cache_id)) {
+            if ($this->cache->memcached->get($result->row()->cache_id)) {
                 $is_secuss = $this->cache->memcached->delete($result->row()->cache_id);
             } else {
                 $this->success('cacheclear/grid', '', '已经清理了。');
