@@ -4,7 +4,9 @@ class Mall_order_refund extends CS_Controller
     public function _init()
     {
         $this->load->library('pagination');
+        $this->load->library('refund/alipaypc', null, 'alipaypc');
         $this->load->model('mall_order_refund_model','mall_order_refund');
+        $this->load->model('mall_order_pay_model','mall_order_pay');
         $this->load->model('mall_order_base_model','mall_order_base');
         $this->load->model('mall_order_product_model','mall_order_product');
         $this->load->model('deliver_order_model','deliver_order');
@@ -107,34 +109,49 @@ class Mall_order_refund extends CS_Controller
         $number = $this->mall_order_product->getAllProduct($mallRefund->order_id);
         $refund_num = $this->mall_order_refund->getAllRefundNum($mallRefund->order_id);
         $num = $number - $refund_num - $mallRefund->number;
+
+        if ($orderInfo->pay_method==1) {
+            //如果是支付宝支付
+            $mallPay = $this->mall_order_pay->get_mallPay($mallRefund->order_id);
+            $alipayParameter['batch_no']    = date('YmdHis');
+            $alipayParameter['batch_num']   = 1;
+            $alipayParameter['detail_data'] = $mallPay->row()->other_trade_no.'^'.$mallPay->row()->order_amount.'^同意退款'; 
+            $this->alipaypc->refundApi($alipayParameter);
+        } else {
+            $this->db->trans_start();
+            $res_arr = $this->mall_order_refund->updateOrderInfo($orderProduct, $mallRefund, $mallRefund->counter_fee, $num, $orderInfo);
+            if (0 != $res_arr['err_code']) {
+                $this->error('mall_order_refund/grid', '', $res_arr['err_message']);
+            }
+            //获取用户账户信息
+            $resultUser = $this->user->findById($mallRefund->uid);
+            
+            if ($resultUser->num_rows() <= 0) {
+                $this->error('mall_order_refund/grid', $pg_now, '退款用户不存在。');
+            }
+//         $userAccount = $resultUser->row(0);
+            
+            //退款到提现账户
+            $account = $this->user->updateUserAcount($mallRefund->uid, array('amount_carry' => $res_arr['actual_return']));
+            $account_log = $this->account_log->insertAccountLogRecord($mallRefund->uid,$orderProduct->order_id,$account_type=1,$flow=3,$trade_type=6,$res_arr['actual_return'],$note='退款-本经');
+            if ($res_arr['isTransport']) { //退运费
+                //返还运费 生成记录
+                $this->user->updateUserAcount($mallRefund->uid, array('amount_carry' => $res_arr['transport_cost']));
+                $account_log = $this->account_log->insertAccountLogRecord($mallRefund->uid,$orderProduct->order_id,$account_type=1,$flow=3,$trade_type=6,$res_arr['transport_cost'],$note='退款-运费');
+            } 
+            
+            $refundFlag = $this->mall_order_refund->updateRefundFlag(array('flag'=>2, 'refund_id'=>$refund_id));
+            $this->db->trans_complete();
+            if ($this->db->trans_status() === FALSE &&  !$account_log || !$account || !$refundFlag) {
+                $this->error('mall_order_refund/grid', '', '确认退款操作失败');
+            }
+            $this->success('mall_order_refund/grid', '', '确认退款操作成功');
+        }
+    }
     
-        $this->db->trans_start();
-        $res_arr = $this->mall_order_refund->updateOrderInfo($orderProduct, $mallRefund, $mallRefund->counter_fee, $num, $orderInfo);
-        if (0 != $res_arr['err_code']) {
-            $this->error('mall_order_refund/grid', '', $res_arr['err_message']);
-        }
-        //获取用户账户信息
-        $resultUser = $this->user->findById($mallRefund->uid);
-        
-        if ($resultUser->num_rows() <= 0) {
-            $this->error('mall_order_refund/grid', $pg_now, '退款用户不存在。');
-        }
-        $userAccount = $resultUser->row(0);
-    
-        //退款到提现账户
-        $account = $this->user->updateUserAcount($mallRefund->uid, array('amount_carry' => $res_arr['actual_return']));
-        $account_log = $this->account_log->insertAccountLogRecord($mallRefund->uid,$orderProduct->order_id,$account_type=1,$flow=3,$trade_type=6,$res_arr['actual_return'],$note='退款-本经');
-        if ($res_arr['isTransport']) { //退运费
-            //返还运费 生成记录
-            $this->user->updateUserAcount($mallRefund->uid, array('amount_carry' => $res_arr['transport_cost']));
-            $account_log = $this->account_log->insertAccountLogRecord($mallRefund->uid,$orderProduct->order_id,$account_type=1,$flow=3,$trade_type=6,$res_arr['transport_cost'],$note='退款-运费');
-        }
-        $refundFlag = $this->mall_order_refund->updateRefundFlag(array('flag'=>2, 'refund_id'=>$refund_id));
-        $this->db->trans_complete();
-        if ($this->db->trans_status() === FALSE &&  !$account_log || !$account || !$refundFlag) {
-            $this->error('mall_order_refund/grid', '', '确认退款操作失败');
-        }
-        $this->success('mall_order_refund/grid', '', '确认退款操作成功');
+    public function success_refund()
+    {
+        var_dump($_POST);
     }
     
     public function validate()
