@@ -12,6 +12,30 @@ class Capture extends MJ_Controller
         $this->load->model('mall_category_model', 'mall_category');
     }
 
+    /**
+     * 更新现有产品ID
+     */
+    public function upDateExsit()
+    {
+        $this->db->select('goods_id, goods_note, goods_sku');
+        $this->db->where('from_id', 4);
+        $result = $this->db->get('mall_goods_base');
+        $goodsBase = $result->result();
+        foreach ($goodsBase as $item) {
+            $data = array(
+                'goods_sku'   => 'THW'.preg_replace('/\D/s', '', $item->goods_note),
+                'goods_note'  => $item->goods_note.'===='.$item->goods_sku,
+            );
+            $this->db->where('goods_id', $item->goods_id);
+            $update = $this->db->update('mall_goods_base', $data);
+            if ($update) {
+                echo $item->goods_id.'更新成功<br />';
+            } else {
+                echo $item->goods_id.'更新失败<br />';
+            }
+        }
+    }
+
     public function test()
     {
         require_once APPPATH.'libraries/phpQuery.php';
@@ -28,7 +52,7 @@ class Capture extends MJ_Controller
             phpQuery::newDocumentFile('http://www.taohv.cn/category.php?top_cat_id=2&page='.$i);
             $items = pq('.plist ul li');
             foreach ($items as $key=>$item) {
-                $productUrl[$key]['provide_price'] = trim(pq($item)->find('.pxinxi .xinxileft .xxjiage')->text(), '￥');
+                $productUrl[$key]['provide_price'] = preg_replace('/[^\.0123456789]/s', '', pq($item)->find('.pxinxi .xinxileft .xxjiage')->text());
                 $productUrl[$key]['url'] = 'http://www.taohv.cn'.pq($item)->find('.ptupian a')->attr('href');
             }
             break;
@@ -38,11 +62,12 @@ class Capture extends MJ_Controller
             $item = array();
             foreach ($productUrl as $value) {
                 phpQuery::newDocumentFile($value['url']);
-                pr($value);
+                $goods_sku = 'THW'.pq('#wrap_con #goods_id')->val();
+
                 $item['goods_name']           = pq('#wrap_con ul.title li:eq(1)')->html();
-                $item['goods_sku']            = 'MCW'.pq('#wrap_con #goods_id')->val();
+                $item['goods_sku']            = $goods_sku;
                 $item['from_id']              = 4; //商品来源
-                $item['brand_id']             = 0;
+                //$item['brand_id']             = 0;
                 $item['goods_weight']         = 100;
                 $item['market_price']         = trim(pq('.cpjiage .shijia em')->text(), '￥');
                 $item['shop_price']           = $this->rePrice($value['provide_price']);
@@ -54,8 +79,8 @@ class Capture extends MJ_Controller
                 $item['goods_desc']           = trim(pq('.brands_con .brands_middle')->html(), ' ');
                 $item['wap_goods_desc']       = trim(pq('.brands_con .brands_middle')->html(), ' ');
                 $item['goods_note']           = $value['url'];
-                $item['attr_spec']            = '';
-                $item['attr_value']           = '';
+                $item['attr_spec']            = array();
+                $item['attr_value']           = array();
                 $item['goods_img']            = '';
                 $item['extension_code']       = 'simple';
                 $item['is_on_sale']           = 1;
@@ -80,6 +105,22 @@ class Capture extends MJ_Controller
                 $item['created_at']           = date('Y-m-d H:i:s');
                 $item['updated_at']           = date('Y-m-d H:i:s');
                 pr($item);exit;
+
+                $mallGoodsBase = $this->mall_goods_base->findByGoodsSku($goods_sku);
+                if ($mallGoodsBase->num_rows() > 0) {
+                    $item['goods_note'] = $value['url'].'===='.$goods_sku;
+                    unset($item['created_at']);
+                    $update = $this->mall_goods_base->update($item);
+                } else {
+                    $goods_id = $this->mall_goods_base->insert($item);
+                    $isInsert = $this->mall_category_product->insertBatchByGoodsId($goods_id, array(2, 13, 14, 15, 16, 17, 18, 19, 20));
+                }
+
+                if ((isset($update) && $update) || (isset($goods_id, $isInsert) && $goods_id && $isInsert)) {
+
+                } else {
+
+                }
             }
         }
     }
