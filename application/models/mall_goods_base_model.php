@@ -133,12 +133,7 @@ class Mall_goods_base_model extends CI_Model
         $this->db->insert($this->table,$data);
         return $this->db->insert_id();
     }
-     
-    /**
-      * 
-      * @param unknown $param
-      * @param unknown $goods_id
-    */
+
     public function update($params=array())
     {
         $data = array(
@@ -153,7 +148,7 @@ class Mall_goods_base_model extends CI_Model
             'is_on_sale'         => $params['is_on_sale'],
             'goods_desc'         => $params['goods_desc'],
             'wap_goods_desc'     => $params['wap_goods_desc'],
-        	'goods_note'         => $params['goods_note'],
+            'goods_note'         => $params['goods_note'],
             'attr_spec'          => $this->deleteEmptyValue(1, $params['attr_spec']),
             'attr_value'         => $this->deleteEmptyValue(2, $params['attr_value']),
             'market_price'       => $params['market_price'],
@@ -177,7 +172,6 @@ class Mall_goods_base_model extends CI_Model
             'integral'           => !empty($params['integral']) ?  $params['integral'] : 0,
             'sort_order'         => !empty($params['sort_order']) ? $params['sort_order'] : 50,
             'updated_at'         => date('Y-m-d H:i:s'),
-            'created_at'         => date('Y-m-d H:i:s'),
         );
 
         if ($params['freight_type'] == 1) {//运费模版
@@ -284,4 +278,65 @@ class Mall_goods_base_model extends CI_Model
     	return $this->db->update($this->table,$data);
     }
 
+    public function updateCopy($params=array())
+    {
+        $data = array(
+            'goods_name'         => $params['goods_name'],
+            'goods_sku'          => $params['goods_sku'],
+            'from_id'            => $params['from_id'],
+            'goods_weight'       => $params['goods_weight'],
+            'goods_brief'        => $params['goods_brief'],
+            'supplier_id'        => $params['supplier_id'],
+            'is_check'           => $params['is_check'],
+            'is_on_sale'         => $params['is_on_sale'],
+            'goods_desc'         => $params['goods_desc'],
+            'wap_goods_desc'     => $params['wap_goods_desc'],
+            'goods_note'         => $params['goods_note'],
+            'market_price'       => $params['market_price'],
+            'shop_price'         => $params['shop_price'],
+            'provide_price'      => $params['provide_price'],
+            'promote_price'      => !empty($params['promote_price']) ? $params['promote_price'] : 0,
+            'promote_start_date' => !empty($params['promote_start_date']) ? strtotime($params['promote_start_date']) : 0,
+            'promote_end_date'   => !empty($params['promote_end_date']) ? strtotime($params['promote_end_date']) : 0,
+            'attr_set_id'        => $params['attr_set_id'],
+            'extension_code'     => $params['extension_code'],
+            //'tour_count'         => !empty($params['tour_count']) ? $params['tour_count'] : 0,
+            //'sale_count'         => !empty($params['sale_count']) ? $params['sale_count'] : 0,
+            //'in_stock'           => $params['in_stock'],
+            'limit_num'          => $params['limit_num'],
+            'minus_stock'        => $params['minus_stock'],
+            'province_id'        => $params['province_id'],
+            'city_id'            => $params['city_id'],
+            'district_id'        => $params['district_id'],
+            'address'            => $params['address'],
+            'auto_cancel'        => !empty($params['auto_cancel']) ? $params['auto_cancel'] : 720,
+            //'integral'           => !empty($params['integral']) ?  $params['integral'] : 0,
+            //'sort_order'         => !empty($params['sort_order']) ? $params['sort_order'] : 50,
+            'updated_at'         => date('Y-m-d H:i:s'),
+            //'created_at'         => date('Y-m-d H:i:s'),
+        );
+        if (!empty($params['brand_id'])) {
+            $data['brand_id']  = $params['brand_id'];
+        }
+        if (!empty($params['brand_id'])) {
+            $data['brand_id']  = $params['brand_id'];
+        }
+        if (!empty($params['attr_spec'])) {
+            $data['attr_spec']  = $this->deleteEmptyValue(1, $params['attr_spec']);
+        }
+        if (!empty($params['attr_value'])) {
+            $data['attr_value'] = $this->deleteEmptyValue(2, $params['attr_value']);
+        }
+
+        if ($params['freight_type'] == 1) {//运费模版
+            $data['freight_id'] = $params['freight_id'];
+            $data['freight_cost'] = 0;
+        } else {
+            $data['freight_id'] = 0;
+            $data['freight_cost'] = $params['freight_cost'];
+        }
+
+        $this->db->where('goods_id', $params['edit_goods_id']);
+        return $this->db->update($this->table, $data);
+    }
 }
