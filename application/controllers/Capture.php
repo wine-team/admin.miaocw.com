@@ -18,12 +18,12 @@ class Capture extends MJ_Controller
     public function upDateExsit()
     {
         $this->db->select('goods_id, goods_note, goods_sku');
-        $this->db->where('from_id', 4);
+        $this->db->where('from_id', 5);
         $result = $this->db->get('mall_goods_base');
         $goodsBase = $result->result();
         foreach ($goodsBase as $item) {
             $data = array(
-                'goods_sku'   => 'THW'.preg_replace('/\D/s', '', $item->goods_note),
+                'goods_sku'   => 'QUW'.preg_replace('/\D/s', '', $item->goods_note),
                 'goods_note'  => $item->goods_note.'===='.$item->goods_sku,
             );
             $this->db->where('goods_id', $item->goods_id);
@@ -34,14 +34,6 @@ class Capture extends MJ_Controller
                 echo $item->goods_id.'更新失败<br />';
             }
         }
-    }
-
-    public function test()
-    {
-        require_once APPPATH.'libraries/phpQuery.php';
-        phpQuery::newDocumentFile('http://www.taohv.cn/goods-3682.html');
-
-        pr(pq('#wrap_con li:eq(1)')->html());exit;
     }
 
     public function women()
@@ -64,6 +56,15 @@ class Capture extends MJ_Controller
                 phpQuery::newDocumentFile($value['url']);
                 $goods_sku = 'THW'.pq('#wrap_con #goods_id')->val();
 
+                $attrValues = pq('#wrap_con .basic_con dl');
+                $attrItem = array();
+                foreach ($attrValues as $k=>$v) {
+                    $attrItem['group_name'] = '女性用品-主体';
+                    $attrItem['group_value'][$k]['attr_name'] = trim(pq($v)->find('dt')->text(), '：');
+                    $attrItem['group_value'][$k]['attr_value'] = pq($v)->find('dd')->text();
+                }
+                $attr_value = array($attrItem);
+
                 $item['goods_name']           = pq('#wrap_con ul.title li:eq(1)')->html();
                 $item['goods_sku']            = $goods_sku;
                 $item['from_id']              = 4; //商品来源
@@ -80,7 +81,7 @@ class Capture extends MJ_Controller
                 $item['wap_goods_desc']       = trim(pq('.brands_con .brands_middle')->html(), ' ');
                 $item['goods_note']           = $value['url'];
                 $item['attr_spec']            = array();
-                $item['attr_value']           = array();
+                $item['attr_value']           = $attr_value;
                 $item['goods_img']            = '';
                 $item['extension_code']       = 'simple';
                 $item['is_on_sale']           = 1;
@@ -96,30 +97,34 @@ class Capture extends MJ_Controller
                 $item['province_id']          = 12;
                 $item['city_id']              = 123;
                 $item['district_id']          = 1363;
-                $item['address']              = '浙江省 杭州市 下城区 新天地';
+                $item['address']              = '浙江省 杭州市 下城区 新天地跨贸小镇';
                 $item['auto_cancel']          = 720;
                 //$item['sale_count']           = 0;
                 //$item['review_count']         = 0;
                 //$item['tour_count']           = 0;
                 //$item['sort_order']           = 50;
-                $item['created_at']           = date('Y-m-d H:i:s');
-                $item['updated_at']           = date('Y-m-d H:i:s');
+                //$item['created_at']           = date('Y-m-d H:i:s');
+                //$item['updated_at']           = date('Y-m-d H:i:s');
                 pr($item);exit;
 
                 $mallGoodsBase = $this->mall_goods_base->findByGoodsSku($goods_sku);
                 if ($mallGoodsBase->num_rows() > 0) {
+                    $goods_id = $mallGoodsBase->row(0)->goods_id;
+                    $item['goods_id'] = $goods_id;
                     $item['goods_note'] = $value['url'].'===='.$goods_sku;
-                    unset($item['created_at']);
-                    $update = $this->mall_goods_base->update($item);
+                    $update = $this->mall_goods_base->updateCopy($item);
+                    $note = '产品ID（'.$goods_id.'）更新';
                 } else {
+                    $item['is_check'] = 1;
                     $goods_id = $this->mall_goods_base->insert($item);
                     $isInsert = $this->mall_category_product->insertBatchByGoodsId($goods_id, array(2, 13, 14, 15, 16, 17, 18, 19, 20));
+                    $note = '产品ID（'.$goods_id.'）添加';
                 }
 
                 if ((isset($update) && $update) || (isset($goods_id, $isInsert) && $goods_id && $isInsert)) {
-
+                    echo $goods_id.'成功<br />';
                 } else {
-
+                    echo $goods_id.'失败<br />';
                 }
             }
         }
