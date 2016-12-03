@@ -25,6 +25,7 @@ class Account extends MJ_Controller
      */
     public function loginPost()
     {
+    	
         $error = $this->validate();
         if (!empty($error)) {
             $this->error('account/login', '', $error);
@@ -39,7 +40,7 @@ class Account extends MJ_Controller
             $this->error('account/login', '', '此帐号已被冻结，请与管理员联系');
         }
         set_cookie('adminUser', base64_encode(serialize($adminUser)), 86400);
-        $this->cache->memcached->save('adminUser', base64_encode(serialize($adminUser)), 24 * 60 * 60);
+        //$this->cache->memcached->save('adminUser', base64_encode(serialize($adminUser)), 24 * 60 * 60);
         if ($this->input->post('backurl')) {
             $directUrl = $this->input->post('backurl');
         } else {
