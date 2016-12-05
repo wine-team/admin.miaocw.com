@@ -27,29 +27,6 @@ class Alipaypc
        echo $html_text;
     }
     
-    /**
-     * 支付宝同步验证处理方法
-     * @return boolean
-     */
-    public function responseAlipayReturn()
-    {
-        require_once("alipay_config.php");
-        require_once("lib/alipay_notify.class.php");
-        $alipayNotify = new AlipayNotify($alipay_config);
-        $verify_result = $alipayNotify->verifyReturn();
-        if ($verify_result) {
-            
-            $trade_status = $_GET['trade_status'];
-            if ($trade_status == 'TRADE_FINISHED' || $trade_status == 'TRADE_SUCCESS') {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-        	return false;
-        }
-    }
-    
      /**
      * 支付宝异步处理方法
      * @return boolean
@@ -62,10 +39,7 @@ class Alipaypc
         $verify_result = $alipayNotify->verifyNotify();
         if ($verify_result) {
             echo 'success';
-            $trade_status = $_POST['trade_status'];
-            if ($trade_status == "TRADE_FINISHED" || $trade_status == "TRADE_SUCCESS") {
-                return true;
-            }
+            return true;
         } else {
             echo "fail";
             return false;

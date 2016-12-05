@@ -150,7 +150,7 @@ class Mall_order_refund_model extends CI_Model
      */
     public function updateRefundFlag($postData)
     {
-        $data = array('flag' => $postData['flag']);
+        $data = array('flag'=>$postData['flag'], 'verify_time'=>$postData['time']);
         $this->db->where('refund_id', $postData['refund_id']);
         return $this->db->update($this->table, $data);
     }

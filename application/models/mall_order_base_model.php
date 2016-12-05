@@ -8,7 +8,13 @@ class Mall_order_base_model extends CI_Model
     public function findByOrderId($order_id)
     {
         $this->db->where('order_id', $order_id);
-        return $this->db->get($this->table, $order_id);
+        return $this->db->get($this->table);
+    }
+    
+    public function findByPayId($pay_id)
+    {
+        $this->db->where('pay_id', $pay_id);
+        return $this->db->get($this->table);
     }
 
     public function total($params=array())
@@ -34,11 +40,11 @@ class Mall_order_base_model extends CI_Model
         if (!empty($params['is_form'])) {
             $this->db->where('is_form', $params['is_form']);
         }
-        if (!empty($param['start_date'])) {
-            $this->db->where(array('created_at >' => $param['start_date'].' 00:00:00'));
+        if (!empty($params['start_date'])) {
+            $this->db->where(array('created_at >' => $params['start_date'].' 00:00:00'));
         }
-        if (!empty($param['end_date'])) {
-            $this->db->where(array('created_at <=' => $param['end_date'].' 59:59:59'));
+        if (!empty($params['end_date'])) {
+            $this->db->where(array('created_at <=' => $params['end_date'].' 59:59:59'));
         }
         return $this->db->count_all_results($this->table);
     }
@@ -66,11 +72,11 @@ class Mall_order_base_model extends CI_Model
         if (!empty($params['is_form'])) {
             $this->db->where('is_form', $params['is_form']);
         }
-        if (!empty($param['start_date'])) {
-            $this->db->where(array('created_at >' => $param['start_date'].' 00:00:00'));
+        if (!empty($params['start_date'])) {
+            $this->db->where(array('created_at >' => $params['start_date'].' 00:00:00'));
         }
-        if (!empty($param['end_date'])) {
-            $this->db->where(array('created_at <=' => $param['end_date'].' 59:59:59'));
+        if (!empty($params['end_date'])) {
+            $this->db->where(array('created_at <=' => $params['end_date'].' 59:59:59'));
         }
         $this->db->order_by('order_id', 'DESC');
         $this->db->limit($page_num, $num);

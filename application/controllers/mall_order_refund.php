@@ -118,6 +118,10 @@ class Mall_order_refund extends CS_Controller
             $alipayParameter['detail_data'] = $mallPay->row()->other_trade_no.'^'.$mallPay->row()->order_amount.'^同意退款'; 
             $this->alipaypc->refundApi($alipayParameter);
         } else {
+            
+            /***@以下为以前退款*/
+            
+            
             $this->db->trans_start();
             $res_arr = $this->mall_order_refund->updateOrderInfo($orderProduct, $mallRefund, $mallRefund->counter_fee, $num, $orderInfo);
             if (0 != $res_arr['err_code']) {
@@ -129,7 +133,7 @@ class Mall_order_refund extends CS_Controller
             if ($resultUser->num_rows() <= 0) {
                 $this->error('mall_order_refund/grid', $pg_now, '退款用户不存在。');
             }
-//         $userAccount = $resultUser->row(0);
+            $userAccount = $resultUser->row(0);
             
             //退款到提现账户
             $account = $this->user->updateUserAcount($mallRefund->uid, array('amount_carry' => $res_arr['actual_return']));
@@ -147,11 +151,6 @@ class Mall_order_refund extends CS_Controller
             }
             $this->success('mall_order_refund/grid', '', '确认退款操作成功');
         }
-    }
-    
-    public function success_refund()
-    {
-        var_dump($_POST);
     }
     
     public function validate()

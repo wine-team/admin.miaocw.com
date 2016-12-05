@@ -24,7 +24,7 @@ $alipay_config['seller_user_id']=$alipay_config['partner'];
 $alipay_config['key']			= 'qyjkp1quvqtrnm2mchl0zvdh368qgn9o';
 
 // 服务器异步通知页面路径，需http://格式的完整路径，不能加?id=123这类自定义参数,必须外网可以正常访问
-$alipay_config['notify_url']="http://admin.miaocw.com/mall_order_refund/success_refund";
+$alipay_config['notify_url']="http://admin.miaocw.com/notify/alipayNotify";
 
 // 签名方式
 $alipay_config['sign_type']    = strtoupper('MD5');

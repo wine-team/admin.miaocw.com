@@ -147,7 +147,7 @@
                                         <td width="100">
                                            <p><?php echo $flag_arr[$r->flag]; ?></p>
                                            <?php if ($r->status==2 && $r->flag==1) :?>
-                                                <a class="btn mini green" href="<?php echo base_url('mall_order_refund/confirm/'.$r->refund_id.'/'.$pg_now) ?>" onclick="return confirm('退款金额将会退回购买者账户中，确定要退款？')"> 确认退款</a>
+                                                <a class="btn mini green" href="<?php echo base_url('mall_order_refund/confirm/'.$r->refund_id.'/'.$pg_now) ?>" onclick="return confirm('将跳转到支付宝退款页面，确定要退款？')"> 确认退款</a>
                                            <?php endif;?>
                                         </td>
                                         <td><?php echo $r->created_at; ?></td>
