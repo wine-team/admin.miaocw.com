@@ -3,13 +3,13 @@ class Capture extends MJ_Controller
 {
     public function _init()
     {
-        header("Content-type:text/html;charset=gb2312");
         $this->load->model('region_model', 'region');
         $this->load->model('mall_goods_base_model', 'mall_goods_base');
         $this->load->model('mall_attribute_set_model','mall_attribute_set');
         $this->load->model('mall_brand_model','mall_brand');
         $this->load->model('mall_goods_from_model','mall_goods_from');
         $this->load->model('mall_category_model', 'mall_category');
+        $this->load->model('mall_category_product_model', 'mall_category_product');
     }
 
     /**
@@ -54,8 +54,11 @@ class Capture extends MJ_Controller
             $item = array();
             foreach ($productUrl as $value) {
                 phpQuery::newDocumentFile($value['url']);
-                $goods_sku = 'THW'.pq('#wrap_con #goods_id')->val();
-
+                $goods_id = pq('#wrap_con #goods_id')->val();
+                $goods_sku = 'THW'.$goods_id;
+                if (!$goods_id) {
+                    continue;
+                }
                 $attrValues = pq('#wrap_con .basic_con dl');
                 $attrItem = array();
                 foreach ($attrValues as $k=>$v) {
@@ -65,7 +68,7 @@ class Capture extends MJ_Controller
                 }
                 $attr_value = array($attrItem);
 
-                $item['goods_name']           = pq('#wrap_con ul.title li:eq(1)')->html();
+                $item['goods_name']           = mb_convert_encoding(pq('#wrap_con ul.title li:eq(1)')->html(), 'UTF-8', 'GBK');
                 $item['goods_sku']            = $goods_sku;
                 $item['from_id']              = 4; //商品来源
                 //$item['brand_id']             = 0;
@@ -76,7 +79,7 @@ class Capture extends MJ_Controller
                 $item['promote_start_date']   = 0;
                 $item['promote_end_date']     = 0;
                 $item['attr_set_id']          = 5;
-                $item['goods_brief']          = pq('#wrap_con ul.title li:eq(0)')->html();
+                $item['goods_brief']          = mb_convert_encoding(pq('#wrap_con ul.title li:eq(0)')->html(), 'UTF-8', 'GBK');
                 $item['goods_desc']           = trim(pq('.brands_con .brands_middle')->html(), ' ');
                 $item['wap_goods_desc']       = trim(pq('.brands_con .brands_middle')->html(), ' ');
                 $item['goods_note']           = $value['url'];
@@ -105,19 +108,19 @@ class Capture extends MJ_Controller
                 //$item['sort_order']           = 50;
                 //$item['created_at']           = date('Y-m-d H:i:s');
                 //$item['updated_at']           = date('Y-m-d H:i:s');
-                pr($item);exit;
 
                 $mallGoodsBase = $this->mall_goods_base->findByGoodsSku($goods_sku);
                 if ($mallGoodsBase->num_rows() > 0) {
                     $goods_id = $mallGoodsBase->row(0)->goods_id;
                     $item['goods_id'] = $goods_id;
                     $item['goods_note'] = $value['url'].'===='.$goods_sku;
+                    $item['attr_value'] = $value['attr_value'];
                     $update = $this->mall_goods_base->updateCopy($item);
                     $note = '产品ID（'.$goods_id.'）更新';
                 } else {
                     $item['is_check'] = 1;
-                    $goods_id = $this->mall_goods_base->insert($item);
-                    $isInsert = $this->mall_category_product->insertBatchByGoodsId($goods_id, array(2, 13, 14, 15, 16, 17, 18, 19, 20));
+                    $goodsId = $this->mall_goods_base->insert($item);
+                    $isInsert = $this->mall_category_product->insertBatchByGoodsId($goodsId, array(2, 13, 14, 15, 16, 17, 18, 19, 20));
                     $note = '产品ID（'.$goods_id.'）添加';
                 }
 
@@ -125,6 +128,9 @@ class Capture extends MJ_Controller
                     echo $goods_id.'成功<br />';
                 } else {
                     echo $goods_id.'失败<br />';
+                }
+                if ( $goods_sku != 'THW3682' && $goods_sku != 'THW4772' && $goods_sku != 'THW1153' && $goods_sku != 'THW2979') {
+                    exit('成功'.$goods_sku);
                 }
             }
         }
