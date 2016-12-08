@@ -59,6 +59,7 @@ class Capture extends MJ_Controller
                 if (!$goods_id) {
                     continue;
                 }
+                //获取产品属性
                 $attrValues = pq('#wrap_con .basic_con dl');
                 $attrItem = array();
                 foreach ($attrValues as $k=>$v) {
@@ -67,6 +68,14 @@ class Capture extends MJ_Controller
                     $attrItem['group_value'][$k]['attr_value'] = pq($v)->find('dd')->text();
                 }
                 $attr_value = array($attrItem);
+
+                //获取产品图片
+                $goodsimgs = pq('#wrap_con .mat_js_img dd');
+                $imgItem = array();
+                foreach ($goodsimgs as $kk=>$vv) {
+                    $imgItem[] = str_replace(array('changeImage(\'', '\');return false;'), array('', ''), pq($vv)->find('a')->attr('onclick'));
+                }
+                $goods_img = implode('|', $imgItem);
 
                 $item['goods_name']           = mb_convert_encoding(pq('#wrap_con ul.title li:eq(1)')->html(), 'UTF-8', 'GBK');
                 $item['goods_sku']            = $goods_sku;
@@ -109,16 +118,21 @@ class Capture extends MJ_Controller
                 //$item['created_at']           = date('Y-m-d H:i:s');
                 //$item['updated_at']           = date('Y-m-d H:i:s');
 
-                $mallGoodsBase = $this->mall_goods_base->findByGoodsSku($goods_sku);
-                if ($mallGoodsBase->num_rows() > 0) {
-                    $goods_id = $mallGoodsBase->row(0)->goods_id;
+                $result = $this->mall_goods_base->findByGoodsSku($goods_sku);
+                if ($result->num_rows() > 0) {
+                    $mallGoodsBase = $result->row(0);
+                    $goods_id = $mallGoodsBase->goods_id;
                     $item['goods_id'] = $goods_id;
                     $item['goods_note'] = $value['url'].'===='.$goods_sku;
                     $item['attr_value'] = $value['attr_value'];
+                    if (empty($mallGoodsBase->goods_img)) {
+                        $item['goods_img'] = $goods_img;
+                    }
                     $update = $this->mall_goods_base->updateCopy($item);
                     $note = '产品ID（'.$goods_id.'）更新';
                 } else {
                     $item['is_check'] = 1;
+                    $item['goods_img'] = $goods_img;
                     $goodsId = $this->mall_goods_base->insert($item);
                     $isInsert = $this->mall_category_product->insertBatchByGoodsId($goodsId, array(2, 13, 14, 15, 16, 17, 18, 19, 20));
                     $note = '产品ID（'.$goods_id.'）添加';
@@ -130,6 +144,7 @@ class Capture extends MJ_Controller
                     echo $goods_id.'失败<br />';
                 }
                 if ( $goods_sku != 'THW3682' && $goods_sku != 'THW4772' && $goods_sku != 'THW1153' && $goods_sku != 'THW2979') {
+                    pr($item);
                     exit('成功'.$goods_sku);
                 }
             }

@@ -124,6 +124,9 @@ class Mall_goods_base_model extends CI_Model
             'updated_at'         => date('Y-m-d H:i:s'),
             'created_at'         => date('Y-m-d H:i:s'),
         );
+        if (!empty($params['goods_img'])) {
+            $data['goods_img']  = $params['goods_img'];
+        }
          //运费模版
         if ($params['freight_type'] == 1) {
             $data['freight_id'] = $params['freight_id'];
@@ -173,7 +176,6 @@ class Mall_goods_base_model extends CI_Model
             'sort_order'         => !empty($params['sort_order']) ? $params['sort_order'] : 50,
             'updated_at'         => date('Y-m-d H:i:s'),
         );
-
         if ($params['freight_type'] == 1) {//运费模版
             $data['freight_id'] = $params['freight_id'];
             $data['freight_cost'] = 0;
@@ -318,8 +320,8 @@ class Mall_goods_base_model extends CI_Model
         if (!empty($params['brand_id'])) {
             $data['brand_id']  = $params['brand_id'];
         }
-        if (!empty($params['brand_id'])) {
-            $data['brand_id']  = $params['brand_id'];
+        if (!empty($params['goods_img'])) {
+            $data['goods_img']  = $params['goods_img'];
         }
         if (!empty($params['attr_spec'])) {
             $data['attr_spec']  = $this->deleteEmptyValue(1, $params['attr_spec']);
