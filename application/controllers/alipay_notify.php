@@ -1,7 +1,7 @@
 <?php 
-class Notify extends CI_Controller
+class Alipay_notify extends CI_Controller
 {
-    public function alipayNotify()
+    public function index()
     {
         $this->load->model('mall_order_refund_model', 'mall_order_refund');
         $this->load->library('refund/Alipaypc', null, 'alipaypc');
@@ -17,8 +17,9 @@ class Notify extends CI_Controller
             $refund = $this->mall_order_refund->findById(array('order_id'=>$order->order_id))->row();
             //获取退款产品信息
             $orderProduct = $this->mall_order_product->findByParams(array('order_id'=>$refund->order_id, 'order_product_id'=>$refund->order_product_id))->row();
-            
+            //订单获取全部商品数量
             $number = $this->mall_order_product->getAllProduct($refund->order_id);
+            //订单全部已退商品数量
             $refund_num = $this->mall_order_refund->getAllRefundNum($refund->order_id);
             $num = $number - $refund_num - $refund->number;
             $this->db->trans_start();
@@ -26,7 +27,6 @@ class Notify extends CI_Controller
             $refundFlag = $this->mall_order_refund->updateRefundFlag(array('flag'=>2, 'time'=>$time, 'refund_id'=>$refund->refund_id));
             $this->db->trans_complete();
         }
-    
     }
     
 }
