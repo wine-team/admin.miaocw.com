@@ -10,6 +10,7 @@ class Advert extends CS_Controller
             '1' => '首页幻灯片广告',
             '2' => '登陆幻灯片广告',
         	'3' => '女性首页广告',
+        	'4' => 'wap站首页广告'
         );
     }
     
