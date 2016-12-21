@@ -147,7 +147,7 @@ class Capture extends MJ_Controller
                         $update = $this->mall_goods_base->updateCopy($item);
                         $note = '产品ID（' . $goods_id . '）更新';
                     } else {
-                        $item['is_check'] = 1;
+                        $item['is_check'] = 2;
                         $item['goods_img'] = $goods_img;
                         $goodsId = $this->mall_goods_base->insert($item);
                         $categoryIds = $this->getcategoryIds($goodsType);
