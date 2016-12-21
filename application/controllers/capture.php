@@ -37,19 +37,33 @@ class Capture extends MJ_Controller
         
     }
 
+    /**
+     * $page 起始页
+     * $pageNum 总页数
+     * $goodsType array(2=>'women', 1=>'man', 5=>'runhua', 4=>'neiyi', 3=>'qingqu', 7=>'biyuntao')
+     */
     public function women()
     {
+        $page = $this->input->get_post('page') ? $this->input->get_post('page') : 1;
+        $pageNum = $this->input->get_post('pageNum') ? $this->input->get_post('pageNum') : 12;
+        $goodsType = $this->input->get_post('goodsType');
+        $typeArray = array(2=>'women', 1=>'man', 5=>'runhua', 4=>'neiyi', 3=>'qingqu', 7=>'biyuntao');
+        if (in_array($goodsType, $typeArray)) {
+            $topCatId = array_search($goodsType, $typeArray);
+        } else {
+            die('抓取类型参数值（goodsType）有误');
+        }
+
         require_once APPPATH.'libraries/phpQuery.php';
         $productUrl = array();
-        for ($i=3; $i<=12; $i++) {
-            phpQuery::newDocumentFile('http://www.taohv.cn/category.php?top_cat_id=2&page='.$i);
+        for ($i=$page; $i<=$pageNum; $i++) {
+            phpQuery::newDocumentFile('http://www.taohv.cn/category.php?top_cat_id='.$topCatId.'&page='.$i);
             $items = pq('.plist ul li');
             foreach ($items as $key=>$item) {
                 $productUrl[$i][$key]['provide_price'] = preg_replace('/[^\.0123456789]/s', '', pq($item)->find('.pxinxi .xinxileft .xxjiage')->text());
                 $productUrl[$i][$key]['url'] = 'http://www.taohv.cn'.pq($item)->find('.ptupian a')->attr('href');
             }
         }
-        $goodsData = array();
         if (!empty($productUrl)) {
             $item = array();
             foreach ($productUrl as $valueArray) {
@@ -65,11 +79,8 @@ class Capture extends MJ_Controller
                     $attrItem = array();
                     foreach ($attrValues as $k => $v) {
                         $attrItem['group_name'] = '女性用品-主体';
-                        $attrItem['group_value'][$k]['attr_name'] = trim(
-                            pq($v)->find('dt')->text(), '：'
-                        );
-                        $attrItem['group_value'][$k]['attr_value'] = pq($v)
-                            ->find('dd')->text();
+                        $attrItem['group_value'][$k]['attr_name'] = trim(pq($v)->find('dt')->text(), '：');
+                        $attrItem['group_value'][$k]['attr_value'] = pq($v)->find('dd')->text();
                     }
                     $attr_value = array($attrItem);
 
@@ -77,43 +88,24 @@ class Capture extends MJ_Controller
                     $goodsimgs = pq('#wrap_con .mat_js_img dd');
                     $imgItem = array();
                     foreach ($goodsimgs as $kk => $vv) {
-                        $imgItem[] = str_replace(
-                            array('changeImage(\'', '\');return false;'),
-                            array('', ''), pq($vv)->find('a')->attr('onclick')
-                        );
+                        $imgItem[] = str_replace(array('changeImage(\'', '\');return false;'), array('', ''), pq($vv)->find('a')->attr('onclick'));
                     }
                     $goods_img = implode('|', $imgItem);
 
-                    $item['goods_name'] = mb_convert_encoding(
-                        pq('#wrap_con ul.title li:eq(1)')->html(), 'UTF-8',
-                        'GBK'
-                    );
+                    $item['goods_name'] = mb_convert_encoding(pq('#wrap_con ul.title li:eq(1)')->html(), 'UTF-8', 'GBK');
                     $item['goods_sku'] = $goods_sku;
                     $item['from_id'] = 4; //商品来源
                     //$item['brand_id']             = 0;
                     $item['goods_weight'] = 100;
-                    $item['market_price'] = trim(
-                        pq('.cpjiage .shijia em')->text(), '￥'
-                    );
-                    $item['shop_price'] = $this->rePrice(
-                        $value['provide_price']
-                    );
+                    $item['market_price'] = trim(pq('.cpjiage .shijia em')->text(), '￥');
+                    $item['shop_price'] = $this->rePrice($value['provide_price']);
                     $item['provide_price'] = $value['provide_price'];
                     $item['promote_start_date'] = 0;
                     $item['promote_end_date'] = 0;
                     $item['attr_set_id'] = 5;
-                    $item['goods_brief'] = mb_convert_encoding(
-                        pq('#wrap_con ul.title li:eq(0)')->html(), 'UTF-8',
-                        'GBK'
-                    );
-                    $item['goods_desc'] = mb_convert_encoding(
-                        trim(pq('.brands_con .brands_middle')->html(), ' '),
-                        'UTF-8', 'GBK'
-                    );
-                    $item['wap_goods_desc'] = mb_convert_encoding(
-                        trim(pq('.brands_con .brands_middle')->html(), ' '),
-                        'UTF-8', 'GBK'
-                    );
+                    $item['goods_brief'] = mb_convert_encoding(pq('#wrap_con ul.title li:eq(0)')->html(), 'UTF-8', 'GBK');
+                    $item['goods_desc'] = mb_convert_encoding(trim(pq('.brands_con .brands_middle')->html(), ' '), 'UTF-8', 'GBK');
+                    $item['wap_goods_desc'] = mb_convert_encoding(trim(pq('.brands_con .brands_middle')->html(), ' '), 'UTF-8', 'GBK');
                     $item['goods_note'] = $value['url'];
                     $item['attr_spec'] = array();
                     $item['attr_value'] = $attr_value;
@@ -141,15 +133,12 @@ class Capture extends MJ_Controller
                     //$item['created_at']           = date('Y-m-d H:i:s');
                     //$item['updated_at']           = date('Y-m-d H:i:s');
 
-                    $result = $this->mall_goods_base->findByGoodsSku(
-                        $goods_sku
-                    );
+                    $result = $this->mall_goods_base->findByGoodsSku($goods_sku);
                     if ($result->num_rows() > 0) {
                         $mallGoodsBase = $result->row(0);
                         $goods_id = $mallGoodsBase->goods_id;
                         $item['goods_id'] = $goods_id;
-                        $item['goods_note'] = $value['url'] . '===='
-                            . $goods_sku;
+                        $item['goods_note'] = $value['url'] . '====' . $goods_sku;
                         $item['attr_value'] = $value['attr_value'];
                         if (empty($mallGoodsBase->goods_img)) {
                             $item['goods_img'] = $goods_img;
@@ -160,10 +149,8 @@ class Capture extends MJ_Controller
                         $item['is_check'] = 1;
                         $item['goods_img'] = $goods_img;
                         $goodsId = $this->mall_goods_base->insert($item);
-                        $isInsert
-                            = $this->mall_category_product->insertBatchByGoodsId(
-                            $goodsId, array(2, 13, 14, 15, 16, 17, 18, 19, 20)
-                        );
+                        $categoryIds = $this->getcategoryIds($goodsType);
+                        $isInsert = $this->mall_category_product->insertBatchByGoodsId($goodsId, $categoryIds);
                         $note = '产品ID（' . $goods_id . '）添加';
                     }
 
@@ -240,5 +227,36 @@ class Capture extends MJ_Controller
                 break;
         }
         return $shop_price;
+    }
+
+    /**
+     * @param string $goodsType
+     * @return arrayarray(2=>'women', 1=>'man', 5=>'runhua', 4=>'neiyi', 3=>'qingqu', 7=>'biyuntao')
+     */
+    public function getcategoryIds($goodsType = 'women')
+    {
+        switch ($goodsType) {
+            case 'women' :
+                return array(2, 13, 14, 15, 16, 17, 18, 19, 20);
+                break;
+            case 'man' :
+                return array(1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+                break;
+            case 'runhua' :
+                return array(24, 46, 50, 94, 95);
+                break;
+            case 'neiyi' :
+                return array(22, 33, 34, 35, 36, 37, 38, 93);
+                break;
+            case 'qingqu' :
+                return array(23, 39, 40, 41, 42, 43, 44, 45);
+                break;
+            case 'biyuntao' :
+                return array(25, 51, 52, 53, 54, 55, 56, 57, 58, 59);
+                break;
+            default :
+                return array(2, 13, 14, 15, 16, 17, 18, 19, 20);
+                break;
+        }
     }
 }
