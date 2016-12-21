@@ -42,7 +42,7 @@ class Capture extends MJ_Controller
      * $pageNum 总页数
      * $goodsType array(2=>'women', 1=>'man', 5=>'runhua', 4=>'neiyi', 3=>'qingqu', 7=>'biyuntao')
      */
-    public function women()
+    public function list()
     {
         $page = $this->input->get_post('page') ? $this->input->get_post('page') : 1;
         $pageNum = $this->input->get_post('pageNum') ? $this->input->get_post('pageNum') : 12;
