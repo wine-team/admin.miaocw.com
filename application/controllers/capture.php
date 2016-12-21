@@ -47,7 +47,7 @@ class Capture extends MJ_Controller
         $page = $this->input->get_post('page') ? $this->input->get_post('page') : 1;
         $pageNum = $this->input->get_post('pageNum') ? $this->input->get_post('pageNum') : 12;
         $goodsType = $this->input->get_post('goodsType');
-        $typeArray = array(2=>'women', 1=>'man', 5=>'runhua', 4=>'neiyi', 3=>'qingqu', 7=>'biyuntao');
+        $typeArray = array(2=>'women', 1=>'man', 5=>'runhua', 4=>'neiyi', 3=>'qingqu', 78=>'biyuntao');
         if (in_array($goodsType, $typeArray)) {
             $topCatId = array_search($goodsType, $typeArray);
         } else {
