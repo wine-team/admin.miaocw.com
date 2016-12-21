@@ -64,6 +64,7 @@ class Capture extends MJ_Controller
                 $productUrl[$i][$key]['url'] = 'http://www.taohv.cn'.pq($item)->find('.ptupian a')->attr('href');
             }
         }
+
         if (!empty($productUrl)) {
             $item = array();
             foreach ($productUrl as $valueArray) {
@@ -102,7 +103,7 @@ class Capture extends MJ_Controller
                     $item['provide_price'] = $value['provide_price'];
                     $item['promote_start_date'] = 0;
                     $item['promote_end_date'] = 0;
-                    $item['attr_set_id'] = 5;
+                    $item['attr_set_id'] = array_search($goodsType, array(5=>'women', 4=>'man', 8=>'runhua', 3=>'neiyi', 7=>'qingqu', 2=>'biyuntao'));
                     $item['goods_brief'] = mb_convert_encoding(pq('#wrap_con ul.title li:eq(0)')->html(), 'UTF-8', 'GBK');
                     $item['goods_desc'] = mb_convert_encoding(trim(pq('.brands_con .brands_middle')->html(), ' '), 'UTF-8', 'GBK');
                     $item['wap_goods_desc'] = mb_convert_encoding(trim(pq('.brands_con .brands_middle')->html(), ' '), 'UTF-8', 'GBK');
@@ -154,10 +155,7 @@ class Capture extends MJ_Controller
                         $note = '产品ID（' . $goods_id . '）添加';
                     }
 
-                    if ((isset($update) && $update)
-                        || (isset($goods_id, $isInsert) && $goods_id
-                            && $isInsert)
-                    ) {
+                    if ((isset($update) && $update) || (isset($goods_id, $isInsert) && $goods_id && $isInsert)) {
                         echo $note . '成功<br />';
                     } else {
                         echo $note . '失败<br />';
