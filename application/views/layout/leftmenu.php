@@ -124,6 +124,17 @@
         </li>
         <li>
             <a href="javascript:;">
+                <i class="icon-barcode"></i>
+                <span class="title">活动管理</span>
+                <span class="selected "></span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li><a href="<?php echo base_url('salestopic/index');?>">促销管理</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;">
                 <i class="icon-bullhorn"></i>
                 <span class="title">新闻管理</span>
                 <span class="selected"></span>
