@@ -54,9 +54,9 @@
                             <?php if (($i - 1) % 4 == 0) : ?><div class="row-fluid"><?php endif; ?>
                             <div class="span3">
                                 <div class="item" style="height:240px">
-                                    <a target="_blank" href="<?php echo $this->config->show_image_url('sales', $val->image); ?>">
+                                    <a target="_blank" href="<?php echo $this->config->show_image_url('mall', $val->image); ?>">
                                         <div class="zoom">
-                                            <img src="<?php echo $this->config->show_image_url('sales', $val->image); ?>" width="373" height="240">
+                                            <img src="<?php echo $this->config->show_image_url('mall', $val->image); ?>" width="373" height="240">
                                         </div>
                                     </a>
                                     <div class="details">

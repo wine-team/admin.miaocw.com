@@ -43,7 +43,7 @@ class Salestopic extends MJ_Controller
     {
         $imageData = array('file_name' => '');
         if ( !empty($_FILES['image']['name']) ) {
-            $imageData = $this->dealWithImages('image', '', 'sales');
+            $imageData = $this->dealWithImages('image', '', 'mall');
             if ( $imageData == false ) {
                 $this->error('salestopic/index', '', '图片上传失败！');
             }
@@ -69,7 +69,7 @@ class Salestopic extends MJ_Controller
     {
         $imageData = '';
         if ( !empty($_FILES['image']['name']) ) {
-            $imageData = $this->dealWithImages('image', $this->input->post('oldfilename'), 'sales');
+            $imageData = $this->dealWithImages('image', $this->input->post('oldfilename'), 'mall');
             if ( $imageData == false ) {
                 $this->error('salestopic/index', null, '图片上传失败！');
             }
@@ -184,7 +184,7 @@ class Salestopic extends MJ_Controller
         }
 
         /*图片上传*/
-        $imageData = $this->dealWithImages('images', '', 'sales');
+        $imageData = $this->dealWithImages('images', '', 'mall');
         if ( $imageData == false ) {
             $this->error('salestopic/images', $salesId, '图片上传失败！');
         }
@@ -245,7 +245,7 @@ class Salestopic extends MJ_Controller
         $params['image'] = json_encode($image_original_array);
 
         $isupdate = $this->sales_topic->updateImages($params);
-        $this->deleteOldfileName($image_name, 'sales');
+        $this->deleteOldfileName($image_name, 'mall');
         if ( $isupdate ) {
             $this->success('salestopic/images', $salesId, '图片删除成功');
         } else {

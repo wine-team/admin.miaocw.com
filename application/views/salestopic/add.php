@@ -26,6 +26,12 @@
                             </div>
                         </div>
                         <div class="control-group">
+                            <label class="control-label">促销链接</label>
+                            <div class="controls">
+                                <input type="text" class="m-wrap span6  url" name="link_url">
+                            </div>
+                        </div>
+                        <div class="control-group">
                             <label class="control-label">活动关联编号</label>
                             <div class="controls">
                                 <input type="text" class="m-wrap span6" name="union_id">

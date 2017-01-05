@@ -37,7 +37,7 @@ class sales_topic_category_model extends CI_Model
      * @return mixed
      */
     public function page_list($params, $page_num, $num){
-        $this->db->select('category_id, sales_id,status, type, title, note, created_at, updated_at');
+        $this->db->select('category_id, sales_id,status, type,link_url, title, note, created_at, updated_at');
         $this->db->from($this->_table);
 
         $this->db->where('sales_id', $params['sales_id']);
@@ -59,7 +59,7 @@ class sales_topic_category_model extends CI_Model
      */
     public function findByCategoryId($categoryId)
     {
-        $this->db->select('category_id, sales_id,status, type, title, note, sort, created_at, updated_at');
+        $this->db->select('category_id, sales_id,status, type,link_url, title, note, sort, created_at, updated_at');
         $this->db->from($this->_table);
         $this->db->where('category_id', $categoryId);
         $this->db->limit(1);
@@ -78,6 +78,7 @@ class sales_topic_category_model extends CI_Model
             'note'          => $postData['note'],
             'status'        => $postData['status'],
             'type'          => $postData['type'],
+        	'link_url'      => $postData['link_url'],
             'sales_id'      => $postData['sales_id'],
             'sort'          => $postData['topic_sort'],
             'created_at'    => date('Y-m-d H:i:s'),
@@ -97,6 +98,7 @@ class sales_topic_category_model extends CI_Model
         $data = array(
             'title'  => $postData['title'],
             'note'   => $postData['note'],
+        	'link_url' => $postData['link_url'],
             'sort'   => $postData['topic_sort'],
             'status' => $postData['status']
         );

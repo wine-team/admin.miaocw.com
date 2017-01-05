@@ -7,8 +7,12 @@
  */
 class Salestopiccategory extends MJ_Controller
 {
+	private $types;
+	private $status;
     public function _init()
     {
+    	$this->types = array(1=>'两性用品');
+    	$this->status = array(1=>'上架', 2=>'下架');
         $this->load->library('pagination');
         $this->load->model('sales_topic_model', 'sales_topic');
         $this->load->model('sales_topic_category_model', 'sales_topic_category');
@@ -29,15 +33,15 @@ class Salestopiccategory extends MJ_Controller
         $data['page_list'] = $this->sales_topic_category->page_list($this->input->get(), $page_num, $num);
         $data['all_rows']  = $config['total_rows'];
         $data['pg_now']    = $pg;
-        $data['status'] = array(1=>'上架', 2=>'下架'); //状态
-        $data['types'] = array(1=>'商品', 2 => '景区',3 => '线路'); //类型
+        $data['status'] = $this->status; //状态
+        $data['types'] = $this->types;//类型
         $this->load->view('salestopiccategory/index', $data);
     }
 
     public function add()
     {
-        $data['status'] = array(1=>'上架', 2=>'下架'); //状态
-        $data['types'] = array(1=>'商品', 2 => '景区',3 => '线路'); //类型
+        $data['status'] = $this->status; //状态
+        $data['types'] = $this->types;//类型
         $this->load->view('salestopiccategory/add', $data);
     }
 
@@ -54,8 +58,8 @@ class Salestopiccategory extends MJ_Controller
 
     public function edit($salesId)
     {
-        $data['status'] = array(1=>'上架', 2=>'下架'); //状态
-        $data['types'] = array(1=>'商品', 2 => '景区',3 => '线路'); //类型
+        $data['status'] = $this->status; //状态
+        $data['types'] = $this->types;//类型
         $result = $this->sales_topic_category->findByCategoryId($salesId);
         if ( $result->num_rows() == 0 ) {
             $this->error('salestopiccategory/index', array('sales_id'=>$this->input->get('sales_id')), '操作失败');

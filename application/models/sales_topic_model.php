@@ -66,7 +66,8 @@ class Sales_topic_model extends CI_Model
             'sales_name' => $postData['sales_name'],
             'status'     => $postData['status'],
             'category'   => $postData['category'],
-            'union_id'   => $postData['union_id'],
+            'union_id'   => str_replace('，', ',', $postData['union_id']),
+        	'link_url'   => $postData['link_url'],
             'image'      => $imageData['file_name'],
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => '0000-00-00 00:00:00',
@@ -87,6 +88,7 @@ class Sales_topic_model extends CI_Model
             'status'     => $postData['status'],
             'category'   => $postData['category'],
             'union_id'   => $postData['union_id'],
+        	'link_url'   => $postData['link_url']
         );
         if ( !empty($imageData['file_name']) ) {
             $data['image'] = $imageData['file_name'];
@@ -128,7 +130,7 @@ class Sales_topic_model extends CI_Model
      */
     public function findSalesTopicById($salesId)
     {
-        $this->db->select('sales_id,status, sales_name, category, union_id, image, created_at, updated_at');
+        $this->db->select('sales_id,status, sales_name, category, union_id,link_url, image, created_at, updated_at');
         $this->db->from($this->_table);
         $this->db->where('sales_id', $salesId);
         $this->db->limit(1);

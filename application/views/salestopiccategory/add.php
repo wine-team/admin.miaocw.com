@@ -33,6 +33,12 @@
                             </div>
                         </div>
                         <div class="control-group">
+                            <label class="control-label"><em>* </em>分类链接</label>
+                            <div class="controls">
+                                <input type="text" class="m-wrap span6 url" name="link_url"/>
+                            </div>
+                        </div>
+                        <div class="control-group">
                             <label class="control-label"><em>* </em>产品类型</label>
                             <div class="controls">
                                 <select class="medium m-wrap required" name="type">
