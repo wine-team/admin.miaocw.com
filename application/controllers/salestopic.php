@@ -6,7 +6,7 @@
  * Date: 2015/12/23
  * Time: 19:44
  */
-class Salestopic extends MJ_Controller
+class Salestopic extends CS_Controller
 {
     public function _init()
     {   
