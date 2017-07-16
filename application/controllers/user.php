@@ -5,6 +5,7 @@ class User extends CS_Controller
     {
         $this->load->library('pagination');
         $this->load->model('user_model', 'user');
+        $this->load->model('user_type_model', 'user_type');
     }
     
     public function grid($pg = 1)
@@ -22,6 +23,7 @@ class User extends CS_Controller
         $data['all_rows'] = $config['total_rows'];
         $data['pg_now'] = $pg;
         $data['page_num'] = $page_num;
+        $data['user_type'] = $this->user_type->find();
         $this->load->view('user/grid', $data);
     }
 
@@ -52,7 +54,7 @@ class User extends CS_Controller
 
     public function add()
     {
-        $data = array();
+        $data['user_type'] = $this->user_type->find();
         $this->load->view('user/add', $data);
     }
     
@@ -81,6 +83,7 @@ class User extends CS_Controller
             $this->error('user/grid', '', '数据不存在！');
         }
         $data['row'] = $result->row();
+        $data['user_type'] = $this->user_type->find();
         $this->load->view('user/edit', $data);
     }
     
@@ -213,6 +216,12 @@ class User extends CS_Controller
                 }
             }
         }
+
+        $user_type = array_sum($this->input->post('userType')); //计算用户类型
+        if ($user_type <= 0) {
+            $error[] = '用户类型必须至少选择一项';
+        }
+
         if ($this->input->post('parent_id')) {
             $result = $this->user->findByParams(array('parent_id'=>$this->input->post('parent_id')));
             if ($result->num_rows() <= 0) {
@@ -242,7 +251,7 @@ class User extends CS_Controller
         $data['all_rows']  = $config['total_rows'];
         $data['pg_now']    = $pg;
         $data['page_num'] = $page_num;
-        
+        $data['user_type'] = $this->user_type->find();
         echo json_encode(array(
             'status'=>true,
             'html'  =>$this->load->view('user/ajaxUser/ajaxData', $data, true)

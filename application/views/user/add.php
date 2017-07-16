@@ -23,6 +23,16 @@
                 <div class="portlet-body form">
                     <form class="form-horizontal user-form" action="<?php echo base_url('user/addPost') ?>" method="post" enctype="multipart/form-data">
                         <div class="control-group">
+                            <label class="control-label"><em>* </em>账户类型</label>
+                            <div class="controls">
+                                <?php foreach ($user_type->result() as $type) :?>
+                                    <label class="checkbox">
+                                        <input type="checkbox" name="userType[]" value="<?php echo $type->type_id;?>"> <?php echo $type->type_name;?>
+                                    </label>
+                                <?php endforeach;?>
+                            </div>
+                        </div>
+                        <div class="control-group">
                             <label class="control-label">用户昵称</label>
                             <div class="controls">
                                 <input type="text" name="alias_name" class="m-wrap large">

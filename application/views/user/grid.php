@@ -32,15 +32,20 @@
                                 <div class="control-group">
                                     <label class="control-label">手机号码</label>
                                     <div class="controls">
-                                        <input type="text" name="phone" value="<?php echo $this->input->get('phone');?>" placeholder="请输入用户手机号码" class="m-wrap span12">
+                                        <input type="text" name="phoneEmail" value="<?php echo $this->input->get('phoneEmail');?>" placeholder="请输入用户手机号码或邮箱" class="m-wrap span12">
                                     </div>
                                 </div>
                             </div>
                             <div class="span4">
                                 <div class="control-group">
-                                    <label class="control-label">用户邮箱</label>
+                                    <label class="control-label">用户类型</label>
                                     <div class="controls">
-                                        <input type="text" name="email" value="<?php echo $this->input->get('email');?>" placeholder="请输入用户邮箱" class="m-wrap span12">
+                                        <select name="user_type" class="m-wrap span12">
+                                            <option value="">请选择</option>
+                                            <?php foreach ($user_type->result() as $item) :?>
+                                                <option value="<?php echo $item->type_id;?>" <?php if ($item->type_id == $this->input->get('user_type')):?> selected="selected"<?php endif;?>><?php echo $item->type_name;?></option>
+                                            <?php endforeach;?>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -114,8 +119,8 @@
                                         <th width="15"><input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"></th>
                                         <th>编号</th>
                                         <th>呢称</th>
-                                        <th>手机号码</th>
-                                        <th>邮箱</th>
+                                        <th>手机/邮箱</th>
+                                        <th>用户类型</th>
                                         <th>可用金额</th>
                                         <th>冻结金额</th>
                                         <th>积分</th>
@@ -131,8 +136,17 @@
                                         <td><input type="checkbox" class="checkboxes" value="1" ></td>
                                         <td><?php echo $item->uid;?></td>
                                         <td><?php echo $item->alias_name;?></td>
-                                        <td><?php echo $item->phone;?></td>
-                                        <td><?php echo $item->email;?></td>
+                                        <td>
+                                            <p><?php echo $item->phone;?></p>
+                                            <p><?php echo $item->email;?></p>
+                                        </td>
+                                        <td>
+                                            <?php foreach ($user_type->result() as $type): ?>
+                                                <?php if ($item->user_type&(int)$type->type_id):?>
+                                                    <?php echo $type->type_name;?>,
+                                                <?php endif;?>
+                                            <?php endforeach;?>
+                                        </td>
                                         <td><?php echo $item->user_money;?></td>
                                         <td><?php echo $item->frozen_money;?></td>
                                         <td><?php echo $item->pay_points;?></td>

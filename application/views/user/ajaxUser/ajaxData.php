@@ -6,13 +6,12 @@
     <div class="well">
         <form class="form-horizontal ajaxSearch">
             <span>用户昵称 <input type="text" name="username" value="<?php echo $this->input->get('username');?>" placeholder="用户UID或昵称" class="m-wrap small"></span>
-            <span>手机号 <input type="text" name="phone" value="<?php echo $this->input->get('phone');?>" placeholder="手机号" class="m-wrap small"></span>
-            <span>邮箱 <input type="text" name="email" value="<?php echo $this->input->get('email');?>" placeholder="邮箱" class="m-wrap small"></span>
-            <span>
-                <select name="flag" class="m-wrap small">
-                    <option value="">全部状态</option>
-                    <?php foreach (array('1'=>'正常', '2'=>'已冻结') as $key=>$value) :?>
-                    <option value="<?php echo $key;?>" <?php if ($key == $this->input->get('flag')):?> selected="selected"<?php endif;?>><?php echo $value;?></option>
+            <span>手机号 <input type="text" name="phone" value="<?php echo $this->input->get('phoneEmail');?>" placeholder="手机/邮箱" class="m-wrap small"></span>
+            <span>用户类型
+                <select name="user_type" class="m-wrap small">
+                    <option value="">请选择</option>
+                    <?php foreach ($user_type->result() as $item) :?>
+                        <option value="<?php echo $item->type_id;?>" <?php if ($item->type_id == $this->input->get('user_type')):?> selected="selected"<?php endif;?>><?php echo $item->type_name;?></option>
                     <?php endforeach;?>
                 </select>
             </span>
@@ -26,8 +25,8 @@
                     <th width="30">选择</th>
                     <th width="40">编号</th>
                     <th>用户昵称</th>
-                    <th>手机</th>
-                    <th>邮箱</th>
+                    <th>手机/邮箱</th>
+                    <th>用户类型</th>
                     <th>上级</th>
                     <th>注册时间</th>
                     <th>状态</th>
@@ -39,8 +38,17 @@
                     <td><input type="radio" name="uid" value="<?php echo $item->uid?>"></td>
                     <td><?php echo $item->uid;?></td>
                     <td><?php echo $item->alias_name;?></td>
-                    <td><?php echo $item->phone;?></td>
-                    <td><?php echo $item->email;?></td>
+                    <td>
+                        <p><?php echo $item->phone;?></p>
+                        <p><?php echo $item->email;?></p>
+                    </td>
+                    <td>
+                        <?php foreach ($user_type->result() as $type): ?>
+                            <?php if ($item->user_type&(int)$type->type_id):?>
+                                <?php echo $type->type_name;?>,
+                            <?php endif;?>
+                        <?php endforeach;?>
+                    </td>
                     <td><?php echo $item->parent_id;?></td>
                     <td><?php echo $item->created_at;?></td>
                     <td><?php echo $item->flag==1 ? '正常' : '已冻结';?></td>

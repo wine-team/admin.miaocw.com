@@ -27,11 +27,11 @@ class User_model extends CI_Model
         if (!empty($params['username'])) {
             $this->db->where("((`user`.`uid`='{$params['username']}') OR (`user`.`alias_name` LIKE '%{$params['username']}%'))");
         }
-        if (!empty($params['phone'])) {
-            $this->db->where('phone', $params['phone']);
+        if (!empty($params['phoneEmail'])) {
+            $this->db->where("((`user`.`phone`='{$params['phoneEmail']}') OR (`user`.`email` LIKE '%{$params['phoneEmail']}%'))");
         }
-        if (!empty($params['email'])) {
-            $this->db->where('email', $params['email']);
+        if (!empty($params['user_type'])) {
+            $this->db->where('user.user_type & '.$params['user_type'].'=', $params['user_type']);
         }
         if (!empty($params['parent_id'])) {
             $this->db->where('parent_id', $params['parent_id']);
@@ -54,11 +54,11 @@ class User_model extends CI_Model
         if (!empty($params['username'])) {
             $this->db->where("((`user`.`uid`='{$params['username']}') OR (`user`.`alias_name` LIKE '%{$params['username']}%'))");
         }
-        if (!empty($params['phone'])) {
-            $this->db->where('phone', $params['phone']);
+        if (!empty($params['phoneEmail'])) {
+            $this->db->where("((`user`.`phone`='{$params['phoneEmail']}') OR (`user`.`email` LIKE '%{$params['phoneEmail']}%'))");
         }
-        if (!empty($params['email'])) {
-            $this->db->where('email', $params['email']);
+        if (!empty($params['user_type'])) {
+            $this->db->where('user.user_type & '.$params['user_type'].'=', $params['user_type']);
         }
         if (!empty($params['parent_id'])) {
             $this->db->where('parent_id', $params['parent_id']);
@@ -83,12 +83,13 @@ class User_model extends CI_Model
             'alias_name'   => !empty($postData['alias_name']) ? $postData['alias_name'] : '',
             'phone'         => $postData['phone'],
             'email'         => !empty($postData['email']) ? $postData['email'] : '',
+            'user_type'    => array_sum($postData['userType']),
+            'parent_id'    => !empty($postData['parent_id']) ? $postData['parent_id'] : 0,
             'password'     => md5(sha1($postData['password'])),
             'sex'           => $postData['sex'],
             'user_money'   => !empty($postData['user_money']) ? $postData['user_money'] : 0,
             'frozen_money' => !empty($postData['frozen_money']) ? $postData['frozen_money'] : 0,
             'pay_points'   => !empty($postData['pay_points']) ? $postData['pay_points'] : 0,
-            'parent_id'    => !empty($postData['parent_id']) ? $postData['parent_id'] : 0,
             'flag'          => $postData['flag'],
             'sms'           => !empty($postData['sms']) ? $postData['sms'] : 1,
             'created_at'   => date('Y-m-d H:i:s')
@@ -106,11 +107,12 @@ class User_model extends CI_Model
             'alias_name'   => !empty($postData['alias_name']) ? $postData['alias_name'] : '',
             'phone'         => $postData['phone'],
             'email'         => !empty($postData['email']) ? $postData['email'] : '',
+            'user_type'    => array_sum($postData['userType']),
+            'parent_id'    => !empty($postData['parent_id']) ? $postData['parent_id'] : 0,
             'sex'           => $postData['sex'],
             'user_money'   => !empty($postData['user_money']) ? $postData['user_money'] : 0,
             'frozen_money' => !empty($postData['frozen_money']) ? $postData['frozen_money'] : 0,
             'pay_points'   => !empty($postData['pay_points']) ? $postData['pay_points'] : 0,
-            'parent_id'    => !empty($postData['parent_id']) ? $postData['parent_id'] : 0,
             'flag'          => $postData['flag'],
             'sms'           => !empty($postData['sms']) ? $postData['sms'] : 1,
         );
